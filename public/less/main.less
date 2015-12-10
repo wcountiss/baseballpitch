@@ -1,0 +1,91 @@
+#main {
+
+  .headline{
+      position: absolute;
+      font-size: 2.2em;
+      top: 1em;
+      color: white;
+      z-index: 1;
+  }
+
+  .headline-background{
+    height: 35em;
+    width: 100%;
+  }
+
+  .block{
+    padding: 2em 1em;
+  }
+
+  .column-Header {
+    padding: 1em 0 .5em 0;
+    font-size: 2em;
+    text-align: center;
+  }
+
+  .column{
+    padding: 1em;
+    text-align: center;
+  }
+
+  .column-Title {
+    font-size: 2em;
+  }
+
+  .project-plug{
+    font-size: 2em;
+    color: white;
+    background-color: @lightBlue;
+    text-align: center;
+  }
+
+  .contactMe-footer{
+    padding: 1em;
+  }
+
+  /*==========  Mobile Options ==========*/
+
+  /* Large Devices, Wide Screens */
+  @media only screen and (max-width : 1200px) {
+
+  }
+
+  /* Medium Devices, Desktops */
+  @media only screen and (max-width : 992px) {
+    
+  }
+
+  /* Small Devices, Tablets */
+  @media only screen and (max-width : 768px) {
+   
+  }
+
+  /* Extra Small Devices, Phones */ 
+  @media only screen and (max-width : 480px) {
+
+  }
+
+  /* Custom, iPhone Retina */ 
+  @media only screen and (max-width : 320px) {
+  
+  }
+
+  #contact, #experience, #technology {
+    height: 20em;
+  }
+
+  // animations
+  .section.ng-hide{
+    display: block;
+    visibility: hidden;
+  }
+
+  .section.ng-hide-add {
+    animation: bounceOutRight 1s ease;
+    visibility: visible;
+  }
+  .section.ng-hide-remove {
+    animation: bounceInRight 1s ease;
+  }
+
+}

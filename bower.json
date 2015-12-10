@@ -1,0 +1,21 @@
+{
+  "name": "georgeT",
+  "version": "0.0.0",
+  "authors": [
+    "George Toretta <gtoretta@glgroup.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "lodash": "~3.10.1",
+    "moment": "~2.10.6"
+  }
+}
