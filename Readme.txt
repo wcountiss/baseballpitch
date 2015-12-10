@@ -1,7 +1,10 @@
 George's Website
 
-Heroku
+Mobile
+  scrollable bug
+
+Mobile NavBar
+DNS - google domains
 SEO
-DNS
 Analytics
 
