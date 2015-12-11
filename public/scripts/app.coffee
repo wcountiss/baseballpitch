@@ -8,5 +8,7 @@ app = angular.module 'georgeT', ['ngRoute','ngCookies','d3', 'ngAnimate','duScro
     .otherwise
       redirectTo: "/"
 
+require './directives/attr.coffee'
+require './services/mobileCheck.coffee'
 require './controllers/indexController.coffee'    
 require './controllers/mainController.coffee'

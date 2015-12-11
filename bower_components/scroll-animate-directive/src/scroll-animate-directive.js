@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('scroll-animate-directive', [])
-    .controller('aniDistances', ['$scope',
+    .controller('anidistances', ['$scope',
         function($scope) {
             $scope.getScrollOffsets = function(w) {
 
@@ -48,10 +48,10 @@ angular.module('scroll-animate-directive', [])
             }
         }
     ])
-    .directive('aniScroll', function($window) {
+    .directive('aniscroll', function($window) {
         return {
             restrict: 'A',
-            controller: 'aniDistances',
+            controller: 'anidistances',
             transclude: true,
             replace: true,
             template: '<div ng-transclude ng-show=\'show\'></div>',
@@ -61,7 +61,7 @@ angular.module('scroll-animate-directive', [])
             link: function(scope, element, attrs) {
 
                 angular.element($window).bind('scroll', function() {
-                    var targetOffset = attrs.aniScroll;
+                    var targetOffset = attrs.aniscroll;
                     var offset = scope.getScrollOffsets($window);
                     if (offset.y >= targetOffset) {
                         scope.show = true;
@@ -73,10 +73,10 @@ angular.module('scroll-animate-directive', [])
             }
         };
     })
-    .directive('aniView', function($window) {
+    .directive('aniview', function($window) {
         return {
             restrict: 'A',
-            controller: 'aniDistances',
+            controller: 'anidistances',
             transclude: true,
             replace: true,
             template: '<div ng-transclude ng-show=\'show\'></div>',
@@ -84,22 +84,27 @@ angular.module('scroll-animate-directive', [])
                 show: '@',
             },
             link: function(scope, element, attrs) {
+                if (attrs.aniview == "true"){
+                    angular.element($window).bind('scroll', function() {
+                        var position = scope.getPosition(element);
+                        var offset = scope.getScrollOffsets($window);
+                        var viewport = scope.getViewPortSize($window);
+                        var coverage = {
+                            x: parseInt(viewport.x + offset.x),
+                            y: parseInt(viewport.y + offset.y)
+                        }
+                        if (coverage.y >= position.y && coverage.x >= position.x) {
+                            scope.show = true;
+                        } else {
+                            scope.show = false;
+                        }
+                        scope.$apply();
+                    });
+                }
+                else {
+                    scope.show = true;
+                }
 
-                angular.element($window).bind('scroll', function() {
-                    var position = scope.getPosition(element);
-                    var offset = scope.getScrollOffsets($window);
-                    var viewport = scope.getViewPortSize($window);
-                    var coverage = {
-                        x: parseInt(viewport.x + offset.x),
-                        y: parseInt(viewport.y + offset.y)
-                    }
-                    if (coverage.y >= position.y && coverage.x >= position.x) {
-                        scope.show = true;
-                    } else {
-                        scope.show = false;
-                    }
-                    scope.$apply();
-                });
             }
         };
     });

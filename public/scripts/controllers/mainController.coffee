@@ -1,7 +1,9 @@
 angular.module('georgeT').controller('mainController', 
-['$scope',
-  ($scope) ->
+['$scope','$mobileCheck',
+  ($scope, $mobileCheck) ->
 
+    $scope.isMobile = $mobileCheck.isMobile()
+    
 ])
       
      
