@@ -17,18 +17,19 @@
                   <span class="nav-link" ng-click="goTo('experience')">Experience</span>
                   <span class="nav-link" ng-click="goTo('contact')">Contact</span>
                 </div>
+              </div>
             </div>
           </nav>
         </div>
       </div>
-      <div class="floating-nav visible-xs visible-sm">
-        <div class="floating-nav-div nga-default nga-slide-left" ng-show="showNavigation">
-          <nav>
-            <div class="nav-link" ng-click="goTo('technology')">Skills</div>
-            <div class="nav-link" ng-click="goTo('experience')">Experience</div>
-            <div class="nav-link" ng-click="goTo('contact')">Contact</div>
-          </nav>  
-        </div>
-      </div>
   </div>
+   <div class="floating-nav visible-xs visible-sm" ng-show="showNavigation">
+      <div class="nga-default nga-slide-left" ng-show="showNavigation">
+        <nav>
+          <div class="nav-link" ng-click="goTo('technology')">Skills</div>
+          <div class="nav-link" ng-click="goTo('experience')">Experience</div>
+          <div class="nav-link" ng-click="goTo('contact')">Contact</div>
+        </nav>  
+      </div>
+    </div>
 </div>
