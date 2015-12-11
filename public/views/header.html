@@ -1,22 +1,32 @@
 <div id="header">
   <div class="container-fluid">
       <div class="row">
-        <div class="col-md-5">
-            <img class="profile-picture" src="images/profile.png"></img> <h1>George.Toretta</h1>  
+        <div class="col-md-4">
+            <a href="/#/">
+              <img class="profile-picture" title="george toretta" src="images/georgelogo.svg"></img> 
+              <h1>&lt;/George Toretta&gt;</h1> 
+            </a> 
+            <span ng-click="showNav()" class="bar visible-xs visible-sm"><i class="fa fa-bars"></i></span>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-8 hidden-xs hidden-sm nga-default">
           <nav>
             <div class="row">
-              <div class="col-md-3">
-                <span class="nav-link" ng-click="goTo('contact')">Contact Me</span>
-              </div>
-              <div class="col-md-3">
-                <span class="nav-link" ng-click="goTo('technology')">Technologies</span>
-              </div>
-              <div class="col-md-6">
-                <span class="nav-link" ng-click="goTo('experience')">Experience</span>
-              </div>
+              <div class="col-md-12">
+                <div class="desktop-nav-link">
+                  <span class="nav-link" ng-click="goTo('technology')">Skills</span>
+                  <span class="nav-link" ng-click="goTo('experience')">Experience</span>
+                  <span class="nav-link" ng-click="goTo('contact')">Contact</span>
+                </div>
             </div>
+          </nav>
+        </div>
+      </div>
+      <div class="floating-nav visible-xs visible-sm">
+        <div class="floating-nav-div nga-default nga-slide-left" ng-show="showNavigation">
+          <nav>
+            <div class="nav-link" ng-click="goTo('technology')">Skills</div>
+            <div class="nav-link" ng-click="goTo('experience')">Experience</div>
+            <div class="nav-link" ng-click="goTo('contact')">Contact</div>
           </nav>  
         </div>
       </div>
