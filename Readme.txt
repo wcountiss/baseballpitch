@@ -2,9 +2,6 @@ George's Website
 
 SEO = 52
 
-js minification
-
+Colors fix - more padding
 DNS - google domains
-SEO
 Analytics
-
