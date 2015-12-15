@@ -1,14 +1,11 @@
 var browserify = require('gulp-browserify'),
-    uglify = require('gulp-uglify'),
-    source = require('vinyl-source-stream'),
-    buffer = require('vinyl-buffer'),
     gulp = require('gulp'),
+    uglify = require('gulp-uglify'),
+    prefix = require('gulp-autoprefixer'),
     less = require('gulp-less'),
     minifycss = require('gulp-minify-css'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
-    postcss = require('gulp-postcss'),
-    autoprefixer = require('autoprefixer'),
     gls = require('gulp-live-server'),
     os = require('os'),
     open = require('gulp-open');
@@ -47,8 +44,6 @@ gulp.task('scripts', function() {
     transform: ['coffeeify'],
     extensions: ['.coffee'],
   }))
-  // .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-  // .pipe(uglify()) // now gulp-uglify works 
   .pipe(rename('app.js'))
   .pipe(gulp.dest('public/build/js'))
 })
@@ -62,6 +57,7 @@ gulp.task('less', function(){
         "bower_components"
       ]
     }))
+    .pipe(prefix({ cascade: true }))
     .pipe(minifycss())
     .pipe(gulp.dest("public/build/css"))
 })
