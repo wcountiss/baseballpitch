@@ -1,5 +1,9 @@
 express = require 'express'
+compression = require('compression')
+
 app = express()
+
+# app.use(compression())
 
 require('./routes')(app)
 

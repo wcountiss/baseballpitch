@@ -47,8 +47,8 @@ gulp.task('scripts', function() {
     transform: ['coffeeify'],
     extensions: ['.coffee'],
   }))
-  .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-  .pipe(uglify()) // now gulp-uglify works 
+  // .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
+  // .pipe(uglify()) // now gulp-uglify works 
   .pipe(rename('app.js'))
   .pipe(gulp.dest('public/build/js'))
 })
