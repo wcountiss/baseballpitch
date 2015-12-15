@@ -1,6 +1,8 @@
 George's Website
 
-html minification
+SEO = 52
+
+js minification
 html server cache
 DNS - google domains
 SEO
