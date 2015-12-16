@@ -3,7 +3,7 @@ compression = require('compression')
 
 app = express()
 
-app.use(compression())
+app.use(compression({threshold: 0;}))
 
 require('./routes')(app)
 
