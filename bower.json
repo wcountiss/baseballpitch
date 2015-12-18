@@ -1,5 +1,5 @@
 {
-  "name": "georgeT",
+  "name": "motus",
   "version": "0.0.0",
   "authors": [
     "George Toretta <gtoretta@glgroup.com>"
@@ -14,8 +14,8 @@
   ],
   "dependencies": {
     "angular-cookies": "~1.4.7",
-    "angular-route": "~1.4.7",
     "lodash": "~3.10.1",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "angular-ui-router": "~0.2.15"
   }
 }

@@ -1,14 +1,16 @@
-app = angular.module 'georgeT', ['ngRoute','ngCookies','d3', 'ngAnimate','duScroll','angular-carousel','scroll-animate-directive'],
-  ($routeProvider, $locationProvider, $sceDelegateProvider) ->
+app = angular.module 'motus', ['ui.router','ngCookies','d3', 'ngAnimate'],
+  ($stateProvider, $urlRouterProvider, $sceDelegateProvider) ->
     $sceDelegateProvider.resourceUrlWhitelist(["self"])
-    $routeProvider
-    .when "/",
-      templateUrl: "/views/main.html",
-      controller: 'mainController'
-    .otherwise
-      redirectTo: "/"
+    
+    #For demo just go to a player details for now
+    $urlRouterProvider.otherwise("/player");
 
-require './directives/attr.coffee'
-require './services/mobileCheck.coffee'
+    $stateProvider
+    .state('player', {
+      url: "/player",
+      templateUrl: "views/player.html",
+      controller: 'playerController'
+    })
+
 require './controllers/indexController.coffee'    
-require './controllers/mainController.coffee'
+require './controllers/playerController.coffee'

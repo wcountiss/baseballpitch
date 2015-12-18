@@ -1,7 +1,7 @@
 {
-  "name": "orchestrate",
+  "name": "motusDash",
   "version": "1.0.0",
-  "description": "Site for Managers to Manage Data",
+  "description": "Motus Dashboard",
   "main": "index.js",
   "dependencies": {
     "autoprefixer": "^6.0.3",

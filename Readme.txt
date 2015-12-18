@@ -1,6 +1,16 @@
-George's Website
+Motus
+For Demo:
+Full Layout
+player detail section
+parse
+parse connection
 
-SEO = 52
 
-DNS - google domains
-Analytics
+For Real project
+Login
+Jwt
+Player
+Charts
+bunch of detail sections
+GameManagerList
+

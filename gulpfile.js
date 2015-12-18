@@ -70,7 +70,7 @@ gulp.task('watch', ['clean'], function () {
 gulp.task('url', function(){
   gulp.src(__filename)
   .pipe(wait(1500))
-  .pipe(open({uri: 'http://localhost:1979'}));
+  .pipe(open({uri: 'http://localhost:2001'}));
 });
 
 
