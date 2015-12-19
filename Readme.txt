@@ -2,8 +2,8 @@ Motus
 For Demo:
 Full Layout
 player detail section
-parse service
-parse connection
+Line Chart
+Parse Models
 
 For Structure
 gitIgnore
