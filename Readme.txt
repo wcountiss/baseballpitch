@@ -2,9 +2,14 @@ Motus
 For Demo:
 Full Layout
 player detail section
-parse
+parse service
 parse connection
 
+For Structure
+gitIgnore
+Nodemon
+Live Reload
+heroku prod-server
 
 For Real project
 Login

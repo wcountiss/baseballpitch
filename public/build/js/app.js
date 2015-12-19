@@ -25,19 +25,19 @@ angular.module('motus').controller('indexController', ['$scope', function($scope
 },{}],3:[function(require,module,exports){
 angular.module('motus').controller('playerController', [
   '$scope', function($scope) {
-    $scope.foot = [
+    return $scope.foot = [
       {
         id: "FIS",
         order: 1.1,
         score: 59,
-        weight: 0.5,
+        weight: 1,
         color: "#9E0041",
         label: "Fisheries"
       }, {
         id: "MAR",
         order: 1.3,
         score: 24,
-        weight: 0.5,
+        weight: 1,
         color: "#C32F4B",
         label: "Mariculture"
       }, {
@@ -54,55 +54,8 @@ angular.module('motus').controller('playerController', [
         weight: 1,
         color: "#F47245",
         label: "Natural Products"
-      }, {
-        id: "CS",
-        order: 4,
-        score: 74,
-        weight: 1,
-        color: "#FB9F59",
-        label: "Carb on Storage"
       }
     ];
-    return $scope.randomThrow = function() {
-      return $scope.foot = [
-        {
-          id: "FIS",
-          order: 1.1,
-          score: Math.floor(Math.random() * 100) + 1,
-          weight: Math.random(),
-          color: "#FFF",
-          label: "Fisheries"
-        }, {
-          id: "MAR",
-          order: 1.3,
-          score: Math.floor(Math.random() * 100) + 1,
-          weight: Math.random(),
-          color: "#C32F4B",
-          label: "Mariculture"
-        }, {
-          id: "AO",
-          order: 2,
-          score: Math.floor(Math.random() * 100) + 1,
-          weight: Math.random(),
-          color: "#EEE",
-          label: "Artisanal Fishing Opportunities"
-        }, {
-          id: "NP",
-          order: 3,
-          score: Math.floor(Math.random() * 100) + 1,
-          weight: Math.random(),
-          color: "#F47245",
-          label: "Natural Products"
-        }, {
-          id: "CS",
-          order: 4,
-          score: Math.floor(Math.random() * 100) + 1,
-          weight: Math.random(),
-          color: "#D43",
-          label: "Carb on Storage"
-        }
-      ];
-    };
   }
 ]);
 
