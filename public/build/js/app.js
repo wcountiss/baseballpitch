@@ -25,7 +25,7 @@ angular.module('motus').controller('indexController', ['$scope', function($scope
 },{}],3:[function(require,module,exports){
 angular.module('motus').controller('playerController', [
   '$scope', function($scope) {
-    return $scope.foot = [
+    $scope.foot = [
       {
         id: "FIS",
         order: 1.1,
@@ -54,6 +54,27 @@ angular.module('motus').controller('playerController', [
         weight: 1,
         color: "#F47245",
         label: "Natural Products"
+      }
+    ];
+    return $scope.overview = [
+      {
+        date: '1-May-12',
+        close: 100.13
+      }, {
+        date: '30-Apr-12',
+        close: 150.98
+      }, {
+        date: '27-Apr-12',
+        close: 130.00
+      }, {
+        date: '26-Apr-12',
+        close: 140.70
+      }, {
+        date: '25-Apr-12',
+        close: 180.00
+      }, {
+        date: '24-Apr-12',
+        close: 75.28
       }
     ];
   }
