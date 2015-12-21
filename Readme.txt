@@ -2,8 +2,16 @@ Motus
 For Demo:
 Full Layout
 player detail section
-Line Chart
+
+Astor Color bounds
+Elite Line on Overview
+
+Maybe
+Get Player Detail
 Parse Models
+Generic Finder
+
+
 
 For Structure
 gitIgnore
@@ -14,8 +22,9 @@ heroku prod-server
 For Real project
 Login
 Jwt
-Player
-Charts
+Player By Team
+Player Detail data
+tweak Charts
 bunch of detail sections
 GameManagerList
 

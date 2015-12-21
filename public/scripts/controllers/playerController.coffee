@@ -1,6 +1,12 @@
 angular.module('motus').controller('playerController',
-['$scope'
-  ($scope) ->
+['$scope', '$http'
+  ($scope, $http) ->
+    #hardcoded change to by login later
+    $scope.teamId = 1
+
+    #hardcoded stats, change to parse later
+    $scope.playerDetail = {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+
     $scope.foot = [
       { id: "FIS", order: 1.1, score: 59, weight: 1, color: "#9E0041", label: "Fisheries" }
       { id: "MAR", order: 1.3, score: 24, weight: 1, color: "#C32F4B", label: "Mariculture" }
@@ -17,19 +23,16 @@ angular.module('motus').controller('playerController',
       { date: '24-Apr-12', close: 75.28 }
     ]
 
-    $scope.playerRoster = [
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-    ]
+
+    getPlayers = () ->
+      $http.post("player/find",  { teamId: $scope.teamId })
+      .success (result) ->
+        console.log result
+        $scope.playerRoster = result
+
+
+    #Page Load
+    getPlayers()
+
 
 ])

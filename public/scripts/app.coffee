@@ -11,6 +11,12 @@ app = angular.module 'motus', ['ui.router','ngCookies','d3', 'ngAnimate'],
       templateUrl: "views/player.html",
       controller: 'playerController'
     })
+    .state('admin', {
+      url: "/admin",
+      templateUrl: "views/admin.html",
+      controller: 'adminController'
+    })
 
 require './controllers/indexController.coffee'    
 require './controllers/playerController.coffee'
+require './controllers/adminController.coffee'
