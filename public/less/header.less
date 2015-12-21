@@ -1,6 +1,6 @@
 #header {
   nav {
-    background-color: rgb(26,27,116);
+    background-color: #ffffff;
     height: 100px;
 
   }
@@ -12,7 +12,6 @@
     img {
       height: 85px;
       width: auto;
-      border-radius: 100px;
       margin-top: 7px;
       margin-left: 30px;
     }
@@ -26,21 +25,22 @@
       font-size: 20px;
       line-height:30px;
       a {
-        color: white;
+        color: #4c95cc;
         text-decoration: none;
       }
       a:after {
         content: '';
         display: block;
-        width: 90%;
-        margin-left:auto;
-        margin-right:auto;
-        border: 1px solid rgb(218,92,0);
+        width: 100%;
+        border: 1px solid #e57222;
         transform: translate(0px, 6px);
         opacity: 0;
         transition: transform .2s ease-out, opacity .2s ease-out;
       }
-
+      a:hover {
+        color: #e57222;
+        transition: .2s ease-out;
+      }
       a:hover:after {
         transform: translate(0px, 0px);
         opacity: 1;
@@ -69,28 +69,40 @@
     }
   }
   .login-name-account {
+    color: #4c95cc;
     margin-right: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: space-around;
-    color: white;
     a {
-      color: white;
+      color: #4c95cc;
       text-decoration: none;
     }
     a:after {
       content: '';
       display: block;
-      width: 70%;
-      border: 1px solid rgb(218,92,0);
+      width: 90%;
+      margin-left:auto;
+      border: 1px solid #e57222;
       transform: translate(0px, 6px);
       opacity: 0;
       transition: transform .2s ease-out, opacity .2s ease-out;
     }
+    a:hover {
+      color: #e57222;
+      transition: .2s ease-out;
+    }
     a:hover:after {
       transform: translate(0px, 0px);
       opacity: 1;
+    }
+    .account-or-logout {
+      display: flex;
+      flex-direction: row;
+      span > a > span {
+        margin-left: 8px;
+      }
     }
 
   }
