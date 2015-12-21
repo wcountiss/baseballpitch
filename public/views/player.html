@@ -1,4 +1,62 @@
 <div id="player">
-  <astor bind="foot" text="Foot"></astor>
-  <linechart bind="overview" text="Overview"></linechart>
+
+  <div class="roster-list">
+    <!--Contains the names of pitches listed in a column -->
+    <h2>Roster</h2>
+    <ul class="player-names">
+      <li ng-repeat="player in playerRoster">
+        <p>{{player.playerName}}</p>
+        <span>I I I</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="player-details">
+    <h1>Player Details</h1>
+    <div class="player-details-stats">
+      <div class="player-photo">
+        <img src="http://placehold.it/300x300" alt="Player Pic">
+      </div>
+      <div class="player-key-stats">
+        <p>Stat</p>
+        <p>Stat</p>
+        <p>Stat</p>
+      </div>
+      <div class="player-key-stats">
+        <p>Stat</p>
+        <p>Stat</p>
+        <p>Stat</p>
+      </div>
+      <div class="player-key-stats">
+        <p>Stat</p>
+        <p>Stat</p>
+        <p>Stat</p>
+      </div>
+    </div>
+
+
+    <div class="kinetic-chain-header">
+      <h2>Kinetic Chain Strength</h2>
+      <span class="question-icon">??</span>
+      <span class="print-download-icons"><span>B</span><span>P</span></span>
+    </div>
+    <img src="http://placehold.it/530x530" alt="">
+      <!--<astor bind="foot" text="Foot"></astor>-->
+      <!--<linechart bind="overview" text="Overview"></linechart>-->
+  </div>
+  <div class="side-menu-buttons">
+    <p>button</p>
+
+    <p>button</p>
+
+    <p>button</p>
+
+    <p>button</p>
+
+    <p>button</p>
+
+    <p>button</p>
+
+    <p>button</p>
+  </div>
 </div>

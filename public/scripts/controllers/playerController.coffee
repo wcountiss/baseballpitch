@@ -1,4 +1,4 @@
-angular.module('motus').controller('playerController', 
+angular.module('motus').controller('playerController',
 ['$scope'
   ($scope) ->
     $scope.foot = [
@@ -17,5 +17,19 @@ angular.module('motus').controller('playerController',
       { date: '24-Apr-12', close: 75.28 }
     ]
 
-])      
-     
+    $scope.playerRoster = [
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+      {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
+    ]
+
+])

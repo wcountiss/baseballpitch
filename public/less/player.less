@@ -1,5 +1,5 @@
 #player {
-
+  border:solid 4px red;
   .axis path,
   .axis line {
     fill: none;
@@ -10,6 +10,72 @@
   .area {
     fill: steelblue;
   }
+  /* FLEX Box Layout */
+  display: flex;
+  min-height: 100vh;
+  .roster-list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: solid 4px mistyrose;
+
+    ul {
+      list-style: none;
+      padding-left:0;
+      li {
+        text-align: center;
+        min-width: 180px;
+        border: solid 4px lightblue;
+
+      }
+    }
+  }
+  .player-details {
+    width:100%;
+    margin-left: 60px;
+    border:solid 4px greenyellow;
+    .player-details-stats {
+      display: flex;
+      border: solid 4px mistyrose;
+      .player-key-stats {
+        flex: 1;
+      }
+    }
+    .player-photo {
+      display: inline-block;
+      flex: 1;
+      img {
+        height: 85px;
+        width:auto;
+        border-radius: 100px;
+      }
+    }
+  }
+  .kinetic-chain-header {
+    display: flex;
+    border:solid 4px orchid;
+    align-items: center;
+    .question-icon {
+      margin-left: 10px;
+    }
+    .print-download-icons {
+      margin-left:auto;
+      margin-right:20px;
+      span {
+        padding-left:10px;
+      }
+    }
+  }
+  .side-menu-buttons {
+    margin-left:auto;
+    margin-right: 30px;
+    min-width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height:100vh;
+    border: solid 4px mistyrose;
+  }
 
   /*==========  Mobile Options ==========*/
   /* Large Devices, Wide Screens */
@@ -19,7 +85,7 @@
 
   /* Medium Devices, Desktops */
   @media only screen and (max-width : 992px) {
-    
+
   }
 
   /* Small Devices, Tablets */
@@ -27,13 +93,13 @@
 
   }
 
-  /* Extra Small Devices, Phones */ 
+  /* Extra Small Devices, Phones */
   @media only screen and (max-width : 480px) {
 
   }
 
-  /* Custom, iPhone Retina */ 
+  /* Custom, iPhone Retina */
   @media only screen and (max-width : 320px) {
-  
+
   }
 }
