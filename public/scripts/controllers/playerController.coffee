@@ -23,25 +23,21 @@ angular.module('motus').controller('playerController',
       { date: '24-Apr-12', close: 75.28 }
     ]
 
+    # Random number to generate boolean for Roster list icon colors
+    randomBoolean = () ->
+      !!(Math.random()+.5|0)
 
     getPlayers = () ->
       $http.post("player/find",  { teamId: $scope.teamId })
-      .success (result) ->
-        console.log result
-        $scope.playerRoster = result
-
-
+      .success (players) ->
+        _.each (players), (player) ->
+          player.longThrow =  randomBoolean()            
+          player.bullPen =  randomBoolean()            
+          player.base =  randomBoolean()            
+        $scope.playerRoster = players
 
     #Page Load
     getPlayers()
-
-    # Random number to generate boolean for Roster list icon colors
-    randomBoolean = () ->
-      console.log("random!")
-      if Math.round(Math.random()*100)%2 == 0
-        return true
-      else
-        return false
 
 
 ])
