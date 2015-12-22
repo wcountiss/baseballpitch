@@ -9609,7 +9609,7 @@ angular.module('d3').directive('astor', [
               height = 500,
               scale = 1,
               radius = Math.min(width, height) / 2,
-              innerRadius = 0.3 * radius;
+              innerRadius = 0.2 * radius;
 
           if (angular.isDefined(attrs.width))
             width = attrs.width;
@@ -9620,22 +9620,11 @@ angular.module('d3').directive('astor', [
               .sort(null)
               .value(function(d) { return d.width; });
 
-          // var tip = d3.tip()
-          //   .attr('class', 'd3-tip')
-          //   .offset([0, 0])
-          //   .html(function(d) {
-          //     return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
-          //   });
-
           var arc = d3.svg.arc()
             .innerRadius(innerRadius)
             .outerRadius(function (d) { 
               return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius; 
             });
-
-          var outlineArc = d3.svg.arc()
-                  .innerRadius(innerRadius)
-                  .outerRadius(radius);
 
           // remove the last version and recreate 
           var elementChildren = element[0].children;
@@ -9672,19 +9661,11 @@ angular.module('d3').directive('astor', [
                 .attr("d", arc);
                 // .on('mouseover', tip.show)
                 // .on('mouseout', tip.hide);
-
-            var outerPath = svg.selectAll(".outlineArc")
-                .data(pie(data))
-              .enter().append("path")
-                .attr("fill", "none")
-                .attr("stroke", "gray")
-                .attr("class", "outlineArc")
-                .attr("d", outlineArc);  
             
 
             svg.append("svg:text")
               .attr("class", "aster-score")
-              .attr("dy", ".35em")
+              .attr("dy", ".25em")
               .attr("text-anchor", "middle") // text-align: right
               .text(scope.text);
           }
