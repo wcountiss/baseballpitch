@@ -9945,7 +9945,7 @@ angular.module('d3').directive('pie', [
 
           var tip = d3.tip()
             .attr('class', 'd3-tip')
-            .html(function(d) { return d.data.label; })
+            .html(function(d) { return d.data.label + '<br>' + d.data.tooltip; })
 
           var pie = d3.layout.pie()
               .sort(null)

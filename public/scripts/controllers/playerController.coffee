@@ -8,6 +8,7 @@ angular.module('motus').controller('playerController',
       Math.floor(Math.random() * max + min)
 
     colorOptions = [ '#FF0000', '#F6FB5E', '#29CE18' ]
+    toolTipOptions = [ 'Bad', 'Ok', 'Good' ]
 
     #hardcoded change to by login later
     $scope.teamId = 1
@@ -16,14 +17,17 @@ angular.module('motus').controller('playerController',
     statNames = ['arm','shoulder','hip','leg','foot']
     _.each statNames, (stat) ->
       scores = [
-        { order: 1, score: 100, weight: 1, label: "rotation" }
-        { order: 2, score: 100, weight: 1, label: "movement" }
-        { order: 3, score: 100, weight: 1, label: "force" }
-        { order: 4, score: 100, weight: 1, label: "acceleration" }
-        { order: 5, score: 100, weight: 1, label: "timing" }
-        { order: 6, score: 100, weight: 1, label: "deceleration" }
+        { order: 1, score: 100, weight: 1, label: "Rotation" }
+        { order: 2, score: 100, weight: 1, label: "Movement" }
+        { order: 3, score: 100, weight: 1, label: "Force" }
+        { order: 4, score: 100, weight: 1, label: "Acceleration" }
+        { order: 5, score: 100, weight: 1, label: "Timing" }
+        { order: 6, score: 100, weight: 1, label: "Deceleration" }
       ]
-      _.each scores, (score) -> score.color = colorOptions[randomNumber(0,3)]
+      _.each scores, (score) -> 
+        randomNum = randomNumber(0,3)
+        score.color = colorOptions[randomNum]
+        score.tooltip = toolTipOptions[randomNum]
       $scope[stat] = scores
 
     $scope.overview = [
