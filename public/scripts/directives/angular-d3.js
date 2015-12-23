@@ -9989,7 +9989,6 @@ angular.module('d3').directive('pie', [
               .append("path")
                 .attr("fill", function(d) { return d.data.color; })
                 .attr("class", "solidArc")          
-                .attr("stroke", "gray")
                 .attr("d", arc)
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide);

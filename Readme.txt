@@ -3,7 +3,7 @@ For Demo:
 Full Layout
 player detail section
 
-pie tooltips
+pie opacity
 Heroku
 
 Maybe
