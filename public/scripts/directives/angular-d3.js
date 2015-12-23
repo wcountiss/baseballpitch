@@ -9915,7 +9915,7 @@ angular.module('d3').directive('wordcloud', [
   }
 ]);
 'use strict';
-angular.module('d3').directive('pie', [
+angular.module('d3').directive('piestats', [
   'd3',
   function (d3) {
     return {
@@ -9925,6 +9925,7 @@ angular.module('d3').directive('pie', [
         height: '@',
         fontFamily: '@',
         fontSize: '@',
+        slices: '@',
         bind: '&',
         onClick: '&',
         onHover: '&'
@@ -9945,7 +9946,7 @@ angular.module('d3').directive('pie', [
 
           var tip = d3.tip()
             .attr('class', 'd3-tip')
-            .html(function(d) { return d.data.label + '<br>' + d.data.tooltip; })
+            .html(function(d) { return d.data.tooltip + '<br>' + d.data.label; })
 
           var pie = d3.layout.pie()
               .sort(null)
@@ -9972,9 +9973,21 @@ angular.module('d3').directive('pie', [
           svg.call(tip)
 
           if (angular.isDefined(scope.bind())) {
+            var slices = scope.bind().length;            
+            // Pass in number of slices
+            if (angular.isDefined(attrs.slices)){
+              slices = +attrs.slices;
+            }
+
             var data = scope.bind()
+
+            // add empty slices
+            var numberOfSlices = data.length
+            for (var i = 0; i < (slices-numberOfSlices); i++) {
+              data.push({ "order": 0, "weight": 1, "score": 100, "label": "", "opacity": 0 });
+            };
+            
             data.forEach(function(d) {
-              d.id     =  d.id;
               d.order  = +d.order;
               d.color  =  d.color;
               d.weight = +d.weight;
@@ -9988,14 +10001,20 @@ angular.module('d3').directive('pie', [
               .enter()
               .append("path")
                 .attr("fill", function(d) { return d.data.color; })
-                .attr("class", "solidArc")          
+                .attr("class", "solidArc")
+                .style("opacity", function(d){ return d.data.opacity })          
                 .attr("d", arc)
-                .on('mouseover', tip.show)
+                .on('mouseover', function(d) { 
+                  // do not show tip if there is no slice
+                  if (d.data.opacity != 0) { 
+                    tip.show(d)
+                  } 
+                })
                 .on('mouseout', tip.hide);
             
             svg.append("circle")
              .attr("class", "circle")
-             .attr("fill", "lightblue")
+             .attr("fill", "white")
              .attr("cx", 0)
              .attr("cy", 0)
              .attr("r", 7);

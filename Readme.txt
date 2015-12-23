@@ -3,7 +3,6 @@ For Demo:
 Full Layout
 player detail section
 
-pie opacity
 Heroku
 
 Maybe

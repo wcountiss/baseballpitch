@@ -18,26 +18,23 @@ angular.module('motus').controller('playerController',
     _.each statNames, (stat) ->
       scores = [
         { order: 1, score: 100, weight: 1, label: "Rotation" }
-        { order: 2, score: 100, weight: 1, label: "Movement" }
-        { order: 3, score: 100, weight: 1, label: "Force" }
-        { order: 4, score: 100, weight: 1, label: "Acceleration" }
-        { order: 5, score: 100, weight: 1, label: "Timing" }
-        { order: 6, score: 100, weight: 1, label: "Deceleration" }
+        { order: 1, score: 100, weight: 1, label: "Movement" }
+        { order: 1, score: 100, weight: 1, label: "Force" }
+        { order: 1, score: 100, weight: 1, label: "Acceleration" }
+        { order: 1, score: 100, weight: 1, label: "Timing" }
+        { order: 1, score: 100, weight: 1, label: "Deceleration" }
+        { order: 1, score: 100, weight: 1, label: "Velocity" }
+        { order: 1, score: 100, weight: 1, label: "Momentum" }
+        { order: 1, score: 100, weight: 1, label: "Distance" }
+        { order: 1, score: 100, weight: 1, label: "Rate" }
       ]
       _.each scores, (score) -> 
         randomNum = randomNumber(0,3)
         score.color = colorOptions[randomNum]
         score.tooltip = toolTipOptions[randomNum]
+      #random number of slices
+      scores = _.slice(scores, 0, randomNumber(4,10))
       $scope[stat] = scores
-
-    $scope.overview = [
-      { date: '1-May-12', close: 100.13 }
-      { date: '30-Apr-12', close: 150.98 }
-      { date: '27-Apr-12', close: 130.00 }
-      { date: '26-Apr-12', close: 140.70 }
-      { date: '25-Apr-12', close: 180.00 }
-      { date: '24-Apr-12', close: 75.28 }
-    ]
 
     getPlayers = () ->
       $http.post("player/find",  { teamId: $scope.teamId })
