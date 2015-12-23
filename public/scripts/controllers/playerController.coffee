@@ -19,9 +19,9 @@ angular.module('motus').controller('playerController',
         { order: 1, score: 100, weight: 1, label: "rotation" }
         { order: 2, score: 100, weight: 1, label: "movement" }
         { order: 3, score: 100, weight: 1, label: "force" }
-        { order: 4, score: 100, weight: 1, label: "push" }
-        { order: 5, score: 100, weight: 1, label: "push" }
-        { order: 6, score: 100, weight: 1, label: "push" }
+        { order: 4, score: 100, weight: 1, label: "acceleration" }
+        { order: 5, score: 100, weight: 1, label: "timing" }
+        { order: 6, score: 100, weight: 1, label: "deceleration" }
       ]
       _.each scores, (score) -> score.color = colorOptions[randomNumber(0,3)]
       $scope[stat] = scores

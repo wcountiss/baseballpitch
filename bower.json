@@ -16,6 +16,8 @@
     "angular-cookies": "~1.4.7",
     "lodash": "~3.10.1",
     "moment": "~2.10.6",
-    "angular-ui-router": "~0.2.15"
+    "angular-ui-router": "~0.2.15",
+    "d3-tip": "~0.6.7",
+    "d3": "~3.5.12"
   }
 }

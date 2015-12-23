@@ -3,14 +3,12 @@ For Demo:
 Full Layout
 player detail section
 
+pie tooltips
 Heroku
 
 Maybe
-Antimation
+Animations
 Get Player Detail from parse
-Parse Models
-Generic Finder
-
 
 For Structure
 Nodemon
@@ -18,6 +16,7 @@ Live Reload
 heroku prod-server
 
 For Real project
+Parse Models
 Login
 Jwt
 Player By Team
