@@ -9587,7 +9587,7 @@ angular.module('d3').directive('wordcloud', [
   }
 ]);
 'use strict';
-angular.module('d3').directive('astor', [
+angular.module('d3').directive('pie', [
   'd3',
   function (d3) {
     return {
@@ -9595,7 +9595,6 @@ angular.module('d3').directive('astor', [
       scope: {
         width: '@',
         height: '@',
-        text: '@',
         fontFamily: '@',
         fontSize: '@',
         bind: '&',
@@ -9605,8 +9604,8 @@ angular.module('d3').directive('astor', [
       link: function (scope, element, attrs) {
         
         var updateChart = function() {
-          var width = 500,
-              height = 500,
+          var width = 100,
+              height = 100,
               scale = 1,
               radius = Math.min(width, height) / 2,
               innerRadius = 0.2 * radius;
@@ -9654,20 +9653,22 @@ angular.module('d3').directive('astor', [
             
             var path = svg.selectAll(".solidArc")
                 .data(pie(data))
-              .enter().append("path")
+              .enter()
+              .append("path")
                 .attr("fill", function(d) { return d.data.color; })
-                .attr("class", "solidArc")
+                .attr("class", "solidArc")          
                 .attr("stroke", "gray")
                 .attr("d", arc);
                 // .on('mouseover', tip.show)
                 // .on('mouseout', tip.hide);
             
 
-            svg.append("svg:text")
-              .attr("class", "aster-score")
-              .attr("dy", ".25em")
-              .attr("text-anchor", "middle") // text-align: right
-              .text(scope.text);
+            svg.append("circle")
+             .attr("class", "circle")
+             .attr("fill", "lightblue")
+             .attr("cx", 0)
+             .attr("cy", 0)
+             .attr("r", 7);
           }
         }
         scope.$watch("bind", function(){ updateChart() }, false);

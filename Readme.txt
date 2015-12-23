@@ -3,18 +3,16 @@ For Demo:
 Full Layout
 player detail section
 
-Astor Color bounds
-Elite Line on Overview
+Heroku
 
 Maybe
-Get Player Detail
+Antimation
+Get Player Detail from parse
 Parse Models
 Generic Finder
 
 
-
 For Structure
-gitIgnore
 Nodemon
 Live Reload
 heroku prod-server

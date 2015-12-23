@@ -5,25 +5,26 @@ angular.module('motus').controller('playerController',
     randomBoolean = () ->
       !(Math.random()+.5|0)
     randomNumber = (min, max) ->
-      Math.floor(Math.random() * max+1 + min)
+      Math.floor(Math.random() * max + min)
 
     colorOptions = [ '#FF0000', '#F6FB5E', '#29CE18' ]
 
     #hardcoded change to by login later
     $scope.teamId = 1
 
-    #hardcoded stats, change to parse later
-    $scope.playerDetail = {playerName: "Dario Alvarez", playerDob: "Jan 15, 1970", playerAge: 45, playerHeight: 72, playerWeight: 150, playerBirthPlace: "USA"}
-
     #random stats
-    footScores = [
-      { id: "FIS", order: 1, score: 100, weight: 1, label: "plant" }
-      { id: "MAR", order: 2, score: 100, weight: 1, label: "movement" }
-      { id: "AO", order: 3, score: 100, weight: 1, color: "#E1514B", label: "force" }
-      { id: "NP", order: 4, score: 100, weight: 1, color: "#F47245", label: "push" }
-    ]
-    _.each footScores, (score) -> score.color = colorOptions[randomNumber(0,2)]
-    $scope.foot = footScores
+    statNames = ['arm','shoulder','hip','leg','foot']
+    _.each statNames, (stat) ->
+      scores = [
+        { order: 1, score: 100, weight: 1, label: "rotation" }
+        { order: 2, score: 100, weight: 1, label: "movement" }
+        { order: 3, score: 100, weight: 1, label: "force" }
+        { order: 4, score: 100, weight: 1, label: "push" }
+        { order: 5, score: 100, weight: 1, label: "push" }
+        { order: 6, score: 100, weight: 1, label: "push" }
+      ]
+      _.each scores, (score) -> score.color = colorOptions[randomNumber(0,3)]
+      $scope[stat] = scores
 
     $scope.overview = [
       { date: '1-May-12', close: 100.13 }
@@ -41,7 +42,11 @@ angular.module('motus').controller('playerController',
         _.each (players), (player) ->
           player.longThrow = randomBoolean()            
           player.bullPen = randomBoolean()            
-          player.base = randomBoolean()   
+          player.base = randomBoolean()
+          
+          #hardcoded stats, change to parse later
+          player = _.extend(player, { playerAge: randomNumber(20,40), playerHeight: randomNumber(65,80), playerWeight: randomNumber(150,180), playerBirthPlace: "USA", position: 'right'})
+
           player                 
         $scope.playerRoster = players
 
