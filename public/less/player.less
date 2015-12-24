@@ -79,8 +79,14 @@
       background-color: #e9f5f1;
       width:100%;
       padding-left: 60px;
-
-      h1 {
+      .player-details-header {
+        display: flex;
+        margin-bottom: 40px;
+        h2 {
+          flex: 1;
+        }
+      }
+      h2 {
         color: #1680c3;
         font-size:30px;
         text-transform: uppercase;
@@ -88,6 +94,10 @@
       }
       .player-details-stats {
         display: flex;
+        .player-stats-box1 {
+          display: flex;
+          flex:1;
+        }
         .player-key-stats {
           display: flex;
           flex-direction: column;
@@ -98,6 +108,15 @@
           }
           h3 {
             margin-top:0;
+          }
+        }
+        .player-notes {
+          display: flex;
+          flex:1;
+          flex-direction: column;
+          justify-content: space-between;
+          h4 {
+            margin-top: 0;
           }
         }
       }

@@ -15,17 +15,32 @@
       </div>
 
       <div class="player-details">
-        <h1>Player</h1>
+        <div class="player-details-header">
+          <h2>Player</h2>
+          <h2>Notes</h2>
+        </div>
         <div class="player-details-stats">
-          <div class="player-photo">
-            <img ng-src="{{currentPlayer.imgUrl}}" alt="{{currentPlayer.alt}}">
+          <div class="player-stats-box1">
+            <div class="player-photo">
+              <img ng-src="{{currentPlayer.imgUrl}}" alt="{{currentPlayer.alt}}">
+            </div>
+            <div class="player-key-stats">
+              <h3>{{currentPlayer.playerName}}</h3>
+              <span>Age: {{currentPlayer.age}}</span>
+              <span>Pitches: {{currentPlayer.pitches}}</span>
+              <span>Position: {{currentPlayer.position}}</span>
+              <span>Level: {{currentPlayer.level | uppercase}}</span>
+            </div>
           </div>
-          <div class="player-key-stats">
-            <h3>{{currentPlayer.playerName}}</h3>
-            <span>Age: {{currentPlayer.age}}</span>
-            <span>Pitches: {{currentPlayer.pitches}}</span>
-            <span>Position: {{currentPlayer.position}}</span>
-            <span>Level: {{currentPlayer.level | uppercase}}</span>
+          <div class="player-notes">
+            <!-- Hard Coded Notes results-->
+            <div>
+              <h4>Lorem ipsum dolor sit amet, consectetur adipisicing.</h4>
+              <h4>Other areas of improvement include:</h4>
+            </div>
+            <li>Lorem ipsum dolor sit</li>
+            <li>Amet consectetur adipisicing</li>
+            <li>Elit Blanditiis id quidem</li>
           </div>
         </div>
 
