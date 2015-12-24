@@ -14,7 +14,7 @@ angular.module('motus').controller('playerController',
     $scope.teamId = 1
 
     #random stats
-    statNames = ['arm','shoulder','hip','leg','foot']
+    statNames = ['arm','throwShoulder','otherShoulder','hip','foot']
     _.each statNames, (stat) ->
       scores = [
         { order: 1, score: 100, weight: 1, label: "Rotation" }

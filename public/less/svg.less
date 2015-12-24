@@ -3,10 +3,17 @@ svg {
     transform: scale(0.85);
     transform-origin: center;
     opacity: .8;
+    transition: all 0.2s ease;
+    &:hover {
+      transform: scale(1.2);
+      opacity: 1;
+    }
   }
 }
 
 .d3-tip {
+  z-index: 5;
+  opacity: .8;
   line-height: 1;
   font-weight: bold;
   padding: 12px;
@@ -14,10 +21,24 @@ svg {
   color: #fff;
   border-radius: 2px;
   pointer-events: none;
+  transition: opacity 0.5s ease;
+  transition: left 0.5s ease;
 }
+
+.d3-tip-tooltip{
+  font-weight: bold;
+}
+
+.d3-tip-label{
+  font-weight: normal;
+  color: lighter;
+  font-size: -1;
+}
+
 
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
+  opacity: 0;
   box-sizing: border-box;
   display: inline;
   font-size: 10px;

@@ -1,7 +1,6 @@
 Motus
 For Demo:
-Full Layout
-player detail section
+Float chart over player
 
 Heroku
 

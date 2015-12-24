@@ -155,7 +155,46 @@
         position: relative;
         margin-left:-60px;
       }
+
+      .pitcher-silhouette{
+        position: relative;
+        width: 57em;
+
+        piestats {
+          z-index: 2;
+          position: absolute;
+          transition: all 0.2s ease;
+          &:hover {
+            opacity: .9;
+            transform: scale(1.2);
+          }
+        }
+
+        #arm {
+          top: 10em;
+          left: 8em;
+        }
+
+        #throwShoulder{
+          top: 12em;
+          left: 16em;
+        }
+        #otherShoulder{
+          top: 11em;
+          left: 24.5em;
+        }
+        #hip{
+          top: 19em;
+          left: 20em;
+        }
+        #foot{
+          top: 30em;
+          left: 30em;
+        }
+      }
     }
+   
+
     .side-menu-buttons {
       font-size: 65px;
       margin-left:auto;
