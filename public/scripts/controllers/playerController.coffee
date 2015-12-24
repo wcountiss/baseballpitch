@@ -62,4 +62,19 @@ angular.module('motus').controller('playerController',
     $scope.selectedPlayer = (selected) ->
       console.log "clicked"
       $scope.currentPlayer = selected
+
+    # Icons for the Overview
+    # Will highlight which one is active, and will eventually change the nested view here
+    $scope.overviewActiveEyeIcon = true
+    $scope.overviewActiveTrendsIcon = false
+
+    # Sets the Eye as Active icon
+    $scope.overviewActiveEye = () ->
+      $scope.overviewActiveEyeIcon = true
+      $scope.overviewActiveTrendsIcon = false
+
+    # Sets the Trend chart as active
+    $scope.overviewActiveTrend = () ->
+      $scope.overviewActiveEyeIcon = false
+      $scope.overviewActiveTrendsIcon = true
 ])
