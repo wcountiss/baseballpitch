@@ -160,33 +160,40 @@
         piestats {
           z-index: 2;
           position: absolute;
-          transition: all 0.2s ease;
-          &:hover {
-            opacity: .9;
-            transform: scale(1.2);
+          transform: translate(-50%, -50%);
+
+          svg {
+            transform-origin: center;
+            transition: all 0.2s ease;
+            &:hover {
+              opacity: .9;
+              transform: scale(1.2);
+            }
+
           }
+
         }
 
         #arm {
-          top: 24%;
-          left: 22%;
+          top: 32%;
+          left: 28%;
         }
 
         #throwShoulder{
-          top: 29%;
-          left: 36%;
+          top: 38%;
+          left: 43%;
         }
         #otherShoulder{
-          top: 28%;
-          left: 50%;
+          top: 37%;
+          left: 56%;
         }
         #hip{
-          top: 47%;
-          left: 45%;
+          top: 56%;
+          left: 51%;
         }
         #foot{
-          top: 78%;
-          left: 63%;
+          top: 85%;
+          left: 69%;
         }
       }
     }
