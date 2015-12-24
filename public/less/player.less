@@ -5,7 +5,7 @@
     margin-left: 15px;
     margin-right:15px;
     display: flex;
-    min-height: 100vh;
+
     .padding-box {
       padding:8px 8px 8px 8px;
       display: flex;
@@ -79,6 +79,7 @@
       background-color: #e9f5f1;
       width:100%;
       padding-left: 60px;
+      overflow: hidden;
       .player-details-header {
         display: flex;
         margin-bottom: 40px;
@@ -133,8 +134,8 @@
     }
     .overview-header {
       display: flex;
-      border:solid 4px orchid;
       align-items: center;
+      margin-top:40px;
       h2 {
         font-size: 30px;
         letter-spacing: 6px;
@@ -147,15 +148,29 @@
         color: #095bac;
       }
     }
+    .nested-view {
+
+      img {
+        width:107%;
+        position: relative;
+        margin-left:-60px;
+      }
+    }
     .side-menu-buttons {
+      font-size: 65px;
       margin-left:auto;
       margin-right: 30px;
-      min-width: 50px;
+      min-width: 65px;
+      background-color: #d2d2d2;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      align-items: center;
       min-height:100vh;
-      border: solid 4px mistyrose;
+      span {
+        color: #737272;
+        background-color: #2b2f2e;
+      }
     }
 
     /*==========  Mobile Options ==========*/

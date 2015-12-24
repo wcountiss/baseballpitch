@@ -50,31 +50,20 @@
           <span class="icon-eye" ng-class="{'active': overviewActiveEyeIcon}" ng-click="overviewActiveEye()"></span>
           <span class="icon-trends" ng-class="{'active': overviewActiveTrendsIcon}" ng-click="overviewActiveTrend()"></span>
         </div>
-        <img src="http://placehold.it/530x530" alt="">
-        <div>
-          <piestats id="arm" bind="arm" slices="10"></piestats>
-          <piestats id="shoulder" bind="shoulder" slices="10" ></piestats>
-          <piestats id="hip" bind="hip" slices="10"></piestats>
-          <piestats id="leg" bind="leg" slices="10" ></piestats>
-          <piestats ts id="foot" bind="foot" ></piestats>
+        <!-- Nested injectable View-->
+        <div class="nested-view">
+          <img src="../images/pitcher-sil.png" alt="Pitcher silhouette">
         </div>
-
       </div>
       <div class="side-menu-buttons">
-        <p>button</p>
-
-        <p>button</p>
-
-        <p>button</p>
-
-        <p>button</p>
-
-        <p>button</p>
-
-        <p>button</p>
-
-        <p>button</p>
+        <span class="icon-home"></span>
+        <span class="icon-trends"></span>
+        <span class="icon-kinetic_chain"></span>
+        <span class="icon-ballrelease"></span>
+        <span class="icon-footcontact"></span>
+        <span class="icon-maxexcursion"></span>
+        <span class="icon-jointkinetics"></span>
       </div>
-    </div>
-  </div>
+    </div> <!-- .padding-box -->
+  </div> <!--.player-box-shadow -->
 </div>

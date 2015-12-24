@@ -9,7 +9,7 @@
         <meta name="robots" content="Motus Dashboard" />
         <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/ >
 
-        <title>Motus Dashboard</title>  
+        <title>Motus Dashboard</title>
 
       <!--Latest compiled and vendor dependencies-->
         <script src="lodash/lodash.min.js"></script>
@@ -31,12 +31,12 @@
 
         <section id="main-content">
           <div ui-view></div>
-        </section> 
+        </section>
 
-        <footer>
+        <footer ng-include="'views/footer.html'">
         </footer>
         <!--[if lte IE 8]>
         <p class="old-browser notice-warning">It appears you are using an outdated browser.  Please use at least Internet Explorer 9, Chrome, Firefox or Safari. Sorry for the inconvenience.</p>
         <![endif] -->
-    </body>  
+    </body>
 </html>
