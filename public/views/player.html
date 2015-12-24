@@ -5,7 +5,7 @@
         <!--Contains the names of pitches listed in a column -->
         <h2>Roster <span class="icon-compare"></span></h2>
         <ul class="player-names">
-          <li ng-repeat="player in playerRoster">
+          <li class="" ng-class="{'selected': currentPlayer.playerName == player.playerName }" ng-repeat="player in playerRoster" ng-click="selectedPlayer(player)">
             <p>{{player.playerName}}</p>
             <span class="icon-longtoss" ng-class="{'green-icon': player.longThrow}"></span>
             <span class="icon-bullpen" ng-class="{'green-icon': player.bullPen}"></span>
@@ -15,25 +15,17 @@
       </div>
 
       <div class="player-details">
-        <h1>Player Details</h1>
+        <h1>Player</h1>
         <div class="player-details-stats">
           <div class="player-photo">
-            <img src="http://placehold.it/300x300" alt="Player Pic">
+            <img ng-src="{{currentPlayer.imgUrl}}" alt="{{currentPlayer.alt}}">
           </div>
           <div class="player-key-stats">
-            <p>Stat</p>
-            <p>Stat</p>
-            <p>Stat</p>
-          </div>
-          <div class="player-key-stats">
-            <p>Stat</p>
-            <p>Stat</p>
-            <p>Stat</p>
-          </div>
-          <div class="player-key-stats">
-            <p>Stat</p>
-            <p>Stat</p>
-            <p>Stat</p>
+            <h3>{{currentPlayer.playerName}}</h3>
+            <span>Age: {{currentPlayer.age}}</span>
+            <span>Pitches: {{currentPlayer.pitches}}</span>
+            <span>Position: {{currentPlayer.position}}</span>
+            <span>Level: {{currentPlayer.level | uppercase}}</span>
           </div>
         </div>
 
@@ -49,7 +41,7 @@
           <piestats id="shoulder" bind="shoulder" slices="10" ></piestats>
           <piestats id="hip" bind="hip" slices="10"></piestats>
           <piestats id="leg" bind="leg" slices="10" ></piestats>
-          <piesta ts id="foot" bind="foot" ></piestats>
+          <piestats ts id="foot" bind="foot" ></piestats>
         </div>
 
       </div>

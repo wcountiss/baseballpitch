@@ -58,6 +58,12 @@
           }
 
         }
+        li.selected {
+          color: #1680c3;
+          transition: all 0.2s ease-out;
+          border-left: solid 4px #e57222;
+          background-color: #e9f5f1;
+        }
         li:hover {
           color: #1680c3;
           transition: all 0.2s ease-out;
@@ -73,20 +79,36 @@
       background-color: #e9f5f1;
       width:100%;
       padding-left: 60px;
+
+      h1 {
+        color: #1680c3;
+        font-size:30px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
       .player-details-stats {
         display: flex;
-        border: solid 4px mistyrose;
         .player-key-stats {
-          flex: 1;
+          display: flex;
+          flex-direction: column;
+          text-transform: capitalize;
+          justify-content: space-between;
+          span {
+            font-size: 16px;
+          }
+          h3 {
+            margin-top:0;
+          }
         }
       }
       .player-photo {
         display: inline-block;
-        flex: 1;
+
         img {
-          height: 85px;
+          height: 160px;
           width:auto;
           border-radius: 100px;
+          padding-right:32px;
         }
       }
     }
