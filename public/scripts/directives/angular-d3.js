@@ -9933,8 +9933,8 @@ angular.module('d3').directive('piestats', [
       link: function (scope, element, attrs) {
         
         var updateChart = function() {
-          var width = window.innerWidth * 0.09,
-              height = window.innerWidth * 0.09,
+          var width = window.innerWidth * 0.08,
+              height = window.innerWidth * 0.08,
               scale = 1,
               radius = Math.min(width, height) / 2,
               innerRadius = 0.2 * radius;
