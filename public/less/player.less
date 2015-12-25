@@ -223,27 +223,38 @@
     /*==========  Mobile Options ==========*/
     /* Large Devices, Wide Screens */
     @media only screen and (max-width: 1200px) {
-
+      piestats {
+        transform: scale(1.5) translate(-50%, -50%);
+      }
     }
 
     /* Medium Devices, Desktops */
     @media only screen and (max-width: 992px) {
+      piestats {
+        transform: scale(1) translate(-50%, -50%);
+      }
 
     }
 
     /* Small Devices, Tablets */
     @media only screen and (max-width: 768px) {
-
+      piestats {
+        transform: scale(.75) translate(-50%, -50%);
+      }
     }
 
     /* Extra Small Devices, Phones */
     @media only screen and (max-width: 480px) {
-
+      piestats {
+        transform: scale(.5) translate(-50%, -50%);
+      }
     }
 
     /* Custom, iPhone Retina */
     @media only screen and (max-width: 320px) {
-
+      piestats {
+        transform: scale(.25) translate(-50%, -50%);
+      }
     }
   }
 }
