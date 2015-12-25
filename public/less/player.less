@@ -155,50 +155,48 @@
       }
     }
     .nested-view {
-      width: 100%;
+      width: 110%;
       img {
-        width: 100%;
-        height: auto;
+        width: 110%;
       }
       .pitcher-silhouette {
+        position: relative;
+
         piestats {
           z-index: 2;
-          position: relative;
           transition: all 0.2s ease;
-          &:hover {
-            opacity: .9;
-            //transform: scale(1.2);
-            //position: absolute;
-            transform: translate(-50%, -50%);
-            svg {
-              transform-origin: center;
-              transition: all 0.2s ease;
-              &:hover {
-                opacity: .9;
-                transform: scale(1.2);
-              }
+          position: absolute;
+          transform: translate(-50%, -50%);
+            
+          svg {
+            transform-origin: center;
+            transition: all 0.2s ease;
+            
+            &:hover {
+              opacity: .9;
+              transform: scale(1.2);
             }
 
           }
 
-          #arm {
+          &#arm {
             top: 32%;
             left: 28%;
           }
 
-          #throwShoulder {
+          &#throwShoulder {
             top: 38%;
             left: 43%;
           }
-          #otherShoulder {
+          &#otherShoulder {
             top: 37%;
             left: 56%;
           }
-          #hip {
+          &#hip {
             top: 56%;
             left: 51%;
           }
-          #foot {
+          &#foot {
             top: 85%;
             left: 69%;
           }
