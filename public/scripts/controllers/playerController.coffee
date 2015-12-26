@@ -77,4 +77,14 @@ angular.module('motus').controller('playerController',
     $scope.overviewActiveTrend = () ->
       $scope.overviewActiveEyeIcon = false
       $scope.overviewActiveTrendsIcon = true
+
+    #Side Buttons - Active State - default is kinetic chain
+    $scope.homeSideButtonActive = false
+    $scope.trendsSideButtonActive = false
+    $scope.kineticSideButtonActive = true
+    $scope.ballreleaseSideButtonActive = false
+    $scope.footcontactSideButtonActive = false
+    $scope.maxexcursionSideButtonActive = false
+    $scope.jointkineticsSideButtonActive = false
+
 ])

@@ -102,10 +102,7 @@
         display: flex;
         .player-stats-box1 {
           display: flex;
-          .player-stats-box1 {
-            display: flex;
-            flex: 1;
-          }
+          flex: 1;
           .player-key-stats {
             display: flex;
             flex-direction: column;
@@ -115,16 +112,6 @@
               font-size: 16px;
             }
             h3 {
-              margin-top: 0;
-              font-weight: bold;
-            }
-          }
-          .player-notes {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            justify-content: space-between;
-            h4 {
               margin-top: 0;
               font-weight: bold;
             }
@@ -141,14 +128,15 @@
               margin-top: 0;
             }
           }
-          .player-notes {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            justify-content: space-between;
-            h4 {
-              margin-top: 0;
-            }
+        }
+        .player-notes {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          justify-content: space-between;
+          h4 {
+            margin-top: 0;
+            font-weight: bold;
           }
         }
         .player-photo {
@@ -162,7 +150,7 @@
           }
         }
       }
-    }
+    }//.player-details
     .overview-header {
       display: flex;
       align-items: center;
@@ -179,11 +167,11 @@
         color: #095bac;
       }
     }
-  }
+  }// player-details-outter
   .nested-view {
-    width: 110%;
+    width: 100%;
     img {
-      width: 110%;
+      width: 100%;
     }
     .pitcher-silhouette {
       position: relative;
@@ -209,24 +197,24 @@
 
         &#arm {
           top: 32%;
-          left: 28%;
+          left: 25%;
         }
 
         &#throwShoulder {
           top: 38%;
-          left: 41%;
+          left: 39%;
         }
         &#otherShoulder {
-          top: 37%;
+          top: 38%;
           left: 56%;
         }
         &#hip {
           top: 56%;
-          left: 51%;
+          left: 47%;
         }
         &#foot {
           top: 85%;
-          left: 69%;
+          left: 62%;
         }
       }
     }
@@ -245,6 +233,14 @@
     span {
       color: #737272;
       background-color: #2b2f2e;
+      .side-button-active {
+        color: #ffffff;
+        background-color: #232323;
+      }
+    }
+    span.side-button-active {
+      color: #ffffff;
+      background-color: #232323;
     }
   }
 
