@@ -78,7 +78,7 @@ angular.module('motus').controller('playerController',
       $scope.overviewActiveEyeIcon = false
       $scope.overviewActiveTrendsIcon = true
 
-    #Side Buttons - Active State - default is kinetic chain
+    # Side Buttons Initial State
     $scope.homeSideButtonActive = false
     $scope.trendsSideButtonActive = false
     $scope.kineticSideButtonActive = true
@@ -87,4 +87,51 @@ angular.module('motus').controller('playerController',
     $scope.maxexcursionSideButtonActive = false
     $scope.jointkineticsSideButtonActive = false
 
+    # Side Button Functions
+    # These functions change one button boolean to true, and others to false.
+
+    # Set all Icons to false
+    setAlltoFalse = ->
+      $scope.homeSideButtonActive = false
+      $scope.trendsSideButtonActive = false
+      $scope.kineticSideButtonActive = false
+      $scope.ballreleaseSideButtonActive = false
+      $scope.footcontactSideButtonActive = false
+      $scope.maxexcursionSideButtonActive = false
+      $scope.jointkineticsSideButtonActive = false
+
+    # Side button Home Active
+    $scope.homeIsActive = () ->
+      setAlltoFalse()
+      $scope.homeSideButtonActive = true
+
+    # Side button Trends Active
+    $scope.trendsIsActive = () ->
+      setAlltoFalse()
+      $scope.trendsSideButtonActive = true
+
+    # Side button Kinetic Chain Active
+    $scope.kineticIsActive = () ->
+      setAlltoFalse()
+      $scope.kineticSideButtonActive = true
+
+    # Side button Ballrelease Active
+    $scope.ballreleaseIsActive = () ->
+      setAlltoFalse()
+      $scope.ballreleaseSideButtonActive = true
+
+    # Side button Foot contact Active
+    $scope.footcontactIsActive = () ->
+      setAlltoFalse()
+      $scope.footcontactSideButtonActive = true
+
+    # Side button Max excursion Active
+    $scope.maxexcursionIsActive = () ->
+      setAlltoFalse()
+      $scope.maxexcursionSideButtonActive = true
+
+    # Side button Joint kinetics Active
+    $scope.jointkineticsIsActive = () ->
+      setAlltoFalse()
+      $scope.jointkineticsSideButtonActive = true
 ])
