@@ -13,7 +13,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-cookies": "~1.4.7",
+    "angular-cookies": "~1.4.8",
     "lodash": "~3.10.1",
     "moment": "~2.10.6",
     "angular-ui-router": "~0.2.15",

@@ -1,11 +1,10 @@
 Motus
-For Demo:
-Float chart over player
+
+Maybe for Demo
+BlueBird Warning
+jwt save user and token to cookie
 
 Heroku
-
-Maybe
-Animations
 Get Player Detail from parse
 
 For Structure

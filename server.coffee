@@ -1,6 +1,7 @@
 express = require 'express'
 compression = require('compression')
 bodyParser = require('body-parser')
+cookieParser = require('cookie-parser')
 
 #express app
 app = express()
@@ -9,6 +10,8 @@ app = express()
 app.use(bodyParser.json())
 #Compress any static files under 1k
 app.use(compression())
+#parse cookies
+app.use(cookieParser())
 
 #load up routers
 require('./routes')(app)
