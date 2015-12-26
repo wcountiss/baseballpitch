@@ -1,0 +1,32 @@
+login = require '../../services/login'
+
+
+module.exports.signUp = (req, res) ->
+  #simple validation, replace with parseModel later
+  if !req.body.email || !req.body.password
+    res.sendStatus(500)
+
+  #Sign the user Up
+  login.signUp(req.body.email, req.body.password)
+  .then (object) ->
+    res.sendStatus(200)
+  .error (error) ->
+    console.log error
+    res.sendStatus(500)
+
+module.exports.logIn = (req, res) ->
+  #simple validation, replace with parseModel later
+  if !req.body.email || !req.body.password
+    res.sendStatus(500)
+
+  #logIn
+  login.logIn(req.body.email, req.body.password)
+  .then (object) ->
+    if (object)
+      res.cookie('motus', {email: req.body.email, password: req.body.password}, { maxAge: 900000, httpOnly: false })
+      res.status(200).send(object)
+    else
+      res.sendStatus(401)
+  .error (user,error) ->
+    console.log error
+    res.sendStatus(500)

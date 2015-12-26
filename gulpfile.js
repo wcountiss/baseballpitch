@@ -6,29 +6,37 @@ var browserify = require('gulp-browserify'),
     minifycss = require('gulp-minify-css'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
-    gls = require('gulp-live-server'),
     os = require('os'),
-    open = require('gulp-open');
+    nodemon = require('gulp-nodemon'),
+    open = require('gulp-open'),
     wait = require('gulp-wait');
     
 
 gulp.task('server', function () {
-    var server = gls('server.coffee', undefined, 35729);
-    server.start('node_modules/coffee-script/bin/coffee');
-     gulp.watch(['public/**/*.less', 'public/**/*.html'], function (file) {
-      server.notify.apply(server, [file]);
-    });
-    gulp.watch(['public/*.html'], server.notify());
-    gulp.watch(['public/views/*.html'], server.notify());
-    gulp.watch(['public/css/*.css'], server.notify());
-    gulp.watch(['public/js/*.js'], server.notify());
-    gulp.watch(['public/less/*.less'], server.notify());
-    gulp.watch(['server.coffee'], [server.run]);
+    nodemon({
+      script: 'server.coffee'
+    , ext: 'coffee js'
+    , env: { 'NODE_ENV': 'development' }
+    })
+
+    // var server = gls('server.coffee', undefined, 35729);
+    // server.start('node_modules/coffee-script/bin/coffee');
+    //  gulp.watch(['public/**/*.less', 'public/**/*.html'], function (file) {
+    //   server.notify.apply(server, [file]);
+    // });
+    // gulp.watch(['public/*.html'], server.notify());
+    // gulp.watch(['public/views/*.html'], server.notify());
+    // gulp.watch(['public/css/*.css'], server.notify());
+    // gulp.watch(['public/js/*.js'], server.notify());
+    // gulp.watch(['public/less/*.less'], server.notify());
+    // gulp.watch(['*.coffee'], [server.run, server.notify()]);
+    // gulp.watch(['lib/**/**/**.coffee'], [server.run, server.notify()]);
+
 });
 
 gulp.task('prod-server', function () {
-    var server = gls('server.coffee', undefined);
-    server.start('node_modules/coffee-script/bin/coffee');
+    // var server = gls('server.coffee', undefined);
+    // server.start('node_modules/coffee-script/bin/coffee');
 });
 
 

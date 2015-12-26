@@ -1,11 +1,9 @@
 Motus
-For Demo:
-Float chart over player
 
+Maybe for Demo
+Login login
+auth middleware
 Heroku
-
-Maybe
-Animations
 Get Player Detail from parse
 
 For Structure

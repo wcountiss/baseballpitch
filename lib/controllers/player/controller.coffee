@@ -1,4 +1,4 @@
-parse = require '../../services/parse'
+database = require '../../services/database'
 
 
 module.exports.save = (req, res) ->
@@ -7,7 +7,7 @@ module.exports.save = (req, res) ->
     res.sendStatus(500)
 
   #Saves a player for loading later
-  parse.save('player', { playerName: req.body.playerName, teamId: +req.body.teamId })
+  database.save('player', { playerName: req.body.playerName, teamId: +req.body.teamId })
   .then (object) ->
     res.sendStatus(200)
   .error (error) ->
@@ -17,7 +17,7 @@ module.exports.save = (req, res) ->
 module.exports.find = (req, res) -> 
   #find players by keys.
   #Team Id should come from the session based on login and be secure. unless you are an admin
-  parse.find('player', { teamId: req.body.teamId })
+  database.find('player', { teamId: req.body.teamId })
   .then (results) ->
     res.send(results)
  
