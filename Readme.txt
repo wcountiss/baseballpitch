@@ -1,9 +1,9 @@
 Motus
 
 Maybe for Demo
-ParseUser get info
-auth middleware set currentUser
-jwt sessions
+BlueBird Warning
+jwt save user and token to cookie
+
 Heroku
 Get Player Detail from parse
 
