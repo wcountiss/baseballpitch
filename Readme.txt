@@ -1,8 +1,9 @@
 Motus
 
 Maybe for Demo
-Login login
-auth middleware
+ParseUser get info
+auth middleware set currentUser
+jwt sessions
 Heroku
 Get Player Detail from parse
 

@@ -15,13 +15,13 @@ module.exports.signUp = (email, password) ->
 
   return new Promise (resolve, reject) ->
     user.signUp(null, { 
-      success: (user) -> resolve(user), 
+      success: (user) -> resolve(user.attributes), 
       error: (user, error) -> console.log("Error: " + error.code + " " + error.message); reject(user, error)
     });
 
 module.exports.logIn = (email, password) ->
   return new Promise (resolve, reject) ->
     Parse.User.logIn(email, password, {
-      success: (user) -> resolve user,
+      success: (user) -> resolve user.attributes,
       error: (user, error) -> console.log("Error: " + error.code + " " + error.message); reject error
     });

@@ -13,6 +13,7 @@ module.exports.find = (collectionName, query) ->
     parseQuery.find()
     .then((success) -> resolve success, (error) ->  eject error) 
 
+
 module.exports.save = (collectionName, data) ->
   ParseObject = Parse.Object.extend(collectionName)
   parseObject = new ParseObject()
