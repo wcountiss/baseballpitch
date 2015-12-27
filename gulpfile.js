@@ -18,7 +18,6 @@ gulp.task('server', function () {
     gulp.watch(['public/**/*.html', 'public/**/**.css', 'public/**/**.js'], function (file) {
       //live reload the clientside files
       server.notify.apply(server, [file]);
-      console.log('clientside reload');
     });
     gulp.watch(['lib/**/**.coffee', 'server.coffee', 'routes.coffee'], function (file) {
       // restart the server if changing serverside code
