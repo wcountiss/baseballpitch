@@ -1,6 +1,6 @@
 angular.module('motus').controller('loginController', 
-['$scope','$http','$cookies'
-  ($scope, $http,$cookies) ->
+['$scope','$http','$cookies','$state'
+  ($scope, $http,$cookies,$state) ->
     $scope.signUp = () ->
       $http.post("auth/signUp",  { email: $scope.email, password: $scope.password })
       .success (result) ->
@@ -10,6 +10,7 @@ angular.module('motus').controller('loginController',
     $scope.login = () ->
       $http.post("auth/login",  { email: $scope.email, password: $scope.password })
       .success (result) ->
-        console.log result
+        $state.go('player')
+        
 ])      
      

@@ -1,5 +1,5 @@
 login = require '../../services/login'
-
+jwt = require 'jsonwebtoken'
 
 module.exports.signUp = (req, res) ->
   #simple validation, replace with parseModel later
@@ -21,10 +21,11 @@ module.exports.logIn = (req, res) ->
 
   #logIn
   login.logIn(req.body.email, req.body.password)
-  .then (object) ->
-    if (object)
-      res.cookie('motus', {email: req.body.email, password: req.body.password}, { maxAge: 90*24*60*60*1000, httpOnly: false })
-      res.status(200).send(object)
+  .then (user) ->
+    if (user)
+      token = jwt.sign(user, 'shhhhh')
+      res.cookie('motus', token, { maxAge: 90*24*60*60*1000, httpOnly: false })
+      res.status(200).send(user)
     else
       res.sendStatus(401)
   .error (user,error) ->

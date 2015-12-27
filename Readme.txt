@@ -1,24 +1,12 @@
 Motus
-
-Maybe for Demo
 BlueBird Warning
-jwt save user and token to cookie
-
+GLS Live Reload
 Heroku
-Get Player Detail from parse
-
-For Structure
-Nodemon
-Live Reload
-heroku prod-server
-
-For Real project
+Heroku prod-server
+Env Vars
 Parse Models
-Login
-Jwt
-Player By Team
-Player Detail data
-tweak Charts
-bunch of detail sections
-GameManagerList
-
+Models Stat Service
+Get Player by Team
+Get Player Detail from parse
+Get Pitch Data from parse
+Create Charts

@@ -1,11 +1,11 @@
-login = require '../services/login'
+jwt = require 'jsonwebtoken'
 
 module.exports = (req,res,next) ->
   if (req.cookies.motus)
-    login.logIn(req.cookies.motus.email, req.cookies.motus.password)
-    .then (user) ->
-      req.currentUser = user
-      next()
+    decoded = jwt.verify(req.cookies.motus, 'shhhhh');
+    req.currentUser = decoded
+    console.log req.currentUser
+    next()
   else
     res.sendStatus(401)
   

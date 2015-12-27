@@ -24,6 +24,7 @@
     "gulp-rename": "1.2.2",
     "gulp-uglify": "1.5.1",
     "gulp-wait": "0.0.2",
+    "jsonwebtoken": "5.4.1",
     "lodash": "3.10.1",
     "optimist": "0.6.1",
     "parse": "1.6.13",
