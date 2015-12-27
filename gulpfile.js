@@ -7,31 +7,25 @@ var browserify = require('gulp-browserify'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
     os = require('os'),
-    nodemon = require('gulp-nodemon'),
+    gls = require('gulp-live-server'),
     open = require('gulp-open'),
     wait = require('gulp-wait');
     
 
 gulp.task('server', function () {
-    nodemon({
-      script: 'server.coffee'
-    , ext: 'coffee js'
-    , env: { 'NODE_ENV': 'development' }
-    })
-
-    // var server = gls('server.coffee', undefined, 35729);
-    // server.start('node_modules/coffee-script/bin/coffee');
-    //  gulp.watch(['public/**/*.less', 'public/**/*.html'], function (file) {
-    //   server.notify.apply(server, [file]);
-    // });
-    // gulp.watch(['public/*.html'], server.notify());
-    // gulp.watch(['public/views/*.html'], server.notify());
-    // gulp.watch(['public/css/*.css'], server.notify());
-    // gulp.watch(['public/js/*.js'], server.notify());
-    // gulp.watch(['public/less/*.less'], server.notify());
-    // gulp.watch(['*.coffee'], [server.run, server.notify()]);
-    // gulp.watch(['lib/**/**/**.coffee'], [server.run, server.notify()]);
-
+    var server = gls('server.coffee', undefined, 35729);
+    server.start('node_modules/coffee-script/bin/coffee');
+    gulp.watch(['public/**/*.html', 'public/**/**.css', 'public/**/**.js'], function (file) {
+      //live reload the clientside files
+      server.notify.apply(server, [file]);
+      console.log('clientside reload');
+    });
+    gulp.watch(['lib/**/**.coffee', 'server.coffee', 'routes.coffee'], function (file) {
+      // restart the server if changing serverside code
+      server.stop();
+      server.start();
+      console.log('serverside reload');
+    });
 });
 
 gulp.task('prod-server', function () {

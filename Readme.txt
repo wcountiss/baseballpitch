@@ -1,6 +1,6 @@
 Motus
+
 BlueBird Warning
-GLS Live Reload
 Heroku
 Heroku prod-server
 Env Vars
