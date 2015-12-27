@@ -23,7 +23,7 @@ module.exports.logIn = (req, res) ->
   login.logIn(req.body.email, req.body.password)
   .then (object) ->
     if (object)
-      res.cookie('motus', {email: req.body.email, password: req.body.password}, { maxAge: 900000, httpOnly: false })
+      res.cookie('motus', {email: req.body.email, password: req.body.password}, { maxAge: 90*24*60*60*1000, httpOnly: false })
       res.status(200).send(object)
     else
       res.sendStatus(401)
