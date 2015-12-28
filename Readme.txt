@@ -1,7 +1,6 @@
 Motus
-
+Signed Cookies
 Fail login never returns
-Env Vars
 Parse Models
 Models Stat Service
 Get Player by Team
