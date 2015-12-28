@@ -1,6 +1,9 @@
 Motus
+No LiveReload on Prod
 Signed Cookies
 Fail login never returns
+
+Connect to real DB in prod
 Parse Models
 Models Stat Service
 Get Player by Team
