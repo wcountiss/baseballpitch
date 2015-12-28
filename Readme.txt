@@ -1,8 +1,6 @@
 Motus
 
 Fail login never returns
-Heroku
-Heroku prod-server
 Env Vars
 Parse Models
 Models Stat Service
