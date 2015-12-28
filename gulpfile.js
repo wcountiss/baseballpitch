@@ -13,23 +13,32 @@ var browserify = require('gulp-browserify'),
     
 
 gulp.task('server', function () {
-    var server = gls('server.coffee', undefined, 35729);
-    server.start('node_modules/coffee-script/bin/coffee');
-    gulp.watch(['public/**/*.html', 'public/**/**.css', 'public/**/**.js'], function (file) {
-      //live reload the clientside files
-      server.notify.apply(server, [file]);
-    });
-    gulp.watch(['lib/**/**.coffee', 'server.coffee', 'routes.coffee'], function (file) {
-      // restart the server if changing serverside code
-      server.stop();
-      server.start();
-      console.log('serverside reload');
-    });
+  var options = {env: process.env};
+  options.env.PARSE_APP_ID= process.env.PARSE_APP_ID || '7GO2ljMX3ZAogcE2hnEjggwRDnFPrs2uVtDDEaBM',
+  options.env.PARSE_JS_KEY=process.env.PARSE_JS_KEY || 'OcWFRuUQxR8Oq5kR48tUjPQ1jk81v9RBGMy2f9AR',
+  options.env.JWT_PASS=process.env.JWT_PASS || 'shhhhh',
+  options.env.COOKIE_PASS=process.env.COOKIE_PASS || 'shhhhhhhhhh'
+  var server = gls('server.coffee', options, 35729);
+  server.start('node_modules/coffee-script/bin/coffee');
+  gulp.watch(['public/**/*.html', 'public/**/**.css', 'public/**/**.js'], function (file) {
+    //live reload the clientside files
+    server.notify.apply(server, [file]);
+  });
+  gulp.watch(['lib/**/**.coffee', 'server.coffee', 'routes.coffee'], function (file) {
+    // restart the server if changing serverside code
+    server.stop();
+    server.start();
+  });
 });
 
 gulp.task('prod-server', function () {
-    // var server = gls('server.coffee', undefined);
-    // server.start('node_modules/coffee-script/bin/coffee');
+    var options = {env: process.env};
+    options.env.PARSE_APP_ID= process.env.PARSE_APP_ID || '7GO2ljMX3ZAogcE2hnEjggwRDnFPrs2uVtDDEaBM',
+    options.env.PARSE_JS_KEY=process.env.PARSE_JS_KEY || 'OcWFRuUQxR8Oq5kR48tUjPQ1jk81v9RBGMy2f9AR',
+    options.env.JWT_PASS=process.env.JWT_PASS || 'shhhhh',
+    options.env.COOKIE_PASS=process.env.COOKIE_PASS || 'shhhhhhhhhh'
+    var server = gls('server.coffee', options);
+    server.start('node_modules/coffee-script/bin/coffee');
 });
 
 

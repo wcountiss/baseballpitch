@@ -1,9 +1,9 @@
 Motus
+No LiveReload on Prod
+Signed Cookies
+Fail login never returns
 
-BlueBird Warning
-Heroku
-Heroku prod-server
-Env Vars
+Connect to real DB in prod
 Parse Models
 Models Stat Service
 Get Player by Team

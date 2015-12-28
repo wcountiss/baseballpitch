@@ -2,7 +2,7 @@ _ = require 'lodash'
 Promise = require 'bluebird'
 Parse = require('parse/node')
 
-Parse.initialize("7GO2ljMX3ZAogcE2hnEjggwRDnFPrs2uVtDDEaBM", "OcWFRuUQxR8Oq5kR48tUjPQ1jk81v9RBGMy2f9AR");
+Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_JS_KEY);
 
 module.exports.find = (collectionName, query) ->
   ParseObject = Parse.Object.extend(collectionName)
