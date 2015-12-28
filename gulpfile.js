@@ -32,7 +32,12 @@ gulp.task('server', function () {
 });
 
 gulp.task('prod-server', function () {
-    var server = gls('server.coffee', undefined);
+    var options = {env: process.env};
+    options.env.PARSE_APP_ID= process.env.PARSE_APP_ID || '7GO2ljMX3ZAogcE2hnEjggwRDnFPrs2uVtDDEaBM',
+    options.env.PARSE_JS_KEY=process.env.PARSE_JS_KEY || 'OcWFRuUQxR8Oq5kR48tUjPQ1jk81v9RBGMy2f9AR',
+    options.env.JWT_PASS=process.env.JWT_PASS || 'shhhhh',
+    options.env.COOKIE_PASS=process.env.COOKIE_PASS || 'shhhhhhhhhh'
+    var server = gls('server.coffee', options);
     server.start('node_modules/coffee-script/bin/coffee');
 });
 
