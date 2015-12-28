@@ -1,6 +1,6 @@
 Motus
 
-BlueBird Warning
+Fail login never returns
 Heroku
 Heroku prod-server
 Env Vars

@@ -28,8 +28,8 @@ gulp.task('server', function () {
 });
 
 gulp.task('prod-server', function () {
-    // var server = gls('server.coffee', undefined);
-    // server.start('node_modules/coffee-script/bin/coffee');
+    var server = gls('server.coffee', undefined);
+    server.start('node_modules/coffee-script/bin/coffee');
 });
 
 
