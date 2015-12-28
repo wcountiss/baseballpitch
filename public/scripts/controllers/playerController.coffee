@@ -79,9 +79,9 @@ angular.module('motus').controller('playerController',
       $scope.overviewActiveTrendsIcon = true
 
     # Side Buttons Initial State
-    $scope.homeSideButtonActive = false
+    $scope.homeSideButtonActive = true
     $scope.trendsSideButtonActive = false
-    $scope.kineticSideButtonActive = true
+    $scope.kineticSideButtonActive = false
     $scope.ballreleaseSideButtonActive = false
     $scope.footcontactSideButtonActive = false
     $scope.maxexcursionSideButtonActive = false
