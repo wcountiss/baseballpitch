@@ -10,21 +10,23 @@
             <div class="login-box">
               <form action="" ng-submit="login()">
                 <div class="login-input-email">
-                  <label>Email</label>
-                  <input type="email" ng-model="email">
+                  <input type="email" ng-model="email" placeholder="Username" required>
                 </div>
 
-                <div class="login-input-password" required>
-                  <label>Password</label>
-                  <input type="password" ng-model="password" required>
+                <div class="login-input-password">
+                  <input type="password" ng-model="password" placeholder="Password" required>
                 </div>
 
                 <div class="login-buttons">
                   <!--<button ng-click="signUp()">Sign Up</button>-->
-                  <input type="submit" id="submit" value="Login">
+                  <input type="submit" id="submit" value="Enter the dashboard">
                   <!--<button ng-click="login()">Login</button>-->
                 </div>
               </form>
+              <div class="forgot-username-password">
+                <a href=""><span>Forgot Username</span></a>
+                <a href=""><span>Forgot Password</span></a>
+              </div>
             </div>
           </div>
         </div>
