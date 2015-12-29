@@ -7,11 +7,11 @@ var browserify = require('gulp-browserify'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
     os = require('os'),
+    injectReload = require('gulp-inject-reload'),
     gls = require('gulp-live-server'),
     open = require('gulp-open'),
     wait = require('gulp-wait');
     
-
 gulp.task('server', function () {
   var options = {env: process.env};
   options.env.PARSE_APP_ID= process.env.PARSE_APP_ID || '7GO2ljMX3ZAogcE2hnEjggwRDnFPrs2uVtDDEaBM',
@@ -72,9 +72,16 @@ gulp.task('less', function(){
     .pipe(gulp.dest("public/build/css"))
 })
 
+gulp.task('pages', function(){
+    return gulp.src('public/views/index.html')
+      .pipe(injectReload())
+      .pipe(gulp.dest('public/build/views'))
+});
+
 gulp.task('watch', ['clean'], function () {
   gulp.watch('public/scripts/**', ['scripts']);
   gulp.watch('public/less/**', ['less']);
+  gulp.watch('public/views/index.html', ['pages']);
 });
 
 gulp.task('url', function(){
@@ -85,7 +92,7 @@ gulp.task('url', function(){
 
 
 gulp.task('production', ['prod-server', 'clean', 'less', 'scripts'], function() {});
-gulp.task('development', ['server','clean', 'less', 'scripts', 'watch', 'url'], function() {});
+gulp.task('development', ['server','clean', 'less', 'scripts', 'pages', 'watch', 'url'], function() {});
 
 
 gulp.task('default', [process.env["NODE_ENV"] || 'development']);
