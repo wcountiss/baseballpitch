@@ -1,6 +1,7 @@
 angular.module('motus').controller('indexController', 
-['$scope'
-  ($scope) ->
+['$scope', '$state'
+  ($scope, $state) ->
+    $scope.state = $state
 
 ])      
      

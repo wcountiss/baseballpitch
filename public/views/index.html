@@ -22,13 +22,12 @@
         <script src="scripts/directives/angular-d3.js"></script>
         <script src="//localhost:35729/livereload.js"></script>
 
-
         <!-- Latest compiled -->
         <link rel="stylesheet" type="text/css" href="./css/app.css">
     </head>
 
-    <body id="app" ng-controller="indexController as _indexController">
-        <header ng-include src="'views/header.html'"></header>
+    <body id="app" ng-controller="indexController as _indexController">        
+        <header ng-if="state.current.authenticate" ng-include src="'views/header.html'"></header>
 
         <main id="main-content">
           <div ui-view></div>
