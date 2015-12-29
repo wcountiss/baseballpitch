@@ -194,6 +194,7 @@
         color: black;
         display: flex;
         flex:1;
+        margin-left:1.5em;
         > span {
           font-family:"Arial Black";
           padding-left: 1px;
@@ -201,7 +202,7 @@
           font-size: 35px;
         }
         span.icon-hips {
-          font-size:35px;
+          font-size:45px;
         }
         span.icon-stride {
           font-size:35px;
@@ -211,6 +212,9 @@
           font-weight:bold;
           display: flex;
           flex-direction:column;
+          .nested-hip-icon-padding {
+            padding-top: 6px;
+          }
           .yellow-footer {
             color: #ffe966;
           }
@@ -390,7 +394,16 @@
       }
     }
   }
+  /* Medium Devices, Desktops */
+  @media (max-width: 1024px) {
 
+    .nested-view .pitcher-silhouette piestats {
+      transform: translate(-50%, -50%) scale(.6);
+    }
+    .nested-view .pitcher-silhouette piestats:nth-child(5) {
+      transform: translate(-50%, -50%) scale(.5);
+    }
+  }
   /* Small Devices, Tablets */
   @media (max-width: 768px) {
     .nested-view .pitcher-silhouette piestats {
