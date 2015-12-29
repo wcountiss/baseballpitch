@@ -1,10 +1,27 @@
 <div id="login">
-  Email
-  <input type="text" ng-model="email"></input>
+  <div class="motus-svg-logo">
+    <img alt="Motus Logo" src='../images/motus-logo.svg'>
+  </div>
+  <div class="player-box-shadow">
+    <div class="padding-box">
+      <div class="login-box">
+        <div class="login-input-email">
+          <label>Email</label>
+          <input type="email" ng-model="email">
+        </div>
 
-  Password
-  <input type="text" ng-model="password"></input>
+        <div class="login-input-password">
+          <label>Password</label>
+          <input type="password" ng-model="password">
+        </div>
 
-  <button ng-click="signUp()">Sign Up</button>
-  <button ng-click="login()">Login</button>
+        <div class="login-buttons">
+          <button ng-click="signUp()">Sign Up</button>
+          <button ng-click="login()">Login</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
 </div>
