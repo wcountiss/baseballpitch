@@ -15,7 +15,8 @@ angular.module('motus').controller('playerController',
 
     #random stats
     statNames = ['arm','throwShoulder','otherShoulder','hip','foot']
-    _.each statNames, (stat) ->
+    statSlices = [10,10,9,8,6]
+    _.each statNames, (stat, i) ->
       scores = [
         { order: 1, score: 100, weight: 1, label: "Rotation" }
         { order: 1, score: 100, weight: 1, label: "Movement" }
@@ -32,9 +33,9 @@ angular.module('motus').controller('playerController',
         randomNum = randomNumber(0,3)
         score.color = colorOptions[randomNum]
         score.tooltip = toolTipOptions[randomNum]
-      #random number of slices
-      scores = _.slice(scores, 0, randomNumber(4,10))
-      $scope[stat] = scores
+      #Number of slices
+      score = _.slice(scores, 0, statSlices[i])
+      $scope[stat] = score
 
     getPlayers = () ->
       $http.post("player/find",  { teamId: $scope.teamId })

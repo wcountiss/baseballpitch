@@ -329,39 +329,40 @@
 
 
   /*==========  Mobile Options ==========*/
- /* Custom, iPhone Retina */
-  @media  (min-width: 320px) {
+/* Large Devices, Wide Screens */
+  @media (max-width: 1200px) {
     .nested-view .pitcher-silhouette piestats {
-      transform: translate(-50%, -50%) scale(.5) ;
-    }
-  }
-
-  /* Extra Small Devices, Phones */
-  @media  (min-width: 480px) {
-    .nested-view .pitcher-silhouette piestats {
-      transform: translate(-50%, -50%) scale(.6)
-    }
-  }
-
-  /* Small Devices, Tablets */
-  @media (min-width: 768px) {
-    .nested-view .pitcher-silhouette piestats {
-      transform: translate(-50%, -50%) scale(.7);
+      transform: translate(-50%, -50%) scale(.9) ;
     }
   }
 
   /* Medium Devices, Desktops */
-  @media (min-width: 992px) {
+  @media (max-width: 992px) {
     .nested-view .pitcher-silhouette piestats {
-      transform: translate(-50%, -50%) scale(1) ;
+      transform: translate(-50%, -50%) scale(.75) ;
     }
   }
 
-  /* Large Devices, Wide Screens */
-  @media (min-width: 1200px) {
+  /* Small Devices, Tablets */
+  @media (max-width: 768px) {
     .nested-view .pitcher-silhouette piestats {
-      transform: translate(-50%, -50%) scale(1.2) ;
+      transform: translate(-50%, -50%) scale(.6);
     }
   }
+
+  /* Extra Small Devices, Phones */
+  @media  (max-width: 480px) {
+    .nested-view .pitcher-silhouette piestats {
+      transform: translate(-50%, -50%) scale(.5)
+    }
+  }
+
+  /* Custom, iPhone Retina */
+  @media  (max-width: 320px) {
+    .nested-view .pitcher-silhouette piestats {
+      transform: translate(-50%, -50%) scale(.4) ;
+    }
+  }
+
 
 }
