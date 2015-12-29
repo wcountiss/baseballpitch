@@ -1,5 +1,4 @@
 Motus
-No LiveReload on Prod
 Signed Cookies
 Fail login never returns
 

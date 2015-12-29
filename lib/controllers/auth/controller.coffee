@@ -24,7 +24,7 @@ module.exports.logIn = (req, res) ->
   .then (user) ->
     if (user)
       token = jwt.sign(user, process.env.JWT_PASS)
-      res.cookie('motus', token, { maxAge: 90*24*60*60*1000, httpOnly: false })
+      res.cookie('motus', token, { maxAge: 90*24*60*60*1000, signed: true })
       res.status(200).send(user)
     else
       res.sendStatus(401)

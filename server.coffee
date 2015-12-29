@@ -6,12 +6,13 @@ cookieParser = require('cookie-parser')
 #express app
 app = express()
 
-#Parse Body for posts
-app.use(bodyParser.json())
 #Compress any static files under 1k
 app.use(compression())
 #parse cookies
-app.use(cookieParser())
+app.use(cookieParser(process.env.COOKIE_PASS))
+#Parse Body for posts
+app.use(bodyParser.json())
+
 
 #load up routers
 require('./routes')(app)
