@@ -30,7 +30,7 @@ app.run ($rootScope, $state, $cookies) ->
     #if not logged in, go to login screen
     if (toState.authenticate && !$cookies.get('motus'))
       #User isn’t authenticated
-      $state.transitionTo("login")
+      $state.go("login")
       event.preventDefault()
 
 require './controllers/indexController.coffee'    
