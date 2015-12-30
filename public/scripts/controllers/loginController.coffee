@@ -8,7 +8,6 @@ angular.module('motus').controller('loginController',
 
 
     $scope.login = () ->
-      event.preventDefault();
       $http.post("auth/login",  { email: $scope.email, password: $scope.password })
       .success (result) ->
         $state.transitionTo('player')
