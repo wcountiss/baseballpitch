@@ -33,6 +33,7 @@
     "uglifyify": "3.0.1"
   },
   "scripts": {
+    "postinstall": "gulp",
     "start": "gulp"
   },
   "engines": {

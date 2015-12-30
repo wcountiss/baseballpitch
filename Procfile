@@ -1,1 +1,1 @@
-web: gulp
+web: coffee server.coffee
