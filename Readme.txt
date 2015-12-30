@@ -1,5 +1,4 @@
 Motus
-Signed Cookies
 Fail login never returns
 
 Connect to real DB in prod
