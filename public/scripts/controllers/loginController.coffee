@@ -10,7 +10,8 @@ angular.module('motus').controller('loginController',
     $scope.login = () ->
       $http.post("auth/login",  { email: $scope.email, password: $scope.password })
       .success (result) ->
-        window.location = '/#/player'
- 
+        $state.transitionTo('player')
+      .error (error) ->
+        debugger;
 ])      
      
