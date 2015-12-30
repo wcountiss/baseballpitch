@@ -28,6 +28,7 @@ app = angular.module 'motus', ['ui.router','ngCookies','d3', 'ngAnimate'],
 app.run ($rootScope, $state, $cookies) ->
   $rootScope.$on "$stateChangeStart", (event, toState, toParams, fromState, fromParams) ->
     #if not logged in, go to login screen
+    debugger;
     if (toState.authenticate && !$cookies.get('motus'))
       #User isn’t authenticated
       $state.go("login")

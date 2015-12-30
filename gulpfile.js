@@ -91,7 +91,7 @@ gulp.task('url', function(){
 });
 
 
-gulp.task('production', ['less', 'scripts', 'prod-server'], function() {});
+gulp.task('production', ['less', 'scripts'], function() {});
 gulp.task('development', ['clean', 'less', 'scripts', 'pages', 'watch', 'server', 'url'], function() {});
 
 
