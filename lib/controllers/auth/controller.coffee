@@ -18,3 +18,12 @@ module.exports.logIn = (req, res) ->
   .catch (error) ->
     console.log error
     res.status(500).send('user not found')
+
+module.exports.forgotPassword = (req, res) ->
+  #forgotPassword
+  login.forgotPassword(req.body.email)
+  .then () ->
+    res.sendStatus(200)
+  .catch (error) ->
+    console.log error
+    res.status(500).send('error requesting password reset')

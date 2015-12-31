@@ -10,6 +10,13 @@ app = angular.module 'motus', ['ui.router','ngCookies','d3', 'ngAnimate'],
       controller: 'loginController'
       authenticate: false
     })
+    $stateProvider
+    .state('forgotPassword', {
+      url: "/forgotPassword",
+      templateUrl: "views/forgotPassword.html",
+      controller: 'forgotPasswordController'
+      authenticate: false
+    })
     .state('player', {
       url: "/player",
       templateUrl: "views/player.html",
@@ -36,4 +43,5 @@ app.run ($rootScope, $state, $cookies) ->
 require './controllers/indexController.coffee'    
 require './controllers/playerController.coffee'
 require './controllers/loginController.coffee'
+require './controllers/forgotPasswordController.coffee'
 require './controllers/adminController.coffee'

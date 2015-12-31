@@ -12,3 +12,12 @@ module.exports.logIn = (email, password) ->
         console.log("Error: " + error.code + " " + error.message); 
         reject(new Error('user not found'))
     });
+
+module.exports.forgotPassword = (email) ->
+  return new Promise (resolve, reject) ->
+    Parse.User.requestPasswordReset(email, {
+      success: () -> resolve(),
+      error: (error) -> 
+        console.log("Error: " + error.code + " " + error.message); 
+        reject(new Error('Error requesting password reset'))
+    });

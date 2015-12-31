@@ -7,6 +7,12 @@ Models Stat Service
 Create Charts
 
 
+Front End ToDos
+Login Failed Message
+Forgot Password Message on Submit or redirect to login
+ForgotPassword should take the email in from the login screen if they typed it in
+
+
 
 Later fixes, got working for now
 login - ?#/login
