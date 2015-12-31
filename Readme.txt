@@ -1,10 +1,11 @@
 Motus
+login - ?#/player
 Fail login never returns 
+10 redirects on root
 
 Connect to real DB in prod
-Parse Models
+Parse gets by days ago
+Parse get Elite
+
 Models Stat Service
-Get Player by Team
-Get Player Detail from parse
-Get Pitch Data from parse
 Create Charts

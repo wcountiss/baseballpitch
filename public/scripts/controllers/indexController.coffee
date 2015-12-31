@@ -5,7 +5,7 @@ angular.module('motus').controller('indexController',
 
     $scope.logOut = () ->
       $cookies.remove('motus')
-      $state.go('login')
-
+      # $state.go('login')
+      window.location = '?#/login'
 ])      
      

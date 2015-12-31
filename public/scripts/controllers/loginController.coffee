@@ -12,6 +12,6 @@ angular.module('motus').controller('loginController',
       .success (result) ->
         $state.go('player')
       .error (error) ->
-        debugger;
+        console.log error
 ])      
      

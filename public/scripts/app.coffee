@@ -23,15 +23,15 @@ app = angular.module 'motus', ['ui.router','ngCookies','d3', 'ngAnimate'],
       authenticate: true
     })
     #starting page
-    $urlRouterProvider.otherwise("player");
+    $urlRouterProvider.otherwise("/player");
 
 app.run ($rootScope, $state, $cookies) ->
   $rootScope.$on "$stateChangeStart", (event, toState, toParams, fromState, fromParams) ->
     #if not logged in, go to login screen
     if (toState.authenticate && !$cookies.get('motus'))
-      #User isn’t authenticated
-      $state.go("login")
-      event.preventDefault()
+      #User isn’t authenticated, not sure why I have to do this
+      window.location = '?#/login'
+      # $state.go("login")
 
 require './controllers/indexController.coffee'    
 require './controllers/playerController.coffee'
