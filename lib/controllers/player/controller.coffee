@@ -10,7 +10,7 @@ module.exports.save = (req, res) ->
   database.save('player', { playerName: req.body.playerName, teamId: +req.body.teamId })
   .then (object) ->
     res.sendStatus(200)
-  .error (error) ->
+  .catch (error) ->
     console.log error
     res.sendStatus(500)
 
@@ -20,4 +20,8 @@ module.exports.find = (req, res) ->
   database.find('player', { teamId: req.body.teamId })
   .then (results) ->
     res.send(results)
+  .catch (error) ->
+    console.log error
+    res.sendStatus(500)
+
  

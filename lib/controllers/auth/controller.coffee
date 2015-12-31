@@ -1,19 +1,6 @@
 login = require '../../services/login'
 jwt = require 'jsonwebtoken'
 
-module.exports.signUp = (req, res) ->
-  #simple validation, replace with parseModel later
-  if !req.body.email || !req.body.password
-    res.sendStatus(500)
-
-  #Sign the user Up
-  login.signUp(req.body.email, req.body.password)
-  .then (object) ->
-    res.sendStatus(200)
-  .error (error) ->
-    console.log error
-    res.sendStatus(500)
-
 module.exports.logIn = (req, res) ->
   #simple validation, replace with parseModel later
   if !req.body.email || !req.body.password
@@ -28,6 +15,6 @@ module.exports.logIn = (req, res) ->
       res.status(200).send(user)
     else
       res.sendStatus(401)
-  .error (user,error) ->
+  .catch (error) ->
     console.log error
-    res.sendStatus(500)
+    res.status(500).send('user not found')
