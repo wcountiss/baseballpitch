@@ -1,12 +1,51 @@
 Motus
-Connect to real DB in prod
-Save pointer to jwt?
+End of Week 1: Assumption: We have Elite data and thresholds uploaded in Parse
+Login Pages and Components
+Get last 30 days of pitches from parse by Player
+Get Elite Data from parse
 
-Parse gets by days ago
-Parse get Elite
+End of Week 2: Assumption: We have Elite data and thresholds uploaded in Parse, We know all 42 points and data type, Have snapshot images and images
+Basic Stat Service Setup gets current data and augment data not in Parse as random
+Add to Stat Service Average of dataset
+Add to Stat Service Each Category Rating
+Add to Stat Service Player Rating
+Add to Stat Service Get LongToss, BullPen, Game tags
+Add to Stat Service Calculate "Awards"
+Add to Stat Service Filter Data by -30 days and Sessions 
 
-Models Stat Service
-Create Charts
+End of Week 3: Assumption: Pitch Data is in Parse
+Sync Service with Real Data
+Couch View of Players in Team Overview
+Coach View of Line Chart in Team Overview
+SnapShot Charts
+
+End of Week 4: Assumption: Pitch Data is in Parse
+Add to Stat Service get Metric Rating
+Player Analysis Pie Charts
+Player Analysis Natural Language Descriptions
+Player Analysis Overview Chart
+Player Analysis 
+
+End of Week 5: Assumption: Pitch Data is in Parse
+Player Analysis Trend Chart - Bar Graph
+Player Analysis Session Throw Chart
+
+End of Week 6:  Assumption: Kinetic Data is in Parse, Game Manager Data is in Parse
+Final Feedback for Launch
+Parse get Players by Game Manager
+Game Manager View
+Start Kinetic Charts
+
+End of Week 7  Assumption: Kinetic Data is in Parse
+Player Analysis Kinetic Chart Timing
+Player Analysis Kinetic Chart Force
+Add Google Analytics
+
+End of Week 8
+Feedback
+Player View
+Download Data in Excel
+Tagging Throws on Tagging Chart
 
 
 Front End ToDos
@@ -18,3 +57,4 @@ ForgotPassword should take the email in from the login screen if they typed it i
 
 Later fixes, got working for now
 login - ?#/login
+Warning on promise - promise was created but not handled
