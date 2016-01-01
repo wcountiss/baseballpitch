@@ -17,7 +17,7 @@ module.exports.save = (req, res) ->
 module.exports.find = (req, res) -> 
   #find players by keys.
   #Team Id should come from the session based on login and be secure. unless you are an admin
-  database.find('TeamMember', { team: req.currentUser.MTTeams[0]}, { include: ['AthleteProfile']})
+  database.find('TeamMember', { team: req.currentUser.MTTeams[0]}, { include: ['athleteProfile']})
   .then (results) ->
     console.log results
     res.send(results)

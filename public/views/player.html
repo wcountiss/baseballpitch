@@ -6,7 +6,7 @@
         <h2>Roster <span class="icon-compare"></span></h2>
         <ul class="player-names">
           <li class="" ng-class="{'selected': currentPlayer.playerName == player.playerName }" ng-repeat="player in playerRoster" ng-click="selectedPlayer(player)">
-            <p>{{player.playerName}}</p>
+            <p>{{::player.athleteProfile.firstName}} {{::player.athleteProfile.lastName}}</p>
             <span class="icon-longtoss" ng-class="{'green-icon': player.longThrow}"></span>
             <span class="icon-bullpen" ng-class="{'green-icon': player.bullPen}"></span>
             <span class="icon-game" ng-class="{'green-icon': player.base}"></span>
