@@ -1,5 +1,7 @@
 Motus
 Connect to real DB in prod
+Save pointer to jwt?
+
 Parse gets by days ago
 Parse get Elite
 

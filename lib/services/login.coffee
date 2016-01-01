@@ -1,13 +1,33 @@
 _ = require 'lodash'
 Promise = require 'bluebird'
 Parse = require('parse/node')
+database = require './database'
 
-Parse.initialize("7GO2ljMX3ZAogcE2hnEjggwRDnFPrs2uVtDDEaBM", "OcWFRuUQxR8Oq5kR48tUjPQ1jk81v9RBGMy2f9AR");
+Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_JS_KEY)
+
+module.exports.getUser = (userObjectId) ->
+  return new Promise (resolve, reject) ->
+    userQuery = new Parse.Query(Parse.User);
+    userQuery.equalTo("objectId", userObjectId);
+    userQuery.first({
+      success: (user) ->
+        resolve user
+      ,
+      error: (error) ->
+        console.log error
+        reject error
+    })
 
 module.exports.logIn = (email, password) ->
   return new Promise (resolve, reject) ->
     Parse.User.logIn(email, password, {
-      success: (user) -> resolve user.attributes,
+      success: (user) ->
+        user.fetch()
+        .then((user) ->
+          resolve user
+        ,(error) ->
+          console.log error
+        )
       error: (user, error) -> 
         console.log("Error: " + error.code + " " + error.message); 
         reject(new Error('user not found'))

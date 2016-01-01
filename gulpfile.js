@@ -14,8 +14,8 @@ var browserify = require('gulp-browserify'),
     
 gulp.task('server', function () {
   var options = {env: process.env};
-  options.env.PARSE_APP_ID= process.env.PARSE_APP_ID || '7GO2ljMX3ZAogcE2hnEjggwRDnFPrs2uVtDDEaBM',
-  options.env.PARSE_JS_KEY=process.env.PARSE_JS_KEY || 'OcWFRuUQxR8Oq5kR48tUjPQ1jk81v9RBGMy2f9AR',
+  options.env.PARSE_APP_ID= process.env.PARSE_APP_ID || 'ALJhzeUWvXCauUXacwFjEIsjghkx1ZnZoCV0dhye',
+  options.env.PARSE_JS_KEY=process.env.PARSE_JS_KEY || 'pCl0dZbm1RtPBXaG0hHnzWH1mjHCiSFP1u5akmw7',
   options.env.JWT_PASS=process.env.JWT_PASS || 'shhhhh',
   options.env.COOKIE_PASS=process.env.COOKIE_PASS || 'shhhhhhhhhh'
   var server = gls('server.coffee', options, 35729);
