@@ -1,6 +1,6 @@
 angular.module('motus').controller('playerController',
-  ['$scope', '$http', 'currentPlayerFactory'
-    ($scope, $http, currentPlayerFactory) ->
+  ['$scope', '$http', 'currentPlayerFactory', '$state'
+    ($scope, $http, currentPlayerFactory, $state) ->
 #Grab data from the factory service
       cpf = currentPlayerFactory
       # Random number to generate boolean for Roster list icon colors
@@ -64,10 +64,12 @@ angular.module('motus').controller('playerController',
 
       #Page Load
       getPlayers()
-
+      console.log($state);
       $scope.selectedPlayer = (selected) ->
         cpf.currentPlayer = selected
         $scope.currentPlayer = cpf.currentPlayer
+        myState = $state.current.name
+        $state.reload(myState)
 
       # Icons for the Overview
       # Will highlight which one is active, and will eventually change the nested view here
