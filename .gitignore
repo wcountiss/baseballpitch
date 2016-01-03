@@ -56,3 +56,6 @@ bower_components/
 # Build #
 #########
 public/build/
+
+#time log
+timelog.txt
