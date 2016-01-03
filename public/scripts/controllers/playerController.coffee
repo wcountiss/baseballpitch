@@ -1,46 +1,48 @@
 angular.module('motus').controller('playerController',
-['$scope', '$http', 'currentPlayerFactory', '$state'
-  ($scope, $http, currentPlayerFactory, $state) ->
-    #Grab data from the factory service
-    cpf = currentPlayerFactory
-    # Random number to generate boolean for Roster list icon colors
-    randomBoolean = () ->
-      !(Math.random()+.5|0)
-    randomNumber = (min, max) ->
-      Math.floor(Math.random() * max + min)
+  ['$scope', '$http', 'currentPlayerFactory'
+    ($scope, $http, currentPlayerFactory) ->
+#Grab data from the factory service
+      cpf = currentPlayerFactory
+      # Random number to generate boolean for Roster list icon colors
+      randomBoolean = () ->
+        !(Math.random()+.5|0)
+      randomNumber = (min, max) ->
+        Math.floor(Math.random() * max + min)
 
-    colorOptions = [ '#e35746', '#ffe966', '#00a339' ]
-    toolTipOptions = [ 'Bad', 'Ok', 'Good' ]
+      colorOptions = [ '#e35746', '#ffe966', '#00a339' ]
+      toolTipOptions = [ 'Bad', 'Ok', 'Good' ]
 
-    #random stats
-    statNames = ['arm','throwShoulder','otherShoulder','hip','foot']
-    statSlices = [10,10,9,8,6]
-    _.each statNames, (stat, i) ->
-      scores = [
-        { order: 1, score: 100, weight: 1, label: "Rotation" }
-        { order: 1, score: 100, weight: 1, label: "Movement" }
-        { order: 1, score: 100, weight: 1, label: "Force" }
-        { order: 1, score: 100, weight: 1, label: "Acceleration" }
-        { order: 1, score: 100, weight: 1, label: "Timing" }
-        { order: 1, score: 100, weight: 1, label: "Deceleration" }
-        { order: 1, score: 100, weight: 1, label: "Velocity" }
-        { order: 1, score: 100, weight: 1, label: "Momentum" }
-        { order: 1, score: 100, weight: 1, label: "Distance" }
-        { order: 1, score: 100, weight: 1, label: "Rate" }
-      ]
-      _.each scores, (score) ->
-        randomNum = randomNumber(0,3)
-        score.color = colorOptions[randomNum]
-        score.tooltip = toolTipOptions[randomNum]
-      #Number of slices
-      score = _.slice(scores, 0, statSlices[i])
-      $scope[stat] = score
+      #random stats
+      statNames = ['arm','throwShoulder','otherShoulder','hip','foot']
+      statSlices = [10,10,9,8,6]
+      _.each statNames, (stat, i) ->
+        scores = [
+          { order: 1, score: 100, weight: 1, label: "Rotation" }
+          { order: 1, score: 100, weight: 1, label: "Movement" }
+          { order: 1, score: 100, weight: 1, label: "Force" }
+          { order: 1, score: 100, weight: 1, label: "Acceleration" }
+          { order: 1, score: 100, weight: 1, label: "Timing" }
+          { order: 1, score: 100, weight: 1, label: "Deceleration" }
+          { order: 1, score: 100, weight: 1, label: "Velocity" }
+          { order: 1, score: 100, weight: 1, label: "Momentum" }
+          { order: 1, score: 100, weight: 1, label: "Distance" }
+          { order: 1, score: 100, weight: 1, label: "Rate" }
+        ]
+        _.each scores, (score) ->
+          randomNum = randomNumber(0,3)
+          score.color = colorOptions[randomNum]
+          score.tooltip = toolTipOptions[randomNum]
+        #Number of slices
+        score = _.slice(scores, 0, statSlices[i])
+        $scope[stat] = score
 
-    getPlayers = () ->
-      $http.post("player/all")
-      .success (players) ->
-        $http.post("pitch/findByAthleteProfiles",{ athleteProfileIds: _.pluck(players,'athleteProfile.objectId') })
+      getPlayers = () ->
+        $http.post("pitch")
         .success (pitches) ->
+          console.log pitches
+
+        $http.post("player")
+        .success (players) ->
           pitches = ['right', 'left']
           position = ['starter', 'relief', 'closer']
 
@@ -60,45 +62,30 @@ angular.module('motus').controller('playerController',
           $scope.currentPlayer = cpf.currentPlayer
           console.log($scope.currentPlayer)
 
-    #Page Load
-    getPlayers()
+      #Page Load
+      getPlayers()
 
-    $scope.selectedPlayer = (selected) ->
-      cpf.currentPlayer = selected
-      $scope.currentPlayer = cpf.currentPlayer
-      $state.reload();
+      $scope.selectedPlayer = (selected) ->
+        cpf.currentPlayer = selected
+        $scope.currentPlayer = cpf.currentPlayer
 
-
-    # Icons for the Overview
-    # Will highlight which one is active, and will eventually change the nested view here
-    $scope.overviewActiveEyeIcon = true
-    $scope.overviewActiveTrendsIcon = false
-
-    # Sets the Eye as Active icon
-    $scope.overviewActiveEye = () ->
+      # Icons for the Overview
+      # Will highlight which one is active, and will eventually change the nested view here
       $scope.overviewActiveEyeIcon = true
       $scope.overviewActiveTrendsIcon = false
 
-    # Sets the Trend chart as active
-    $scope.overviewActiveTrend = () ->
-      $scope.overviewActiveEyeIcon = false
-      $scope.overviewActiveTrendsIcon = true
+      # Sets the Eye as Active icon
+      $scope.overviewActiveEye = () ->
+        $scope.overviewActiveEyeIcon = true
+        $scope.overviewActiveTrendsIcon = false
 
-    # Side Buttons Initial State
-    $scope.homeSideButtonActive = true
-    $scope.trendsSideButtonActive = false
-    $scope.kineticSideButtonActive = false
-    $scope.ballreleaseSideButtonActive = false
-    $scope.footcontactSideButtonActive = false
-    $scope.maxexcursionSideButtonActive = false
-    $scope.jointkineticsSideButtonActive = false
+      # Sets the Trend chart as active
+      $scope.overviewActiveTrend = () ->
+        $scope.overviewActiveEyeIcon = false
+        $scope.overviewActiveTrendsIcon = true
 
-    # Side Button Functions
-    # These functions change one button boolean to true, and others to false.
-
-    # Set all Icons to false
-    setAlltoFalse = ->
-      $scope.homeSideButtonActive = false
+      # Side Buttons Initial State
+      $scope.homeSideButtonActive = true
       $scope.trendsSideButtonActive = false
       $scope.kineticSideButtonActive = false
       $scope.ballreleaseSideButtonActive = false
@@ -106,38 +93,51 @@ angular.module('motus').controller('playerController',
       $scope.maxexcursionSideButtonActive = false
       $scope.jointkineticsSideButtonActive = false
 
-    # Side button Home Active
-    $scope.homeIsActive = () ->
-      setAlltoFalse()
-      $scope.homeSideButtonActive = true
+      # Side Button Functions
+      # These functions change one button boolean to true, and others to false.
 
-    # Side button Trends Active
-    $scope.trendsIsActive = () ->
-      setAlltoFalse()
-      $scope.trendsSideButtonActive = true
+      # Set all Icons to false
+      setAlltoFalse = ->
+        $scope.homeSideButtonActive = false
+        $scope.trendsSideButtonActive = false
+        $scope.kineticSideButtonActive = false
+        $scope.ballreleaseSideButtonActive = false
+        $scope.footcontactSideButtonActive = false
+        $scope.maxexcursionSideButtonActive = false
+        $scope.jointkineticsSideButtonActive = false
 
-    # Side button Kinetic Chain Active
-    $scope.kineticIsActive = () ->
-      setAlltoFalse()
-      $scope.kineticSideButtonActive = true
+      # Side button Home Active
+      $scope.homeIsActive = () ->
+        setAlltoFalse()
+        $scope.homeSideButtonActive = true
 
-    # Side button Ballrelease Active
-    $scope.ballreleaseIsActive = () ->
-      setAlltoFalse()
-      $scope.ballreleaseSideButtonActive = true
+      # Side button Trends Active
+      $scope.trendsIsActive = () ->
+        setAlltoFalse()
+        $scope.trendsSideButtonActive = true
 
-    # Side button Foot contact Active
-    $scope.footcontactIsActive = () ->
-      setAlltoFalse()
-      $scope.footcontactSideButtonActive = true
+      # Side button Kinetic Chain Active
+      $scope.kineticIsActive = () ->
+        setAlltoFalse()
+        $scope.kineticSideButtonActive = true
 
-    # Side button Max excursion Active
-    $scope.maxexcursionIsActive = () ->
-      setAlltoFalse()
-      $scope.maxexcursionSideButtonActive = true
+      # Side button Ballrelease Active
+      $scope.ballreleaseIsActive = () ->
+        setAlltoFalse()
+        $scope.ballreleaseSideButtonActive = true
 
-    # Side button Joint kinetics Active
-    $scope.jointkineticsIsActive = () ->
-      setAlltoFalse()
-      $scope.jointkineticsSideButtonActive = true
-])
+      # Side button Foot contact Active
+      $scope.footcontactIsActive = () ->
+        setAlltoFalse()
+        $scope.footcontactSideButtonActive = true
+
+      # Side button Max excursion Active
+      $scope.maxexcursionIsActive = () ->
+        setAlltoFalse()
+        $scope.maxexcursionSideButtonActive = true
+
+      # Side button Joint kinetics Active
+      $scope.jointkineticsIsActive = () ->
+        setAlltoFalse()
+        $scope.jointkineticsSideButtonActive = true
+  ])
