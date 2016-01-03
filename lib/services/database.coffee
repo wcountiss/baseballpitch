@@ -13,15 +13,16 @@ module.exports.find = (collectionName, query, options) ->
   parseQuery = new Parse.Query(ParseObject)
   #query params
   #equal to
-  _.each _.keys(query.equal), (key) ->
-    if Array.isArray(query.equal[key])
-      parseQuery.containedIn(key, query.equal[key])
-    else
-      parseQuery.equalTo(key, query.equal[key])
+  if query
+    _.each _.keys(query.equal), (key) ->
+      if Array.isArray(query.equal[key])
+        parseQuery.containedIn(key, query.equal[key])
+      else
+        parseQuery.equalTo(key, query.equal[key])
 
-  #greater than
-  _.each _.keys(query.greater), (key) ->
-    parseQuery.greaterThanOrEqualTo(key, query.greater[key])
+    #greater than
+    _.each _.keys(query.greater), (key) ->
+      parseQuery.greaterThanOrEqualTo(key, query.greater[key])
 
   #what to include
   if options?.include

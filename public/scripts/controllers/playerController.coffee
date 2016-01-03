@@ -37,10 +37,12 @@ angular.module('motus').controller('playerController',
       $scope[stat] = score
 
     getPlayers = () ->
-      $http.post("player/all")
-      .success (players) ->
-        $http.post("pitch/findByAthleteProfiles",{ athleteProfileIds: _.pluck(players,'athleteProfile.objectId') })
+      $http.post("pitch")
         .success (pitches) ->
+          console.log pitches
+
+      $http.post("player")
+      .success (players) ->
           pitches = ['right', 'left']
           position = ['starter', 'relief', 'closer']
 
