@@ -58,6 +58,11 @@ app.config ($stateProvider, $urlRouterProvider) ->
     templateUrl: 'views/player-analysis-views/joint-kinetics.html',
     authenticate: true
   })
+  .state('player.trends',{
+    url: '/trends',
+    templateUrl: 'views/player-analysis-views/trends.html',
+    authenticate: true
+  })
   .state('admin', {
     url: "/admin",
     templateUrl: "views/admin.html",
