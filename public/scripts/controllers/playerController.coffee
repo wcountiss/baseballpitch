@@ -10,9 +10,6 @@ angular.module('motus').controller('playerController',
     colorOptions = [ '#e35746', '#ffe966', '#00a339' ]
     toolTipOptions = [ 'Bad', 'Ok', 'Good' ]
 
-    #hardcoded change to by login later
-    $scope.teamId = 1
-
     #random stats
     statNames = ['arm','throwShoulder','otherShoulder','hip','foot']
     statSlices = [10,10,9,8,6]
@@ -38,24 +35,26 @@ angular.module('motus').controller('playerController',
       $scope[stat] = score
 
     getPlayers = () ->
-      $http.post("player/find",  { teamId: $scope.teamId })
+      $http.post("player/all")
       .success (players) ->
-        pitches = ['right', 'left']
-        position = ['starter', 'relief', 'closer']
+        $http.post("pitch/findByAthleteProfiles",{ athleteProfileIds: _.pluck(players,'athleteProfile.objectId') })
+        .success (pitches) ->
+          pitches = ['right', 'left']
+          position = ['starter', 'relief', 'closer']
 
-        #loop through team and add roster booleans
-        _.each (players), (player) ->
-          player.longThrow = randomBoolean()
-          player.bullPen = randomBoolean()
-          player.base = randomBoolean()
+          #loop through team and add roster booleans
+          _.each (players), (player) ->
+            player.longThrow = randomBoolean()
+            player.bullPen = randomBoolean()
+            player.base = randomBoolean()
 
-          #hardcoded stats, change to parse later
-          player = _.extend(player, { age: _.random(20,40), height: _.random(65,80), weight: _.random(150,180), birthPlace: "USA", position: position[_.random(2)], level: 'mlb', pitches: pitches[_.random(1)], imgUrl: '../images/matt-harvey.png', alt: 'Matt Harvey'})
+            #hardcoded stats, change to parse later
+            player = _.extend(player, { age: _.random(20,40), height: _.random(65,80), weight: _.random(150,180), birthPlace: "USA", position: position[_.random(2)], level: 'mlb', pitches: pitches[_.random(1)], imgUrl: '../images/matt-harvey.png', alt: 'Matt Harvey'})
 
-          player
-        $scope.playerRoster = players
-        #makes the first player in the list the selected player when the pages loads
-        $scope.currentPlayer = players[0]
+            player
+          $scope.playerRoster = players
+          #makes the first player in the list the selected player when the pages loads
+          $scope.currentPlayer = players[0]
 
     #Page Load
     getPlayers()

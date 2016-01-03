@@ -1,10 +1,9 @@
 Motus
-End of Week 1: Assumption: We have Elite data and thresholds uploaded in Parse
+End of Week 1:
+Themes
 Login Pages and Components
-Get last 30 days of pitches from parse by Player
-Get Elite Data from parse
 
-End of Week 2: Assumption: We have Elite data and thresholds uploaded in Parse, We know all 42 points and data type, Have snapshot images and images
+End of Week 2: Assumption: Have snapshot images and images
 Basic Stat Service Setup gets current data and augment data not in Parse as random
 Add to Stat Service Average of dataset
 Add to Stat Service Each Category Rating
@@ -13,20 +12,20 @@ Add to Stat Service Get LongToss, BullPen, Game tags
 Add to Stat Service Calculate "Awards"
 Add to Stat Service Filter Data by -30 days and Sessions 
 
-End of Week 3: Assumption: Pitch Data is in Parse
+End of Week 3:
 Sync Service with Real Data
 Couch View of Players in Team Overview
 Coach View of Line Chart in Team Overview
 SnapShot Charts
 
-End of Week 4: Assumption: Pitch Data is in Parse
+End of Week 4:
 Add to Stat Service get Metric Rating
 Player Analysis Pie Charts
 Player Analysis Natural Language Descriptions
 Player Analysis Overview Chart
 Player Analysis 
 
-End of Week 5: Assumption: Pitch Data is in Parse
+End of Week 5:
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
 

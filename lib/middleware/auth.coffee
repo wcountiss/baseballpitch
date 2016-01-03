@@ -9,7 +9,7 @@ module.exports = (req,res,next) ->
     login.getUser(decoded.objectId)
     .then (user) ->
       #If Coach, later check player or GM
-      database.find('MTTeam', {'coach': user }, {noParse: true})
+      database.find('MTTeam', { equal: {'coach': user }}, {noParse: true})
       .then (teams) ->
         user.MTTeams = teams
         req.currentUser = user

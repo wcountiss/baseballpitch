@@ -11,8 +11,19 @@ parseObjecttoObject = (parseObject) ->
 module.exports.find = (collectionName, query, options) ->
   ParseObject = Parse.Object.extend(collectionName)
   parseQuery = new Parse.Query(ParseObject)
-  _.each _.keys(query), (key) ->
-    parseQuery.equalTo(key, query[key])
+  #query params
+  #equal to
+  _.each _.keys(query.equal), (key) ->
+    if Array.isArray(query.equal[key])
+      parseQuery.containedIn(key, query.equal[key])
+    else
+      parseQuery.equalTo(key, query.equal[key])
+
+  #greater than
+  _.each _.keys(query.greater), (key) ->
+    parseQuery.greaterThanOrEqualTo(key, query.greater[key])
+
+  #what to include
   if options?.include
     _.each options.include, (includeItem) ->
       parseQuery.include(includeItem)

@@ -13,5 +13,7 @@ module.exports = (app) ->
 
   app.use(auth)
 
+  app.use('/pitch', require('./lib/controllers/pitch'))
   app.use('/player', require('./lib/controllers/player'))
+  app.use('/elite', require('./lib/controllers/elite'))
 
