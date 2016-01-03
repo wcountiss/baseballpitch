@@ -26,7 +26,7 @@
                 <img ng-src="{{currentPlayer.imgUrl}}" alt="{{currentPlayer.alt}}">
               </div>
               <div class="player-key-stats">
-                <h3>{{currentPlayer.playerName}}</h3>
+                <h3>{{currentPlayer.athleteProfile.firstName}}  {{currentPlayer.athleteProfile.lastName}}</h3>
                 <span>Age: {{currentPlayer.age}}</span>
                 <span>Pitches: {{currentPlayer.pitches}}</span>
                 <span>Position: {{currentPlayer.position}}</span>
@@ -139,7 +139,7 @@
                 ng-click="trendsIsActive()" class="icon-trends">
 
           </span>
-          
+
         </div>
       </div>
     </div> <!-- .padding-box -->
