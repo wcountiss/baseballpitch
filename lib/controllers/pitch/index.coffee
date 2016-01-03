@@ -2,6 +2,6 @@ express = require 'express'
 controller = require './controller'
 
 router = express.Router()
-router.post '/findByAthleteProfiles', controller.findByAthleteProfiles
+router.post '/find', controller.find
 
 module.exports = router

@@ -1,6 +1,6 @@
 database = require '../../services/database'
 
-module.exports.all = (req, res) -> 
+module.exports.find = (req, res) -> 
   #get all Elite data
   database.find('Elite')
   .then (results) ->

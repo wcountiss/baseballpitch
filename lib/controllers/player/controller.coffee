@@ -1,6 +1,6 @@
 database = require '../../services/database'
 
-module.exports.all = (req, res) -> 
+module.exports.find = (req, res) -> 
   #find players by keys.
   #Team Id should come from the session based on login and be secure. unless you are an admin
   database.find('TeamMember', { equal: { team: req.currentUser.MTTeams}}, { include: ['athleteProfile']})
