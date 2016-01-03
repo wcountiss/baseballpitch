@@ -7,7 +7,7 @@ app = angular.module('motus', [
 
 
 app.config ($stateProvider, $urlRouterProvider) ->
-  $urlRouterProvider.otherwise("/player.home");
+  $urlRouterProvider.otherwise("/player/home");
   $stateProvider
   .state('login', {
     url: "/login",
