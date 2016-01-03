@@ -1,4 +1,4 @@
-angular.module('motus').controller 'snapShotController', ['currentPlayerFactory', ->
+angular.module('motus').controller 'snapShotController', ['currentPlayerFactory', (currentPlayerFactory) ->
   sc = this
   cpf = currentPlayerFactory
   sc.greeting = 'hello from snapShotController'
