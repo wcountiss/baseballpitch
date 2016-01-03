@@ -1,7 +1,7 @@
 #header {
   font-family:Arial;
   nav {
-    background-color: #ffffff;
+    background-color: white;
     height: 100px;
 
   }
@@ -29,20 +29,20 @@
       font-size: 20px;
       line-height:30px;
       a {
-        color: #4c95cc;
+        color: @motus-blue;
         text-decoration: none;
       }
       a:after {
         content: '';
         display: block;
         width: 100%;
-        border: 1px solid #e57222;
+        border: 1px solid @motus-lightorange;
         transform: translate(0px, 6px);
         opacity: 0;
         transition: transform .2s ease-out, opacity .2s ease-out;
       }
       a:hover {
-        color: #e57222;
+        color: @motus-lightorange;
         transition: .2s ease-out;
       }
       a:hover:after {
@@ -71,12 +71,12 @@
   }
   .login-name-account {
     font-size:21px;
-    color: #4c95cc;
+    color: @motus-blue;
     margin-right: 30px;
     display: flex;
     flex-direction: column;
     a {
-      color: #4c95cc;
+      color: @motus-blue;
       text-decoration: none;
     }
     a:after {
