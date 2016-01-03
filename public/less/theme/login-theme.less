@@ -1,0 +1,140 @@
+.login-theme {
+  font-family: Arial;
+  .motus-svg-logo {
+    min-width:280px;
+    img {
+      height: 65px;
+      width: auto;
+      margin-top: 15px;
+      margin-bottom:15px;
+      margin-left: 30px;
+    }
+  }
+  .player-box-shadow {
+    box-shadow: 0 0 1em #555555;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    height:80vh;
+    .padding-box {
+      padding: 8px 8px 8px 8px;
+      display: flex;
+      width: 100%;
+      .colored-box {
+        width:100%;
+        background-color: #e9f5f1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .login-box-outter {
+          box-shadow: 0 0 1em #555555;
+          background-color: #ffffff;
+          min-height: 425px;
+          min-width:425px;
+          .login-padding-box {
+            padding: 8px 8px 8px 8px;
+            display: flex;
+            width: 100%;
+            .login-box {
+              background-color: #4d4d4d;
+              width:100%;
+              height:417px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              form {
+                display: flex;
+                flex-direction: column;
+                .login-input-email {
+                  ::-webkit-input-placeholder {
+                    color: #2e2e2e;
+                  }
+
+                  :-moz-placeholder { /* Firefox 18- */
+                    color: #2e2e2e;
+                  }
+
+                  ::-moz-placeholder {  /* Firefox 19+ */
+                    color: #2e2e2e;
+                  }
+
+                  :-ms-input-placeholder {
+                    color: #2e2e2e;
+                  }
+                  input {
+                    width:100%;
+                    height:60px;
+                    margin-bottom:50px;
+                    border:none;
+                    border-bottom: 3px solid #e77127;
+                  }
+                  input[placeholder] {
+                    padding-left:20px;
+                    font-size:16px;
+                  }
+                }
+                .login-input-password {
+                  ::-webkit-input-placeholder {
+                    color: #2e2e2e;
+                  }
+
+                  :-moz-placeholder { /* Firefox 18- */
+                    color: #2e2e2e;
+                  }
+
+                  ::-moz-placeholder {  /* Firefox 19+ */
+                    color: #2e2e2e;
+                  }
+
+                  :-ms-input-placeholder {
+                    color: #2e2e2e;
+                  }
+                  input {
+                    width: 100%;
+                    height:60px;
+                    margin-bottom:50px;
+                    border:none;
+                    border-bottom: 3px solid #e77127;
+                  }
+                  input[placeholder] {
+                    padding-left:20px;
+                    font-size:16px;
+                  }
+                }
+                input[type="submit"] {
+                  transition: all 0.2s ease-out;
+                  background-color: #e57222;
+                  border:none;
+                  height:60px;
+                  width:315px;
+                  color: #ffffff;
+                  letter-spacing: 1px;
+                  font-size:18px;
+                  &:hover {
+                    background-color: darken(#e57222, 10%);
+                  }
+                }
+              }
+              .forgot-password {
+                margin-top:15px;
+                display: flex;
+                width:315px;
+                justify-content: space-between;
+                a {
+                  color: #ffffff;
+                  &:hover {
+
+                  }
+                }
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+}
