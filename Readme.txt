@@ -1,6 +1,7 @@
 Motus
 End of Week 1:
-Themes
+Remove Ids from getPitches
+Async player and pitches
 Login Pages and Components
 
 End of Week 2: Assumption: Have snapshot images and images
