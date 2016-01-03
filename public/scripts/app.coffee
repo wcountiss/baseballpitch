@@ -28,6 +28,11 @@ app.config ($stateProvider, $urlRouterProvider) ->
     controller: 'playerController'
     authenticate: true
   })
+  .state('player.analysis', {
+    url: '/home',
+    templateUrl: 'views/player-analysis-views/home.html',
+    authenticate: true
+  })
   .state('admin', {
     url: "/admin",
     templateUrl: "views/admin.html",

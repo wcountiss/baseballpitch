@@ -14,105 +14,13 @@
         </ul>
       </div>
 
-      <div class="player-details-outter">
-        <div class="player-details">
-          <div class="player-details-header">
-            <h2>Player</h2>
-            <h2>Notes</h2>
-          </div>
-          <div class="player-details-stats">
-            <div class="player-stats-box1">
-              <div class="player-photo">
-                <img ng-src="{{currentPlayer.imgUrl}}" alt="{{currentPlayer.alt}}">
-              </div>
-              <div class="player-key-stats">
-                <h3>{{currentPlayer.athleteProfile.firstName}}  {{currentPlayer.athleteProfile.lastName}}</h3>
-                <span>Age: {{currentPlayer.age}}</span>
-                <span>Pitches: {{currentPlayer.pitches}}</span>
-                <span>Position: {{currentPlayer.position}}</span>
-                <span>Level: {{currentPlayer.level | uppercase}}</span>
-              </div>
-            </div>
-            <div class="player-notes">
-              <!-- Hard Coded Notes results-->
-              <div>
-                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing.</h3>
-                <h3>Other areas of improvement include:</h3>
-              </div>
-              <li>Lorem ipsum dolor sit</li>
-              <li>Amet consectetur adipisicing</li>
-              <li>Elit Blanditiis id quidem</li>
-            </div>
-          </div>
+      <!--Nested View-->
+      <div ui-view></div>
 
-
-          <div class="overview-header">
-            <h2>Overview</h2>
-            <span class="icon-eye" ng-class="{'active': overviewActiveEyeIcon}" ng-click="overviewActiveEye()"></span>
-            <span class="icon-trends" ng-class="{'active': overviewActiveTrendsIcon}" ng-click="overviewActiveTrend()"></span>
-          </div>
-        </div>
-        <!-- Nested injectable View-->
-        <div class="nested-view">
-          <div class="pitcher-silhouette">
-            <piestats id="arm" bind="arm" slices="10"></piestats>
-            <piestats id="throwShoulder" bind="throwShoulder" slices="10"></piestats>
-            <piestats id="otherShoulder" bind="otherShoulder" slices="10"></piestats>
-            <piestats id="hip" bind="hip" slices="10"></piestats>
-            <piestats slices="10" id="foot" bind="foot" ></piestats>
-            <img src="../images/pitcher-sil-2.png" alt="Pitcher silhouette">
-
-            <div class="nested-footer">
-
-              <div class="nested-footer-body-icon">
-                <span class="icon-hips"></span>
-                <div class="part-nested-stack">
-                  <span class="yellow-footer nested-hip-icon-padding">505 <sup>o</sup>/s</span>
-                  <span class="icon-okarrow yellow-footer"></span>
-                </div>
-              </div>
-
-              <div class="nested-footer-body-icon">
-                <span class="icon-trunk"></span>
-                <div class="part-nested-stack">
-                  <span class="green-footer">909 <sup>o</sup>/s</span>
-                  <span class="icon-okarrow green-footer"></span>
-                </div>
-              </div>
-
-              <div class="nested-footer-body-icon">
-                <span class="icon-stride"></span>
-                <div class="part-nested-stack">
-                  <span class="green-footer">78%</span>
-                  <span class="icon-okarrow green-footer"></span>
-                </div>
-              </div>
-
-              <div class="nested-footer-body-icon">
-                <span class="icon-shoulderslot"></span>
-                <div class="part-nested-stack">
-                  <span class="red-footer">862<sup>o</sup></span>
-                  <span class="icon-downarrow red-footer"></span>
-                </div>
-              </div>
-
-              <div class="nested-footer-body-icon">
-                <span class="icon-shoulderrotate"></span>
-                <div class="part-nested-stack">
-                  <span class="green-footer">15<sup>o</sup></span>
-                  <span class="icon-okarrow green-footer"></span>
-                </div>
-              </div>
-
-
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="side-menu-buttons">
         <div class="side-menu-buttons-nav">
           <span ng-class="{'side-button-active': homeSideButtonActive}"
-                ng-click="homeIsActive()" class="icon-home">
+                ng-click="homeIsActive()" class="icon-home" ui-sref=".analysis" ui-sref-active=".analysis">
 
           </span>
           <span ng-class="{'side-button-active': kineticSideButtonActive}"
