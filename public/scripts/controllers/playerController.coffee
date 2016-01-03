@@ -35,11 +35,11 @@ angular.module('motus').controller('playerController',
       $scope[stat] = score
 
     getPlayers = () ->
-      $http.post("pitch/find")
+      $http.post("pitch")
         .success (pitches) ->
           console.log pitches
 
-      $http.post("player/find")
+      $http.post("player")
       .success (players) ->
           pitches = ['right', 'left']
           position = ['starter', 'relief', 'closer']
