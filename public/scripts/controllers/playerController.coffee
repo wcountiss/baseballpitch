@@ -1,6 +1,6 @@
 angular.module('motus').controller('playerController',
-['$scope', '$http'
-  ($scope, $http) ->
+['$scope', '$http', 'currentPlayerFactory'
+  ($scope, $http, currentPlayerFactory) ->
     # Random number to generate boolean for Roster list icon colors
     randomBoolean = () ->
       !(Math.random()+.5|0)
