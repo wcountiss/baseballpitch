@@ -33,6 +33,11 @@ app.config ($stateProvider, $urlRouterProvider) ->
     templateUrl: 'views/player-analysis-views/home.html',
     authenticate: true
   })
+  .state('player.kinetic-chain',{
+    url: '/kinetic-chain',
+    templateUrl: 'views/player-analysis-views/kinetic-chain.html',
+    authenticate: true
+  })
   .state('admin', {
     url: "/admin",
     templateUrl: "views/admin.html",
