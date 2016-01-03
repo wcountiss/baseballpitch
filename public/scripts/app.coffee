@@ -41,17 +41,20 @@ app.config ($stateProvider, $urlRouterProvider) ->
   .state('player.foot-contact',{
     url: '/foot-contact',
     templateUrl: 'views/player-analysis-views/foot-contact.html',
-    authenticate: true
+    authenticate: true,
+    controller: 'snapShotController as sc'
   })
   .state('player.ball-release',{
     url: '/ball-release',
     templateUrl: 'views/player-analysis-views/ball-release.html',
-    authenticate: true
+    authenticate: true,
+    controller: 'snapShotController as sc'
   })
   .state('player.max-excursion',{
     url: '/max-excursion',
     templateUrl: 'views/player-analysis-views/max-excursion.html',
-    authenticate: true
+    authenticate: true,
+    controller: 'snapShotController as sc'
   })
   .state('player.joint-kinetics',{
     url: '/joint-kinetics',
@@ -83,3 +86,4 @@ require './controllers/playerController.coffee'
 require './controllers/loginController.coffee'
 require './controllers/forgotPasswordController.coffee'
 require './controllers/adminController.coffee'
+require './controllers/snapShotController.coffee'
