@@ -38,6 +38,26 @@ app.config ($stateProvider, $urlRouterProvider) ->
     templateUrl: 'views/player-analysis-views/kinetic-chain.html',
     authenticate: true
   })
+  .state('player.foot-contact',{
+    url: '/foot-contact',
+    templateUrl: 'views/player-analysis-views/foot-contact.html',
+    authenticate: true
+  })
+  .state('player.ball-release',{
+    url: '/ball-release',
+    templateUrl: 'views/player-analysis-views/ball-release.html',
+    authenticate: true
+  })
+  .state('player.max-excursion',{
+    url: '/max-excursion',
+    templateUrl: 'views/player-analysis-views/max-excursion.html',
+    authenticate: true
+  })
+  .state('player.joint-kinetics',{
+    url: '/joint-kinetics',
+    templateUrl: 'views/player-analysis-views/joint-kinetics.html',
+    authenticate: true
+  })
   .state('admin', {
     url: "/admin",
     templateUrl: "views/admin.html",
