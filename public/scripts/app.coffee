@@ -3,6 +3,7 @@ app = angular.module('motus', [
   'ngCookies'
   'd3'
   'ngAnimate'
+  'ngTouch'
 ])
 
 

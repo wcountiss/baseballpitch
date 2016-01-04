@@ -1,7 +1,6 @@
 Motus
 End of Week 1:
 Login Pages Styles
-Account Section - change password
 Add Angular Touch for Mobile
 
 End of Week 2: Assumption: Have snapshot images and images
