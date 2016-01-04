@@ -79,6 +79,7 @@ app.run ($rootScope, $state, $cookies) ->
 require './services/currentPlayerFactory.coffee'
 require './services/currentUserFactory.coffee'
 require './controllers/indexController.coffee'
+require './services/eliteFactory.coffee'
 require './controllers/playerController.coffee'
 require './controllers/login/loginController.coffee'
 require './controllers/login/forgotPasswordController.coffee'
