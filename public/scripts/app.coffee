@@ -32,39 +32,43 @@ app.config ($stateProvider, $urlRouterProvider) ->
   .state('player.home', {
     url: '/home',
     templateUrl: 'views/player-analysis-views/home.html',
+    controller: 'homeController as home',
     authenticate: true
   })
   .state('player.kinetic-chain',{
     url: '/kinetic-chain',
     templateUrl: 'views/player-analysis-views/kinetic-chain.html',
+    controller: 'kineticsController as kinetics',
     authenticate: true
   })
   .state('player.foot-contact',{
     url: '/foot-contact',
     templateUrl: 'views/player-analysis-views/foot-contact.html',
     authenticate: true,
-    controller: 'snapShotController as sc'
+    controller: 'footcontactSnapShotController as foot'
   })
   .state('player.ball-release',{
     url: '/ball-release',
     templateUrl: 'views/player-analysis-views/ball-release.html',
     authenticate: true,
-    controller: 'snapShotController as sc'
+    controller: 'ballreleaseSnapShotController as ball'
   })
   .state('player.max-excursion',{
     url: '/max-excursion',
     templateUrl: 'views/player-analysis-views/max-excursion.html',
     authenticate: true,
-    controller: 'snapShotController as sc'
+    controller: 'maxexcursionSnapShotController as max'
   })
   .state('player.joint-kinetics',{
     url: '/joint-kinetics',
     templateUrl: 'views/player-analysis-views/joint-kinetics.html',
+    controller: 'jointKineticsController as joint',
     authenticate: true
   })
   .state('player.trends',{
     url: '/trends',
     templateUrl: 'views/player-analysis-views/trends.html',
+    controller: 'trendsController as trends',
     authenticate: true
   })
 
@@ -83,4 +87,11 @@ require './services/eliteFactory.coffee'
 require './controllers/playerController.coffee'
 require './controllers/login/loginController.coffee'
 require './controllers/login/forgotPasswordController.coffee'
-require './controllers/snapShotController.coffee'
+require './controllers/side-icon-controllers/snap-shot-controllers/ballreleaseSnapShotController.coffee'
+require './controllers/side-icon-controllers/snap-shot-controllers/footcontactSnapShotController.coffee'
+require './controllers/side-icon-controllers/snap-shot-controllers/kineticsSnapShotController.coffee'
+require './controllers/side-icon-controllers/snap-shot-controllers/maxexcursionSnapShotController.coffee'
+require './controllers/side-icon-controllers/homeController.coffee'
+require './controllers/side-icon-controllers/jointKineticsController.coffee'
+require './controllers/side-icon-controllers/kineticsController.coffee'
+require './controllers/side-icon-controllers/trendsController.coffee'
