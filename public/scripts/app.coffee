@@ -38,7 +38,7 @@ app.config ($stateProvider, $urlRouterProvider) ->
   .state('player.kinetic-chain',{
     url: '/kinetic-chain',
     templateUrl: 'views/player-analysis-views/kinetic-chain.html',
-    controller: 'kineticsController as kinetics',
+    controller: 'kineticChainController as kineticChain',
     authenticate: true
   })
   .state('player.foot-contact',{
@@ -62,7 +62,7 @@ app.config ($stateProvider, $urlRouterProvider) ->
   .state('player.joint-kinetics',{
     url: '/joint-kinetics',
     templateUrl: 'views/player-analysis-views/joint-kinetics.html',
-    controller: 'jointKineticsController as joint',
+    controller: 'kineticsController as joint',
     authenticate: true
   })
   .state('player.trends',{
@@ -91,6 +91,6 @@ require './controllers/side-icon-controllers/snap-shot-controllers/ballreleaseSn
 require './controllers/side-icon-controllers/snap-shot-controllers/footcontactSnapShotController.coffee'
 require './controllers/side-icon-controllers/snap-shot-controllers/maxexcursionSnapShotController.coffee'
 require './controllers/side-icon-controllers/homeController.coffee'
-require './controllers/side-icon-controllers/jointKineticsController.coffee'
+require './controllers/side-icon-controllers/kineticChainController.coffee'
 require './controllers/side-icon-controllers/kineticsController.coffee'
 require './controllers/side-icon-controllers/trendsController.coffee'
