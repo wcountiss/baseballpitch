@@ -4,4 +4,5 @@ angular.module('motus').controller 'trendsController', ['currentPlayerFactory','
   ef = eliteFactory
   trends.greeting = 'hello from trendsController'
   trends.currentPlayer = cpf.currentPlayer
+  console.log 'trends.currentPlayer: ',trends.currentPlayer
 ]

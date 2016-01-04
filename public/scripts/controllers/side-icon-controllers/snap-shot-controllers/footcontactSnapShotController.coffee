@@ -4,4 +4,5 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   ef = eliteFactory
   footcontact.greeting = 'hello from footcontactSnapShotController'
   footcontact.currentPlayer = cpf.currentPlayer
+  console.log 'footcontact.currentPlayer: ',footcontact.currentPlayer
 ]

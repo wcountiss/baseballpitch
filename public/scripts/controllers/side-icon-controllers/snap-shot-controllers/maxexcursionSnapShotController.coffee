@@ -1,7 +1,8 @@
 angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPlayerFactory','eliteFactory',(currentPlayerFactory, eliteFactory) ->
-  me = this
+  max = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-  me.greeting = 'hello from maxexcursionSnapShotController'
-  me.currentPlayer = cpf.currentPlayer
+  max.greeting = 'hello from maxexcursionSnapShotController'
+  max.currentPlayer = cpf.currentPlayer
+  console.log 'max.currentPlayer: ',max.currentPlayer
 ]
