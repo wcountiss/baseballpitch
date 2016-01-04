@@ -11,14 +11,14 @@ app.config ($stateProvider, $urlRouterProvider) ->
   $stateProvider
   .state('login', {
     url: "/login",
-    templateUrl: "views/login.html",
+    templateUrl: "views/login/login.html",
     controller: 'loginController'
     authenticate: false
   })
   $stateProvider
   .state('forgotPassword', {
     url: "/forgotPassword",
-    templateUrl: "views/forgotPassword.html",
+    templateUrl: "views/login/forgotPassword.html",
     controller: 'forgotPasswordController'
     authenticate: false
   })
@@ -66,12 +66,6 @@ app.config ($stateProvider, $urlRouterProvider) ->
     templateUrl: 'views/player-analysis-views/trends.html',
     authenticate: true
   })
-  .state('admin', {
-    url: "/admin",
-    templateUrl: "views/admin.html",
-    controller: 'adminController'
-    authenticate: true
-  })
 
 app.run ($rootScope, $state, $cookies) ->
   $rootScope.$on "$stateChangeStart", (event, toState, toParams, fromState, fromParams) ->
@@ -81,10 +75,10 @@ app.run ($rootScope, $state, $cookies) ->
       window.location = '?#/login'
       # $state.go("login")
 
-require './controllers/indexController.coffee'
 require './services/currentPlayerFactory.coffee'
+require './services/currentUserFactory.coffee'
+require './controllers/indexController.coffee'
 require './controllers/playerController.coffee'
-require './controllers/loginController.coffee'
-require './controllers/forgotPasswordController.coffee'
-require './controllers/adminController.coffee'
+require './controllers/login/loginController.coffee'
+require './controllers/login/forgotPasswordController.coffee'
 require './controllers/snapShotController.coffee'

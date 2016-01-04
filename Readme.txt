@@ -1,8 +1,8 @@
 Motus
 End of Week 1:
-Remove Ids from getPitches
-Async player and pitches
-Login Pages and Components
+Login Pages Styles
+Account Section - change password
+Add Angular Touch for Mobile
 
 End of Week 2: Assumption: Have snapshot images and images
 Basic Stat Service Setup gets current data and augment data not in Parse as random

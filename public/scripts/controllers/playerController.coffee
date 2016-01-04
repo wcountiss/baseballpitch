@@ -60,11 +60,9 @@ angular.module('motus').controller('playerController',
           #makes the first player in the list the selected player when the pages loads
           cpf.currentPlayer = players[0]
           $scope.currentPlayer = cpf.currentPlayer
-          console.log($scope.currentPlayer)
 
       #Page Load
       getPlayers()
-      console.log($state);
       $scope.selectedPlayer = (selected) ->
         cpf.currentPlayer = selected
         $scope.currentPlayer = cpf.currentPlayer
