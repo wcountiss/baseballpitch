@@ -18,6 +18,7 @@ gulp.task('server', function () {
   options.env.PARSE_JS_KEY=process.env.PARSE_JS_KEY || 'pCl0dZbm1RtPBXaG0hHnzWH1mjHCiSFP1u5akmw7',
   options.env.JWT_PASS=process.env.JWT_PASS || 'shhhhh',
   options.env.COOKIE_PASS=process.env.COOKIE_PASS || 'shhhhhhhhhh'
+  options.env.BLUEBIRD_W_FORGOTTEN_RETURN=0
   var server = gls('server.coffee', options, 35729);
   server.start('node_modules/coffee-script/bin/coffee');
   gulp.watch(['public/**/*.html', 'public/**/**.css', 'public/**/**.js'], function (file) {
