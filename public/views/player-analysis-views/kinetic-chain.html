@@ -1,5 +1,28 @@
 <div id="snap-shot-theme">
   <div id="kinetics-snapshot">
-    <h2>Kinetics</h2><span>Icon</span>
+    <h2>Kinetics</h2>
+  </div>
+  <div class="metric-table">
+    <table>
+      <tr>
+        <th>Value</th>
+        <th>Metric</th>
+        <th>Rating</th>
+      </tr>
+      <tr ng-repeat="elite in kinetics.eliteMetrics">
+        <td>{{elite.value}}</td>
+        <td>{{elite.metric}}</td>
+        <td>Good</td>
+      </tr>
+    </table>
+  </div>
+  <div class="summary-table">
+    <!-- player value and elite values here-->
+  </div>
+  <div>
+    <!--Image here-->
+  </div>
+  <div>
+    <!--Summary here-->
   </div>
 </div>
