@@ -9,7 +9,7 @@ angular.module('motus').controller('playerController',
       randomNumber = (min, max) ->
         Math.floor(Math.random() * max + min)
 
-      colorOptions = [ '#e35746', '#ffe966', '#00a339' ]
+      colorOptions = [ '#f90b1c', '#ffaa22', '#00be76' ]
       toolTipOptions = [ 'Bad', 'Ok', 'Good' ]
 
       #random stats

@@ -35,7 +35,7 @@
       align-items: flex-end;
       padding-left: 40px;
       padding-bottom: 32px;
-      color: #FFFFFF;
+      color: white;
       letter-spacing: 1px;
       font-size: 36px;
       span {
@@ -116,7 +116,7 @@
         }
       }
       h2 {
-        color: #1680c3;
+        color: @motus-blue;
         font-size: 36px;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -194,13 +194,13 @@
     flex-direction:column;
     .nested-footer {
       width:100%;
+      background: rgba(210, 210, 210, 0.4);;
       display: flex;
       align-items: center;
       position: absolute;
       bottom:0;
       left:0;
       min-height:40px;
-      background-image: url('../images/transparent-square.png');
 
       .nested-view .nested-footer .nested-footer-body-icon span.icon-stride {
         font-size: 25px!important;
@@ -217,9 +217,12 @@
         padding-right: 1px;
         font-size: 27px;
       }
+
+      
+
       .nested-footer-body-icon {
         font-family:"Arial Black";
-        color: black;
+        color: white;
         display: flex;
         flex:1;
         margin-left:1.5em;
@@ -227,14 +230,16 @@
           font-family:"Arial Black";
           padding-left: 1px;
           padding-right: 1px;
-          font-size: 35px;
+          font-size: 30px;
         }
         span.icon-hips {
-          font-size:45px;
+          font-size:40px;
         }
         span.icon-stride {
-          font-size:35px;
+          font-size:39px;
         }
+
+       
         .part-nested-stack {
           font-family:"Arial Black";
           font-weight:bold;
@@ -242,6 +247,9 @@
           flex-direction:column;
           .nested-hip-icon-padding {
             padding-top: 6px;
+          }
+          .nested-stride-icon-padding {
+            padding-top: 4px;
           }
           .yellow-footer {
             color: @motus-tangerine;
@@ -327,7 +335,7 @@
   }
 
   .side-menu-buttons {
-    background-color: #d2d2d2;
+    background-color: @charcoalgray;
     align-items: center;
     margin-left: auto;
     min-width: 65px;

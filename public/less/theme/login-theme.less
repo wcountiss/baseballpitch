@@ -22,7 +22,7 @@
       width: 100%;
       .colored-box {
         width:100%;
-        background-color: #e9f5f1;
+        background-color: @motus-offwhite;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -67,7 +67,7 @@
                     height:60px;
                     margin-bottom:50px;
                     border:none;
-                    border-bottom: 3px solid #e77127;
+                    border-bottom: 3px solid @motus-lightorange;
                   }
                   input[placeholder] {
                     padding-left:20px;
@@ -104,7 +104,7 @@
                 }
                 input[type="submit"] {
                   transition: all 0.2s ease-out;
-                  background-color: #e57222;
+                  background-color: @motus-lightorange;
                   border:none;
                   height:60px;
                   width:315px;
@@ -112,7 +112,7 @@
                   letter-spacing: 1px;
                   font-size:18px;
                   &:hover {
-                    background-color: darken(#e57222, 10%);
+                    background-color: darken(@motus-darkorange, 10%);
                   }
                 }
               }
