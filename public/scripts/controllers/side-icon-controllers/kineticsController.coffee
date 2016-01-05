@@ -2,6 +2,7 @@ angular.module('motus').controller 'kineticsController', ['currentPlayerFactory'
   kinetics = this
   cpf = currentPlayerFactory
   ef = eliteFactory
+
   ef.getEliteMetrics()
   .then() ->
     newObj = ef.eliteKinetics
@@ -9,7 +10,7 @@ angular.module('motus').controller 'kineticsController', ['currentPlayerFactory'
       addon = _.extend(addon, {value: _.random(99)})
       addon
     kinetics.eliteMetrics = newObj
-    console.log kinetics.eliteMetrics
+    console.log "TESTING FACTORY"
 
   kinetics.greeting = 'hello from kineticsController'
   kinetics.currentPlayer = cpf.currentPlayer

@@ -1,10 +1,159 @@
 #snap-shot-theme {
   background-color: @motus-offwhite;
   width:inherit;
+  html,body { height:100%; }
+  
+  .mainbg {
+    background-image: url("images/kinetics-bg.png")!important;
+    background-repeat:no-repeat;
+  }
+
   h2 {
     color: @motus-blue;
     font-size: 36px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin: 0px;
+    padding-top: 20px;
+    padding-left: 40px
+  }
+
+  .flex-container-row {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .flex-container-col {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .large-flexitem {
+    -webkit-flex: 3 0 0; 
+    flex: 2 0 0; 
+
+  }
+
+  .small-flexitem {
+    -webkit-flex: 1 0 0; 
+    flex: 1 0 0; 
+  }
+
+  .metricval {
+    font-family: "Arial-Black";
+    font-size: 30px;
+  }
+
+  .unit {
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    font-size: 12px;
+    padding:.25em;
+  }
+
+  select {
+    margin-top: 30px;
+    margin-right: 40px;
+  }
+
+  td, th {
+    padding: 8px;
+  }
+
+  tr {
+    padding-left: 1em;
+  }
+  .metric-table {
+    margin-left: 40px;
+    margin-top: 15px;
+  }
+
+  .comparison table {
+    width: 200px;
+    margin-top: 31px;
+  }
+
+  .odd {
+    background-color: rgba(202, 227, 243,.5);
+  }
+  .even {
+    background-color: rgba(175, 197, 211,.5);
+  }
+
+  .icon-okarrow {
+    font-size: 30px;
+    position: relative;
+    top: 3.9px;
+    color: @motus-green;
+  }
+
+  
+  .img {
+  
+  }
+
+  .comparison {
+    margin-top: 20px;
+  }
+
+  .description {
+    padding: 20px 50px 30px 10px;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+   /*==========  Mobile Options ==========*/
+ 
+  /* Large Devices, Wide Screens */
+  @media (max-width : 1200px) {
+
+  }
+
+  /* Medium Devices, Desktops */
+  @media (max-width : 1024px) {
+    h2 {
+      font-size: 30px;
+    }
+    .comparison {
+      margin-right: 30px;
+    }
+
+    .description {
+      padding: 20px 0px 30px 10px;
+    }
+  }
+
+  /* Small Devices, Tablets */
+  @media (max-width : 768px) {
+   
+    
+  }
+
+  /* Extra Small Devices, Phones */
+  @media (max-width : 480px) {
+
+  }
+
+  /* Custom, iPhone Retina */
+  @media (max-width : 320px) {
+
   }
 }
+
+
+
+
+
+
+
+
+
