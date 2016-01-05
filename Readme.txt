@@ -1,7 +1,6 @@
 Motus
 End of Week 1:
 Login Pages Styles
-Add Angular Touch for Mobile
 
 End of Week 2: Assumption: Have snapshot images and images
 Basic Stat Service Setup gets current data and augment data not in Parse as random
@@ -56,4 +55,4 @@ ForgotPassword should take the email in from the login screen if they typed it i
 
 Later fixes, got working for now
 login - ?#/login
-Warning on promise - promise was created but not handled
+Nodemon in gulp

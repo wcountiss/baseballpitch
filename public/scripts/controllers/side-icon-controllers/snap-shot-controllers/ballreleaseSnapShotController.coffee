@@ -2,6 +2,8 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   ballrelease = this
   cpf = currentPlayerFactory
   ef = eliteFactory
+  ef.getEliteMetrics()
+
   ballrelease.greeting = 'hello from footcontactSnapShotController'
   ballrelease.currentPlayer = cpf.currentPlayer
   console.log 'ballrelease.currentPlayer: ',ballrelease.currentPlayer

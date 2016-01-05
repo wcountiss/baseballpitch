@@ -1,6 +1,6 @@
 angular.module('motus').controller('playerController',
-  ['$scope', '$http', 'currentPlayerFactory', '$state'
-    ($scope, $http, currentPlayerFactory, $state) ->
+  ['$scope', '$http', 'currentPlayerFactory', '$state', '$player'
+    ($scope, $http, currentPlayerFactory, $state, $player) ->
 #Grab data from the factory service
       cpf = currentPlayerFactory
       # Random number to generate boolean for Roster list icon colors
@@ -37,12 +37,8 @@ angular.module('motus').controller('playerController',
         $scope[stat] = score
 
       getPlayers = () ->
-        $http.post("pitch")
-        .success (pitches) ->
-          console.log pitches
-
-        $http.post("player")
-        .success (players) ->
+        $player.getPlayers()
+        .then (players) ->
           pitches = ['right', 'left']
           position = ['starter', 'relief', 'closer']
 
