@@ -1,8 +1,9 @@
 angular.module('motus').controller 'kineticChainController', ['currentPlayerFactory','eliteFactory',(currentPlayerFactory, eliteFactory) ->
-  joint = this
+  chain = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-  joint.greeting = 'hello from kineticChainController'
-  joint.currentPlayer = cpf.currentPlayer
-  console.log 'joint.currentPlayer: ',joint.currentPlayer
+  chain.greeting = 'hello from kineticChainController'
+  chain.currentPlayer = cpf.currentPlayer
+  console.log 'chain.currentPlayer: ',chain.currentPlayer
+
 ]
