@@ -1,10 +1,15 @@
 angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPlayerFactory','eliteFactory',(currentPlayerFactory, eliteFactory) ->
-  ballrelease = this
+  ball = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-  ef.getEliteMetrics()
+  ef.getEliteMetrics().then (data) ->
+    newObj = ef.eliteBallrelease
+    newObj = _.each (newObj), (addOn) ->
+      addon = _.extend(addOn, {value: _.random(99)})
+      addon
+    ball.eliteMetrics = newObj
+    console.log 'ball.eliteMetrics: ',ball.eliteMetrics
 
-  ballrelease.greeting = 'hello from footcontactSnapShotController'
-  ballrelease.currentPlayer = cpf.currentPlayer
-  console.log 'ballrelease.currentPlayer: ',ballrelease.currentPlayer
+  ball.currentPlayer = cpf.currentPlayer
+  console.log 'ball.currentPlayer: ',ball.currentPlayer
 ]

@@ -1,10 +1,15 @@
 angular.module('motus').controller 'footcontactSnapShotController', ['currentPlayerFactory','eliteFactory',(currentPlayerFactory, eliteFactory) ->
-  footcontact = this
+  foot = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-  ef.getEliteMetrics()
+  ef.getEliteMetrics().then (data) ->
+    newObj = ef.eliteFootcontact
+    newObj = _.each (newObj), (addOn) ->
+      addOn = _.extend(addOn, {value: _.random(99)})
+      addOn
+    foot.eliteMetrics = newObj
+    console.log 'foot.eliteMetrics: ',foot.eliteMetrics
 
-  footcontact.greeting = 'hello from footcontactSnapShotController'
-  footcontact.currentPlayer = cpf.currentPlayer
-  console.log 'footcontact.currentPlayer: ',footcontact.currentPlayer
+  foot.currentPlayer = cpf.currentPlayer
+  console.log 'foot.currentPlayer: ',foot.currentPlayer
 ]

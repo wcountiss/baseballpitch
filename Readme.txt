@@ -1,6 +1,7 @@
 Motus
 End of Week 1:
 Login Pages Styles
+Need to tie in app state to the active state of the side icons
 
 End of Week 2: Assumption: Have snapshot images and images
 Basic Stat Service Setup gets current data and augment data not in Parse as random
@@ -9,7 +10,7 @@ Add to Stat Service Each Category Rating
 Add to Stat Service Player Rating
 Add to Stat Service Get LongToss, BullPen, Game tags
 Add to Stat Service Calculate "Awards"
-Add to Stat Service Filter Data by -30 days and Sessions 
+Add to Stat Service Filter Data by -30 days and Sessions
 
 End of Week 3:
 Sync Service with Real Data
@@ -22,7 +23,7 @@ Add to Stat Service get Metric Rating
 Player Analysis Pie Charts
 Player Analysis Natural Language Descriptions
 Player Analysis Overview Chart
-Player Analysis 
+Player Analysis
 
 End of Week 5:
 Player Analysis Trend Chart - Bar Graph

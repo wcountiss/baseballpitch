@@ -1,11 +1,56 @@
-<div class="player-details-outter">
-   <div class="player-details">
-      <div class="player-details-header">
-        <h2>Test</h2>
+<section id="snap-shot-theme">
+  <div class="main-bg-foot-contact">
+    <div class="flex-container-row">
+      <h2 class="large-flexitem">Foot Contact</h2>
+      <select class="small-flexitem" name="sessions">
+        <option value="LastThirty">Last 30 Days AVG</option>
+        <option value="LastGame">Last Game</option>
+        <option value="LastBullpen">Last Bullpen</option>
+        <option value="LastLongtoss">Last Longtoss</option>
+      </select>
+    </div>
+    <div class="flex-container-row">
+
+      <div class="metric-table large-flexitem">
+        <table>
+          <tr>
+            <th>Value</th>
+            <th>Metric</th>
+            <th>Rating</th>
+          </tr>
+          <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="elite in foot.eliteMetrics">
+            <td  class="metricval">{{elite.value}}<span class="unit">Deg</span></td>
+            <td>{{elite.metric}}</td>
+            <td><span class="icon-okarrow"></span></td>
+          </tr>
+        </table>
       </div>
-      <p>Foot Contact</p>
-      <p>greeting:{{foot.greeting}}</p>
-   </div>
-</div>
 
+      <div class="comparison flex-container-col small-flexitem">
 
+        <table>
+          <tr class="odd">
+            <td>PLAYER</td>
+            <td class="metricval">78<span class="unit">Deg</span></td>
+          </tr>
+          <tr class="even">
+            <td>ELITE</td>
+            <td class="metricval">83<span class="unit">Deg</span></td>
+          </tr>
+        </table>
+
+        <div class="img">
+          <img src="../../images/shoulderrotation.jpg" height="200px" width="200px" alt="">
+        </div>
+
+        <div class="description">
+          <span class="title">Title Goes Heres</span><br>
+          <span class="title">Elite Range: 45</span><br>
+          <p>This should really be an easy thing to show
+            This should really be an easy thing to show</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
