@@ -4,15 +4,14 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   # grab factory data
   cpf = currentPlayerFactory
   ef = eliteFactory
-  ef.getEliteMetrics().then () ->
-    # controller logic
-    joint.greeting = 'hello from jointKineticsController'
-    joint.currentPlayer = cpf.currentPlayer
-    console.log 'joint.currentPlayer: ',joint.currentPlayer
-    newObj = ef.eliteKinetics
-    newObj = _.each (newObj), (addon) ->
-      addon = _.extend(addon, {value: _.random(99)})
-      addon
-    joint.eliteMetrics = newObj
-    console.log joint.eliteMetrics
+  # controller logic
+  joint.greeting = 'hello from jointKineticsController'
+  joint.currentPlayer = cpf.currentPlayer
+  console.log 'joint.currentPlayer: ',joint.currentPlayer
+  newObj = ef.eliteKinetics
+  newObj = _.each (newObj), (addon) ->
+    addon = _.extend(addon, {value: _.random(99)})
+    addon
+  joint.eliteMetrics = newObj
+  console.log joint.eliteMetrics
 ]
