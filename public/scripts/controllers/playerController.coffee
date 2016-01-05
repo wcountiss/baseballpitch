@@ -3,12 +3,10 @@ angular.module('motus').controller('playerController',
     ($scope, $http, currentPlayerFactory, $state, $player) ->
 #Grab data from the factory service
       cpf = currentPlayerFactory
-      # Random number to generate boolean for Roster list icon colors
-      randomBoolean = () ->
-        !(Math.random()+.5|0)
       randomNumber = (min, max) ->
         Math.floor(Math.random() * max + min)
 
+      # Random number to generate boolean for Roster list icon colors
       colorOptions = [ '#f90b1c', '#ffaa22', '#00be76' ]
       toolTipOptions = [ 'Bad', 'Ok', 'Good' ]
 
@@ -39,15 +37,12 @@ angular.module('motus').controller('playerController',
       getPlayers = () ->
         $player.getPlayers()
         .then (players) ->
+          console.log players
           pitches = ['right', 'left']
           position = ['starter', 'relief', 'closer']
 
           #loop through team and add roster booleans
           _.each (players), (player) ->
-            player.longThrow = randomBoolean()
-            player.bullPen = randomBoolean()
-            player.base = randomBoolean()
-
             #hardcoded stats, change to parse later
             player = _.extend(player, { age: _.random(20,40), height: _.random(65,80), weight: _.random(150,180), birthPlace: "USA", position: position[_.random(2)], level: 'mlb', pitches: pitches[_.random(1)], imgUrl: '../images/matt-harvey.png', alt: 'Matt Harvey'})
 
