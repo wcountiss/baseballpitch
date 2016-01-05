@@ -2,7 +2,8 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
   max = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-  ef.getEliteMetrics()
+  ef.getEliteMetrics().then (data) ->
+    max.eliteData = data
 
   max.greeting = 'hello from maxexcursionSnapShotController'
   max.currentPlayer = cpf.currentPlayer
