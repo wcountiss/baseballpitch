@@ -5,7 +5,7 @@ angular.module('motus').controller('loginController',
       $http.post("auth/login",  { email: $scope.email, password: $scope.password })
       .success (user) ->
         $currentUser.user = user
-        $scope.$parent.loadUser()
+        $scope._indexController.loadUser()
         $state.go('player.home')
       .error (error) ->
         $scope.error = true;

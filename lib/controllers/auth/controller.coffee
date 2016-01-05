@@ -1,6 +1,7 @@
 login = require '../../services/login'
 jwt = require 'jsonwebtoken'
 
+#login sets cookie
 module.exports.logIn = (req, res) ->
   #simple validation, replace with parseModel later
   if !req.body.email || !req.body.password

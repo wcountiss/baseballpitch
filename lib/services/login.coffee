@@ -5,6 +5,7 @@ database = require './database'
 
 Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_JS_KEY)
 
+#gets the current user
 module.exports.getUser = (userObjectId) ->
   return new Promise (resolve, reject) ->
     userQuery = new Parse.Query(Parse.User);
@@ -18,6 +19,7 @@ module.exports.getUser = (userObjectId) ->
         reject error
     })
 
+#logs user in by email/password
 module.exports.logIn = (email, password) ->
   return new Promise (resolve, reject) ->
     Parse.User.logIn(email, password, {
@@ -33,6 +35,7 @@ module.exports.logIn = (email, password) ->
         reject(new Error('user not found'))
     });
 
+#forgot password sends link to reset password from Parse
 module.exports.forgotPassword = (email) ->
   return new Promise (resolve, reject) ->
     Parse.User.requestPasswordReset(email, {
