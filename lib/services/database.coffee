@@ -8,6 +8,7 @@ parseObjecttoObject = (parseObject) ->
   parseObject = JSON.stringify(parseObject)
   return JSON.parse(parseObject)
 
+#generic finder method
 module.exports.find = (collectionName, query, options) ->
   ParseObject = Parse.Object.extend(collectionName)
   parseQuery = new Parse.Query(ParseObject)
@@ -40,6 +41,7 @@ module.exports.find = (collectionName, query, options) ->
         reject error
     ) 
 
+#generic save method
 module.exports.save = (collectionName, data) ->
   ParseObject = Parse.Object.extend(collectionName)
   parseObject = new ParseObject()

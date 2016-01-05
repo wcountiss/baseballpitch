@@ -3,6 +3,7 @@ login = require '../services/login'
 database = require '../services/database'
 
 
+#Ensures you are logged in and sets the data you have access to
 module.exports = (req,res,next) ->
   if (req.signedCookies?.motus)
     decoded = jwt.verify(req.signedCookies.motus, process.env.JWT_PASS);
