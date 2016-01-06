@@ -1,10 +1,10 @@
 angular.module('motus').controller('forgotPasswordController', 
-['$scope','$http'
-  ($scope, $http) ->
+['$scope','$http', '$state'
+  ($scope, $http, $state) ->
     $scope.forgotPassword = () ->
       $http.post("auth/forgotPassword",  { email: $scope.email })
       .success (result) ->
-        console.log result
+        $state.go('login')
       .error (error) ->
         console.log error
 ])      

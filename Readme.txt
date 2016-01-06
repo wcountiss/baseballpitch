@@ -1,22 +1,19 @@
 Motus
 End of Week 1:
-Login Pages Styles
 Need to tie in app state to the active state of the side icons
+Nodemon in gulp
+SnapShot Chart - 2
 
-End of Week 2: Assumption: Have snapshot images and images
-Basic Stat Service Setup gets current data and augment data not in Parse as random
-Add to Stat Service Average of dataset
+End of Week 2: Assumption: Have snapshot images
+Add to Stat Service Filter Data by -30 days and Sessions
 Add to Stat Service Each Category Rating
 Add to Stat Service Player Rating
-Add to Stat Service Get LongToss, BullPen, Game tags
-Add to Stat Service Calculate "Awards"
-Add to Stat Service Filter Data by -30 days and Sessions
+SnapShot Charts All
 
 End of Week 3:
-Sync Service with Real Data
+Add to Stat Service Calculate "Awards"
 Couch View of Players in Team Overview
 Coach View of Line Chart in Team Overview
-SnapShot Charts
 
 End of Week 4:
 Add to Stat Service get Metric Rating
@@ -47,13 +44,11 @@ Download Data in Excel
 Tagging Throws on Tagging Chart
 
 
-Front End ToDos
-Login Failed Message
-Forgot Password Message on Submit or redirect to login
-ForgotPassword should take the email in from the login screen if they typed it in
-
-
 
 Later fixes, got working for now
 login - ?#/login
-Nodemon in gulp
+
+
+Questions:
+what is the tagString of "Game"?
+How many pitches are we expecting in a 30 day period per pitcher, can we replicate it in parse
