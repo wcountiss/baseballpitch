@@ -3,11 +3,47 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
   cpf = currentPlayerFactory
   ef = eliteFactory
 
+  max.legend = [
+    {
+    metric : "maxElbowFlexion",
+    title: "Max Elbow Flexion",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "maxShoulderRotation",
+    title: "Max Shoulder Rotation",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "maxTrunkSeparation",
+    title: "Max Trunk Separation",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "maxFootHeight",
+    title: "Max Foot Height",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    }
+  ]
+
   max.setClickedRow = (index) ->
     max.selectedRow = index
-    console.log("value of index:",index)
-    console.log("value of var:", max.selectedRow)
-    console.log("TRUE OR FALSE", max.selectedRow == index)
+    
 
   ef.getEliteMetrics().then (data) ->
     newObj = ef.eliteMaxexcursion

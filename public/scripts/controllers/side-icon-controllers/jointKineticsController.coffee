@@ -5,14 +5,57 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   cpf = currentPlayerFactory
   ef = eliteFactory
   joint.selectedRow = null
+
+  joint.legend = [
+    {
+    metric : "peakElbowCompressiveForce",
+    title: "Elbow Compressive Force",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "peakElbowValgusTorque",
+    title: "Elbow Valgus Torque",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "peakShoulderRotationTorque",
+    title: "Shoulder Rotation Torque",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "peakShoulderCompressiveForce",
+    title: "Shoulder Compressive Force",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "peakShoulderAnteriorForce",
+    title: "Shoulder Anterior Force",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    }
+  ]
   
-  joint.setClickedRow = (index,obj) ->
+  joint.setClickedRow = (index) ->
+    console.log("LEGEND:",joint.legend[index].title)
     joint.selectedRow = index
-    console.log("value of OBJ:",obj.metric)
-    console.log("value of index:",index)
-    console.log("value of var:", joint.selectedRow)
-    console.log("TRUE OR FALSE", joint.selectedRow == index)
-    
 
   ef.getEliteMetrics().then (metrics) ->
     # controller logic
@@ -21,11 +64,11 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
     console.log 'joint.currentPlayer: ',joint.currentPlayer
     newObj = ef.eliteKinetics
     newObj = _.each (newObj), (addon) ->
-      addon = _.extend(addon, {value: _.random(99)})
-      addon
+      addon.value = _.random(99)
+      newObj= addon
     joint.eliteMetrics = newObj
-    console.log joint.eliteMetrics
+    console.log "ELITE FACTORY RETURNS:",joint.eliteMetrics
 
 
-  return joint
+  joint
 ]

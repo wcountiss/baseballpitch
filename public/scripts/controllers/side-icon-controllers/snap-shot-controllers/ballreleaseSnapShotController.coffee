@@ -4,6 +4,107 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   ef = eliteFactory
   ball.selectedRow = null
 
+  ball.legend = [
+    {
+    metric : "fingerTipVelocityRelease",
+    title: "Fingertip Velocity Release",
+    imgurl: "",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "forearmSlotRelease",
+    title: "Forearm Slot Release",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "elbowFlexionRelease",
+    title: "Elbow Flexion Release",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "shoulderRotationRelease",
+    title: "Shoulder Rotation Release",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "shoulderAbductionRelease",
+    title: "Shoulder Abduction Release",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "trunkSideTiltRelease",
+    title: "Trunk Side Tilt Release",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "trunkFlexionRelease",
+    title: "Trunk Flexion Release",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "trunkRotationRelease",
+    title: "Trunk Rotation Release",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "pelvisSideTiltRelease",
+    title: "Pelvis Side Tilt Release",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "pelvisFlexionRelease",
+    title: "Pelvis Flexion Release",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    },
+
+    {
+    metric : "pelvisRotationRelease",
+    title: "Pelvis Rotation Release",
+    imgurl: "http://www.amazon.com",
+    eliterange: "",
+    description: "",
+    unit: ""
+    }
+  ]
+
   ball.setClickedRow = (index) ->
     ball.selectedRow = index
     console.log("value of index:",index)

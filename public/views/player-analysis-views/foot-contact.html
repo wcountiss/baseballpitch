@@ -18,10 +18,10 @@
             <th>Metric</th>
             <th>Rating</th>
           </tr>
-          <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="elite in foot.eliteMetrics"
+          <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="metric in foot.legend"
           ng-class="{'selected':$index == foot.selectedRow}" ng-click="foot.setClickedRow($index)">
-            <td  class="metricval">{{elite.value}}<span class="unit">Deg</span></td>
-            <td>{{elite.metric}}</td>
+            <td  class="metricval">{{metric.value}}<span class="unit">Deg</span></td>
+            <td>{{metric.title}}</td>
             <td><span class="icon-okarrow"></span></td>
           </tr>
         </table>
@@ -41,14 +41,13 @@
         </table>
 
         <div class="img">
-          <img src="../../images/shoulderrotation.jpg" height="100%" width="100%" alt="">
+          <img ng-src="../../{{foot.image}}" height="100%" width="100%" alt="">
         </div>
 
         <div class="description">
-          <span class="title">Title Goes Heres</span><br>
-          <span class="title">Elite Range: 45</span><br>
-          <p>This should really be an easy thing to show
-            This should really be an easy thing to show</p>
+          <span class="title">{{foot.title}}</span><br>
+          <span class="title">Elite Range: {{foot.range}}</span><br>
+          <p>{{foot.desc}}</p>
         </div>
 
       </div>
