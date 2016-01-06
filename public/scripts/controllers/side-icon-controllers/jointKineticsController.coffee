@@ -6,8 +6,9 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   ef = eliteFactory
   joint.selectedRow = null
   
-  joint.setClickedRow = (index) ->
+  joint.setClickedRow = (index,obj) ->
     joint.selectedRow = index
+    console.log("value of OBJ:",obj.metric)
     console.log("value of index:",index)
     console.log("value of var:", joint.selectedRow)
     console.log("TRUE OR FALSE", joint.selectedRow == index)
