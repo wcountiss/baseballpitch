@@ -9,7 +9,7 @@
             <p>{{::player.athleteProfile.firstName}} {{::player.athleteProfile.lastName}}</p>
             <span class="icon-longtoss" ng-class="{'green-icon': player.stats.longThrow, 'gray-icon': !player.stats.longThrow}"></span>
             <span class="icon-bullpen" ng-class="{'green-icon': player.stats.bullPen, 'gray-icon': !player.stats.bullPen}"></span>
-            <span class="icon-game" ng-class="{'green-icon': player.stats.game, 'gray-icon': !player.stats.game}"></span>
+            <span class="icon-game" ng-class="{'green-icon': player.stats.base, 'gray-icon': !player.stats.base}"></span>
           </li>
         </ul>
       </div>
@@ -20,31 +20,31 @@
       <div class="side-menu-buttons">
         <div class="side-menu-buttons-nav">
           <span ng-class="{'side-button-active': homeSideButtonActive}"
-                ng-click="homeIsActive()" class="icon-home" ui-sref=".home" ui-sref-active=".home">
+                ng-click="buttonPressed('player.home')" class="icon-home" ui-sref=".home">
 
           </span>
           <span ng-class="{'side-button-active': kineticSideButtonActive}"
-                ng-click="kineticIsActive()" class="icon-kinetic_chain" ui-sref=".kinetic-chain">
+                ng-click="kineticIsActive('player.kinetic-chain')" class="icon-kinetic_chain" ui-sref=".kinetic-chain">
 
           </span>
           <span ng-class="{'side-button-active': footcontactSideButtonActive}"
-                ng-click="footcontactIsActive()" class="icon-footcontact" ui-sref=".foot-contact">
+                ng-click="buttonPressed('player.foot-contact')" class="icon-footcontact" ui-sref=".foot-contact">
 
           </span>
           <span ng-class="{'side-button-active': ballreleaseSideButtonActive}"
-                ng-click="ballreleaseIsActive()" class="icon-ballrelease" ui-sref=".ball-release">
+                ng-click="buttonPressed('player.ball-release')" class="icon-ballrelease" ui-sref=".ball-release">
 
           </span>
           <span ng-class="{'side-button-active': maxexcursionSideButtonActive}"
-                ng-click="maxexcursionIsActive()" class="icon-maxexcursion" ui-sref=".max-excursion">
+                ng-click="buttonPressed('player.max-excursion')" class="icon-maxexcursion" ui-sref=".max-excursion">
 
           </span>
           <span ng-class="{'side-button-active': jointkineticsSideButtonActive}"
-                ng-click="jointkineticsIsActive()" class="icon-jointkinetics" ui-sref=".joint-kinetics">
+                ng-click="buttonPressed('player.joint-kinetics')" class="icon-jointkinetics" ui-sref=".joint-kinetics">
 
           </span>
           <span ng-class="{'side-button-active': trendsSideButtonActive}"
-                ng-click="trendsIsActive()" class="icon-trends" ui-sref=".trends">
+                ng-click="buttonPressed('player.trends')" class="icon-trends" ui-sref=".trends">
 
           </span>
 

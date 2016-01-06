@@ -26,7 +26,7 @@ app.config ($stateProvider, $urlRouterProvider) ->
   .state('player', {
     url: "/player",
     templateUrl: "views/player.html",
-    controller: 'playerController'
+    controller: 'playerController',
     authenticate: true
   })
   .state('player.home', {

@@ -1,7 +1,9 @@
 angular.module('motus').controller('playerController',
   ['$scope', '$http', 'currentPlayerFactory', '$state', '$player'
     ($scope, $http, currentPlayerFactory, $state, $player) ->
-#Grab data from the factory service
+      #log current state
+      console.log 'onLoad Current State:', $state.current.name
+      #Grab data from the factory service
       cpf = currentPlayerFactory
       randomNumber = (min, max) ->
         Math.floor(Math.random() * max + min)
@@ -60,75 +62,83 @@ angular.module('motus').controller('playerController',
         myState = $state.current.name
         $state.reload(myState)
 
-      # Icons for the Overview
-      # Will highlight which one is active, and will eventually change the nested view here
-      $scope.overviewActiveEyeIcon = true
-      $scope.overviewActiveTrendsIcon = false
 
-      # Sets the Eye as Active icon
-      $scope.overviewActiveEye = () ->
-        $scope.overviewActiveEyeIcon = true
-        $scope.overviewActiveTrendsIcon = false
 
-      # Sets the Trend chart as active
-      $scope.overviewActiveTrend = () ->
-        $scope.overviewActiveEyeIcon = false
-        $scope.overviewActiveTrendsIcon = true
+      #########################################
+      # SIDE ICON LOGIC                      #
+      ########################################
 
-      # Side Buttons Initial State
-      $scope.homeSideButtonActive = true
-      $scope.trendsSideButtonActive = false
-      $scope.kineticSideButtonActive = false
-      $scope.ballreleaseSideButtonActive = false
-      $scope.footcontactSideButtonActive = false
-      $scope.maxexcursionSideButtonActive = false
-      $scope.jointkineticsSideButtonActive = false
+      #Private function to get icon state
+      getCurrentState = (myState) ->
+        if myState == 'player.home'
+          $scope.homeSideButtonActive = true
+        else
+          $scope.homeSideButtonActive = false
+        if myState == 'player.trends'
+          $scope.trendsSideButtonActive = true
+        else
+          $scope.trendsSideButtonActive = false
+        if myState == 'player.kinetic-chain'
+          $scope.kineticSideButtonActive = true
+        else
+          $scope.kineticSideButtonActive = false
+        if myState == 'player.ball-release'
+          $scope.ballreleaseSideButtonActive = true
+        else
+          $scope.ballreleaseSideButtonActive = false
+        if myState == 'player.foot-contact'
+          $scope.footcontactSideButtonActive = true
+        else
+          $scope.footcontactSideButtonActive = false
+        if myState == 'player.max-excursion'
+          $scope.maxexcursionSideButtonActive = true
+        else
+          $scope.maxexcursionSideButtonActive = false
+        if myState == 'player.joint-kinetics'
+          $scope.jointkineticsSideButtonActive = true
+        else
+          $scope.jointkineticsSideButtonActive = false
 
-      # Side Button Functions
-      # These functions change one button boolean to true, and others to false.
+      #Sets the initial value of Icons when Application Loads up
+      $scope.homeSideButtonActive = getCurrentState($state.current.name)
+      $scope.trendsSideButtonActive = getCurrentState($state.current.name)
+      $scope.kineticSideButtonActive = getCurrentState($state.current.name)
+      $scope.ballreleaseSideButtonActive = getCurrentState($state.current.name)
+      $scope.footcontactSideButtonActive = getCurrentState($state.current.name)
+      $scope.maxexcursionSideButtonActive = getCurrentState($state.current.name)
+      $scope.jointkineticsSideButtonActive = getCurrentState($state.current.name)
 
-      # Set all Icons to false
-      setAlltoFalse = ->
-        $scope.homeSideButtonActive = false
-        $scope.trendsSideButtonActive = false
-        $scope.kineticSideButtonActive = false
-        $scope.ballreleaseSideButtonActive = false
-        $scope.footcontactSideButtonActive = false
-        $scope.maxexcursionSideButtonActive = false
-        $scope.jointkineticsSideButtonActive = false
 
-      # Side button Home Active
-      $scope.homeIsActive = () ->
-        setAlltoFalse()
-        $scope.homeSideButtonActive = true
+      #Change the Active Icon upon button press
+      # a string from the player.html is passed in and evaluated
+      $scope.buttonPressed = (myState) ->
+        if myState == 'player.home'
+          $scope.homeSideButtonActive = true
+        else
+          $scope.homeSideButtonActive = false
+        if myState == 'player.trends'
+          $scope.trendsSideButtonActive = true
+        else
+          $scope.trendsSideButtonActive = false
+        if myState == 'player.kinetic-chain'
+          $scope.kineticSideButtonActive = true
+        else
+          $scope.kineticSideButtonActive = false
+        if myState == 'player.ball-release'
+          $scope.ballreleaseSideButtonActive = true
+        else
+          $scope.ballreleaseSideButtonActive = false
+        if myState == 'player.foot-contact'
+          $scope.footcontactSideButtonActive = true
+        else
+          $scope.footcontactSideButtonActive = false
+        if myState == 'player.max-excursion'
+          $scope.maxexcursionSideButtonActive = true
+        else
+          $scope.maxexcursionSideButtonActive = false
+        if myState == 'player.joint-kinetics'
+          $scope.jointkineticsSideButtonActive = true
+        else
+          $scope.jointkineticsSideButtonActive = false
 
-      # Side button Trends Active
-      $scope.trendsIsActive = () ->
-        setAlltoFalse()
-        $scope.trendsSideButtonActive = true
-
-      # Side button Kinetic Chain Active
-      $scope.kineticIsActive = () ->
-        setAlltoFalse()
-        $scope.kineticSideButtonActive = true
-
-      # Side button Ballrelease Active
-      $scope.ballreleaseIsActive = () ->
-        setAlltoFalse()
-        $scope.ballreleaseSideButtonActive = true
-
-      # Side button Foot contact Active
-      $scope.footcontactIsActive = () ->
-        setAlltoFalse()
-        $scope.footcontactSideButtonActive = true
-
-      # Side button Max excursion Active
-      $scope.maxexcursionIsActive = () ->
-        setAlltoFalse()
-        $scope.maxexcursionSideButtonActive = true
-
-      # Side button Joint kinetics Active
-      $scope.jointkineticsIsActive = () ->
-        setAlltoFalse()
-        $scope.jointkineticsSideButtonActive = true
   ])
