@@ -1,7 +1,6 @@
 Motus
 End of Week 1:
 Need to tie in app state to the active state of the side icons
-Nodemon in gulp
 SnapShot Chart - 2
 
 End of Week 2: Assumption: Have snapshot images

@@ -8,7 +8,9 @@ var browserify = require('gulp-browserify'),
     clean = require('gulp-clean'),
     os = require('os'),
     injectReload = require('gulp-inject-reload'),
-    gls = require('gulp-live-server'),
+    livereload = require('gulp-livereload'),
+    nodemon = require('gulp-nodemon'),
+    // notify = require('gulp-notify')
     open = require('gulp-open'),
     wait = require('gulp-wait');
     
@@ -19,17 +21,16 @@ gulp.task('server', function () {
   options.env.JWT_PASS=process.env.JWT_PASS || 'shhhhh',
   options.env.COOKIE_PASS=process.env.COOKIE_PASS || 'shhhhhhhhhh'
   options.env.BLUEBIRD_W_FORGOTTEN_RETURN=0
-  var server = gls('server.coffee', options, 35729);
-  server.start('node_modules/coffee-script/bin/coffee');
-  gulp.watch(['public/**/*.html', 'public/**/**.css', 'public/**/**.js'], function (file) {
-    //live reload the clientside files
-    server.notify.apply(server, [file]);
-  });
-  gulp.watch(['lib/**/**.coffee', 'server.coffee', 'routes.coffee'], function (file) {
-    // restart the server if changing serverside code
-    server.stop();
-    server.start();
-  });
+  nodemon({
+    script: 'server.coffee',
+    ext: 'coffee',
+    ignore: [
+      'node_modules/**',
+      'bower_components/**',
+      'public/**'
+    ],
+    env: options.env
+  })
 });
 
 gulp.task('clean', function () {  
@@ -46,10 +47,10 @@ gulp.task('scripts', function() {
   }))
   .pipe(rename('app.js'))
   .pipe(gulp.dest('public/build/js'))
+  .pipe(livereload())
 })
 
 gulp.task('less', function(){
-
     gulp.src("public/less/app.less")
     .pipe(less({
       paths: [
@@ -60,23 +61,29 @@ gulp.task('less', function(){
     .pipe(prefix({ cascade: true }))
     .pipe(minifycss())
     .pipe(gulp.dest("public/build/css"))
+    .pipe(livereload())
 })
 
 gulp.task('pages', function(){
-    return gulp.src('public/views/index.html')
+    gulp.src('public/**/*.html')
+      .pipe(livereload())
+
+    gulp.src('public/views/index.html')
       .pipe(injectReload())
       .pipe(gulp.dest('public/build/views'))
+      .pipe(livereload())
 });
 
 gulp.task('watch', ['clean'], function () {
   gulp.watch('public/scripts/**', ['scripts']);
   gulp.watch('public/less/**', ['less']);
-  gulp.watch('public/views/index.html', ['pages']);
+  gulp.watch('public/views/**', ['pages']);
+  livereload.listen()
 });
 
 gulp.task('url', function(){
   gulp.src(__filename)
-  .pipe(wait(1500))
+  .pipe(wait(3000))
   .pipe(open({uri: 'http://localhost:2001'}));
 });
 
