@@ -2,6 +2,14 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   ball = this
   cpf = currentPlayerFactory
   ef = eliteFactory
+  ball.selectedRow = null
+
+  ball.setClickedRow = (index) ->
+    ball.selectedRow = index
+    console.log("value of index:",index)
+    console.log("value of var:", ball.selectedRow)
+    console.log("TRUE OR FALSE", ball.selectedRow == index)
+
   ef.getEliteMetrics().then (data) ->
     newObj = ef.eliteBallrelease
     newObj = _.each (newObj), (addOn) ->

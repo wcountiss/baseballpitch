@@ -2,6 +2,13 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   foot = this
   cpf = currentPlayerFactory
   ef = eliteFactory
+
+  foot.setClickedRow = (index) ->
+    foot.selectedRow = index
+    console.log("value of index:",index)
+    console.log("value of var:", foot.selectedRow)
+    console.log("TRUE OR FALSE", foot.selectedRow == index)
+
   ef.getEliteMetrics().then (data) ->
     newObj = ef.eliteFootcontact
     newObj = _.each (newObj), (addOn) ->

@@ -2,6 +2,13 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
   max = this
   cpf = currentPlayerFactory
   ef = eliteFactory
+
+  max.setClickedRow = (index) ->
+    max.selectedRow = index
+    console.log("value of index:",index)
+    console.log("value of var:", max.selectedRow)
+    console.log("TRUE OR FALSE", max.selectedRow == index)
+
   ef.getEliteMetrics().then (data) ->
     newObj = ef.eliteMaxexcursion
     newObj = _.each (newObj), (addOn) ->
