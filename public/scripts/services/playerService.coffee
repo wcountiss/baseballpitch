@@ -18,5 +18,13 @@ angular.module('motus').service('$player', ['$http', '$q', '$stat', ($http, $q, 
           defer.resolve(playerService.players)
         return defer.promise
 
+  #get pitches
+  playerService.getPitches = (options) =>
+    defer = $q.defer();
+    $http.post("pitch", options)
+    .success (pitches) ->
+      defer.resolve(pitches)
+    return defer.promise
+
   return playerService
 ])

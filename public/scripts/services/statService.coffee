@@ -2,8 +2,6 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
   stat = this
 
   #temporary while I finish this
-  randomBoolean = () ->
-    !(Math.random()+.5|0)
   randomNumber = (min, max) ->
     Math.floor(Math.random() * max + min)
 
@@ -20,12 +18,12 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
 
   #averages array of data
   average = (data) ->
-    return data.reduce(((sum, a) ->
+    return Math.round(data.reduce(((sum, a) ->
       sum + a
-    ), 0) / (data.length or 1)
+    ), 0) / (data.length or 1),0)
 
-  #Did the player complete the throw types in the last 30 days
-  didThrowTypeInLast30Days = (pitches, type) ->
+  #Did the player complete the throw pitch type
+  didThrowType = (pitches, type) ->
     return _.any(pitches, (pitch) -> 
       if pitch.tagString 
         pitch.tagString.split(',')[0] == type 
@@ -67,9 +65,9 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
         _.each players, (player) -> 
           #get aggregate values
           player.stats = {
-            longThrow: didThrowTypeInLast30Days(player.pitches, 'Longtoss')
-            bullPen:  didThrowTypeInLast30Days(player.pitches, 'Bullpen')
-            game: didThrowTypeInLast30Days(player.pitches, 'Game')
+            longThrow: didThrowType(player.pitches, 'Longtoss')
+            bullPen:  didThrowType(player.pitches, 'Bullpen')
+            game: didThrowType(player.pitches, 'Game')
           }
           if player.pitches.length
             runStatsEngine(player, player.pitches, eliteMetrics)
@@ -86,10 +84,9 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
     return players
 
   #filter data to a particular set of pitches
-  stat.filterThrowType = (player, type) ->
-
-  #filter data to a particular sessions
-  stat.filterSession = (player, sessionDate) ->
+  stat.filterLastThrowType = (player, type) ->
+    #get last of throw type and all throwTypes on that day
+    #run through Player stats
 
 
   return stat

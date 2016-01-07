@@ -4,9 +4,10 @@ Need to tie in app state to the active state of the side icons
 SnapShot Chart - 2
 
 End of Week 2: Assumption: Have snapshot images
-Add to Stat Service Filter Data by -30 days and Sessions
+Add to Stat Service Filter Data by -30 days and Sessions Types
 Add to Stat Service Each Category Rating
 Add to Stat Service Player Rating
+Current Player Service is Promise based
 SnapShot Charts All
 
 End of Week 3:

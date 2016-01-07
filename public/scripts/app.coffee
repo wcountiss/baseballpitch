@@ -80,6 +80,7 @@ app.run ($rootScope, $state, $cookies) ->
       window.location = '?#/login'
       # $state.go("login")
 
+_.mixin(s.exports());
 require './services/currentPlayerFactory.coffee'
 require './services/currentUserFactory.coffee'
 require './services/statService.coffee'

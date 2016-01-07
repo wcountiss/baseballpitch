@@ -18,10 +18,10 @@
             <th>Metric</th>
             <th>Rating</th>
           </tr>
-          <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="metric in foot.legend"
-          ng-class="{'selected':$index == foot.selectedRow}" ng-click="foot.setClickedRow($index)">
-            <td  class="metricval">{{metric.value}}<span class="unit">Deg</span></td>
-            <td>{{metric.title}}</td>
+          <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="eliteMetric in foot.eliteMetrics"
+          ng-class="{'selected':eliteMetric == foot.selectedMetric}" ng-click="foot.setClickedRow(eliteMetric)">
+            <td  class="metricval">{{eliteMetric.avg}}<span class="unit">{{eliteMetric.units}}</span></td>
+            <td>{{eliteMetric.title}}</td>
             <td><span class="icon-okarrow"></span></td>
           </tr>
         </table>
@@ -32,11 +32,11 @@
         <table>
           <tr class="odd">
             <td>PLAYER</td>
-            <td class="metricval">78<span class="unit">Deg</span></td>
+            <td class="metricval">{{foot.selectedPlayerMetric}}<span class="unit">{{foot.selectedMetric.units}}</span></td>
           </tr>
           <tr class="even">
             <td>ELITE</td>
-            <td class="metricval">83<span class="unit">Deg</span></td>
+            <td class="metricval">{{foot.selectedMetric.avg}}<span class="unit">{{foot.selectedMetric.units}}</span></td>
           </tr>
         </table>
 
@@ -45,9 +45,9 @@
         </div>
 
         <div class="description">
-          <span class="title">{{foot.title}}</span><br>
-          <span class="title">Elite Range: {{foot.range}}</span><br>
-          <p>{{foot.desc}}</p>
+          <span class="title">{{foot.selectedMetric.title}}</span><br>
+          <span class="title">Elite Range: {{foot.selectedMetric.eliteLow}}-{{foot.selectedMetric.eliteHigh}}</span><br>
+          <p>{{foot.selectedMetric.description}}</p>
         </div>
 
       </div>
