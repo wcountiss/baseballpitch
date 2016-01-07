@@ -1,7 +1,9 @@
-angular.module('motus').controller 'footcontactSnapShotController', ['currentPlayerFactory','eliteFactory', '$q',(currentPlayerFactory, eliteFactory, $q) ->
+angular.module('motus').controller 'footcontactSnapShotController', ['currentPlayerFactory','eliteFactory', '$stat', '$q',(currentPlayerFactory, eliteFactory, $stat, $q) ->
   foot = this
   cpf = currentPlayerFactory
   ef = eliteFactory
+
+  foot.filterType = '30'
 
   imageMap = {
     "elbowFlexionFootContact": "images/legend/FC_ElbowFlexion.jpg",
@@ -17,6 +19,14 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
     "strideLength": "images/legend/FC_StrideLength.jpg",
   }
 
+  foot.filterLastThrowType = () ->
+    if foot.filterType == '30'
+      _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = foot.currentPlayer.stats.metricScores[eliteMetric.metric]
+    else
+      $stat.filterLastThrowType(foot.currentPlayer.pitches, foot.filterType)
+      .then (stats) ->
+        _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
+
   foot.setClickedRow = (eliteMetric) ->
     foot.selectedMetric = eliteMetric
     foot.image = imageMap[foot.selectedMetric.metric]
@@ -28,7 +38,6 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
     foot.currentPlayer = cpf.currentPlayer
     _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = foot.currentPlayer.stats.metricScores[eliteMetric.metric]
     foot.setClickedRow(foot.eliteMetrics[0])
-    console.log 'foot.eliteMetrics: ',foot.eliteMetrics
 
-  console.log 'foot.currentPlayer: ',foot.currentPlayer
+  return foot
 ]

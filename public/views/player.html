@@ -7,7 +7,7 @@
         <ul class="player-names">
           <li ng-class-odd="'odd'" ng-class-even="'even'" ng-class="{'selected': currentPlayer.athleteProfile.objectId == player.athleteProfile.objectId }" ng-repeat="player in playerRoster" ng-click="selectedPlayer(player)">
             <p>{{::player.athleteProfile.firstName}} {{::player.athleteProfile.lastName}}</p>
-            <span class="icon-longtoss" ng-class="{'green-icon': player.stats.longThrow, 'gray-icon': !player.stats.longThrow}"></span>
+            <span class="icon-longtoss" ng-class="{'green-icon': player.stats.longToss, 'gray-icon': !player.stats.longToss}"></span>
             <span class="icon-bullpen" ng-class="{'green-icon': player.stats.bullPen, 'gray-icon': !player.stats.bullPen}"></span>
             <span class="icon-game" ng-class="{'green-icon': player.stats.base, 'gray-icon': !player.stats.base}"></span>
           </li>

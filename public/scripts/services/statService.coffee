@@ -106,26 +106,28 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
     return players
 
   #filter data to a particular set of pitches
-  stat.filterLastThrowType = (player, type) ->
-    return $q.when(
-      #get last of throw type and all throwTypes on that day
-      lastThrowType = _.find(player.pitches, (pitch) -> 
-        if pitch.tagString 
-          pitch.tagString.split(',')[0] == type 
-      )
-      # #if you did not have that throwtype, return empty array
-      if lastThrowType
-        allThrowsOfTypeOnSameDay = _.filter(player.pitches, (pitch) -> 
-          if pitch.tagString 
-            debugger;
-            pitch.tagString.split(',')[0] == type && pitch.CreatedOn == lastThrowType.CreatedOn
-        )
-
-        #run through Player stats
-        runStatsEngine(pitches)
-        .then (stats) ->
-          return stats
+  stat.filterLastThrowType = (pitches, type) ->
+    defer = $q.defer()
+    # get last of throw type and all throwTypes on that day
+    lastThrowType = _.find(pitches, (pitch) ->
+      if pitch.tagString 
+        pitch.tagString.split(',')[0] == type 
     )
+
+    #if you did not have that throwtype, return empty array
+    if lastThrowType
+      allThrowsOfTypeOnSameDay = _.filter(pitches, (pitch) -> 
+        if pitch.tagString 
+          pitch.tagString.split(',')[0] == type && moment(pitch.pitchDate).format('MM/DD/YYYY') == moment(lastThrowType.pitchDate).format('MM/DD/YYYY')
+      )
+
+      #run through Player stats
+      runStatsEngine(pitches)
+      .then (stats) ->
+        defer.resolve(stats)
+    else
+        defer.resolve({})
+    return defer.promise
 
   return stat
 ])
