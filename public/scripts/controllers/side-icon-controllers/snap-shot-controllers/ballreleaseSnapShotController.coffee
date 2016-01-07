@@ -2,123 +2,34 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   ball = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-  ball.selectedRow = null
 
-  ball.legend = [
-    {
-    metric : "fingerTipVelocityRelease",
-    title: "Fingertip Velocity Release",
-    imgurl: "",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
+  imageMap = {
+    "fingerTipVelocityRelease": "images/legend/BR_FingertipSpeed.jpg",
+    "forearmSlotRelease": "images/legend/BR_ForearmSlot.jpg",
+    "elbowFlexionRelease": "images/legend/BR_ElbowFlexion.jpg",
+    "shoulderRotationRelease": "images/legend/BR_ShoulderRotation.jpg",
+    "shoulderAbductionRelease": "images/legend/BR_ShoulderAbduction.jpg",
+    "trunkSideTiltRelease": "images/legend/BR_TrunkSideTilt.jpg",
+    "trunkFlexionRelease": "images/legend/BR_TrunkFlexion.jpg",
+    "trunkRotationRelease": "images/legend/BR_TrunkRotation.jpg",
+    "pelvisSideTiltRelease": "images/legend/BR_PelvisSideTilt.jpg",
+    "pelvisFlexionRelease": "images/legend/BR_PelvisFlexion.jpg",
+    "pelvisRotationRelease": "images/legend/BR_PelvisRotation.jpg",
+  }
 
-    {
-    metric : "forearmSlotRelease",
-    title: "Forearm Slot Release",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
+  ball.setClickedRow = (eliteMetric) ->
+    ball.selectedMetric = eliteMetric
+    ball.image = imageMap[ball.selectedMetric.metric]
+    ball.selectedPlayerMetric = ball.currentPlayer.stats.metricScores[ball.selectedMetric.metric].score
 
-    {
-    metric : "elbowFlexionRelease",
-    title: "Elbow Flexion Release",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
+  ef.getEliteMetrics()
+  .then () ->
+    ball.currentPlayer = cpf.currentPlayer
+    ball.eliteMetrics = ef.eliteBallrelease
+    _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.rating = ball.currentPlayer.stats.metricScores[eliteMetric.metric].rating
+    console.log('ELITE METRIC RATING:',ball.eliteMetrics)
+    ball.setClickedRow(ball.eliteMetrics[0])
 
-    {
-    metric : "shoulderRotationRelease",
-    title: "Shoulder Rotation Release",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
-
-    {
-    metric : "shoulderAbductionRelease",
-    title: "Shoulder Abduction Release",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
-
-    {
-    metric : "trunkSideTiltRelease",
-    title: "Trunk Side Tilt Release",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
-
-    {
-    metric : "trunkFlexionRelease",
-    title: "Trunk Flexion Release",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
-
-    {
-    metric : "trunkRotationRelease",
-    title: "Trunk Rotation Release",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
-
-    {
-    metric : "pelvisSideTiltRelease",
-    title: "Pelvis Side Tilt Release",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
-
-    {
-    metric : "pelvisFlexionRelease",
-    title: "Pelvis Flexion Release",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
-
-    {
-    metric : "pelvisRotationRelease",
-    title: "Pelvis Rotation Release",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    }
-  ]
-
-  ball.setClickedRow = (index) ->
-    ball.selectedRow = index
-    console.log("value of index:",index)
-    console.log("value of var:", ball.selectedRow)
-    console.log("TRUE OR FALSE", ball.selectedRow == index)
-
-  ef.getEliteMetrics().then (data) ->
-    newObj = ef.eliteBallrelease
-    newObj = _.each (newObj), (addOn) ->
-      addon = _.extend(addOn, {value: _.random(99)})
-      addon
-    ball.eliteMetrics = newObj
-    console.log 'ball.eliteMetrics: ',ball.eliteMetrics
-
-  ball.currentPlayer = cpf.currentPlayer
-  console.log 'ball.currentPlayer: ',ball.currentPlayer
+  # ball.currentPlayer = cpf.currentPlayer
+  # console.log 'ball.currentPlayer: ',ball.currentPlayer
 ]

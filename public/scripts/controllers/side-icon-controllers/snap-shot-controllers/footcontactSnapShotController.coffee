@@ -26,7 +26,7 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   $q.all(loadPromises).then () ->
     foot.eliteMetrics = ef.eliteFootcontact
     foot.currentPlayer = cpf.currentPlayer
-    _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.rating = foot.currentPlayer.stats.metricScores[eliteMetric.metric].rating
+    _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = foot.currentPlayer.stats.metricScores[eliteMetric.metric]
     foot.setClickedRow(foot.eliteMetrics[0])
     console.log 'foot.eliteMetrics: ',foot.eliteMetrics
 

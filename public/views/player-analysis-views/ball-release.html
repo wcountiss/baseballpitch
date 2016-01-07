@@ -18,11 +18,13 @@
             <th>Metric</th>
             <th>Rating</th>
           </tr>
-          <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="elite in ball.eliteMetrics"
-          ng-class="{'selected':$index == ball.selectedRow}" ng-click="ball.setClickedRow($index)">
-            <td  class="metricval">{{elite.value}}<span class="unit">Deg</span></td>
-            <td>{{elite.metric}}</td>
-            <td><span class="icon-okarrow"></span></td>
+          <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="eliteMetric in ball.eliteMetrics"
+          ng-class="{'selected':eliteMetric == ball.selectedMetric}" ng-click="ball.setClickedRow(eliteMetric)">
+            <td  class="metricval">{{eliteMetric.avg}}<span class="unit">{{eliteMetric.units}}</span></td>
+            <td class="capitalize">{{eliteMetric.title}}</td>
+           <!--  <td ng-if="eliteMetric.rating=='OK'"><span class="icon-okarrow ok"></span></td>
+            <td ng-if="eliteMetric.rating=='Good'"><span class="icon-okarrow good"></span></td>
+            <td ng-if="eliteMetric.rating=='Poor'"><span class="icon-downarrow"></span></td> -->
           </tr>
         </table>
       </div>
