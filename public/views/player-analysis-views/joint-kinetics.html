@@ -18,14 +18,14 @@
             <th>Metric</th>
             <th>Rating</th>
           </tr>
-          <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="elite in joint.eliteMetrics" 
+          <tr class="col-data" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="elite in joint.eliteMetrics"
           ng-class="{'selected':$index == joint.selectedRow}" ng-click="joint.setClickedRow($index, elite)">
             <td  class="metricval">{{elite.value}}<span class="unit">Deg</span></td>
             <td>{{elite.metric}}</td>
             <td><span class="icon-okarrow"></span></td>
           </tr>
         </table>
-     
+
       </div>
 
       <div class="comparison flex-container-col small-flexitem">

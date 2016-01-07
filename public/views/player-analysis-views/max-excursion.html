@@ -18,7 +18,7 @@
             <th>Metric</th>
             <th>Rating</th>
           </tr>
-          <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="elite in max.eliteMetrics"
+          <tr class="col-data" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="elite in max.eliteMetrics"
           ng-class="{'selected':$index == max.selectedRow}" ng-click="max.setClickedRow($index)">
             <td  class="metricval">{{elite.value}}<span class="unit">Deg</span></td>
             <td>{{elite.metric}}</td>
