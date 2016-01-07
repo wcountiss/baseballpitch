@@ -1,4 +1,4 @@
-angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPlayerFactory','eliteFactory',(currentPlayerFactory, eliteFactory) ->
+angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPlayerFactory','eliteFactory', '$q',(currentPlayerFactory, eliteFactory, $q) ->
   ball = this
   cpf = currentPlayerFactory
   ef = eliteFactory
@@ -22,13 +22,15 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
     ball.image = imageMap[ball.selectedMetric.metric]
     ball.selectedPlayerMetric = ball.currentPlayer.stats.metricScores[ball.selectedMetric.metric].score
 
-  ef.getEliteMetrics()
-  .then () ->
-    ball.currentPlayer = cpf.currentPlayer
+  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]  
+  $q.all(loadPromises).then () ->
     ball.eliteMetrics = ef.eliteBallrelease
-    _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.rating = ball.currentPlayer.stats.metricScores[eliteMetric.metric].rating
-    console.log('ELITE METRIC RATING:',ball.eliteMetrics)
+    ball.currentPlayer = cpf.currentPlayer
+    _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = ball.currentPlayer.stats.metricScores[eliteMetric.metric]
     ball.setClickedRow(ball.eliteMetrics[0])
+    console.log 'ball.eliteMetrics: ',ball.eliteMetrics
+
+  console.log 'ball.currentPlayer: ',ball.currentPlayer
 
   # ball.currentPlayer = cpf.currentPlayer
   # console.log 'ball.currentPlayer: ',ball.currentPlayer

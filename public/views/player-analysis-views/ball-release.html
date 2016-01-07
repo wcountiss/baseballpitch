@@ -20,11 +20,11 @@
           </tr>
           <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="eliteMetric in ball.eliteMetrics"
           ng-class="{'selected':eliteMetric == ball.selectedMetric}" ng-click="ball.setClickedRow(eliteMetric)">
-            <td  class="metricval">{{eliteMetric.avg}}<span class="unit">{{eliteMetric.units}}</span></td>
+            <td  class="metricval">{{eliteMetric.pstats.score}}<span class="unit">{{eliteMetric.units}}</span></td>
             <td class="capitalize">{{eliteMetric.title}}</td>
-           <!--  <td ng-if="eliteMetric.rating=='OK'"><span class="icon-okarrow ok"></span></td>
-            <td ng-if="eliteMetric.rating=='Good'"><span class="icon-okarrow good"></span></td>
-            <td ng-if="eliteMetric.rating=='Poor'"><span class="icon-downarrow"></span></td> -->
+            <td ng-if="eliteMetric.pstats.rating=='OK'"><span class="icon-okarrow ok"></span></td>
+            <td ng-if="eliteMetric.pstats.rating=='Good'"><span class="icon-okarrow good"></span></td>
+            <td ng-if="eliteMetric.pstats.rating=='Poor'"><span class="icon-downarrow"></span></td>
           </tr>
         </table>
       </div>
@@ -32,25 +32,24 @@
       <div class="comparison flex-container-col small-flexitem">
 
         <table>
-          <tr class="odd">
+           <tr class="odd">
             <td>PLAYER</td>
-            <td class="metricval">78<span class="unit">Deg</span></td>
+            <td class="metricval">{{ball.selectedPlayerMetric}}<span class="unit">{{ball.selectedMetric.units}}</span></td>
           </tr>
           <tr class="even">
             <td>ELITE</td>
-            <td class="metricval">83<span class="unit">Deg</span></td>
+            <td class="metricval">{{ball.selectedMetric.avg}}<span class="unit">{{ball.selectedMetric.units}}</span></td>
           </tr>
         </table>
 
         <div class="img">
-          <img src="../../images/shoulderrotation.jpg" height="100%" width="100%" alt="">
+          <img ng-src="../../{{ball.image}}" height="100%" width="100%" alt="">
         </div>
 
         <div class="description">
-          <span class="title">Title Goes Heres</span><br>
-          <span class="title">Elite Range: 45</span><br>
-          <p>This should really be an easy thing to show
-            This should really be an easy thing to show</p>
+          <span class="title capitalize">{{ball.selectedMetric.title}}</span><br>
+          <span class="title">Elite Range: {{ball.selectedMetric.eliteLow}}-{{ball.selectedMetric.eliteHigh}}</span><br>
+          <p>{{ball.selectedMetric.description}}</p>
         </div>
 
       </div>
