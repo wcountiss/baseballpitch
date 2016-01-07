@@ -11,8 +11,19 @@
     border: none;
     border-radius: 0px;
     border-bottom: 3px solid #e77127;
+    background: url(../../../images/arrow-down-orange.png) no-repeat;
+    background-position: 100%;
+    background-size: 20px;
+
     &:focus, input:focus{
       outline: 0;
+    }
+    &:hover {
+      transition: all 0.3s ease-out;
+      border-bottom-color: darken(#e77127, 10%);
+      background: url('../../../images/arrow-down-orange-dark.png') no-repeat;
+      background-position: 100%;
+      background-size: 20px;
     }
 
   }
@@ -109,6 +120,11 @@
 
   tr {
     padding-left: 1em;
+    &:hover {
+      transition: all 0.3s ease-out;
+      color: @motus-lightorange;
+      background-color: @charcoalgray!important;
+    }
   }
 
   .selected {
