@@ -8,24 +8,28 @@
     background-image: url("../../../images/kinetics-bg.png");
     background-repeat:no-repeat;
     background-size: cover;
+    background-color:rgba(255, 255, 255, 0.15);
 
   }
   .main-bg-max-ex {
     background-image: url('../../../images/maxex-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 50px 50px; 
+    background-position: 50px 0px;
+    background-color:rgba(255, 255, 255, 0.15);
   }
   .main-bg-ball-release {
     background-image: url('../../../images/ball-release-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 50px 50px; 
+    background-position: 50px 0px; 
+    background-color:rgba(255, 255, 255, 0.15);
   }
   .main-bg-foot-contact {
     background-image: url('../../../images/foot-contact-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
+    background-color:rgba(255, 255, 255, 0.15);
   }
 
 
@@ -106,6 +110,7 @@
   .metric-table {
     margin-left: 40px;
     margin-top: 15px;
+    padding-bottom: 40px;
   }
 
   .comparison table {
@@ -115,10 +120,10 @@
   }
 
   .odd {
-    background-color: rgba(202, 227, 243,.75);
+    background-color: rgba(202, 227, 243,.85);
   }
   .even {
-    background-color: rgba(175, 197, 211,.75);
+    background-color: rgba(175, 197, 211,.85);
   }
 
   
@@ -127,9 +132,24 @@
     font-size: 30px;
     position: relative;
     top: 3.9px;
+  }
+
+   .icon-downarrow {
+    font-size: 30px;
+    position: relative;
+    top: 3.9px;
+    color: @motus-red;
+  }
+
+   .ok {
+    color: @motus-tangerine;
+  }
+
+  .good {
     color: @motus-green;
   }
 
+  
 
   .img {
 
@@ -138,11 +158,13 @@
   .comparison {
     margin-top: 20px;
     margin-right:40px;
+    padding-bottom: 40px;
   }
 
   .description {
     padding: 20px 15px 30px 15px;
     background: rgba(175, 197, 211,.75);
+
   }
 
   .title {
