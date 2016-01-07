@@ -1,4 +1,4 @@
-angular.module('motus').controller 'footcontactSnapShotController', ['currentPlayerFactory','eliteFactory',(currentPlayerFactory, eliteFactory) ->
+angular.module('motus').controller 'footcontactSnapShotController', ['currentPlayerFactory','eliteFactory', '$q',(currentPlayerFactory, eliteFactory, $q) ->
   foot = this
   cpf = currentPlayerFactory
   ef = eliteFactory
@@ -22,10 +22,10 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
     foot.image = imageMap[foot.selectedMetric.metric]
     foot.selectedPlayerMetric = foot.currentPlayer.stats.metricScores[foot.selectedMetric.metric].score
 
-  ef.getEliteMetrics()
-  .then () ->
-    foot.currentPlayer = cpf.currentPlayer
+  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]  
+  $q.all(loadPromises).then () ->
     foot.eliteMetrics = ef.eliteFootcontact
+    foot.currentPlayer = cpf.currentPlayer
     _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.rating = foot.currentPlayer.stats.metricScores[eliteMetric.metric].rating
     foot.setClickedRow(foot.eliteMetrics[0])
     console.log 'foot.eliteMetrics: ',foot.eliteMetrics

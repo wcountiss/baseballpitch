@@ -5,10 +5,7 @@ SnapShot Chart - 2
 
 End of Week 2:
 Add to Stat Service Filter Data by -30 days and Sessions Types
-Current Player Service is Promise based
-Current Player comes from URL
 SnapShot Charts All
-Compress Pitch Data
 
 End of Week 3:
 Add to Stat Service Calculate "Awards"
