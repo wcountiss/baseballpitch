@@ -10,7 +10,7 @@
     appearance: none;
     border: none;
     border-radius: 0px;
-    border-bottom: 3px solid #e77127;
+    border-bottom: 3px solid #f38d4f;
     background: url(../../../images/arrow-down-orange.png) no-repeat;
     background-position: 100%;
     background-size: 20px;
@@ -20,7 +20,7 @@
     }
     &:hover {
       transition: all 0.3s ease-out;
-      border-bottom-color: darken(#e77127, 10%);
+      border-bottom-color: darken(#f38d4f, 10%);
       background: url('../../../images/arrow-down-orange-dark.png') no-repeat;
       background-position: 100%;
       background-size: 20px;
@@ -54,8 +54,7 @@
     background-size: cover;
     background-color:rgba(255, 255, 255, 0.15);
   }
-
-
+  
 
 
   h2 {
@@ -101,6 +100,7 @@
   .metricval {
     font-family: "Arial-Black";
     font-size: 30px;
+    padding-left: 0.6em;
   }
 
   .unit {
@@ -118,12 +118,16 @@
     padding: 8px;
   }
 
-  tr {
-    padding-left: 1em;
+  tr .col-data {
+    padding-left: 1.5em;
+  }
+
+  tr.col-data {
+    
     &:hover {
       transition: all 0.3s ease-out;
       color: @motus-lightorange;
-      background-color: @charcoalgray!important;
+      background-color: @motus-darkgrey!important;
     }
   }
 
@@ -143,6 +147,7 @@
 
   .comparison table {
     width: 100%;
+    min-width: 213px;
     margin-top: 31px;
     text-align: center;
   }
@@ -182,7 +187,7 @@
 
 
   .img {
-
+    min-width: 223px;
   }
 
   .comparison {
@@ -194,7 +199,7 @@
   .description {
     padding: 20px 15px 30px 15px;
     background: rgba(175, 197, 211,.75);
-
+    min-width: 223px;
   }
 
   .title {
@@ -214,7 +219,7 @@
       font-size: 30px;
     }
     .comparison {
-      margin-right: 25px;
+      margin-right: 0px;
     }
 
     .description {
