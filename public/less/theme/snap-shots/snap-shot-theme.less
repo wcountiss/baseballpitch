@@ -4,6 +4,18 @@
   width:inherit;
   html,body { height:100%; }
 
+  select.small-flexitem {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 3px solid #e77127;
+    &:focus, input:focus{
+      outline: 0;
+    }
+
+  }
   .main-bg-joint-kinetics {
     background-image: url("../../../images/kinetics-bg.png");
     background-repeat:no-repeat;
@@ -22,7 +34,7 @@
     background-image: url('../../../images/ball-release-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 50px 0px; 
+    background-position: 50px 0px;
     background-color:rgba(255, 255, 255, 0.15);
   }
   .main-bg-foot-contact {
@@ -128,7 +140,7 @@
 
   .capitalize {
     text-transform: capitalize;
-  }  
+  }
 
   .icon-okarrow {
     font-size: 30px;
@@ -151,7 +163,7 @@
     color: @motus-green;
   }
 
-  
+
 
   .img {
 
