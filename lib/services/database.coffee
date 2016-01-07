@@ -4,6 +4,10 @@ Parse = require('parse/node')
 
 Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_JS_KEY);
 
+removeNotUsedFields = (results) ->
+  _.each results, (result) -> 
+    delete result.sampleData
+
 parseObjecttoObject = (parseObject) ->
   parseObject = JSON.stringify(parseObject)
   return JSON.parse(parseObject)
@@ -32,13 +36,14 @@ module.exports.find = (collectionName, query, options) ->
   return new Promise (resolve, reject) ->
     parseQuery.find()
     .then(
-      (results) -> 
+      (results) ->
         if !options?.noParse
           results = parseObjecttoObject(results) 
+        removeNotUsedFields(results)
         resolve results, 
       (error) -> 
         console.log error
-        reject error
+        reject new Error(error.message)
     ) 
 
 #generic save method
@@ -47,5 +52,10 @@ module.exports.save = (collectionName, data) ->
   parseObject = new ParseObject()
   return new Promise (resolve, reject) ->
     parseObject.save(data)
-    .then((success) -> resolve success, (error) -> reject error)
+    .then (
+      (success) -> 
+        resolve success, 
+      (error) -> 
+        reject new Error(error.message)
+    )
 

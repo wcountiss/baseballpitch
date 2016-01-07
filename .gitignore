@@ -44,15 +44,6 @@ Thumbs.db
 ############
 .idea/
 
-# Node Stuff #
-##############
-node_moduels/
-
-# Bower #
-#########
-
-bower_components/
-
 # Build #
 #########
 public/build/

@@ -23,12 +23,7 @@ gulp.task('server', function () {
   options.env.BLUEBIRD_W_FORGOTTEN_RETURN=0
   nodemon({
     script: 'server.coffee',
-    ext: 'coffee',
-    ignore: [
-      'node_modules/**',
-      'bower_components/**',
-      'public/**'
-    ],
+    watch: ['lib', 'server.coffee', 'routes.coffee'],
     env: options.env
   })
 });

@@ -3,12 +3,12 @@ End of Week 1:
 Need to tie in app state to the active state of the side icons
 SnapShot Chart - 2
 
-End of Week 2: Assumption: Have snapshot images
+End of Week 2:
 Add to Stat Service Filter Data by -30 days and Sessions Types
-Add to Stat Service Each Category Rating
-Add to Stat Service Player Rating
 Current Player Service is Promise based
+Current Player comes from URL
 SnapShot Charts All
+Compress Pitch Data
 
 End of Week 3:
 Add to Stat Service Calculate "Awards"
@@ -50,5 +50,6 @@ login - ?#/login
 
 
 Questions:
+Will data always be in each pitch metric column?
 what is the tagString of "Game"?
 How many pitches are we expecting in a 30 day period per pitcher, can we replicate it in parse
