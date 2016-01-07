@@ -21,7 +21,7 @@
           <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="eliteMetric in foot.eliteMetrics"
           ng-class="{'selected':eliteMetric == foot.selectedMetric}" ng-click="foot.setClickedRow(eliteMetric)">
             <td  class="metricval">{{eliteMetric.avg}}<span class="unit">{{eliteMetric.units}}</span></td>
-            <td>{{eliteMetric.title}}</td>
+            <td class="capitalize">{{eliteMetric.title}}</td>
             <td ng-if="eliteMetric.rating=='OK'"><span class="icon-okarrow ok"></span></td>
             <td ng-if="eliteMetric.rating=='Good'"><span class="icon-okarrow good"></span></td>
             <td ng-if="eliteMetric.rating=='Poor'"><span class="icon-downarrow"></span></td>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="description">
-          <span class="title">{{foot.selectedMetric.title}}</span><br>
+          <span class="title capitalize">{{foot.selectedMetric.title}}</span><br>
           <span class="title">Elite Range: {{foot.selectedMetric.eliteLow}}-{{foot.selectedMetric.eliteHigh}}</span><br>
           <p>{{foot.selectedMetric.description}}</p>
         </div>
