@@ -3,6 +3,8 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   cpf = currentPlayerFactory
   ef = eliteFactory
 
+  ball.filterType = '30'
+
   imageMap = {
     "fingerTipVelocityRelease": "images/legend/BR_FingertipSpeed.jpg",
     "forearmSlotRelease": "images/legend/BR_ForearmSlot.jpg",
@@ -17,6 +19,14 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
     "pelvisRotationRelease": "images/legend/BR_PelvisRotation.jpg",
   }
 
+  ball.filterLastThrowType = () ->
+    if ball.filterType == '30'
+      _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = ball.currentPlayer.stats.metricScores[eliteMetric.metric]
+    else
+      $stat.filterLastThrowType(ball.currentPlayer.pitches, ball.filterType)
+      .then (stats) ->
+        _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
+
   ball.setClickedRow = (eliteMetric) ->
     ball.selectedMetric = eliteMetric
     ball.image = imageMap[ball.selectedMetric.metric]
@@ -28,10 +38,7 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
     ball.currentPlayer = cpf.currentPlayer
     _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = ball.currentPlayer.stats.metricScores[eliteMetric.metric]
     ball.setClickedRow(ball.eliteMetrics[0])
-    console.log 'ball.eliteMetrics: ',ball.eliteMetrics
-
-  console.log 'ball.currentPlayer: ',ball.currentPlayer
-
-  # ball.currentPlayer = cpf.currentPlayer
-  # console.log 'ball.currentPlayer: ',ball.currentPlayer
+    
+  return ball
+  
 ]
