@@ -18,11 +18,18 @@
             <th>Metric</th>
             <th>Rating</th>
           </tr>
-          <tr class="col-data" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="elite in joint.eliteMetrics"
-          ng-class="{'selected':$index == joint.selectedRow}" ng-click="joint.setClickedRow($index, elite)">
-            <td  class="metricval">{{elite.value}}<span class="unit">Deg</span></td>
-            <td>{{elite.metric}}</td>
-            <td><span class="icon-okarrow"></span></td>
+          <tr class="col-data" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="eliteMetric in joint.eliteMetrics"
+          ng-class="{'selected':eliteMetric == joint.selectedMetric}" ng-click="joint.setClickedRow(eliteMetric,$index)">
+
+            <td class="metricval">
+              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{eliteMetric.pstats.score}}</span><span class="unit">{{eliteMetric.units}}</span>
+            </td>
+            
+            <td class="capitalize">{{eliteMetric.title}}</td>
+            <td ng-if="eliteMetric.pstats.score==null"></td>
+            <td ng-if="eliteMetric.pstats.rating=='OK'"><span class="icon-okarrow ok"></span></td>
+            <td ng-if="eliteMetric.pstats.rating=='Good'"><span class="icon-okarrow good"></span></td>
+            <td ng-if="eliteMetric.pstats.rating=='Poor'"><span class="icon-downarrow"></span></td>
           </tr>
         </table>
 
@@ -33,23 +40,22 @@
         <table>
           <tr class="odd">
             <td>PLAYER</td>
-            <td class="metricval">78<span class="unit">Deg</span></td>
+            <td class="metricval"><span class="metricval" ng-if="joint.selectedPlayerMetric==null">NA</span>{{joint.selectedPlayerMetric}}<span class="unit">{{joint.selectedMetric.units}}</span></td>
           </tr>
           <tr class="even">
             <td>ELITE</td>
-            <td class="metricval">83<span class="unit">Deg</span></td>
+            <td class="metricval">{{joint.selectedMetric.avg}}<span class="unit">{{joint.selectedMetric.units}}</span></td>
           </tr>
         </table>
 
         <div class="img">
-          <img src="../../images/shoulderrotation.jpg" height="100%" width="100%" alt="">
+          <img ng-src="../../{{joint.image}}" height="100%" width="100%" alt="">
         </div>
 
         <div class="description">
-          <span class="title">Title Goes Heres</span><br>
-          <span class="title">Elite Range: 45</span><br>
-          <p>This should really be an easy thing to show
-            This should really be an easy thing to show</p>
+          <span class="title capitalize">{{joint.selectedMetric.title}}</span><br>
+          <span class="title">Elite Range: {{joint.selectedMetric.eliteLow}}-{{joint.selectedMetric.eliteHigh}}</span><br>
+          <p>{{joint.selectedMetric.description}}</p>
         </div>
 
       </div>
