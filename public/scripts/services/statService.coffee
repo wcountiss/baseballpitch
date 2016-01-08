@@ -80,7 +80,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
       _.each players, (player) -> 
         #get aggregate values
         player.stats = {
-          longThrow: didThrowType(player.pitches, 'Longtoss')
+          longToss: didThrowType(player.pitches, 'Longtoss')
           bullPen:  didThrowType(player.pitches, 'Bullpen')
           game: didThrowType(player.pitches, 'Game')
         }
@@ -99,11 +99,53 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
 
   #give "awards" to players
   stat.getPlayerAwards = (players) ->
-    # FAKE
-    #Most improved/regressed get 60 days of pitches?
-    awards = ['best', 'worst']
-    players[randomNumber(0,players.length-1)].stats.award = awards[randomNumber(0,awards.length-1)]
-    return players
+    defer = $q.defer()
+    debugger;
+    #Best Performer Award goes to:
+    bestOverallScore = _.max(_.pluck(players.stats, 'overallScore'))
+    player = _.find players, (player) -> player.overallScore == bestOverallScore
+    player.stats.award = 'Best Performer'
+
+    #Worst Performer Award goes to:
+    worstOverallScore = _.min(_.pluck(players.stats, 'overallScore'))
+    player = _.find players, (player) -> player.overallScore == worstOverallScore
+    player.stats.award = 'Worst Performer'
+
+    $http.post("pitch", { daysBack: 60 })
+    .then (pitches) ->
+      #out of the 60 days, take off the first 30 since they are already on the player
+      pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate) < moment().add('d', 30);
+      #group by player
+      pitches = _.groupBy pitches, (pitch) -> pitch.athleteProfile.objectId
+
+      #Most Improved/Regressed goes to
+      statPromises = []
+      _.each players, (player) -> 
+        playerPitchesLastMonth = pitches[player.athleteProfile.objectId]
+        statPromises.push(runStatsEngine(playerPitchesLastMonth))
+      $q.all(statPromises).then (lastMonthStats) ->
+        mostImprovedIndex = 0
+        mostImprovedScore = 0
+        _.each players, (player, i) -> 
+          scoreDifference = player.stats.overallScore - lastMonthStats[i].overallScore
+          if scoreDifference > mostImprovedScore
+            mostImprovedScore = scoreDifference
+            mostImprovedIndex = i
+        player = players[mostImprovedIndex]
+        player.stats.award = 'Most Improved' 
+
+        mostRegressedIndex = 0
+        mostRegressedScore = 0
+        _.each players, (player, i) -> 
+          scoreDifference = lastMonthStats[i].overallScore - player.stats.overallScore
+          if scoreDifference > mostRegressedScore
+            mostRegressedScore = scoreDifference
+            mostRegressedIndex = i
+        player = players[mostRegressedIndex]
+        player.stats.award = 'Most Regressed'
+        defer.resolve()
+    return defer.promise
+
 
   #filter data to a particular set of pitches
   stat.filterLastThrowType = (pitches, type) ->

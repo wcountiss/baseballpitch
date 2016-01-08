@@ -23,6 +23,12 @@ app.config ($stateProvider, $urlRouterProvider) ->
     controller: 'forgotPasswordController'
     authenticate: false
   })
+  .state('teamOverview', {
+    url: "/team",
+    templateUrl: "views/teamOverview.html",
+    controller: 'teamOverviewController',
+    authenticate: true
+  })
   .state('player', {
     url: "/player",
     templateUrl: "views/player.html",
@@ -87,6 +93,7 @@ require './services/statService.coffee'
 require './services/playerService.coffee'
 require './controllers/indexController.coffee'
 require './services/eliteFactory.coffee'
+require './controllers/teamOverviewController.coffee'
 require './controllers/playerController.coffee'
 require './controllers/login/loginController.coffee'
 require './controllers/login/forgotPasswordController.coffee'

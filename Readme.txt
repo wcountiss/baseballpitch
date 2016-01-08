@@ -1,19 +1,18 @@
 Motus
 End of Week 1:
-Need to tie in app state to the active state of the side icons
+No Stats
 SnapShot Chart - 2
 
 End of Week 2:
-Add to Stat Service Filter Data by -30 days and Sessions Types
 SnapShot Charts All
 
 End of Week 3:
-Add to Stat Service Calculate "Awards"
+Awards
+Get Year of Pitch Data
 Couch View of Players in Team Overview
 Coach View of Line Chart in Team Overview
 
 End of Week 4:
-Add to Stat Service get Metric Rating
 Player Analysis Pie Charts
 Player Analysis Natural Language Descriptions
 Player Analysis Overview Chart

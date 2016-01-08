@@ -7,6 +7,12 @@ Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_JS_KEY);
 removeNotUsedFields = (results) ->
   _.each results, (result) -> 
     delete result.sampleData
+    delete result.compressionData
+    delete result.timeSeriesForearmSpeed
+    delete result.timeSeriesHipSpeed
+    delete result.timeSeriesTrunkSpeed
+    
+
 
 parseObjecttoObject = (parseObject) ->
   parseObject = JSON.stringify(parseObject)
