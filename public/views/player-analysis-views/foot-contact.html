@@ -19,7 +19,7 @@
             <th>Rating</th>
           </tr>
           <tr class="col-data" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="eliteMetric in foot.eliteMetrics"
-          ng-class="{'selected':eliteMetric == foot.selectedMetric}" ng-click="foot.setClickedRow(eliteMetric)">
+          ng-class="{'selected':eliteMetric == foot.selectedMetric}" ng-click="foot.setClickedRow(eliteMetric,$index)">
             <td  class="metricval">{{eliteMetric.pstats.score}}<span class="unit">{{eliteMetric.units}}</span></td>
             <td class="capitalize">{{eliteMetric.title}}</td>
             <td ng-if="eliteMetric.pstats.rating=='OK'"><span class="icon-okarrow ok"></span></td>
