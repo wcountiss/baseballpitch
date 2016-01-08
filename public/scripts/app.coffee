@@ -25,8 +25,15 @@ app.config ($stateProvider, $urlRouterProvider) ->
   })
   .state('teamOverview', {
     url: "/team",
-    templateUrl: "views/teamOverview.html",
-    controller: 'teamOverviewController',
+    views: {
+      '': {
+        controller:'teamOverviewController as team',
+        templateUrl: "views/team-overview/teamOverview.html"
+      },
+      'judgement@teamOverview': {templateUrl: 'views/team-overview/overview-templates/judgement.html'},
+      'bullpen@teamOverview': {templateUrl: 'views/team-overview/overview-templates/bullpen.html'},
+      'roster@teamOverview': {templateUrl: 'views/team-overview/overview-templates/roster-chart.html'}
+    },
     authenticate: true
   })
   .state('player', {
@@ -93,7 +100,7 @@ require './services/statService.coffee'
 require './services/playerService.coffee'
 require './controllers/indexController.coffee'
 require './services/eliteFactory.coffee'
-require './controllers/teamOverviewController.coffee'
+require './controllers/team-overview-controllers/teamOverviewController.coffee'
 require './controllers/playerController.coffee'
 require './controllers/login/loginController.coffee'
 require './controllers/login/forgotPasswordController.coffee'
