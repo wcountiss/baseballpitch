@@ -1,58 +1,42 @@
-angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPlayerFactory','eliteFactory',(currentPlayerFactory, eliteFactory) ->
+angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPlayerFactory','eliteFactory','$stat', '$q',(currentPlayerFactory, eliteFactory, $stat, $q) ->
   max = this
   cpf = currentPlayerFactory
   ef = eliteFactory
 
-  max.legend = [
-    {
-    metric : "maxElbowFlexion",
-    title: "Max Elbow Flexion",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
+  max.filterType = '30'
 
-    {
-    metric : "maxShoulderRotation",
-    title: "Max Shoulder Rotation",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
+  imageMap = {
+    "maxElbowFlexion": "images/legend/MAX_ElbowFLexion.jpg",
+    "maxShoulderRotation": "images/legend/MAX_ShoulderRotation.jpg",
+    "maxTrunkSeparation": "images/legend/MAX_TrunkRotation.jpg",
+    "maxFootHeight": "images/legend/MAX_FootHeight.jpg",
+  }
 
-    {
-    metric : "maxTrunkSeparation",
-    title: "Max Trunk Separation",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
+  max.filterLastThrowType = () ->
+    if max.filterType == '30'
+      _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = max.currentPlayer.stats.metricScores[eliteMetric.metric]
+    else
+      $stat.filterLastThrowType(max.currentPlayer.pitches, max.filterType)
+      .then (stats) ->
+        _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
+  
+  max.setClickedRow = (eliteMetric, index) ->
+    cpf.maxMetricsIndex = index
+    max.selectedMetric = eliteMetric
+    max.image = imageMap[max.selectedMetric.metric]
+    if max.currentPlayer.stats?.metricScores
+      max.selectedPlayerMetric = max.currentPlayer.stats.metricScores[max.selectedMetric.metric].score
 
-    {
-    metric : "maxFootHeight",
-    title: "Max Foot Height",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    }
-  ]
+  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
+  $q.all(loadPromises).then () ->
+    max.eliteMetrics = ef.eliteMaxexcursion
+    max.currentPlayer = cpf.currentPlayer
+    _.each max.eliteMetrics, (eliteMetric) -> 
+      if max.currentPlayer.stats?.metricScores?[eliteMetric.metric] 
+        eliteMetric.pstats = max.currentPlayer.stats.metricScores[eliteMetric.metric]
+      else 
+        eliteMetric.pstats = null
+    max.setClickedRow(max.eliteMetrics[cpf.maxMetricsIndex], cpf.maxMetricsIndex)
 
-  max.setClickedRow = (index) ->
-    max.selectedRow = index
-    
-
-  ef.getEliteMetrics().then (data) ->
-    newObj = ef.eliteMaxexcursion
-    newObj = _.each (newObj), (addOn) ->
-      addon = _.extend(addOn, {value: _.random(99)})
-      addon
-    max.eliteMetrics = newObj
-    console.log max.eliteMetrics
-
-  max.currentPlayer = cpf.currentPlayer
-  console.log 'max.currentPlayer: ',max.currentPlayer
+  return max
 ]
