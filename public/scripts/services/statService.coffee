@@ -102,7 +102,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
     defer = $q.defer()
     debugger;
     #Best Performer Award goes to:
-    bestOverallScore = _.max(_.pluck(players.stats, 'overallScore'))
+    bestOverallScore = _.max(_.pluck(players, 'stats.overallScore'))
     player = _.find players, (player) -> player.overallScore == bestOverallScore
     player.stats.award = 'Best Performer'
 
@@ -151,6 +151,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
   stat.filterLastThrowType = (pitches, type) ->
     defer = $q.defer()
     # get last of throw type and all throwTypes on that day
+    debugger;
     lastThrowType = _.find(pitches, (pitch) ->
       if pitch.tagString 
         pitch.tagString.split(',')[0] == type 

@@ -4,8 +4,8 @@
       <h2 class="large-flexitem">Ball Release</h2>
       <select class="small-flexitem" ng-model="ball.filterType" name="sessions" ng-change="ball.filterLastThrowType()">
         <option value="30">Last 30 Days AVG</option>
-        <option value="game" ng-if="ball.currentPlayer.stats.game" >Last Game</option>
-        <option value="BullPen" ng-if="ball.currentPlayer.stats.bullPen" >Last Bullpen</option>
+        <option value="Game" ng-if="ball.currentPlayer.stats.game" >Last Game</option>
+        <option value="Bullpen" ng-if="ball.currentPlayer.stats.bullPen" >Last Bullpen</option>
         <option value="Longtoss" ng-if="ball.currentPlayer.stats.longToss">Last Longtoss</option>
       </select>
     </div>

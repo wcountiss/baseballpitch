@@ -39,14 +39,12 @@ angular.module('motus').controller('playerController',
       getPlayers = () ->
         $player.getPlayers()
         .then (players) ->
-          console.log players
-          pitches = ['right', 'left']
           position = ['starter', 'relief', 'closer']
 
           #loop through team and add roster booleans
           _.each (players), (player) ->
             #hardcoded stats, change to parse later
-            player = _.extend(player, { age: _.random(20,40), height: _.random(65,80), weight: _.random(150,180), birthPlace: "USA", position: position[_.random(2)], level: 'mlb', pitches: pitches[_.random(1)], imgUrl: '../images/matt-harvey.png', alt: 'Matt Harvey'})
+            player = _.extend(player, { age: _.random(20,40), height: _.random(65,80), weight: _.random(150,180), birthPlace: "USA", position: position[_.random(2)], level: 'mlb', imgUrl: '../images/matt-harvey.png', alt: 'Matt Harvey'})
             player
           $scope.playerRoster = players
           #makes the first player in the list the selected player when the pages loads
