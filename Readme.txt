@@ -1,5 +1,6 @@
 Motus
 End of Week 2:
+query Select
 SnapShot Charts All
 
 End of Week 3:

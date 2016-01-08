@@ -4,21 +4,13 @@ Parse = require('parse/node')
 
 Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_JS_KEY);
 
-removeNotUsedFields = (results) ->
-  _.each results, (result) -> 
-    delete result.sampleData
-    delete result.compressionData
-    delete result.timeSeriesForearmSpeed
-    delete result.timeSeriesHipSpeed
-    delete result.timeSeriesTrunkSpeed
-    
-
 
 parseObjecttoObject = (parseObject) ->
   parseObject = JSON.stringify(parseObject)
   return JSON.parse(parseObject)
 
-#generic finder method
+#generic finder method for database objects
+#if performance is needed in future make new method that takes in a parsequery and runs it
 module.exports.find = (collectionName, query, options) ->
   ParseObject = Parse.Object.extend(collectionName)
   parseQuery = new Parse.Query(ParseObject)
@@ -35,6 +27,10 @@ module.exports.find = (collectionName, query, options) ->
     _.each _.keys(query.greater), (key) ->
       parseQuery.greaterThanOrEqualTo(key, query.greater[key])
 
+    #Array of selected columns to return
+    if query.select
+      parseQuery.select(query.select.join(','))
+
   #what to include
   if options?.include
     _.each options.include, (includeItem) ->
@@ -45,7 +41,6 @@ module.exports.find = (collectionName, query, options) ->
       (results) ->
         if !options?.noParse
           results = parseObjecttoObject(results) 
-        removeNotUsedFields(results)
         resolve results, 
       (error) -> 
         console.log error
