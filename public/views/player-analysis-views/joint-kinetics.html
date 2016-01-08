@@ -2,11 +2,11 @@
   <div class="main-bg-joint-kinetics">
     <div class="flex-container-row">
       <h2 class="large-flexitem">Kinetics</h2>
-      <select class="small-flexitem" name="cars">
-        <option value="LastThirty">Last 30 Days AVG</option>
-        <option value="LastGame">Last Game</option>
-        <option value="LastBullpen">Last Bullpen</option>
-        <option value="LastLongtoss">Last Longtoss</option>
+      <select class="small-flexitem" ng-model="joint.filterType" name="sessions" ng-change="joint.filterLastThrowType()">
+        <option value="30">Last 30 Days AVG</option>
+        <option value="Game" ng-if="joint.currentPlayer.stats.game" >Last Game</option>
+        <option value="Bullpen" ng-if="joint.currentPlayer.stats.bullPen" >Last Bullpen</option>
+        <option value="Longtoss" ng-if="joint.currentPlayer.stats.longToss">Last Longtoss</option>
       </select>
     </div>
     <div class="flex-container-row">
