@@ -137,5 +137,4 @@ angular.module('motus').controller('playerController',
           $scope.jointkineticsSideButtonActive = true
         else
           $scope.jointkineticsSideButtonActive = false
-
   ])
