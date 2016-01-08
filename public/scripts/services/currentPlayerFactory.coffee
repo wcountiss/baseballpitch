@@ -3,6 +3,7 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q', ($pla
   cpf.footMetricsIndex = 0
   cpf.ballMetricsIndex = 0
   cpf.maxMetricsIndex = 0
+  cpf.jointMetricsIndex = 0
   cpf.getCurrentPlayer = () ->
     if cpf.currentPlayer
       return $q.when(cpf.currentPlayer)

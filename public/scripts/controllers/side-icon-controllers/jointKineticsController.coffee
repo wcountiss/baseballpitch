@@ -1,74 +1,46 @@
-angular.module('motus').controller 'jointKineticsController', ['currentPlayerFactory','eliteFactory',(currentPlayerFactory, eliteFactory) ->
+angular.module('motus').controller 'jointKineticsController', ['currentPlayerFactory','eliteFactory','$stat','$q',(currentPlayerFactory, eliteFactory, $stat, $q) ->
   # self reference
   joint = this
   # grab factory data
   cpf = currentPlayerFactory
   ef = eliteFactory
-  joint.selectedRow = null
 
-  joint.legend = [
-    {
-    metric : "peakElbowCompressiveForce",
-    title: "Elbow Compressive Force",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
+  joint.filterType = '30'
 
-    {
-    metric : "peakElbowValgusTorque",
-    title: "Elbow Valgus Torque",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
+  imageMap = {
+    "peakElbowCompressiveForce": "images/legend/MAX_ElbowFLexion.jpg",
+    "peakElbowValgusTorque": "images/legend/MAX_ShoulderRotation.jpg",
+    "peakShoulderRotationTorque": "images/legend/MAX_TrunkRotation.jpg",
+    "peakShoulderCompressiveForce": "images/legend/MAX_FootHeight.jpg",
+    "peakShoulderAnteriorForce": "images/legend/MAX_FootHeight.jpg",
+  }
 
-    {
-    metric : "peakShoulderRotationTorque",
-    title: "Shoulder Rotation Torque",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
-
-    {
-    metric : "peakShoulderCompressiveForce",
-    title: "Shoulder Compressive Force",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    },
-
-    {
-    metric : "peakShoulderAnteriorForce",
-    title: "Shoulder Anterior Force",
-    imgurl: "http://www.amazon.com",
-    eliterange: "",
-    description: "",
-    unit: ""
-    }
-  ]
+  joint.filterLastThrowType = () ->
+    if joint.filterType == '30'
+      _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = joint.currentPlayer.stats.metricScores[eliteMetric.metric]
+    else
+      $stat.filterLastThrowType(joint.currentPlayer.pitches, joint.filterType)
+      .then (stats) ->
+        _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
   
-  joint.setClickedRow = (index) ->
-    console.log("LEGEND:",joint.legend[index].title)
-    joint.selectedRow = index
+   joint.setClickedRow = (eliteMetric, index) ->
+    cpf.jointMetricsIndex = index
+    joint.selectedMetric = eliteMetric
+    joint.image = imageMap[joint.selectedMetric.metric]
+    if joint.currentPlayer.stats?.metricScores
+      joint.selectedPlayerMetric = joint.currentPlayer.stats.metricScores[joint.selectedMetric.metric].score
 
-  ef.getEliteMetrics().then (metrics) ->
-    # controller logic
-    joint.greeting = 'hello from jointKineticsController'
+
+  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
+  $q.all(loadPromises).then () ->
+    joint.eliteMetrics = ef.eliteKinetics
     joint.currentPlayer = cpf.currentPlayer
-    console.log 'joint.currentPlayer: ',joint.currentPlayer
-    newObj = ef.eliteKinetics
-    newObj = _.each (newObj), (addon) ->
-      addon.value = _.random(99)
-      newObj= addon
-    joint.eliteMetrics = newObj
-    console.log "ELITE FACTORY RETURNS:",joint.eliteMetrics
+    _.each joint.eliteMetrics, (eliteMetric) -> 
+      if joint.currentPlayer.stats?.metricScores?[eliteMetric.metric] 
+        eliteMetric.pstats = joint.currentPlayer.stats.metricScores[eliteMetric.metric]
+      else 
+        eliteMetric.pstats = null
+    joint.setClickedRow(joint.eliteMetrics[cpf.maxMetricsIndex], cpf.maxMetricsIndex)
 
-
-  joint
+  return joint
 ]
