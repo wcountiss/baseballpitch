@@ -13,9 +13,9 @@ angular.module('motus').service('$player', ['$http', '$q', '$stat', ($http, $q, 
           players = results[0].data
           pitches = results[1].data
           _.each players, (player) -> player.pitches = _.filter(pitches, (pitch) -> pitch.athleteProfile.objectId == player.athleteProfile.objectId )
-          $stat.getPlayersStats(players).then (players) -> playerService.players = players
-        .then () ->
-          defer.resolve(playerService.players)
+          $stat.getPlayersStats(players).then (players) -> 
+            playerService.players = players
+            defer.resolve(playerService.players)
         return defer.promise
 
   #get pitches

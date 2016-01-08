@@ -1,4 +1,4 @@
-angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPlayerFactory','eliteFactory', '$q',(currentPlayerFactory, eliteFactory, $q) ->
+angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPlayerFactory','eliteFactory', '$stat', '$q',(currentPlayerFactory, eliteFactory, $stat, $q) ->
   ball = this
   cpf = currentPlayerFactory
   ef = eliteFactory

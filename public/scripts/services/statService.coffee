@@ -76,45 +76,44 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
     )
 
   stat.getPlayersStats = (players) =>
-    return $q.when(
-      _.each players, (player) -> 
-        #get aggregate values
-        player.stats = {
-          longToss: didThrowType(player.pitches, 'Longtoss')
-          bullPen:  didThrowType(player.pitches, 'Bullpen')
-          game: didThrowType(player.pitches, 'Game')
-        }
-      statPromises = _.map players, (player) ->
-        if player.pitches.length
-          runStatsEngine(player.pitches)
-          .then (stats) ->
-            player.stats = _.extend(player.stats, stats)
-            return player
-        else
-          $q.when({})
-      $q.all(statPromises)
-      .then () ->
-        return players
-    )
+    defer = $q.defer()
+    _.each players, (player) -> 
+      #get aggregate values
+      player.stats = {
+        longToss: didThrowType(player.pitches, 'Longtoss')
+        bullPen:  didThrowType(player.pitches, 'Bullpen')
+        game: didThrowType(player.pitches, 'Game')
+      }
+    statPromises = _.map players, (player) ->
+      if player.pitches.length
+        runStatsEngine(player.pitches)
+        .then (stats) ->
+          player.stats = _.extend(player.stats, stats)
+          return player
+      else
+        $q.when({})
+    $q.all(statPromises)
+    .then () ->
+      defer.resolve(players)
+    return defer.promise
 
   #give "awards" to players
   stat.getPlayerAwards = (players) ->
     defer = $q.defer()
-    debugger;
     #Best Performer Award goes to:
     bestOverallScore = _.max(_.pluck(players, 'stats.overallScore'))
-    player = _.find players, (player) -> player.overallScore == bestOverallScore
+    player = _.find players, (player) -> player.stats.overallScore == bestOverallScore
     player.stats.award = 'Best Performer'
 
     #Worst Performer Award goes to:
-    worstOverallScore = _.min(_.pluck(players.stats, 'overallScore'))
-    player = _.find players, (player) -> player.overallScore == worstOverallScore
+    worstOverallScore = _.min(_.pluck(players, 'stats.overallScore'))
+    player = _.find players, (player) -> player.stats.overallScore == worstOverallScore
     player.stats.award = 'Worst Performer'
 
     $http.post("pitch", { daysBack: 60 })
-    .then (pitches) ->
+    .success (pitches) ->
       #out of the 60 days, take off the first 30 since they are already on the player
-      pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate) < moment().add('d', 30);
+      pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate.iso) < moment().add('d', -30);
       #group by player
       pitches = _.groupBy pitches, (pitch) -> pitch.athleteProfile.objectId
 
@@ -124,25 +123,27 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
         playerPitchesLastMonth = pitches[player.athleteProfile.objectId]
         statPromises.push(runStatsEngine(playerPitchesLastMonth))
       $q.all(statPromises).then (lastMonthStats) ->
-        mostImprovedIndex = 0
+        mostImprovedIndex = null
         mostImprovedScore = 0
         _.each players, (player, i) -> 
           scoreDifference = player.stats.overallScore - lastMonthStats[i].overallScore
           if scoreDifference > mostImprovedScore
             mostImprovedScore = scoreDifference
             mostImprovedIndex = i
-        player = players[mostImprovedIndex]
-        player.stats.award = 'Most Improved' 
+        if mostImprovedIndex
+          player = players[mostImprovedIndex]
+          player.stats.award = 'Most Improved' 
 
-        mostRegressedIndex = 0
+        mostRegressedIndex = null
         mostRegressedScore = 0
         _.each players, (player, i) -> 
           scoreDifference = lastMonthStats[i].overallScore - player.stats.overallScore
           if scoreDifference > mostRegressedScore
             mostRegressedScore = scoreDifference
             mostRegressedIndex = i
-        player = players[mostRegressedIndex]
-        player.stats.award = 'Most Regressed'
+        if mostRegressedIndex
+          player = players[mostRegressedIndex]
+          player.stats.award = 'Most Regressed'
         defer.resolve()
     return defer.promise
 
@@ -151,7 +152,6 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
   stat.filterLastThrowType = (pitches, type) ->
     defer = $q.defer()
     # get last of throw type and all throwTypes on that day
-    debugger;
     lastThrowType = _.find(pitches, (pitch) ->
       if pitch.tagString 
         pitch.tagString.split(',')[0] == type 
@@ -161,7 +161,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
     if lastThrowType
       allThrowsOfTypeOnSameDay = _.filter(pitches, (pitch) -> 
         if pitch.tagString 
-          pitch.tagString.split(',')[0] == type && moment(pitch.pitchDate).format('MM/DD/YYYY') == moment(lastThrowType.pitchDate).format('MM/DD/YYYY')
+          pitch.tagString.split(',')[0] == type && moment(pitch.pitchDate.iso).format('MM/DD/YYYY') == moment(lastThrowType.pitchDate.iso).format('MM/DD/YYYY')
       )
 
       #run through Player stats
