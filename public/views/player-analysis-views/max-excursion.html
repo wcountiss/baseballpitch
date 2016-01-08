@@ -2,11 +2,11 @@
   <div class="main-bg-max-ex">
     <div class="flex-container-row">
       <h2 class="large-flexitem">Max Excursion</h2>
-      <select class="small-flexitem" name="sessions">
-        <option value="LastThirty">Last 30 Days AVG</option>
-        <option value="LastGame">Last Game</option>
-        <option value="LastBullpen">Last Bullpen</option>
-        <option value="LastLongtoss">Last Longtoss</option>
+      <select class="small-flexitem" ng-model="max.filterType" name="sessions" ng-change="max.filterLastThrowType()">
+        <option value="30">Last 30 Days AVG</option>
+        <option value="Game" ng-if="max.currentPlayer.stats.game" >Last Game</option>
+        <option value="Bullpen" ng-if="max.currentPlayer.stats.bullPen" >Last Bullpen</option>
+        <option value="Longtoss" ng-if="max.currentPlayer.stats.longToss">Last Longtoss</option>
       </select>
     </div>
     <div class="flex-container-row">
