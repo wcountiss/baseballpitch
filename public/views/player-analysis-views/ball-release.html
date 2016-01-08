@@ -21,8 +21,8 @@
           <tr class="col-data" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="eliteMetric in ball.eliteMetrics"
           ng-class="{'selected':eliteMetric == ball.selectedMetric}" ng-click="ball.setClickedRow(eliteMetric, $index)">
 
-            <td  class="metricval">
-              <span ng-if="eliteMetric.pstats.score==null">NA</span><span ng-if="eliteMetric.pstats.score!=null">{{eliteMetric.pstats.score}}</span><span class="unit">{{eliteMetric.units}}</span>
+            <td class="metricval">
+              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{eliteMetric.pstats.score}}</span><span class="unit">{{eliteMetric.units}}</span>
             </td>
 
             <td class="capitalize">{{eliteMetric.title}}</td>
@@ -39,7 +39,7 @@
         <table>
            <tr class="odd">
             <td>PLAYER</td>
-            <td class="metricval">{{ball.selectedPlayerMetric}}<span class="unit">{{ball.selectedMetric.units}}</span></td>
+            <td class="metricval"><span class="metricval" ng-if="ball.selectedPlayerMetric==null">NA</span>{{ball.selectedPlayerMetric}}<span class="unit">{{ball.selectedMetric.units}}</span></td>
           </tr>
           <tr class="even">
             <td>ELITE</td>
