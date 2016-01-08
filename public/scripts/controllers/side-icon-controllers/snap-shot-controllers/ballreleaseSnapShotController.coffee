@@ -27,18 +27,19 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
       .then (stats) ->
         _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
 
-  ball.setClickedRow = (eliteMetric) ->
+  ball.setClickedRow = (eliteMetric, index) ->
+    cpf.ballMetricsIndex = index
     ball.selectedMetric = eliteMetric
     ball.image = imageMap[ball.selectedMetric.metric]
     ball.selectedPlayerMetric = ball.currentPlayer.stats.metricScores[ball.selectedMetric.metric].score
 
-  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]  
+  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises).then () ->
     ball.eliteMetrics = ef.eliteBallrelease
     ball.currentPlayer = cpf.currentPlayer
     _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = ball.currentPlayer.stats.metricScores[eliteMetric.metric]
-    ball.setClickedRow(ball.eliteMetrics[0])
-    
+    ball.setClickedRow(ball.eliteMetrics[cpf.ballMetricsIndex], cpf.ballMetricsIndex)
+
   return ball
-  
+
 ]
