@@ -126,10 +126,11 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
         mostImprovedIndex = null
         mostImprovedScore = 0
         _.each players, (player, i) -> 
-          scoreDifference = player.stats.overallScore - lastMonthStats[i].overallScore
-          if scoreDifference > mostImprovedScore
-            mostImprovedScore = scoreDifference
-            mostImprovedIndex = i
+          if pitches[player.athleteProfile.objectId]
+            scoreDifference = player.stats.overallScore - lastMonthStats[i].overallScore
+            if scoreDifference > mostImprovedScore
+              mostImprovedScore = scoreDifference
+              mostImprovedIndex = i
         if mostImprovedIndex
           player = players[mostImprovedIndex]
           player.stats.award = 'Most Improved' 
@@ -137,10 +138,11 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
         mostRegressedIndex = null
         mostRegressedScore = 0
         _.each players, (player, i) -> 
-          scoreDifference = lastMonthStats[i].overallScore - player.stats.overallScore
-          if scoreDifference > mostRegressedScore
-            mostRegressedScore = scoreDifference
-            mostRegressedIndex = i
+          if pitches[player.athleteProfile.objectId]
+            scoreDifference = lastMonthStats[i].overallScore - player.stats.overallScore
+            if scoreDifference > mostRegressedScore
+              mostRegressedScore = scoreDifference
+              mostRegressedIndex = i
         if mostRegressedIndex
           player = players[mostRegressedIndex]
           player.stats.award = 'Most Regressed'

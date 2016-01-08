@@ -1,13 +1,8 @@
 Motus
-End of Week 1:
-No Stats
-SnapShot Chart - 2
-
 End of Week 2:
 SnapShot Charts All
 
 End of Week 3:
-Awards
 Get Year of Pitch Data
 Couch View of Players in Team Overview
 Coach View of Line Chart in Team Overview
