@@ -3,6 +3,32 @@
     <h2>Roster Overview</h2>
   </div>
   <div class="roster-chart">
-    <img src="http://placehold.it/800x300" alt="">
+  {{team.myteam}}
+    <table>
+      <tr>
+        <th>Player Name</th>
+        <th>Long Toss</th>
+        <th>Bull Pen</th>
+        <th>Game</th>
+        <th>Foot</th>
+        <th>Hips</th>
+        <th>Trunk</th>
+        <th>Shoulder</th>
+        <th>Elbow</th>
+        <th>Performance</th>
+      </tr>
+      <tr ng-repeat="player in team.myteam" ng-class-odd="'odd'" ng-class-even="'even'">
+        <td>{{player.athleteProfile.firstName}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="roster-foot"></td>
+        <td class="roster-hips"></td>
+        <td class="roster-trunk"></td>
+        <td class="roster-shoulder"></td>
+        <td class="roster-elbow"></td>
+        <td></td>
+      </tr>
+    </table>
   </div>
 </div>

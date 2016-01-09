@@ -2,14 +2,19 @@ angular.module('motus').controller('teamOverviewController',
   ['$http', '$state', '$player', '$stat'
     ($http, $state, $player, $stat) ->
       team = this
-      console.log 'hello team'
+      console.log( "SHOW IT:",team.myteam)
+
+
+      
 
       team.hello = "hello"
-      $player.getPlayers()
+      team.myteam = $player.getPlayers()
         .then (players) ->
-          $stat.getPlayerAwards(players)
-          .then () ->
-            team.players = players
+         return players
+          
+          # $stat.getPlayerAwards(players)
+          # .then () ->
+          #   team.players = players
 
 
       team
