@@ -2,8 +2,7 @@
   <div class="roster-header">
     <h2>Roster Overview</h2>
   </div>
-  <div class="roster-chart">
-  {{team.myteam}}
+  <div class="chart">
     <table>
       <tr>
         <th>Player Name</th>
@@ -17,16 +16,16 @@
         <th>Elbow</th>
         <th>Performance</th>
       </tr>
-      <tr ng-repeat="player in team.myteam" ng-class-odd="'odd'" ng-class-even="'even'">
-        <td>{{player.athleteProfile.firstName}}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="roster-foot"></td>
-        <td class="roster-hips"></td>
-        <td class="roster-trunk"></td>
-        <td class="roster-shoulder"></td>
-        <td class="roster-elbow"></td>
+      <tr ng-repeat="player in team.bullpen" ng-class-odd="'odd'" ng-class-even="'even'">
+        <td>{{player.athleteProfile.firstName}}{{player.athleteProfile.lastName}}</td>
+        <td>{{player.stats.longToss}}</td>
+        <td>{{player.stats.bullPen}}</td>
+        <td>{{player.stats.game}}</td>
+        <td class="roster-foot">{{player.stats.categoryScores.FOOT.rating}}</td>
+        <td class="roster-hips">{{player.stats.categoryScores.HIP.rating}}</td>
+        <td class="roster-trunk">{{player.stats.categoryScores.TRUNK.rating}}</td>
+        <td class="roster-shoulder">{{player.stats.categoryScores.SHOULDER.rating}}</td>
+        <td class="roster-elbow">{{player.stats.categoryScores.ELBOW.rating}}</td>
         <td></td>
       </tr>
     </table>
