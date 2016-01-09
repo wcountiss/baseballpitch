@@ -10026,7 +10026,7 @@ angular.module('d3').directive('piestats', [
   }
 ]);
 'use strict';
-angular.module('d3').directive('linechart', [
+angular.module('d3').directive('arealinechart', [
   'd3',
   function (d3) {
     return {

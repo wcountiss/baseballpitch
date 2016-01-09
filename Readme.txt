@@ -1,9 +1,9 @@
 Motus
 End of Week 2:
-query Select
 SnapShot Charts All
 
 End of Week 3:
+AutoPrefixer
 Get Year of Pitch Data
 Couch View of Players in Team Overview
 Coach View of Line Chart in Team Overview

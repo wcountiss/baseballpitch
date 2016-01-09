@@ -84,7 +84,7 @@ gulp.task('url', function(){
 
 
 gulp.task('production', ['less', 'scripts'], function() {});
-gulp.task('development', ['clean', 'less', 'scripts', 'pages', 'watch', 'server', 'url'], function() {});
+gulp.task('development', ['server', 'clean', 'less', 'scripts', 'pages', 'watch',  'url'], function() {});
 
 
 gulp.task('default', [process.env["NODE_ENV"] || 'development']);
