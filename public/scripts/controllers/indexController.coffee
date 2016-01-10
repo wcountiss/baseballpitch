@@ -1,8 +1,8 @@
 angular.module('motus').controller('indexController',
-['$scope', '$state', '$http', '$cookies', '$currentUser'
-  ($scope, $state, $http, $cookies, $currentUser) ->
+['$scope', '$state', '$http', '$cookies', '$currentUser', '$q',
+  ($scope, $state, $http, $cookies, $currentUser, $q) ->
     $scope.state = $state
-    console.log 'State:::', $scope.state
+    stateDefer = $q.defer()
     #if logged in set the current user
     $scope.loadUser = () ->
       if $cookies.get('motus')
@@ -10,17 +10,10 @@ angular.module('motus').controller('indexController',
         .success (user) ->
           $currentUser.user = user
           $scope.user = $currentUser.user
+          stateDefer.resolve()
       else
         $scope.user = $currentUser.user
-      #Set Initial States of Header Nav
-      uiState = $state.current.name
-      console.log 'uiState:', $state.current.name
-      if uiState == "player" || uiState == "player.home" || uiState == "player.kinetic-chain" || uiState == "player.foot-contact" || uiState == "player.ball-release" || uiState == "player.max-excursion" || uiState == "player.joint-kinetics" || uiState == "player.trends"
-        $scope.playerAnalysisActive = true
-        $scope.teamOverviewActive = false
-      else
-        $scope.playerAnalysisActive = false
-        $scope.teamOverviewActive = true
+
 
     $scope.logOut = () ->
       $cookies.remove('motus')
@@ -29,21 +22,29 @@ angular.module('motus').controller('indexController',
 
     #Page Load
     $scope.loadUser()
-      
+
 
     #########################################################
-    # Main Navigation                                       #
+    # Main Navigation -team overview-player analysis states #
     #########################################################
+
+    stateDefer.promise.then () ->
+      #Set Initial States of Header Nav
+      uiState = $state.current.name
+      if uiState == "player" || uiState == "player.home" || uiState == "player.kinetic-chain" || uiState == "player.foot-contact" || uiState == "player.ball-release" || uiState == "player.max-excursion" || uiState == "player.joint-kinetics" || uiState == "player.trends"
+        $scope.playerAnalysisActive = true
+        $scope.teamOverviewActive = false
+      else
+        $scope.playerAnalysisActive = false
+        $scope.teamOverviewActive = true
+
 
     #Changes Which Header nav is Active
     $scope.headerActive = (activeHeader) ->
-      console.log 'headerActive clicked: ',activeHeader
       if activeHeader == "team"
         $scope.teamOverviewActive = true
         $scope.playerAnalysisActive = false
-        console.log 'teamOverviewActive:', $scope.teamOverviewActive
       else
         $scope.teamOverviewActive = false
         $scope.playerAnalysisActive = true
-        console.log 'teamOverviewActive:', $scope.teamOverviewActive
 ])
