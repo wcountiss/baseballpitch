@@ -3,10 +3,9 @@ End of Week 2:
 SnapShot Charts All
 
 End of Week 3:
+Coach View of Line Chart in Team Overview Format
 Couch View of Players in Team Overview
-Coach View of Line Chart in Team Overview
 AutoPrefixer
-
 
 End of Week 4:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
