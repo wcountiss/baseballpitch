@@ -6,15 +6,56 @@
   }
   .judgement-list {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     width:100%;
     padding-left: 40px;
+    padding-right: 40px;
     padding-bottom: 40px;
+    justify-content: space-around;
+    
     .judged-player {
-      background-color: orange;
       margin:5px;
-      width: 200px;
-      height:200px;
+      flex: 1;
+      height:100px;
+      box-sizing: border-box;
     }
+  }
+
+  .texthldr {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    top: -320px;
+    padding-left: 100px;
+    left: 0px;
+    font-weight: bold;
+    font-size:17px;
+  }
+
+  .textrating {
+    font-family: "Arial Black";
+    font-size: 25px;
+    line-height: .24em;
+    text-transform:uppercase;
+  }
+
+  .subtextrating {
+    font-size: 17px;
+    font-weight: normal;
+  }
+
+  .imghldr {
+    width: 213px;
+    height: 320px;
+    background-image: url(../images/player-silo.jpg);
+    -webkit-transform: scale(.35,.23);
+    transform: scale(.40,0.26);
+    background-size: 213px 480px;
+    background-position: 5px -8px;
+    position: relative;
+    border-radius: 50%;
+    left: -64px;
+    top: -119px;
   }
 }
