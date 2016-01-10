@@ -2,9 +2,9 @@ angular.module('motus').controller('indexController',
 ['$scope', '$state', '$http', '$cookies', '$currentUser', '$q',
   ($scope, $state, $http, $cookies, $currentUser, $q) ->
     $scope.state = $state
-    stateDefer = $q.defer()
     #if logged in set the current user
     $scope.loadUser = () ->
+      stateDefer = $q.defer()
       if $cookies.get('motus')
         $http.get('/user')
         .success (user) ->
@@ -13,6 +13,7 @@ angular.module('motus').controller('indexController',
           stateDefer.resolve()
       else
         $scope.user = $currentUser.user
+      return stateDefer.promise
 
 
     $scope.logOut = () ->
@@ -21,14 +22,11 @@ angular.module('motus').controller('indexController',
       window.location = '?#/login'
 
     #Page Load
-    $scope.loadUser()
-
-
     #########################################################
     # Main Navigation -team overview-player analysis states #
     #########################################################
 
-    stateDefer.promise.then () ->
+    $scope.loadUser().then () ->
       #Set Initial States of Header Nav
       uiState = $state.current.name
       if uiState == "player" || uiState == "player.home" || uiState == "player.kinetic-chain" || uiState == "player.foot-contact" || uiState == "player.ball-release" || uiState == "player.max-excursion" || uiState == "player.joint-kinetics" || uiState == "player.trends"
