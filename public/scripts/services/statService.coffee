@@ -103,12 +103,12 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
     defer = $q.defer()
     #Best Performer Award goes to:
     bestOverallScore = _.max(_.pluck(players, 'stats.overallScore.ratingScore'))
-    player = _.find players, (player) -> player.stats.overallScore == bestOverallScore
+    player = _.find players, (player) -> player.stats.overallScore.ratingScore == bestOverallScore
     player.stats.award = 'Best Performer'
 
     #Worst Performer Award goes to:
     worstOverallScore = _.min(_.pluck(players, 'stats.overallScore.ratingScore'))
-    player = _.find players, (player) -> player.stats.overallScore == worstOverallScore
+    player = _.find players, (player) -> player.stats.overallScore.ratingScore == worstOverallScore
     player.stats.award = 'Worst Performer'
 
     $http.post("pitch", { daysBack: 60 })
@@ -122,7 +122,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
       statPromises = []
       _.each players, (player) -> 
         playerPitchesLastMonth = pitches[player.athleteProfile.objectId]
-        statPromises.push(runStatsEngine(playerPitchesLastMonth))
+        statPromises.push(stat.runStatsEngine(playerPitchesLastMonth))
       $q.all(statPromises).then (lastMonthStats) ->
         mostImprovedIndex = null
         mostImprovedScore = 0
