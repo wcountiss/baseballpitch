@@ -10047,7 +10047,7 @@ angular.module('d3').directive('arealinechart', [
               width = 960 - margin.left - margin.right,
               height = 500 - margin.top - margin.bottom;
 
-          var parseDate = d3.time.format("%m/%d/%Y").parse;
+          var parseDate = d3.time.format("%m/%Y").parse;
 
           var x = d3.time.scale()
               .range([0, width]);

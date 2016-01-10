@@ -102,12 +102,12 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
   stat.getPlayerAwards = (players) ->
     defer = $q.defer()
     #Best Performer Award goes to:
-    bestOverallScore = _.max(_.pluck(players, 'stats.overallScore'))
+    bestOverallScore = _.max(_.pluck(players, 'stats.overallScore.ratingScore'))
     player = _.find players, (player) -> player.stats.overallScore == bestOverallScore
     player.stats.award = 'Best Performer'
 
     #Worst Performer Award goes to:
-    worstOverallScore = _.min(_.pluck(players, 'stats.overallScore'))
+    worstOverallScore = _.min(_.pluck(players, 'stats.overallScore.ratingScore'))
     player = _.find players, (player) -> player.stats.overallScore == worstOverallScore
     player.stats.award = 'Worst Performer'
 
