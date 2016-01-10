@@ -57,7 +57,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
 
   #get score overall for the player
   getOverallScore = (metricScores) ->
-    eliteScore = 85
+    eliteScore = 90
     playersOverallScore = eliteScore #Start at 85 which is Elite
     _.each metricScores, (metricScore) ->
       playersOverallScore = playersOverallScore-metricScore.ratingScore
