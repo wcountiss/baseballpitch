@@ -10066,7 +10066,7 @@ angular.module('d3').directive('arealinechart', [
           var area = d3.svg.area()
               .x(function(d) { return x(d.date); })
               .y0(height)
-              .y1(function(d) { return y(d.close); });
+              .y1(function(d) { return y(d.score); });
 
           // remove the last version and recreate 
           var elementChildren = element[0].children;
@@ -10084,11 +10084,11 @@ angular.module('d3').directive('arealinechart', [
             
             data.forEach(function(d) {
               d.date = parseDate(d.date);
-              d.close = +d.close;
+              d.score = +d.score;
             });
 
             x.domain(d3.extent(data, function(d) { return d.date; }));
-            y.domain([0, d3.max(data, function(d) { return d.close; })]);
+            y.domain([0, d3.max(data, function(d) { return d.score; })]);
 
             svg.append("path")
                 .datum(data)
@@ -10111,7 +10111,7 @@ angular.module('d3').directive('arealinechart', [
                 .text(scope.text);
           }
         }
-        scope.$watch("bind", function(){ updateChart() }, false);
+        scope.$watch("bind()", function(){ updateChart() }, false);
       }
     };
   }

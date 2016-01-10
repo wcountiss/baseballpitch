@@ -57,13 +57,14 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
 
   #get score overall for the player
   getOverallScore = (metricScores) ->
-    eliteNumber = 85
+    eliteScore = 85
+    playersOverallScore = eliteScore #Start at 85 which is Elite
     _.each metricScores, (metricScore) ->
-      eliteNumber = eliteNumber-metricScore.ratingScore
-    return eliteNumber
+      playersOverallScore = playersOverallScore-metricScore.ratingScore
+    return { ratingScore: playersOverallScore, rating: rateScore(playersOverallScore, {avg: eliteScore, stdev: 10 }) }
 
   #stat engine
-  runStatsEngine = (pitches) ->
+  stat.runStatsEngine = (pitches) ->
     return $q.when(
       eliteFactory.getEliteMetrics()
         .then (eliteMetrics) ->
@@ -86,7 +87,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
       }
     statPromises = _.map players, (player) ->
       if player.pitches.length
-        runStatsEngine(player.pitches)
+        stat.runStatsEngine(player.pitches)
         .then (stats) ->
           player.stats = _.extend(player.stats, stats)
           return player
@@ -167,7 +168,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
       )
 
       #run through Player stats
-      runStatsEngine(pitches)
+      stat.runStatsEngine(pitches)
       .then (stats) ->
         defer.resolve(stats)
     else
