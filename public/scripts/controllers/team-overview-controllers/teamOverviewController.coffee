@@ -14,16 +14,11 @@ angular.module('motus').controller('teamOverviewController',
         $q.all(statsPromises)
         .then (stats) ->
           console.log stats
-        #map overall score per month
-
-        #transform data by month
-
-          #Map to teamScores
-          team.teamScores = [
-            {date:'1-May-12', score: 87.4},
-            {date:'30-Apr-12', score: 58.3}
-          ]
-
+          #map overall score per month
+          scores = _.map stats, (monthStat, i) -> return {date: moment().month(i).startOf('month').format('MM/DD/2014'), score: monthStat.overallScore.ratingScore}
+          #Remove when we have a month of data
+          scores.push {date:"12/01/2014", score: 90}
+          team.teamScores = scores
 
       team.myteam = $player.getPlayers()
       .then (players) ->
