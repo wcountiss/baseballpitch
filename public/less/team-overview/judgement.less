@@ -10,11 +10,27 @@
     width:100%;
     padding-left: 40px;
     padding-bottom: 40px;
+    background: blue;
     .judged-player {
       background-color: orange;
       margin:5px;
-      width: 200px;
+      flex: 1;
       height:200px;
+      box-sizing: border-box;
     }
+  }
+
+  .imghldr {
+    width: 213px;
+    height: 320px;
+    background-image: url(../images/player-silo.png);
+    -webkit-transform: scale(.35,.23);
+    transform: scale(.40,0.26);
+    background-size: 213px 400px;
+    background-position: 0 -8px;
+    position: relative;
+    border-radius: 50%;
+    left: -64px;
+    top: -119px;
   }
 }
