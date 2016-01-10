@@ -15,7 +15,7 @@ angular.module('motus').controller('teamOverviewController',
           console.log stats
 
           #map overall score per month
-          scores = _.map stats, (monthStat, i) -> debugger; return { date: moment(pitches[i]).startOf('month').format('MM/YYYY'), score: monthStat.overallScore.ratingScore}
+          scores = _.map stats, (monthStat, i) -> return { date: moment(pitches[i]).startOf('month').format('MM/YYYY'), score: monthStat.overallScore.ratingScore}
           #Remove when we have a month of data
           scores.push { date:"12/01/2014", score: 90 }
           team.teamScores = scores
@@ -28,7 +28,7 @@ angular.module('motus').controller('teamOverviewController',
          
         $stat.getPlayerAwards(players)
         .then () ->
-          console.log players
+          console.log "PLAYERS OBJECT:" ,players
 
       return team
   ])

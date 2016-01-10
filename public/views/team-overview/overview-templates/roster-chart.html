@@ -51,7 +51,13 @@
           poor: player.stats.categoryScores.ELBOW.rating == 'Poor'
         }"class="joint-rating-box"></div>
         </td> 
-        <td></td>
+        <td class="overallScore" ng-class="{
+          'overall-good': player.stats.overallScore.rating.rating == 'Good',
+          'overall-ok': player.stats.overallScore.rating.rating == 'OK',
+          'overall-poor': player.stats.overallScore.rating.rating == 'Poor'
+          }">
+          {{player.stats.overallScore.rating.rating || "NA"}}
+        </td>
       </tr>
     </table>
   </div>
