@@ -12,14 +12,6 @@ angular.module('motus').controller('indexController',
           $scope.user = $currentUser.user
       else
         $scope.user = $currentUser.user
-
-    $scope.logOut = () ->
-      $cookies.remove('motus')
-      # $state.go('login')
-      window.location = '?#/login'
-
-    #Page Load
-    $scope.loadUser().then () ->
       #Set Initial States of Header Nav
       uiState = $state.current.name
       console.log 'uiState:', $state.current.name
@@ -29,6 +21,15 @@ angular.module('motus').controller('indexController',
       else
         $scope.playerAnalysisActive = false
         $scope.teamOverviewActive = true
+
+    $scope.logOut = () ->
+      $cookies.remove('motus')
+      # $state.go('login')
+      window.location = '?#/login'
+
+    #Page Load
+    $scope.loadUser()
+      
 
     #########################################################
     # Main Navigation                                       #
