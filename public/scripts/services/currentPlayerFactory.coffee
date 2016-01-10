@@ -8,7 +8,7 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q', ($pla
     if cpf.currentPlayer
       return $q.when(cpf.currentPlayer)
     else
-      $player.getPlayers()
+      return $player.getPlayers()
       .then (players) ->
         cpf.currentPlayer = players[0]
 
