@@ -21,11 +21,12 @@ angular.module('motus').controller('indexController',
       # $state.go('login')
       window.location = '?#/login'
 
-    #Page Load
+    
     #########################################################
     # Main Navigation -team overview-player analysis states #
     #########################################################
 
+    #Page Load
     $scope.loadUser().then () ->
       #Set Initial States of Header Nav
       uiState = $state.current.name
