@@ -18,7 +18,7 @@
             <th>Metric</th>
             <th>Rating</th>
           </tr>
-          <tr class="col-data" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="eliteMetric in ball.eliteMetrics"
+          <tr class="col-data" ng-class-odd="'metric-odd'" ng-class-even="'metric-even'" ng-repeat="eliteMetric in ball.eliteMetrics"
           ng-class="{'selected':eliteMetric == ball.selectedMetric}" ng-click="ball.setClickedRow(eliteMetric, $index)">
 
             <td class="metricval">
