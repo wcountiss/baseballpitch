@@ -31,7 +31,16 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
     foot.selectedMetric = eliteMetric
     foot.image = imageMap[foot.selectedMetric.metric]
     if foot.currentPlayer.stats?.metricScores
-      foot.selectedPlayerMetric = foot.currentPlayer.stats.metricScores[foot.selectedMetric.metric].score
+      foot.selectedPlayerMetric = eliteMetric.pstats.score
+
+  foot.setfilterCount = (pitches, type) ->
+    pitchesOfType = _.filter pitches, (pitch) -> 
+      if type == 'Untagged'
+        return !pitch.tagString
+      else
+        return false if !pitch.tagString
+        return pitch.tagString.split(',')[0] == type
+    foot["#{type}Count"] = pitchesOfType.length
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises).then () ->
@@ -43,6 +52,11 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
       else 
         eliteMetric.pstats = null
     foot.setClickedRow(foot.eliteMetrics[cpf.footMetricsIndex], cpf.footMetricsIndex)
+    foot.setfilterCount(foot.currentPlayer.pitches, 'Longtoss')
+    foot.setfilterCount(foot.currentPlayer.pitches, 'Bullpen')
+    foot.setfilterCount(foot.currentPlayer.pitches, 'Game')
+    foot.setfilterCount(foot.currentPlayer.pitches, 'Untagged')
+
 
   return foot
 ]
