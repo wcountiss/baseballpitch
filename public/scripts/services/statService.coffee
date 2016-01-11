@@ -155,10 +155,12 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
     defer = $q.defer()
     #if you did not have that throwtype, return empty array
 
-    pitches = _.filter(pitches, (pitch) -> 
-      return false if !pitch.tagString
-      pitch.tagString.split(',')[0] == type
-    )
+    pitches = _.filter pitches, (pitch) -> 
+      if type == 'Untagged'
+        return !pitch.tagString
+      else
+        return false if !pitch.tagString
+        return pitch.tagString.split(',')[0] == type
 
     #run through Player stats
     runStatsEngine(pitches)

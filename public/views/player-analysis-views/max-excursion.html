@@ -3,10 +3,12 @@
     <div class="flex-container-row">
       <h2 class="large-flexitem">Max Excursion</h2>
       <select class="small-flexitem" ng-model="max.filterType" name="sessions" ng-change="max.filterLastThrowType()">
-        <option value="30">Last 30 Days AVG</option>
-        <option value="Game" ng-if="max.currentPlayer.stats.game" >Last Game</option>
-        <option value="Bullpen" ng-if="max.currentPlayer.stats.bullPen" >Last Bullpen</option>
-        <option value="Longtoss" ng-if="max.currentPlayer.stats.longToss">Last Longtoss</option>
+        <option value="30">Last 30 Days AVG ({{max.currentPlayer.pitches.length}})</option>
+        <option value="Game" ng-if="max.currentPlayer.stats.game" >Last Game ({{max.GameCount}})</option>
+        <option value="Bullpen" ng-if="max.currentPlayer.stats.bullPen">Last Bullpen ({{max.BullpenCount}})</option>
+        <option value="Longtoss" ng-if="max.currentPlayer.stats.longToss">Last Longtoss ({{max.LongtossCount}})</option>
+        <option value="Untagged" ng-if="max.UntaggedCount">Untagged ({{max.UntaggedCount}})</option>
+
       </select>
     </div>
     <div class="flex-container-row">

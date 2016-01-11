@@ -27,6 +27,15 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
     if max.currentPlayer.stats?.metricScores
       max.selectedPlayerMetric = eliteMetric.pstats.score
 
+  max.setfilterCount = (pitches, type) ->
+    pitchesOfType = _.filter pitches, (pitch) -> 
+      if type == 'Untagged'
+        return !pitch.tagString
+      else
+        return false if !pitch.tagString
+        return pitch.tagString.split(',')[0] == type
+    max["#{type}Count"] = pitchesOfType.length
+
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises).then () ->
     max.eliteMetrics = ef.eliteMaxexcursion
@@ -37,6 +46,10 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
       else 
         eliteMetric.pstats = null
     max.setClickedRow(max.eliteMetrics[cpf.maxMetricsIndex], cpf.maxMetricsIndex)
+    max.setfilterCount(max.currentPlayer.pitches, 'Longtoss')
+    max.setfilterCount(max.currentPlayer.pitches, 'Bullpen')
+    max.setfilterCount(max.currentPlayer.pitches, 'Game')
+    max.setfilterCount(max.currentPlayer.pitches, 'Untagged')
 
   return max
 ]
