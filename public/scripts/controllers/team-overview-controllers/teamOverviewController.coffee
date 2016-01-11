@@ -30,6 +30,63 @@ angular.module('motus').controller('teamOverviewController',
         $stat.getPlayerAwards(players)
         .then () ->
           console.log "PLAYERS OBJECT:" ,players
+          
+          _.each players, (player) ->
+            team.judgement = {}
 
+            if player.stats.award == "Best Performer"
+             team.judgement.fname = player.athleteProfile.firstName
+             team.judgement.lname = player.athleteProfile.lastName
+             team.judgement.awardtitle = "Best"
+             team.judgement.awardsub = "Performer"
+             team.sixPlayers.push(team.judgement)
+
+            if player.stats.award == "Worst Performer"
+             team.judgement.fname = player.athleteProfile.firstName
+             team.judgement.lname = player.athleteProfile.lastName
+             team.judgement.awardtitle = "Worst"
+             team.judgement.awardsub = "Performer"
+             team.sixPlayers.push(team.judgement)
+
+            if player.stats.award == "Improved"
+             team.judgement.fname = player.athleteProfile.firstName
+             team.judgement.lname = player.athleteProfile.lastName
+             team.judgement.awardtitle = "Improved"
+             team.judgement.awardsub = "Most Since Last Month"
+             team.sixPlayers.push(team.judgement) 
+
+            if player.stats.award == "Regressed"
+             team.judgement.fname = player.athleteProfile.firstName
+             team.judgement.lname = player.athleteProfile.lastName
+             team.judgement.awardtitle = "Regressed"
+             team.judgement.awardsub = "Most Since Last Month"
+             team.sixPlayers.push(team.judgement)
+
+            if player.stats.award == "Best Accuracy"
+             team.judgement.fname = player.athleteProfile.firstName
+             team.judgement.lname = player.athleteProfile.lastName
+             team.judgement.awardtitle = "Best"
+             team.judgement.awardsub = "Accuracy"
+             team.sixPlayers.push(team.judgement)
+
+            if player.stats.award == "Fastest Pitch" 
+             team.judgement.fname = player.athleteProfile.firstName
+             team.judgement.lname = player.athleteProfile.lastName
+             team.judgement.awardtitle = "Fastest"
+             team.judgement.awardsub = "Pitch"
+             team.sixPlayers.push(team.judgement)
+            console.log 'sixPlayers: ',team.sixPlayers
+            i = 6 - team.sixPlayers.length
+            _.times i, (n) ->
+              team.judgement = {}
+              team.judgement.fname = "NA"
+              team.judgement.awardtitle = "NO DATA"
+              team.judgement.awardsub = "No Data Available"
+              team.sixPlayers.push(team.judgement)
+            _.each team.sixPlayers, (player,i) ->
+    
+      #Judgement Array
+      team.sixPlayers = []
+      # team.test = ["amit", "bob","cara","peter","quin","robby"]
       return team
   ])

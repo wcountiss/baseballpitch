@@ -134,7 +134,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
               mostImprovedIndex = i
         if mostImprovedIndex
           player = players[mostImprovedIndex]
-          player.stats.award = 'Most Improved' 
+          player.stats.award = 'Improved' 
 
         mostRegressedIndex = null
         mostRegressedScore = 0
@@ -146,7 +146,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
               mostRegressedIndex = i
         if mostRegressedIndex
           player = players[mostRegressedIndex]
-          player.stats.award = 'Most Regressed'
+          player.stats.award = 'Regressed'
         defer.resolve()
     return defer.promise
 
