@@ -153,25 +153,17 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
   #filter data to a particular set of pitches
   stat.filterLastThrowType = (pitches, type) ->
     defer = $q.defer()
-    # get last of throw type and all throwTypes on that day
-    lastThrowType = _.find(pitches, (pitch) ->
-      if pitch.tagString 
-        pitch.tagString.split(',')[0] == type 
+    #if you did not have that throwtype, return empty array
+
+    pitches = _.filter(pitches, (pitch) -> 
+      return false if !pitch.tagString
+      pitch.tagString.split(',')[0] == type
     )
 
-    #if you did not have that throwtype, return empty array
-    if lastThrowType
-      allThrowsOfTypeOnSameDay = _.filter(pitches, (pitch) -> 
-        if pitch.tagString 
-          pitch.tagString.split(',')[0] == type && moment(pitch.pitchDate.iso).format('MM/DD/YYYY') == moment(lastThrowType.pitchDate.iso).format('MM/DD/YYYY')
-      )
-
-      #run through Player stats
-      runStatsEngine(pitches)
-      .then (stats) ->
-        defer.resolve(stats)
-    else
-        defer.resolve({})
+    #run through Player stats
+    runStatsEngine(pitches)
+    .then (stats) ->
+      defer.resolve(stats)
     return defer.promise
 
   return stat
