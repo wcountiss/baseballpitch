@@ -1,9 +1,13 @@
 Motus
 End of Week 2:
 SnapShot Charts All
+Filter Lasttoss now working
 
 End of Week 3:
-Coach View of Line Chart in Team Overview Format
+Line Chart x/y Axis - clean up
+Line Chart Circle d3-tooltip
+Line Chart Animations
+Line Chart Elite Line Label
 Couch View of Players in Team Overview
 AutoPrefixer
 

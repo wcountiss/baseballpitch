@@ -3,10 +3,23 @@ arealinechart{
   .axis line {
     fill: none;
     stroke: #000;
-    shape-rendering: crispEdges;
+  }
+
+  .line {
+    stroke: #000;
+    stroke-width: .1em;
+  }
+
+  .circle{
+    stroke: #000;
+    stroke-width: .1em;
+    r: .7em;
+    fill: @motus-darkorange;
+    z-index: 10;
   }
 
   .area {
-    fill: steelblue;
+    fill: @motus-blue;
+    stroke: #000;
   }
 }

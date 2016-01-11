@@ -10063,11 +10063,6 @@ angular.module('d3').directive('arealinechart', [
               .scale(y)
               .orient("left");
 
-          var area = d3.svg.area()
-              .x(function(d) { return x(d.date); })
-              .y0(height)
-              .y1(function(d) { return y(d.score); });
-
           // remove the last version and recreate 
           var elementChildren = element[0].children;
           for (var i = 0; i < elementChildren.length; i++) {
@@ -10090,10 +10085,50 @@ angular.module('d3').directive('arealinechart', [
             x.domain(d3.extent(data, function(d) { return d.date; }));
             y.domain([0, d3.max(data, function(d) { return d.score; })]);
 
+            // area fill
+            var area = d3.svg.area()
+              .x(function(d) { return x(d.date); })
+              .y0(height)
+              .y1(function(d) { return y(d.score); });
             svg.append("path")
                 .datum(data)
                 .attr("class", "area")
                 .attr("d", area);
+
+            // elite data
+            svg.append("line")
+              .attr("x1", 0)
+              .attr("y1", 45)
+              .attr("x2", d3.max(data, function(d) { return x(d.date); }))
+              .attr("y2", 45)
+              .attr("class", "average")
+              .attr("stroke-width", 2)
+              .attr("stroke", "black");
+
+            // create border line on top
+            var lineFunction = d3.svg.line()
+              .x(function(d) { return x(d.date); })
+              .y(function(d) { return y(d.score); })
+              .interpolate("linear");
+            svg.append("path")
+                .datum(data)
+                .attr("class", "line")
+                .attr("stroke-width", ".5em")
+                .attr("stroke", "black")
+                .attr("d", lineFunction);
+
+            //circles along linear
+            data.forEach(function(d) {
+              svg.append("circle")
+                .datum(d)
+                .attr("r", 2)
+                .attr("cx", function(d){ return x(d.date);})
+                .attr("cy", function(d){ return y(d.score);})
+                .attr("class", "circle")
+                .attr("fill", "black")
+                .attr("stroke", "black")
+            });
+
 
             svg.append("g")
                 .attr("class", "x axis")

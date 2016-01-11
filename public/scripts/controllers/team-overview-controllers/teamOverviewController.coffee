@@ -12,13 +12,10 @@ angular.module('motus').controller('teamOverviewController',
         _.each _.keys(pitches), (key) -> statsPromises.push $stat.runStatsEngine(pitches[key])
         $q.all(statsPromises)
         .then (stats) ->
-          console.log stats
           #map overall score per month
-
-          scores = _.map _.keys(pitches), (key, i) -> debugger; return { date: moment(key).startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
-
+          scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key).startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
           #Remove when we have a month of data
-          scores.push { date:"12/2015", score: 50 }
+          scores.push { date:"3/2015", score: 50 }
           team.teamScores = scores
 
       team.myteam = $player.getPlayers()
