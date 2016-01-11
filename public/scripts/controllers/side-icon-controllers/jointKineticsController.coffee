@@ -23,12 +23,21 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
       .then (stats) ->
         _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
   
-   joint.setClickedRow = (eliteMetric, index) ->
+  joint.setClickedRow = (eliteMetric, index) ->
     cpf.jointMetricsIndex = index
     joint.selectedMetric = eliteMetric
     joint.image = imageMap[joint.selectedMetric.metric]
     if joint.currentPlayer.stats?.metricScores
       joint.selectedPlayerMetric = joint.currentPlayer.stats.metricScores[joint.selectedMetric.metric].score
+
+  joint.setfilterCount = (pitches, type) ->
+    pitchesOfType = _.filter pitches, (pitch) -> 
+      if type == 'Untagged'
+        return !pitch.tagString
+      else
+        return false if !pitch.tagString
+        return pitch.tagString.split(',')[0] == type
+    joint["#{type}Count"] = pitchesOfType.length
 
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
@@ -41,6 +50,10 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
       else 
         eliteMetric.pstats = null
     joint.setClickedRow(joint.eliteMetrics[cpf.maxMetricsIndex], cpf.maxMetricsIndex)
+    joint.setfilterCount(joint.currentPlayer.pitches, 'Longtoss')
+    joint.setfilterCount(joint.currentPlayer.pitches, 'Bullpen')
+    joint.setfilterCount(joint.currentPlayer.pitches, 'Game')
+    joint.setfilterCount(joint.currentPlayer.pitches, 'Untagged')
 
   return joint
 ]
