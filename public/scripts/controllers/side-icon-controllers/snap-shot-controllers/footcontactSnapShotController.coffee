@@ -31,7 +31,7 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
     foot.selectedMetric = eliteMetric
     foot.image = imageMap[foot.selectedMetric.metric]
     if foot.currentPlayer.stats?.metricScores
-      foot.selectedPlayerMetric = foot.currentPlayer.stats.metricScores[foot.selectedMetric.metric].score
+      foot.selectedPlayerMetric = eliteMetric.pstats.score
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises).then () ->

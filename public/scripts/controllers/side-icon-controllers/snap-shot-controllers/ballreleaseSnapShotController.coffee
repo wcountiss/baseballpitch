@@ -32,7 +32,7 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
     ball.selectedMetric = eliteMetric
     ball.image = imageMap[ball.selectedMetric.metric]
     if ball.currentPlayer.stats?.metricScores
-      ball.selectedPlayerMetric = ball.currentPlayer.stats.metricScores[ball.selectedMetric.metric].score
+      ball.selectedPlayerMetric = eliteMetric.pstats.score
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises).then () ->

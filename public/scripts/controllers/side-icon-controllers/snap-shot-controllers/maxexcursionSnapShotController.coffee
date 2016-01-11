@@ -25,7 +25,7 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
     max.selectedMetric = eliteMetric
     max.image = imageMap[max.selectedMetric.metric]
     if max.currentPlayer.stats?.metricScores
-      max.selectedPlayerMetric = max.currentPlayer.stats.metricScores[max.selectedMetric.metric].score
+      max.selectedPlayerMetric = eliteMetric.pstats.score
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises).then () ->
