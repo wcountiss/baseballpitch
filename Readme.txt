@@ -1,14 +1,12 @@
 Motus
 End of Week 2:
 SnapShot Charts All
-Filter Lasttoss now working
-Untagged, add numbers
 
 End of Week 3:
-Line Chart x/y Axis - clean up
-Line Chart Circle d3-tooltip
+Line Chart x Axis - Month in MMM
 Line Chart Animations
 Line Chart Elite Line Label
+Line Chart Lines
 Couch View of Players in Team Overview
 AutoPrefixer
 

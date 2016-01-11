@@ -10083,7 +10083,7 @@ angular.module('d3').directive('arealinechart', [
             });
 
             x.domain(d3.extent(data, function(d) { return d.date; }));
-            y.domain([0, d3.max(data, function(d) { return d.score; })]);
+            y.domain([0, 100]);
 
             // area fill
             var area = d3.svg.area()
@@ -10094,16 +10094,6 @@ angular.module('d3').directive('arealinechart', [
                 .datum(data)
                 .attr("class", "area")
                 .attr("d", area);
-
-            // elite data
-            svg.append("line")
-              .attr("x1", 0)
-              .attr("y1", 45)
-              .attr("x2", d3.max(data, function(d) { return x(d.date); }))
-              .attr("y2", 45)
-              .attr("class", "average")
-              .attr("stroke-width", 2)
-              .attr("stroke", "black");
 
             // create border line on top
             var lineFunction = d3.svg.line()
@@ -10116,6 +10106,16 @@ angular.module('d3').directive('arealinechart', [
                 .attr("stroke-width", ".5em")
                 .attr("stroke", "black")
                 .attr("d", lineFunction);
+
+            // elite data
+            svg.append("line")
+              .attr("x1", 0)
+              .attr("y1", 90)
+              .attr("x2", d3.max(data, function(d) { return x(d.date); }))
+              .attr("y2", 90)
+              .attr("class", "average")
+              .attr("stroke-width", 2)
+              .attr("stroke", "black");
 
             //circles along linear
             data.forEach(function(d) {
@@ -10131,12 +10131,12 @@ angular.module('d3').directive('arealinechart', [
 
 
             svg.append("g")
-                .attr("class", "x axis")
+                .attr("class", "x-axis")
                 .attr("transform", "translate(0," + height + ")")
                 .call(xAxis);
 
             svg.append("g")
-                .attr("class", "y axis")
+                .attr("class", "y-axis")
                 .call(yAxis)
               .append("text")
                 .attr("transform", "rotate(-90)")

@@ -6,20 +6,37 @@ arealinechart{
   }
 
   .line {
-    stroke: #000;
-    stroke-width: .1em;
+    stroke: @motus-darkorange;
+    stroke-width: .3em;
+    fill: none;
   }
 
   .circle{
     stroke: #000;
-    stroke-width: .1em;
+    stroke-width: 0;
     r: .7em;
     fill: @motus-darkorange;
     z-index: 10;
   }
 
   .area {
-    fill: @motus-blue;
+    fill: @charcoalgray;
     stroke: #000;
   }
+
+  .average{
+    stroke: @motus-blue;
+    stroke-width: .3em;
+  }
+
+  .y-axis{
+    opacity: 0;
+  }
+
+  .x-axis{
+    padding-top: 1em;
+    font-family: "Arial";
+    font-size: 1.5em;
+  }
+
 }
