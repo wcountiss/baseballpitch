@@ -2,6 +2,7 @@ Motus
 End of Week 2:
 SnapShot Charts All
 Filter Lasttoss now working
+Untagged, add numbers
 
 End of Week 3:
 Line Chart x/y Axis - clean up
