@@ -8,7 +8,10 @@ app = angular.module('motus', [
 
 
 app.config ($stateProvider, $urlRouterProvider) ->
-  $urlRouterProvider.otherwise("/team");
+  $urlRouterProvider.otherwise ($injector, $location) ->
+    $state = $injector.get("$state")
+    $state.go("teamOverview")
+
   $stateProvider
   .state('login', {
     url: "/login",
@@ -85,13 +88,14 @@ app.config ($stateProvider, $urlRouterProvider) ->
     authenticate: true
   })
 
-app.run ($rootScope, $state, $cookies) ->
+app.run ($rootScope, $state, $cookies, $location) ->
   $rootScope.$on "$stateChangeStart", (event, toState, toParams, fromState, fromParams) ->
     #if not logged in, go to login screen
     if (toState.authenticate && !$cookies.get('motus'))
-      #User isn’t authenticated, not sure why I have to do this
-      window.location = '?#/login'
-      # $state.go("login")
+      #User isn’t authenticated
+      $location.url('/#/login');
+      $state.go('login')
+      event.preventDefault();
 
 _.mixin(s.exports());
 require './services/currentPlayerFactory.coffee'

@@ -36,6 +36,4 @@ Tagging Throws on Tagging Chart
 
 
 Later fixes, got working for now
-login - ?#/login
-Remove in teamOverview scores push
 
