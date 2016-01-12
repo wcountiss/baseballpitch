@@ -7,8 +7,8 @@
 
     <div class="nav-links">
       <!-- This will change depending upon the view, items hardcoded for now -->
-      <span ng-click="index.headerActive('team')"><a ng-class="{'active': index.teamOverviewActive}" ui-sref="teamOverview">Team Overview</a></span>
-      <span ng-click="index.headerActive('player')" ><a ng-class="{'active': index.playerAnalysisActive}" ui-sref="player.home" ng-click="index.buttonPressed('player.home')">Player Analysis</a></span>
+      <span><a ui-sref-active="active" ui-sref="teamOverview">Team Overview</a></span>
+      <span><a ui-sref-active="active" ui-sref="player.home" ng-click="index.buttonPressed('player.home')">Player Analysis</a></span>
     </div>
 
     <div class="login-name-account">
