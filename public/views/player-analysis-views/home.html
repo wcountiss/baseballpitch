@@ -30,14 +30,15 @@
     </div>
 
 
+
+  </div>
+  <!-- Nested injectable View-->
+  <div class="nested-view">
     <div class="overview-header">
       <h2>Overview</h2>
       <span class="icon-eye" ng-class="{'active': overviewActiveEyeIcon}" ng-click="overviewActiveEye()"></span>
       <span class="icon-trends" ng-class="{'active': overviewActiveTrendsIcon}" ng-click="overviewActiveTrend()"></span>
     </div>
-  </div>
-  <!-- Nested injectable View-->
-  <div class="nested-view">
     <div class="pitcher-silhouette">
       <piestats id="arm" bind="arm" slices="10"></piestats>
       <piestats id="throwShoulder" bind="throwShoulder" slices="10"></piestats>
