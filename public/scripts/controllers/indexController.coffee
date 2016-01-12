@@ -1,22 +1,24 @@
 angular.module('motus').controller('indexController',
-['$scope', '$state', '$http', '$cookies', '$currentUser', '$q',
-  ($scope, $state, $http, $cookies, $currentUser, $q) ->
-    $scope.state = $state
+['$state', '$http', '$cookies', '$currentUser', '$q',
+  ($state, $http, $cookies, $currentUser, $q) ->
+    index = this
+    
+    index.state = $state
     #if logged in set the current user
-    $scope.loadUser = () ->
+    index.loadUser = () ->
       stateDefer = $q.defer()
       if $cookies.get('motus')
         $http.get('/user')
         .success (user) ->
           $currentUser.user = user
-          $scope.user = $currentUser.user
+          index.user = $currentUser.user
           stateDefer.resolve()
       else
-        $scope.user = $currentUser.user
+        index.user = $currentUser.user
       return stateDefer.promise
 
 
-    $scope.logOut = () ->
+    index.logOut = () ->
       $cookies.remove('motus')
       # $state.go('login')
       window.location = '?#/login'
@@ -27,23 +29,18 @@ angular.module('motus').controller('indexController',
     #########################################################
 
     #Page Load
-    $scope.loadUser().then () ->
+    index.loadUser().then () ->
       #Set Initial States of Header Nav
       uiState = $state.current.name
-      if uiState == "player" || uiState == "player.home" || uiState == "player.kinetic-chain" || uiState == "player.foot-contact" || uiState == "player.ball-release" || uiState == "player.max-excursion" || uiState == "player.joint-kinetics" || uiState == "player.trends"
-        $scope.playerAnalysisActive = true
-        $scope.teamOverviewActive = false
-      else
-        $scope.playerAnalysisActive = false
-        $scope.teamOverviewActive = true
+      playerUIs = ["player","player.home","player.kinetic-chain","player.foot-contact","player.ball-release","player.max-excursion","player.joint-kinetics","player.trends"]
+      index.playerAnalysisActive = _.indexOf(playerUIs,uiState) > -1 
+      index.teamOverviewActive = !_.indexOf(playerUIs,uiState) > -1 
 
 
     #Changes Which Header nav is Active
-    $scope.headerActive = (activeHeader) ->
-      if activeHeader == "team"
-        $scope.teamOverviewActive = true
-        $scope.playerAnalysisActive = false
-      else
-        $scope.teamOverviewActive = false
-        $scope.playerAnalysisActive = true
+    index.headerActive = (activeHeader) ->
+      index.teamOverviewActive = activeHeader == "team"
+      index.playerAnalysisActive = activeHeader != "team"
+
+    return index
 ])

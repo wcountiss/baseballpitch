@@ -4,11 +4,9 @@ SnapShot Charts All
 
 End of Week 3:
 Couch View of Players in Team Overview
-AutoPrefixer
 
 End of Week 4:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
-Login Controllers not use $scope
 Player Analysis Pie Charts
 Player Analysis Natural Language Descriptions
 Player Analysis Overview Chart

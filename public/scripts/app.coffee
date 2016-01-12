@@ -8,19 +8,19 @@ app = angular.module('motus', [
 
 
 app.config ($stateProvider, $urlRouterProvider) ->
-  $urlRouterProvider.otherwise("/player/home");
+  $urlRouterProvider.otherwise("/team");
   $stateProvider
   .state('login', {
     url: "/login",
     templateUrl: "views/login/login.html",
-    controller: 'loginController'
+    controller: 'loginController as ctrl'
     authenticate: false
   })
   $stateProvider
   .state('forgotPassword', {
     url: "/forgotPassword",
     templateUrl: "views/login/forgotPassword.html",
-    controller: 'forgotPasswordController'
+    controller: 'forgotPasswordController as ctrl'
     authenticate: false
   })
   .state('teamOverview', {
