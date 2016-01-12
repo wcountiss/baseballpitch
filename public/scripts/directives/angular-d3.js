@@ -10043,9 +10043,15 @@ angular.module('d3').directive('arealinechart', [
       },
       link: function (scope, element, attrs) {
         var updateChart = function() {
+          width = 960
+          height = 500
+          if (angular.isDefined(attrs.width))
+            width = attrs.width;
+          if (angular.isDefined(attrs.height))
+            height = attrs.height;
           var margin = {top: 20, right: 20, bottom: 30, left: 50},
-              width = 960 - margin.left - margin.right,
-              height = 500 - margin.top - margin.bottom;
+              width = width - margin.left - margin.right,
+              height = height - margin.top - margin.bottom;
 
           var parseDate = d3.time.format("%m/%Y").parse;
 
@@ -10054,14 +10060,6 @@ angular.module('d3').directive('arealinechart', [
 
           var y = d3.scale.linear()
               .range([height, 0]);
-
-          var xAxis = d3.svg.axis()
-              .scale(x)
-              .orient("bottom");
-
-          var yAxis = d3.svg.axis()
-              .scale(y)
-              .orient("left");
 
           // remove the last version and recreate 
           var elementChildren = element[0].children;
@@ -10082,6 +10080,16 @@ angular.module('d3').directive('arealinechart', [
               d.score = +d.score;
             });
 
+            // set axis
+            var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom")
+              .ticks(data.length)
+              .tickFormat(d3.time.format("%b"));
+
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
             x.domain(d3.extent(data, function(d) { return d.date; }));
             y.domain([0, 100]);
 
@@ -10115,8 +10123,8 @@ angular.module('d3').directive('arealinechart', [
               .attr("y2", 90)
               .attr("class", "average")
               .attr("stroke-width", 2)
-              .attr("stroke", "black");
-
+              .attr("stroke", "black")
+            
             //circles along linear
             data.forEach(function(d) {
               svg.append("circle")
@@ -10124,7 +10132,7 @@ angular.module('d3').directive('arealinechart', [
                 .attr("r", 2)
                 .attr("cx", function(d){ return x(d.date);})
                 .attr("cy", function(d){ return y(d.score);})
-                .attr("class", "circle")
+                .attr("class", function(d){ if(d.filler) { return "circle filler" } else return "circle" })
                 .attr("fill", "black")
                 .attr("stroke", "black")
             });

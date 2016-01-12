@@ -16,7 +16,14 @@ arealinechart{
     stroke-width: 0;
     r: .7em;
     fill: @motus-darkorange;
-    z-index: 10;
+    transition: all 0.2s ease;
+    &:hover {
+      r: .9em;
+    }
+  }
+
+  .filler {
+    opacity: 0;
   }
 
   .area {

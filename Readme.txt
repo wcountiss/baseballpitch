@@ -3,10 +3,8 @@ End of Week 2:
 SnapShot Charts All
 
 End of Week 3:
-Line Chart x Axis - Month in MMM
-Line Chart Animations
-Line Chart Elite Line Label
 Line Chart Lines
+Line Chart Scaling
 Couch View of Players in Team Overview
 AutoPrefixer
 

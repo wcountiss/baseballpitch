@@ -14,28 +14,20 @@ angular.module('motus').controller('teamOverviewController',
         .then (stats) ->
           #map overall score per month
           scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key).startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
-          #Remove when we have a month of data
-          scores.push { date:"12/2015", score: 40 }
-          scores.push { date:"11/2015", score: 95 }
-          scores.push { date:"10/2015", score: 85 }
-          scores.push { date:"9/2015", score: 85 }
-          scores.push { date:"8/2015", score: 80 }
-          scores.push { date:"7/2015", score: 70 }
-          scores.push { date:"6/2015", score: 95 }
-          scores.push { date:"5/2015", score: 70 }
-          scores.push { date:"4/2015", score: 85 }
+          #Look back 12 months and fill in where no data
+          if scores.length < 12
+            for month in [1..12]
+              lastMonthsScore = _.find scores, (score) -> score.date == moment().add('M',-month)
+              if !lastMonthsScore 
+                scores.push { date: moment().add('M',-month).format('MM/YYYY'), score: 0, filler: true }          
           team.teamScores = scores
 
       team.myteam = $player.getPlayers()
       .then (players) ->
-
-        console.log(players)
         team.bullpen = players
          
         $stat.getPlayerAwards(players)
         .then () ->
-          console.log "PLAYERS OBJECT:" ,players
-          
           _.each players, (player) ->
             team.judgement = {}
 
