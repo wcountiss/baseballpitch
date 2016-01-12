@@ -1,12 +1,16 @@
 angular.module('motus').controller('loginController',
-['$scope','$http','$cookies','$state', '$currentUser'
-  ($scope, $http, $cookies, $state, $currentUser) ->
-    $scope.login = () ->
-      $http.post("auth/login",  { email: $scope.email, password: $scope.password })
+['$http','$cookies','$state', '$location', '$scope', '$currentUser'
+  ($http, $cookies, $state, $location, $scope, $currentUser) ->
+    ctrl = this
+    
+    ctrl.login = () ->
+      $http.post("auth/login",  { email: ctrl.email, password: ctrl.password })
       .success (user) ->
         $currentUser.user = user
-        $scope.$parent.loadUser()
-        $state.go('player.home')
+        $location.url('/#/team')
+        $scope.index.loadUser()
       .error (error) ->
-        $scope.error = true;
+        ctrl.error = true;
+
+    return ctrl
 ])

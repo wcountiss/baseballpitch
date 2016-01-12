@@ -28,8 +28,8 @@
         <link rel="stylesheet" type="text/css" href="./css/app.css">
     </head>
 
-    <body id="app" ng-controller="indexController as _indexController">        
-        <header ng-if="state.current.authenticate" ng-include src="'views/header.html'"></header>
+    <body id="app" ng-controller="indexController as index">        
+        <header ng-if="index.state.current.authenticate" ng-include src="'views/header.html'"></header>
 
         <main id="main-content">
           <div ui-view></div>

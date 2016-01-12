@@ -72,7 +72,6 @@ angular.module('motus').controller('teamOverviewController',
              team.judgement.awardtitle = "Fastest"
              team.judgement.awardsub = "Pitch"
              team.sixPlayers.push(team.judgement)
-            console.log 'sixPlayers: ',team.sixPlayers
             i = 6 - team.sixPlayers.length
             _.times i, (n) ->
               team.judgement = {}
