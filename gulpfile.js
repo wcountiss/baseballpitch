@@ -53,7 +53,7 @@ gulp.task('less', function(){
         "bower_components"
       ]
     }))
-    .pipe(prefix('last 2 versions'))
+    .pipe(prefix('last 3 versions'))
     .pipe(minifycss())
     .pipe(gulp.dest("public/build/css"))
     .pipe(livereload())
