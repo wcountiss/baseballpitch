@@ -1,13 +1,50 @@
 #bullpen {
   .bullpen-holder {
-    padding-left:40px;
-    padding-bottom: 40px;
+    padding-left:2em;
+    padding-bottom: 2em;
     position: relative;
+    transition: all 0.2s ease;
+    transform-origin: left top;
   }
 
   .elite-label{
     position:absolute;
     top:22%;
     color: @motus-blue;
+  }
+
+  /*==========  Mobile Options ==========*/
+  /* Large Devices, Wide Screens */
+  @media (max-width: 1200px) {
+    .bullpen-holder {
+      transform: scale(1);
+    }
+  }
+
+  /* Medium Devices, Desktops */
+  @media (max-width: 1024px) {
+    .bullpen-holder {
+      transform: scale(.8);
+    }
+  }
+  /* Small Devices, Tablets */
+  @media (max-width: 768px) {
+   .bullpen-holder {
+      transform: scale(.4);
+    }
+  }
+
+  /* Extra Small Devices, Phones */
+  @media  (max-width: 480px) {
+    .bullpen-holder {
+      transform: scale(.3);
+    }
+  }
+
+  /* Custom, iPhone Retina */
+  @media  (max-width: 320px) {
+    .bullpen-holder {
+      transform: scale(.2);
+    }
   }
 }

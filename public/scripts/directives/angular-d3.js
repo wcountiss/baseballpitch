@@ -10128,12 +10128,12 @@ angular.module('d3').directive('arealinechart', [
                 .attr("stroke", "grey")
                 .style("opacity", "0.5");
             });
-            [0,20,40,60,80,100].forEach(function(every10) {
+            [0,20,40,60,80,100].forEach(function(everyFew) {
               svg.append("line")
                 .attr("x1", d3.min(data, function(d) { return x(d.date); }))
-                .attr("y1", function(d){ return y(every10);})
+                .attr("y1", function(d){ return y(everyFew);})
                 .attr("x2", d3.max(data, function(d) { return x(d.date); }))
-                .attr("y2", function(d){ return y(every10);})
+                .attr("y2", function(d){ return y(everyFew);})
                 .attr("class", "background-lines")
                 .attr("stroke-width", 1)
                 .attr("stroke", "grey")

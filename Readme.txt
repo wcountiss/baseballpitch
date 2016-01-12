@@ -3,7 +3,6 @@ End of Week 2:
 SnapShot Charts All
 
 End of Week 3:
-Line Chart Scaling
 Couch View of Players in Team Overview
 AutoPrefixer
 
