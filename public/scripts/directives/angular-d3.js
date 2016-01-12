@@ -10115,6 +10115,31 @@ angular.module('d3').directive('arealinechart', [
                 .attr("stroke", "black")
                 .attr("d", lineFunction);
 
+            // background lines
+            data.forEach(function(d) {
+              svg.append("line")
+                .datum(d)
+                .attr("x1", function(d){ return x(d.date);})
+                .attr("y1", function(d){ return y(0);})
+                .attr("x2", function(d){ return x(d.date);})
+                .attr("y2", function(d){ return y(100);})
+                .attr("class", "background-lines")
+                .attr("stroke-width", 1)
+                .attr("stroke", "grey")
+                .style("opacity", "0.5");
+            });
+            [0,20,40,60,80,100].forEach(function(every10) {
+              svg.append("line")
+                .attr("x1", d3.min(data, function(d) { return x(d.date); }))
+                .attr("y1", function(d){ return y(every10);})
+                .attr("x2", d3.max(data, function(d) { return x(d.date); }))
+                .attr("y2", function(d){ return y(every10);})
+                .attr("class", "background-lines")
+                .attr("stroke-width", 1)
+                .attr("stroke", "grey")
+                .style("opacity", "0.5");
+            });
+
             // elite data
             svg.append("line")
               .attr("x1", 0)

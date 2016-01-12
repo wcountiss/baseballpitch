@@ -13,13 +13,13 @@ angular.module('motus').controller('teamOverviewController',
         $q.all(statsPromises)
         .then (stats) ->
           #map overall score per month
-          scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key).startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
+          scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
           #Look back 12 months and fill in where no data
           if scores.length < 12
             for month in [1..12]
-              lastMonthsScore = _.find scores, (score) -> score.date == moment().add('M',-month)
+              lastMonthsScore = _.find scores, (score) -> score.date == moment().add(-month, 'M')
               if !lastMonthsScore 
-                scores.push { date: moment().add('M',-month).format('MM/YYYY'), score: 0, filler: true }          
+                scores.push { date: moment().add(-month,'M').format('MM/YYYY'), score: 0, filler: true }          
           team.teamScores = scores
 
       team.myteam = $player.getPlayers()
