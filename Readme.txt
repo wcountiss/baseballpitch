@@ -7,8 +7,8 @@ Couch View of Players in Team Overview
 
 End of Week 4:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
-Player Analysis Pie Charts
 Player Analysis Natural Language Descriptions
+Player Analysis Pie Charts
 Player Analysis Overview Chart
 Player Analysis
 
