@@ -41,8 +41,3 @@ Later fixes, got working for now
 login - ?#/login
 Remove in teamOverview scores push
 
-
-Questions:
-Will data always be in each pitch metric column?
-what is the tagString of "Game"?
-How many pitches are we expecting in a 30 day period per pitcher, can we replicate it in parse
