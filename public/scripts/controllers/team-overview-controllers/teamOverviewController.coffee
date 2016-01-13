@@ -1,6 +1,8 @@
 angular.module('motus').controller('teamOverviewController',
+
   ['$http', '$state', '$q', '$player', '$pitch', '$stat', '$window', '$scope'
     ($http, $state, $q, $player, $pitch, $stat, $window, $scope) ->
+
       team = this
 
       #GET INITIAL WINDOW WIDTH

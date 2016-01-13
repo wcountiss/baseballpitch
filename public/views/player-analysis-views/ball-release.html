@@ -3,11 +3,11 @@
     <div class="flex-container-row">
       <h2 class="large-flexitem">Ball Release</h2>
       <select class="small-flexitem" ng-model="ball.filterType" name="sessions" ng-change="ball.filterLastThrowType()">
-        <option value="30">Last 30 Days AVG ({{ball.currentPlayer.pitches.length}})</option>
-        <option value="Game" ng-if="ball.currentPlayer.stats.game" >Last Game ({{ball.GameCount}})</option>
-        <option value="Bullpen" ng-if="ball.currentPlayer.stats.bullPen">Last Bullpen ({{ball.BullpenCount}})</option>
-        <option value="Longtoss" ng-if="ball.currentPlayer.stats.longToss">Last Longtoss ({{ball.LongtossCount}})</option>
-        <option value="Untagged" ng-if="ball.UntaggedCount">Untagged ({{ball.UntaggedCount}})</option>
+        <option value="30">Last 30 Days AVG ({{::ball.currentPlayer.pitches.length}})</option>
+        <option value="Game" ng-if="ball.currentPlayer.stats.game" >Last Game ({{::ball.GameCount}})</option>
+        <option value="Bullpen" ng-if="ball.currentPlayer.stats.bullPen">Last Bullpen ({{::ball.BullpenCount}})</option>
+        <option value="Longtoss" ng-if="ball.currentPlayer.stats.longToss">Last Longtoss ({{::ball.LongtossCount}})</option>
+        <option value="Untagged" ng-if="ball.UntaggedCount">Untagged ({{::ball.UntaggedCount}})</option>
 
       </select>
     </div>
@@ -24,10 +24,10 @@
           ng-class="{'selected':eliteMetric == ball.selectedMetric}" ng-click="ball.setClickedRow(eliteMetric, $index)">
 
             <td class="metricval">
-              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{eliteMetric.pstats.score}}</span><span class="unit">{{eliteMetric.units}}</span>
+              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{::eliteMetric.pstats.score}}</span><span class="unit">{{::eliteMetric.units}}</span>
             </td>
 
-            <td class="capitalize">{{eliteMetric.title}}</td>
+            <td class="capitalize">{{::eliteMetric.title}}</td>
             <td ng-if="eliteMetric.pstats.score==null"></td>
             <td ng-if="eliteMetric.pstats.rating=='OK'"><span class="icon-okarrow ok"></span></td>
             <td ng-if="eliteMetric.pstats.rating=='Good'"><span class="icon-okarrow good"></span></td>

@@ -9,9 +9,9 @@
     <div ng-repeat="player in team.sixPlayers | limitTo : 3" class="judged-player">
       <div class="imghldr"></div>
       <div class="texthldr">
-       <span>{{player.fname}} {{player.lname}}</span><br>
-       <span class="textrating">{{player.awardtitle}}</span><br>
-       <span class="subtextrating">{{player.awardsub}}</span>
+       <span>{{::player.fname}} {{::player.lname}}</span><br>
+       <span class="textrating">{{::player.awardtitle}}</span><br>
+       <span class="subtextrating">{{::player.awardsub}}</span>
       </div>
     </div>
 
@@ -22,9 +22,9 @@
     <div ng-repeat="player in team.sixPlayers | limitTo : -3"class="judged-player">
       <div class="imghldr"></div>
       <div class="texthldr">
-       <span>{{player.fname}} {{player.lname}}</span><br>
-       <span class="textrating">{{player.awardtitle}}</span><br>
-       <span class="subtextrating">{{player.awardsub}}</span>
+       <span>{{::player.fname}} {{::player.lname}}</span><br>
+       <span class="textrating">{{::player.awardtitle}}</span><br>
+       <span class="subtextrating">{{::player.awardsub}}</span>
       </div>
     </div>
 
