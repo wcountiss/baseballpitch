@@ -42,7 +42,7 @@ app.config ($stateProvider, $urlRouterProvider) ->
   .state('player', {
     url: "/player",
     views: {
-      '': {templateUrl: "views/player.html", controller: 'playerController'}
+      '': {templateUrl: "views/player.html", controller: 'playerController as pc'}
     },
     authenticate: true
   })

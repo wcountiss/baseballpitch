@@ -2,8 +2,11 @@ angular.module('motus').controller 'homeController', ['currentPlayerFactory','el
   home = this
   cpf = currentPlayerFactory
   ef = eliteFactory
+  cpf.getCurrentPlayer().then () ->
+    home.currentPlayer = cpf.currentPlayer
+    console.log 'home.currentPlayer: ',home.currentPlayer
   ef.getEliteMetrics()
-  home.greeting = 'hello from snapShotController'
-  home.currentPlayer = cpf.currentPlayer
-  console.log 'home.currentPlayer: ',home.currentPlayer
+
+
+  return home
 ]

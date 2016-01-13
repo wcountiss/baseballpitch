@@ -1,6 +1,8 @@
 angular.module('motus').controller('playerController',
-  ['$scope', '$http', 'currentPlayerFactory', '$state', '$player'
-    ($scope, $http, currentPlayerFactory, $state, $player) ->
+  ['$http', 'currentPlayerFactory', '$state', '$player'
+    ($http, currentPlayerFactory, $state, $player) ->
+      pc = this
+      pc.state = $state
       #log current state
       console.log 'onLoad Current State:', $state.current.name
       #Grab data from the factory service
@@ -34,7 +36,7 @@ angular.module('motus').controller('playerController',
           score.tooltip = toolTipOptions[randomNum]
         #Number of slices
         score = _.slice(scores, 0, statSlices[i])
-        $scope[stat] = score
+        pc[stat] = score
 
       getPlayers = () ->
         $player.getPlayers()
@@ -46,16 +48,20 @@ angular.module('motus').controller('playerController',
             #hardcoded stats, change to parse later
             player = _.extend(player, { age: _.random(20,40), height: _.random(65,80), weight: _.random(150,180), birthPlace: "USA", position: position[_.random(2)], level: 'mlb', imgUrl: '../images/matt-harvey.png', alt: 'Matt Harvey'})
             player
-          $scope.playerRoster = players
+          pc.playerRoster = players
           #makes the first player in the list the selected player when the pages loads
           cpf.currentPlayer = players[0]
-          $scope.currentPlayer = cpf.currentPlayer
+          pc.currentPlayer = players[0]
 
       #Page Load
       getPlayers()
-      $scope.selectedPlayer = (selected) ->
+
+      #Select Current Player
+      pc.selectedPlayer = (selected) ->
         cpf.currentPlayer = selected
-        $scope.currentPlayer = cpf.currentPlayer
+        pc.currentPlayer = cpf.currentPlayer
         myState = $state.current.name
         $state.reload(myState)
+
+      return pc
   ])
