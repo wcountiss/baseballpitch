@@ -4,16 +4,15 @@ SnapShot Charts All
 
 End of Week 3:
 Couch View of Players in Team Overview
-Angular: One Time Binding
-Encrype JWT
 Window Sizing for svg
+Encrype JWT
+Comment all Code
 
 
 End of Week 4:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Natural Language Descriptions
 Player Analysis Overview Chart
-
 Player Analysis Pie Charts
 Player Analysis
 
