@@ -26,9 +26,10 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   joint.setClickedRow = (eliteMetric, index) ->
     cpf.jointMetricsIndex = index
     joint.selectedMetric = eliteMetric
+    joint.selectedMetric.avg = Math.round(joint.selectedMetric.avg)
     joint.image = imageMap[joint.selectedMetric.metric]
     if joint.currentPlayer.stats?.metricScores
-      joint.selectedPlayerMetric = eliteMetric.pstats.score
+      joint.selectedPlayerMetric = Math.round(eliteMetric.pstats.score)
 
   joint.setfilterCount = (pitches, type) ->
     pitchesOfType = _.filter pitches, (pitch) -> 

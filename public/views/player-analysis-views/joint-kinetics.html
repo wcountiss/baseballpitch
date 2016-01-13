@@ -17,6 +17,7 @@
         <table>
           <tr>
             <th>Value</th>
+            <th>Unit</th>
             <th>Metric</th>
             <th>Rating</th>
           </tr>
@@ -24,7 +25,11 @@
           ng-class="{'selected':eliteMetric == joint.selectedMetric}" ng-click="joint.setClickedRow(eliteMetric,$index)">
 
             <td class="metricval">
-              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{eliteMetric.pstats.score}}</span><span class="unit">{{eliteMetric.units}}</span>
+              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{eliteMetric.pstats.score}}</span>
+            </td>
+
+            <td>
+              <span class="unit">{{eliteMetric.units}}</span>
             </td>
 
             <td class="capitalize">{{eliteMetric.title}}</td>
