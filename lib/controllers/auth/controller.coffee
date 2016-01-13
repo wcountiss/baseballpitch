@@ -1,5 +1,6 @@
 login = require '../../services/login'
 jwt = require 'jsonwebtoken'
+encrypt = require '../../services/encrypt'
 
 #login sets cookie
 module.exports.logIn = (req, res) ->
@@ -11,7 +12,8 @@ module.exports.logIn = (req, res) ->
   login.logIn(req.body.email, req.body.password)
   .then (user) ->
     if (user)
-      token = jwt.sign(user, process.env.JWT_PASS)
+      encryptedUser = encrypt.encrypt(JSON.stringify(user))
+      token = jwt.sign(encryptedUser, process.env.JWT_PASS)
       res.cookie('motus', token, { maxAge: 90*24*60*60*1000, signed: true })
       res.status(200).send(user)
     else
