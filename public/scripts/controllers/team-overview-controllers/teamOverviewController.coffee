@@ -1,6 +1,6 @@
 angular.module('motus').controller('teamOverviewController',
-  ['$http', '$state', '$q', '$player', '$pitch', '$stat'
-    ($http, $state, $q, $player, $pitch, $stat) ->
+  ['$http', '$window', '$state', '$q', '$player', '$pitch', '$stat'
+    ($http, $window, $state, $q, $player, $pitch, $stat) ->
       team = this
 
       $pitch.getPitches({ daysBack: 365 })

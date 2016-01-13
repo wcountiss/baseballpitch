@@ -4,7 +4,6 @@ SnapShot Charts All
 
 End of Week 3:
 Couch View of Players in Team Overview
-Window Sizing for svg
 Encrype JWT
 Comment all Code
 

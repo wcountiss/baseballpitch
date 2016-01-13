@@ -10027,13 +10027,14 @@ angular.module('d3').directive('piestats', [
 ]);
 'use strict';
 angular.module('d3').directive('arealinechart', [
-  'd3',
-  function (d3) {
+  'd3', '$window',
+  function (d3, $window) {
     return {
       restrict: 'E',
       scope: {
         width: '@',
         height: '@',
+        windowWidth: '@',
         text: '@',
         fontFamily: '@',
         fontSize: '@',
@@ -10043,15 +10044,20 @@ angular.module('d3').directive('arealinechart', [
       },
       link: function (scope, element, attrs) {
         var updateChart = function() {
-          width = 960
-          height = 500
+          var width = 960
+          var height = 500
           if (angular.isDefined(attrs.width))
-            width = attrs.width;
+            if (attrs.width.indexOf('%') > -1){
+              width = (attrs.width.split('%')[0]/100)*$window.innerWidth
+            } else{
+              width = attrs.width;
+            }
           if (angular.isDefined(attrs.height))
             height = attrs.height;
-          var margin = {top: 20, right: 20, bottom: 30, left: 50},
-              width = width - margin.left - margin.right,
-              height = height - margin.top - margin.bottom;
+          
+          var margin = {top: 20, right: 20, bottom: 30, left: 50}
+          width = width - margin.left - margin.right,
+          height = height - margin.top - margin.bottom;          
 
           var parseDate = d3.time.format("%m/%Y").parse;
 
@@ -10073,8 +10079,9 @@ angular.module('d3').directive('arealinechart', [
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
           if (angular.isDefined(scope.bind())) {
-            var data = scope.bind()
-            
+            var bindData = scope.bind()
+
+            var data = _.cloneDeep(bindData);
             data.forEach(function(d) {
               d.date = parseDate(d.date);
               d.score = +d.score;
@@ -10180,6 +10187,7 @@ angular.module('d3').directive('arealinechart', [
           }
         }
         scope.$watch("bind()", function(){ updateChart() }, false);
+        angular.element($window).bind('resize', function(){ updateChart()});
       }
     };
   }
