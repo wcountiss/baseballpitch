@@ -52,6 +52,12 @@ app.config ($stateProvider, $urlRouterProvider) ->
     controller: 'homeController as home',
     authenticate: true
   })
+  .state('player.home.overview', {
+    url: '/overview',
+    templateUrl: 'views/player-analysis-views/player-home-sub-views/home-overview.html',
+#    controller: 'homeController as home',
+    authenticate: true
+  })
   .state('player.kinetic-chain',{
     url: '/kinetic-chain',
     templateUrl: 'views/player-analysis-views/kinetic-chain.html',

@@ -1,5 +1,11 @@
 #player {
   font-family:Arial;
+  h2 {
+    color: @motus-blue;
+    font-size: 2.571em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
   // Wrapper div to give box shadow
   .player-box-shadow {
     box-shadow: 0 0 1em #555555;
@@ -115,12 +121,6 @@
           flex: 1;
         }
       }
-      h2 {
-        color: @motus-blue;
-        font-size: 36px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
       .player-details-stats {
         display: flex;
         .player-stats-box1 {
@@ -170,11 +170,12 @@
     .overview-header {
       display: flex;
       align-items: center;
-      margin-top: 40px;
       h2 {
-        font-size: 36px;
-        letter-spacing: 1px;
+        padding-top:20px;
+        padding-left:40px;
+        margin:0;
       }
+
       > span {
         padding-left:8px;
       }
@@ -183,7 +184,7 @@
         padding-top:19px;
         color: #2b2f2e;
       }
-      span.active {
+      span.active-overview-icon {
         color: @motus-blue;
       }
     }

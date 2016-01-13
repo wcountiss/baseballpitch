@@ -16,11 +16,11 @@
 
 
       <!--Nested Views For the Side Icons player.**-->
-      <div ui-view></div>
+      <div ui-view class="ui-view-nested-width"></div>
 
       <div class="side-menu-buttons">
         <div class="side-menu-buttons-nav">
-          <span class="icon-home" ui-sref-active="side-button-active" ui-sref=".home">
+          <span class="icon-home" ng-class="{active: index.state.includes('player.*.*')}" ui-sref=".home.overview">
             <!--Home Button Icon-->
           </span>
 
