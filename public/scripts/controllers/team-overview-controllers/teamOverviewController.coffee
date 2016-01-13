@@ -1,7 +1,16 @@
 angular.module('motus').controller('teamOverviewController',
-  ['$http', '$state', '$q', '$player', '$pitch', '$stat'
-    ($http, $state, $q, $player, $pitch, $stat) ->
+  ['$http', '$state', '$q', '$player', '$pitch', '$stat', '$window', '$scope'
+    ($http, $state, $q, $player, $pitch, $stat, $window, $scope) ->
       team = this
+
+      #GET INITIAL WINDOW WIDTH
+      team.windowWidth = $window.innerWidth - 150
+
+      #CHECK WINDOW WIDTH ON RESIZE EVENT
+      angular.element($window).bind 'resize', ->
+        $scope.$apply ->
+          team.windowWidth = $window.innerWidth
+        return
 
       $pitch.getPitches({ daysBack: 365 })
       .then (pitches) ->
@@ -58,6 +67,5 @@ angular.module('motus').controller('teamOverviewController',
     
       #Judgement Array
       team.sixPlayers = []
-      # team.test = ["amit", "bob","cara","peter","quin","robby"]
       return team
   ])
