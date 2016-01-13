@@ -58,6 +58,18 @@ app.config ($stateProvider, $urlRouterProvider) ->
     controller: 'playerController as pc',
     authenticate: true
   })
+  .state('player.home.trends', {
+    url: '/trends',
+    templateUrl: 'views/player-analysis-views/player-home-sub-views/home-trends.html',
+    controller: 'homeController as home',
+    authenticate: true
+  })
+  .state('player.home.profile', {
+    url: '/profile',
+    templateUrl: 'views/player-analysis-views/player-home-sub-views/home-profile.html',
+    controller: 'homeController as home',
+    authenticate: true
+  })
   .state('player.kinetic-chain',{
     url: '/kinetic-chain',
     templateUrl: 'views/player-analysis-views/kinetic-chain.html',
