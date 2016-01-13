@@ -55,7 +55,7 @@ app.config ($stateProvider, $urlRouterProvider) ->
   .state('player.home.overview', {
     url: '/overview',
     templateUrl: 'views/player-analysis-views/player-home-sub-views/home-overview.html',
-#    controller: 'homeController as home',
+    controller: 'playerController as pc',
     authenticate: true
   })
   .state('player.kinetic-chain',{

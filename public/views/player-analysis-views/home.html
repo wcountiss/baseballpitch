@@ -2,8 +2,9 @@
   <div class="nested-view">
     <div class="overview-header">
       <h2>Overview</h2>
-      <span class="icon-eye" ng-class="{'active-overview-icon': index.state.includes('player.*')}"></span>
-      <span class="icon-trends"></span>
+      <span class="icon-eye" ui-sref="player.home.overview" ng-class="{'active-overview-icon': pc.state.includes('player.home.*')}"></span>
+      <span ui-sref="player.home.trends" class="icon-trends"></span>
+      <span ui-sref="player.home.profile" class="icon-profile"></span>
     </div>
     <div ui-view></div>
   </div>
