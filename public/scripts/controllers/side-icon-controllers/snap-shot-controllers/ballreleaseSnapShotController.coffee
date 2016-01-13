@@ -44,8 +44,8 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
     ball["#{type}Count"] = pitchesOfType.length
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
-  $q.all(loadPromises).then () ->
-    ball.eliteMetrics = ef.eliteBallrelease
+  $q.all(loadPromises).then (results) ->
+    ball.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'BR' )
     ball.currentPlayer = cpf.currentPlayer
     _.each ball.eliteMetrics, (eliteMetric) -> 
       if ball.currentPlayer.stats?.metricScores?[eliteMetric.metric] 

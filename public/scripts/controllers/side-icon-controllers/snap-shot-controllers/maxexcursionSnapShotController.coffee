@@ -37,8 +37,8 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
     max["#{type}Count"] = pitchesOfType.length
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
-  $q.all(loadPromises).then () ->
-    max.eliteMetrics = ef.eliteMaxexcursion
+  $q.all(loadPromises).then (result) ->
+    max.eliteMetrics = _.filter(result[0], (metric) -> metric.categoryCode == 'ME' )
     max.currentPlayer = cpf.currentPlayer
     _.each max.eliteMetrics, (eliteMetric) -> 
       if max.currentPlayer.stats?.metricScores?[eliteMetric.metric] 

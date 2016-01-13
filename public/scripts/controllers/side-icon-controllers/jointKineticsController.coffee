@@ -41,8 +41,8 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
 
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
-  $q.all(loadPromises).then () ->
-    joint.eliteMetrics = ef.eliteKinetics
+  $q.all(loadPromises).then (results) ->
+    joint.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'K' )
     joint.currentPlayer = cpf.currentPlayer
     _.each joint.eliteMetrics, (eliteMetric) -> 
       if joint.currentPlayer.stats?.metricScores?[eliteMetric.metric] 

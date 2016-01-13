@@ -1,4 +1,4 @@
-angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, $q, eliteFactory) ->
+angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch', ($http, $q, eliteFactory, $pitch) ->
   stat = this
 
   #temporary while I finish this
@@ -61,7 +61,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
     playersOverallScore = eliteScore #Start at 85 which is Elite
     _.each metricScores, (metricScore) ->
       playersOverallScore = playersOverallScore-metricScore.ratingScore
-    return { ratingScore: playersOverallScore, rating: rateScore(playersOverallScore, {avg: eliteScore, stdev: 10 }) }
+    return { ratingScore: playersOverallScore, rating: rateScore(playersOverallScore, {avg: eliteScore, stdev: 15 }) }
 
   #stat engine
   stat.runStatsEngine = (pitches) ->
@@ -85,16 +85,17 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
         bullPen:  didThrowType(player.pitches, 'Bullpen')
         game: didThrowType(player.pitches, 'Game')
       }
-    statPromises = _.map players, (player) ->
+    statPromises = []
+    _.each players, (player) ->
       if player.pitches.length
-        stat.runStatsEngine(player.pitches)
-        .then (stats) ->
-          player.stats = _.extend(player.stats, stats)
-          return player
+        statPromises.push stat.runStatsEngine(player.pitches)
       else
-        $q.when({})
+        statPromises.push $q.when(null)
     $q.all(statPromises)
-    .then () ->
+    .then (playersStats) ->
+      _.each playersStats, (playerStats, i) ->
+        if playerStats
+          players[i].stats = _.extend(players[i].stats, playerStats)
       defer.resolve(players)
     return defer.promise
 
@@ -111,8 +112,8 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', ($http, 
     player = _.find players, (player) -> player.stats.overallScore.ratingScore == worstOverallScore
     player.stats.award = 'Worst Performer'
 
-    $http.post("pitch", { daysBack: 60 })
-    .success (pitches) ->
+    $pitch.getPitches({ daysBack: 60 })
+    .then (pitches) ->
       #out of the 60 days, take off the first 30 since they are already on the player
       pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate.iso) < moment().add('d', -30);
       #group by player

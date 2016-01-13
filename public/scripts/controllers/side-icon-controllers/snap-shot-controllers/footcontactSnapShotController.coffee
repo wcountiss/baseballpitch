@@ -43,8 +43,8 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
     foot["#{type}Count"] = pitchesOfType.length
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
-  $q.all(loadPromises).then () ->
-    foot.eliteMetrics = ef.eliteFootcontact
+  $q.all(loadPromises).then (results) ->
+    foot.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'FC' )
     foot.currentPlayer = cpf.currentPlayer
     _.each foot.eliteMetrics, (eliteMetric) -> 
       if foot.currentPlayer.stats?.metricScores?[eliteMetric.metric] 

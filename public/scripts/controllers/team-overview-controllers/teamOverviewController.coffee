@@ -1,10 +1,10 @@
 angular.module('motus').controller('teamOverviewController',
-  ['$http', '$state', '$q', '$player', '$stat'
-    ($http, $state, $q, $player, $stat) ->
+  ['$http', '$state', '$q', '$player', '$pitch', '$stat'
+    ($http, $state, $q, $player, $pitch, $stat) ->
       team = this
 
-      $http.post("pitch", { daysBack: 365 })
-      .success (pitches) ->
+      $pitch.getPitches({ daysBack: 365 })
+      .then (pitches) ->
         #group pitches by month
         pitches = _.groupBy pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/01/YYYY')
         #run engine through all pitches per month

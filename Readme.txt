@@ -4,12 +4,17 @@ SnapShot Charts All
 
 End of Week 3:
 Couch View of Players in Team Overview
+Angular: One Time Binding
+Encrype JWT
+Window Sizing for svg
+
 
 End of Week 4:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Natural Language Descriptions
-Player Analysis Pie Charts
 Player Analysis Overview Chart
+
+Player Analysis Pie Charts
 Player Analysis
 
 End of Week 5:
@@ -29,11 +34,12 @@ Add Google Analytics
 
 End of Week 8
 Feedback
-Player View
-Download Data in Excel
 Tagging Throws on Tagging Chart
+Download Data in Excel
+Player View
 
 
-
-Later fixes, got working for now
+UI Fixes:
+Align all snapshots
+Elite Rounding snapshots
 
