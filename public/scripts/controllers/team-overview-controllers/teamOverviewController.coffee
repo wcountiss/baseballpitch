@@ -5,15 +5,6 @@ angular.module('motus').controller('teamOverviewController',
 
       team = this
 
-      #GET INITIAL WINDOW WIDTH
-      team.windowWidth = $window.innerWidth - 150
-
-      #CHECK WINDOW WIDTH ON RESIZE EVENT
-      angular.element($window).bind 'resize', ->
-        $scope.$apply ->
-          team.windowWidth = $window.innerWidth
-        return
-
       $pitch.getPitches({ daysBack: 365 })
       .then (pitches) ->
         #group pitches by month
