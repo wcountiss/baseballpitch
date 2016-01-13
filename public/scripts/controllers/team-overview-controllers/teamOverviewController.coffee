@@ -28,50 +28,26 @@ angular.module('motus').controller('teamOverviewController',
          
         $stat.getPlayerAwards(players)
         .then () ->
-          _.each players, (player) ->
+          judgements = [
+            {award: 'Best Performer', title: 'Best', subtitle: 'Performer'},
+            {award: 'Worst Performer', title: 'Worst', subtitle: 'Performer'},
+            {award: 'Improved', title: 'Improved', subtitle: 'Most Since Last Month'},
+            {award: 'Regressed', title: 'Regressed', subtitle: 'Most Since Last Month'},
+            {award: 'Best Accuracy', title: 'Best', subtitle: 'Accuracy'},
+            {award: 'Fastest Pitch', title: 'Fast', subtitle: 'Pitch'}
+          ]
+
+          _.each judgements, (judgement) ->
             team.judgement = {}
-
-            if player.stats.award == "Best Performer"
-             team.judgement.fname = player.athleteProfile.firstName
-             team.judgement.lname = player.athleteProfile.lastName
-             team.judgement.awardtitle = "Best"
-             team.judgement.awardsub = "Performer"
-             team.sixPlayers.push(team.judgement)
-
-            if player.stats.award == "Worst Performer"
-             team.judgement.fname = player.athleteProfile.firstName
-             team.judgement.lname = player.athleteProfile.lastName
-             team.judgement.awardtitle = "Worst"
-             team.judgement.awardsub = "Performer"
-             team.sixPlayers.push(team.judgement)
-
-            if player.stats.award == "Improved"
-             team.judgement.fname = player.athleteProfile.firstName
-             team.judgement.lname = player.athleteProfile.lastName
-             team.judgement.awardtitle = "Improved"
-             team.judgement.awardsub = "Most Since Last Month"
-             team.sixPlayers.push(team.judgement) 
-
-            if player.stats.award == "Regressed"
-             team.judgement.fname = player.athleteProfile.firstName
-             team.judgement.lname = player.athleteProfile.lastName
-             team.judgement.awardtitle = "Regressed"
-             team.judgement.awardsub = "Most Since Last Month"
-             team.sixPlayers.push(team.judgement)
-
-            if player.stats.award == "Best Accuracy"
-             team.judgement.fname = player.athleteProfile.firstName
-             team.judgement.lname = player.athleteProfile.lastName
-             team.judgement.awardtitle = "Best"
-             team.judgement.awardsub = "Accuracy"
-             team.sixPlayers.push(team.judgement)
-
-            if player.stats.award == "Fastest Pitch" 
-             team.judgement.fname = player.athleteProfile.firstName
-             team.judgement.lname = player.athleteProfile.lastName
-             team.judgement.awardtitle = "Fastest"
-             team.judgement.awardsub = "Pitch"
-             team.sixPlayers.push(team.judgement)
+            
+            player = _.find(players, (player) -> player.stats.award == judgement.award)
+            if player
+              team.judgement.fname = player.athleteProfile.firstName
+              team.judgement.lname = player.athleteProfile.lastName
+              team.judgement.awardtitle = judgement.title
+              team.judgement.awardsub = judgement.subtitle
+              team.sixPlayers.push(team.judgement)
+              
             i = 6 - team.sixPlayers.length
             _.times i, (n) ->
               team.judgement = {}
@@ -79,7 +55,6 @@ angular.module('motus').controller('teamOverviewController',
               team.judgement.awardtitle = "NO DATA"
               team.judgement.awardsub = "No Data Available"
               team.sixPlayers.push(team.judgement)
-            _.each team.sixPlayers, (player,i) ->
     
       #Judgement Array
       team.sixPlayers = []
