@@ -22,6 +22,8 @@ parseObjecttoObject = (parseObject) ->
 module.exports.find = (collectionName, query, options) ->
   ParseObject = Parse.Object.extend(collectionName)
   parseQuery = new Parse.Query(ParseObject)
+  #set limit to max
+  parseQuery.limit(1000)
   #query params
   #equal to
   if query
