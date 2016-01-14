@@ -4,13 +4,6 @@ SnapShot Charts All
 
 End of Week 3:
 Couch View of Players in Team Overview
-Stats Service - above good, bad, in range
-Filter Catch and BallWeighted Untagged for now
-Stats Service rates each metric 0-1
-Stats Service average per joint 0-1
-Stats Service overall all metrics Averaged
-Stats Service - Elite is .66
-Stats Service Awards change - peakElbowValgusTorque (highest/lowest)
 
 End of Week 4:
 Separate Angular d3
