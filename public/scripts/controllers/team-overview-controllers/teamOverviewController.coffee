@@ -30,36 +30,19 @@ angular.module('motus').controller('teamOverviewController',
         team.bullpen = players
          
         $stat.getPlayerAwards(players)
-        .then () ->
-          judgements = [
-            {award: 'Best Performer', title: 'Best', subtitle: 'Performer'},
-            {award: 'Worst Performer', title: 'Worst', subtitle: 'Performer'},
-            {award: 'Improved', title: 'Improved', subtitle: 'Most Since Last Month'},
-            {award: 'Regressed', title: 'Regressed', subtitle: 'Most Since Last Month'},
-            {award: 'Best Accuracy', title: 'Best', subtitle: 'Accuracy'},
-            {award: 'Fastest Pitch', title: 'Fast', subtitle: 'Pitch'}
-          ]
-
-          _.each judgements, (judgement) ->
-            team.judgement = {}
-            
-            player = _.find(players, (player) -> player.stats.award == judgement.award)
-            if player
-              team.judgement.fname = player.athleteProfile.firstName
-              team.judgement.lname = player.athleteProfile.lastName
-              team.judgement.awardtitle = judgement.title
-              team.judgement.awardsub = judgement.subtitle
-              team.sixPlayers.push(team.judgement)
-              
-            i = 6 - team.sixPlayers.length
-            _.times i, (n) ->
-              team.judgement = {}
-              team.judgement.fname = "NA"
-              team.judgement.awardtitle = "NO DATA"
-              team.judgement.awardsub = "No Data Available"
-              team.sixPlayers.push(team.judgement)
+        .then (awards) ->
+          judgements = {
+            'Best Performer': {title: 'Best', subtitle: 'Performer'},
+            'Worst Performer': {title: 'Worst', subtitle: 'Performer'},
+            'Most Improved': {title: 'Improved', subtitle: 'Most Since Last Month'},
+            'Most Regressed': { title: 'Regressed', subtitle: 'Most Since Last Month'},
+            'Highest Elbow Torque': { title: 'Highest', subtitle: 'Elbow Torque'},
+            'Lowest Elbow Torque': { title: 'Lowest', subtitle: 'Elbow Torque'}
+          }
+          team.awardedPlayers = _.map awards, (award) ->
+            award.awardtitle = judgements[award.award].title
+            award.awardsub = judgements[award.award].subtitle
+            return award
     
-      #Judgement Array
-      team.sixPlayers = []
       return team
   ])

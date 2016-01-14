@@ -1,30 +1,29 @@
-<div id="judgement">
+<div id="judgement" ng-if="team.awardedPlayers.length > 1">
   
   <div class="header">
     <h2>Team Overview</h2>
   </div>
 
   <div class="judgement-list">
-    
-    <div ng-repeat="player in team.sixPlayers | limitTo : 3" class="judged-player">
+    <div ng-repeat="award in team.awardedPlayers | limitTo : 3" class="judged-player">
       <div class="imghldr"></div>
       <div class="texthldr">
-       <span>{{::player.fname}} {{::player.lname}}</span><br>
-       <span class="textrating">{{::player.awardtitle}}</span><br>
-       <span class="subtextrating">{{::player.awardsub}}</span>
+       <span>{{::award.player.athleteProfile.firstName}} {{::award.player.athleteProfile.lastName}}</span><br>
+       <span class="textrating">{{::award.awardtitle}}</span><br>
+       <span class="subtextrating">{{::award.awardsub}}</span>
       </div>
     </div>
 
   </div>
 
-  <div class="judgement-list">
+  <div class="judgement-list" ng-if="team.awardedPlayers.length > 3">
     
-    <div ng-repeat="player in team.sixPlayers | limitTo : -3"class="judged-player">
+    <div ng-repeat="award in team.awardedPlayers | limitTo : -(team.awardedPlayers.length-3)"class="judged-player">
       <div class="imghldr"></div>
       <div class="texthldr">
-       <span>{{::player.fname}} {{::player.lname}}</span><br>
-       <span class="textrating">{{::player.awardtitle}}</span><br>
-       <span class="subtextrating">{{::player.awardsub}}</span>
+       <span>{{::award.player.athleteProfile.firstName}} {{::award.player.athleteProfile.lastName}}</span><br>
+       <span class="textrating">{{::award.awardtitle}}</span><br>
+       <span class="subtextrating">{{::award.awardsub}}</span>
       </div>
     </div>
 
