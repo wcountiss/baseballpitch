@@ -164,28 +164,35 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
         statPromises.push(stat.runStatsEngine(playerPitchesLastMonth))
       $q.all(statPromises).then (lastMonthStats) ->
         mostImprovedIndex = null
-        mostImprovedScore = 0
+        mostImprovedScore = null
         _.each awardedPlayers, (player, i) -> 
           if pitches[player.athleteProfile.objectId]
-            scoreDifference = player.stats.overallScore - lastMonthStats[i].overallScore
-            if scoreDifference > mostImprovedScore
-              mostImprovedScore = scoreDifference
-              mostImprovedIndex = i
+            if player.stats.overallScore.ratingScore > lastMonthStats[i].overallScore.ratingScore
+              scoreDifference = player.stats.overallScore.ratingScore - lastMonthStats[i].overallScore.ratingScore
+              if !mostImprovedScore || scoreDifference > mostImprovedScore
+                mostImprovedScore = scoreDifference
+                mostImprovedIndex = i
         if mostImprovedIndex
           player = players[mostImprovedIndex]
           awards.push({award: 'Most Improved', player})
+        else
+          awards.push({award: 'Most Improved', player: { athleteProfile: { firstName: 'NA' } }})
+
 
         mostRegressedIndex = null
-        mostRegressedScore = 0
+        mostRegressedScore = null
         _.each awardedPlayers, (player, i) -> 
           if pitches[player.athleteProfile.objectId]
-            scoreDifference = lastMonthStats[i].overallScore - player.stats.overallScore
-            if scoreDifference > mostRegressedScore
-              mostRegressedScore = scoreDifference
-              mostRegressedIndex = i
+            if lastMonthStats[i].overallScore.ratingScore > player.stats.overallScore.ratingScore
+              scoreDifference = lastMonthStats[i].overallScore.ratingScore - player.stats.overallScore.ratingScore
+              if !mostRegressedScore ||  scoreDifference > mostRegressedScore
+                mostRegressedScore = scoreDifference
+                mostRegressedIndex = i
         if mostRegressedIndex
           player = players[mostRegressedIndex]
           awards.push({award: 'Most Regressed', player})
+        else
+          awards.push({award: 'Most Regressed', player: { athleteProfile: { firstName: 'NA' } }})
 
         defer.resolve(awards)
     return defer.promise
