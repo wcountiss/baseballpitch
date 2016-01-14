@@ -1,27 +1,49 @@
 angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch', ($http, $q, eliteFactory, $pitch) ->
   stat = this
 
-  #temporary while I finish this
-  randomNumber = (min, max) ->
-    Math.floor(Math.random() * max + min)
+  #function to use based on eliteMetric ColorType (ex: higher than elite is good, bad or in-range) 
+  limitNumbers = (score,min, max) ->
+    return min if score < min
+    return max if score > max
+    return score
 
-  scoreRatingMapping = ['Good', 'OK', 'Poor']
-  rateScore = (score, eliteMetric) ->
-    #get difference from average score and unsign score to get diff
-    diffFromElite = Math.abs(eliteMetric.avg - score)
-    NumberOfStdDeviations = Math.floor(diffFromElite/eliteMetric.stdev)
+  scoreFunction = {
+    # bad below
+    1: (playerScore, eliteMetric) ->
+       return (playerScore - (eliteMetric.avg-(2*eliteMetric.stdev)))/(4*eliteMetric.stdev)
+    #in-range
+    2: (playerScore, eliteMetric) ->
+       return 1- (Math.abs((playerScore - eliteMetric.avg))/(2*eliteMetric.stdev))
+    #bad above    
+    3: (playerScore, eliteMetric) ->
+       return  1 - ((playerScore - (eliteMetric.avg-(2*eliteMetric.stdev)))/(4*eliteMetric.stdev))
+  }
 
-    #map to Rating
-    if NumberOfStdDeviations > 2
-      NumberOfStdDeviations = 2
-    return { ratingScore: NumberOfStdDeviations, rating: scoreRatingMapping[NumberOfStdDeviations] }
+  scoreRatingMapping = (score) -> 
+    #if your score is above 2/3 you are Elite
+    if score >= .66
+      return 'Good' 
+    #if your score is above 1/3 you are doing ok
+    if score >= .33
+      return 'OK'
+    return 'Poor'
+
+  #table to use for what function to use to rate a metric from 0-1
+  rateScore = (playerScore, eliteMetric) ->
+    #get the score
+    score = scoreFunction[eliteMetric.colorType](playerScore, eliteMetric)
+    #limit the output to min 0 max 1
+    score = limitNumbers(score,0,1)
+
+    #map to Rating and return
+    return { ratingScore: score, rating: scoreRatingMapping(score)}
 
   #averages array of data
   average = (data) ->
     data = _.filter data, (d) -> d
-    return Math.round(data.reduce(((sum, a) ->
+    return data.reduce(((sum, a) ->
       sum + a
-    ), 0) / (data.length or 1),0)
+    ), 0) / (data.length or 1)
 
   #Did the player complete the throw pitch type
   didThrowType = (pitches, type) ->
@@ -33,11 +55,15 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
   #get scores for each individual metric
   getMetricsScore = (pitches, eliteMetrics) ->
     returnMetrics = {}
+    #loop through the metrics
     _.each eliteMetrics, (eliteMetric) ->
+      #get 0-1 score of that metric
       averageScore = average(_.pluck(pitches, eliteMetric.metric))
-      returnMetrics[eliteMetric.metric] = _.extend({ score: averageScore }, rateScore(averageScore, eliteMetric))
+      #return that number and rate it
+      returnMetrics[eliteMetric.metric] = _.extend({ ratingScore: averageScore }, rateScore(averageScore, eliteMetric))
     return returnMetrics
 
+  overallScore = {}
   #get scroes for each category of metrics
   getCategoryOverallScore = (metricScores, eliteMetrics) ->
     #build object with everything in it to group by categories
@@ -51,17 +77,14 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     returnMetrics = {}
     _.each(_.keys(jointMetrics), (jointMetric) ->       
       averageScore = average(_.pluck(jointMetrics[jointMetric], 'ratingScore'))
-      returnMetrics[jointMetric] = { ratingScore: averageScore, rating: scoreRatingMapping[averageScore] }
+      returnMetrics[jointMetric] = { ratingScore: averageScore, rating: scoreRatingMapping(averageScore) }
     )
     return returnMetrics
 
   #get score overall for the player
   getOverallScore = (metricScores) ->
-    eliteScore = 90
-    playersOverallScore = eliteScore #Start at 85 which is Elite
-    _.each metricScores, (metricScore) ->
-      playersOverallScore = playersOverallScore-metricScore.ratingScore
-    return { ratingScore: playersOverallScore, rating: rateScore(playersOverallScore, {avg: eliteScore, stdev: 15 }) }
+    playersOverallScore = average(_.pluck(metricScores, 'ratingScore'))
+    return { ratingScore: playersOverallScore*100, rating: scoreRatingMapping(playersOverallScore) }
 
   #stat engine
   stat.runStatsEngine = (pitches) ->
@@ -102,15 +125,30 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
   #give "awards" to players
   stat.getPlayerAwards = (players) ->
     defer = $q.defer()
+    
+    awards = []
+    #Need at least 10 pitches to get awards
+    awardedPlayers = _.filter players, (player) -> return player.pitches.length >= 10
+
     #Best Performer Award goes to:
-    bestOverallScore = _.max(_.pluck(players, 'stats.overallScore.ratingScore'))
-    player = _.find players, (player) -> player.stats.overallScore?.ratingScore == bestOverallScore
-    player.stats.award = 'Best Performer'
+    bestOverallScore = _.max(_.pluck(awardedPlayers, 'stats.overallScore.ratingScore'))
+    player = _.find awardedPlayers, (player) -> player.stats.overallScore?.ratingScore == bestOverallScore
+    awards.push({award: 'Best Performer', player})
 
     #Worst Performer Award goes to:
-    worstOverallScore = _.min(_.pluck(players, 'stats.overallScore.ratingScore'))
-    player = _.find players, (player) -> player.stats.overallScore?.ratingScore == worstOverallScore
-    player.stats.award = 'Worst Performer'
+    worstOverallScore = _.min(_.pluck(awardedPlayers, 'stats.overallScore.ratingScore'))
+    player = _.find awardedPlayers, (player) -> player.stats.overallScore?.ratingScore == worstOverallScore
+    awards.push({award: 'Worst Performer', player})
+
+    #Highest Elbow Torque
+    BestElbowTorqueScore = _.max(_.pluck(awardedPlayers, 'stats.metricScores.peakElbowValgusTorque.ratingScore'))
+    player = _.find awardedPlayers, (player) -> player.stats.metricScores.peakElbowValgusTorque.ratingScore == BestElbowTorqueScore
+    awards.push({award: 'Highest Elbow Torque', player})
+
+    #Lowest Elbow Torque
+    worstElbowTorqueScore = _.min(_.pluck(awardedPlayers, 'stats.metricScores.peakElbowValgusTorque.ratingScore'))
+    player = _.find awardedPlayers, (player) -> player.stats.metricScores.peakElbowValgusTorque.ratingScore == worstElbowTorqueScore
+    awards.push({award: 'Lowest Elbow Torque', player})
 
     $pitch.getPitches({ daysBack: 60 })
     .then (pitches) ->
@@ -121,13 +159,13 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
 
       #Most Improved/Regressed goes to
       statPromises = []
-      _.each players, (player) -> 
+      _.each awardedPlayers, (player) -> 
         playerPitchesLastMonth = pitches[player.athleteProfile.objectId]
         statPromises.push(stat.runStatsEngine(playerPitchesLastMonth))
       $q.all(statPromises).then (lastMonthStats) ->
         mostImprovedIndex = null
         mostImprovedScore = 0
-        _.each players, (player, i) -> 
+        _.each awardedPlayers, (player, i) -> 
           if pitches[player.athleteProfile.objectId]
             scoreDifference = player.stats.overallScore - lastMonthStats[i].overallScore
             if scoreDifference > mostImprovedScore
@@ -135,11 +173,11 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
               mostImprovedIndex = i
         if mostImprovedIndex
           player = players[mostImprovedIndex]
-          player.stats.award = 'Improved' 
+          awards.push({award: 'Most Improved', player})
 
         mostRegressedIndex = null
         mostRegressedScore = 0
-        _.each players, (player, i) -> 
+        _.each awardedPlayers, (player, i) -> 
           if pitches[player.athleteProfile.objectId]
             scoreDifference = lastMonthStats[i].overallScore - player.stats.overallScore
             if scoreDifference > mostRegressedScore
@@ -147,10 +185,20 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
               mostRegressedIndex = i
         if mostRegressedIndex
           player = players[mostRegressedIndex]
-          player.stats.award = 'Regressed'
-        defer.resolve()
+          awards.push({award: 'Most Regressed', player})
+
+        defer.resolve(awards)
     return defer.promise
 
+
+  stat.getLanguage = (player) ->
+    debugger;
+    #filter to only Ok and Poor
+    listOfImprovementMetrics = _.filter(player.metricScores, (metricScore) -> metricScore.rating != 'Good')
+    #sort by worst first
+    listOfImprovementMetrics = _.limit(_.sortBy(listOfImprovementMetrics, 'ratingScore'),3,'desc')
+
+    return _.map(listOfImprovementMetrics, (improvementMetric) -> return "Needs to improve #{_.humanize(improvementMetric.metric)}")
 
   #filter data to a particular set of pitches
   stat.filterLastThrowType = (pitches, type) ->
