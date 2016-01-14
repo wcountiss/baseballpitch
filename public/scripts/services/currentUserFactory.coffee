@@ -1,5 +1,6 @@
 angular.module('motus').factory '$currentUser', [ ->
   cu = this
-  # return the service object
+
+  #place to store the current User
   cu
 ]

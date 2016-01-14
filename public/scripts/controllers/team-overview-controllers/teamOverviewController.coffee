@@ -2,9 +2,9 @@ angular.module('motus').controller('teamOverviewController',
 
   ['$http', '$state', '$q', '$player', '$pitch', '$stat', '$scope'
     ($http, $state, $q, $player, $pitch, $stat, $scope) ->
-
       team = this
 
+      #Get pitches a year back
       $pitch.getPitches({ daysBack: 365 })
       .then (pitches) ->
         #group pitches by month
@@ -24,6 +24,7 @@ angular.module('motus').controller('teamOverviewController',
                 scores.push { date: moment().add(-month,'M').format('MM/YYYY'), score: 0, filler: true }          
           team.teamScores = scores
 
+      #get the awards
       team.myteam = $player.getPlayers()
       .then (players) ->
         team.bullpen = players
