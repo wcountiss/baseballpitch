@@ -19,7 +19,26 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
        return  1 - ((playerScore - (eliteMetric.avg-(2*eliteMetric.stdev)))/(4*eliteMetric.stdev))
   }
 
-  scoreRatingMapping = (score) -> 
+  scoreMetricRating = {
+    # bad below
+    1: (playerScore) ->
+       return 'Poor' if playerScore == 0 
+       return 'OK' if playerScore <= .25
+       return 'Good'
+    #in-range
+    2: (playerScore) ->
+      return 'Poor' if playerScore == 0 
+      return 'OK' if playerScore <= .5
+      return 'Good'
+    #bad above    
+    3: (playerScore) ->
+      return 'Poor' if playerScore == 0 
+      return 'OK' if playerScore <= .25
+      return 'Good'
+
+  } 
+
+  scoreOverallRating = (score) -> 
     #if your score is above 2/3 you are Elite
     if score >= .66
       return 'Good' 
@@ -36,7 +55,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     score = limitNumbers(score,0,1)
 
     #map to Rating and return
-    return { ratingScore: score, rating: scoreRatingMapping(score)}
+    return { ratingScore: score, rating: scoreMetricRating[eliteMetric.colorType](score)}
 
   #averages array of data
   average = (data) ->
@@ -60,7 +79,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
       #get 0-1 score of that metric
       averageScore = average(_.pluck(pitches, eliteMetric.metric))
       #return that number and rate it
-      returnMetrics[eliteMetric.metric] = _.extend({ ratingScore: averageScore }, rateScore(averageScore, eliteMetric))
+      returnMetrics[eliteMetric.metric] = _.extend({ score: averageScore }, rateScore(averageScore, eliteMetric))
     return returnMetrics
 
   overallScore = {}
@@ -77,14 +96,14 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     returnMetrics = {}
     _.each(_.keys(jointMetrics), (jointMetric) ->       
       averageScore = average(_.pluck(jointMetrics[jointMetric], 'ratingScore'))
-      returnMetrics[jointMetric] = { ratingScore: averageScore, rating: scoreRatingMapping(averageScore) }
+      returnMetrics[jointMetric] = { ratingScore: averageScore, rating: scoreOverallRating(averageScore) }
     )
     return returnMetrics
 
   #get score overall for the player
   getOverallScore = (metricScores) ->
     playersOverallScore = average(_.pluck(metricScores, 'ratingScore'))
-    return { ratingScore: playersOverallScore*100, rating: scoreRatingMapping(playersOverallScore) }
+    return { ratingScore: playersOverallScore*100, rating: scoreOverallRating(playersOverallScore) }
 
   #stat engine
   stat.runStatsEngine = (pitches) ->
@@ -152,7 +171,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
 
     $pitch.getPitches({ daysBack: 60 })
     .then (pitches) ->
-      #out of the 60 days, take off the first 30 since they are already on the player
+      #already have 30 days for filter them out
       pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate.iso) < moment().add('d', -30);
       #group by player
       pitches = _.groupBy pitches, (pitch) -> pitch.athleteProfile.objectId

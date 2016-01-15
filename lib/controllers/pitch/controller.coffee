@@ -1,6 +1,7 @@
 database = require '../../services/database'
 moment = require 'moment'
 _ = require 'lodash'
+Promise = require 'bluebird'
 
 # module.exports.save = (req, res) ->
 #   #simple validation, replace with parseModel later
@@ -22,85 +23,90 @@ module.exports.find = (req, res) ->
     athleteProfiles = _.pluck(teamMembers, 'athleteProfile')
     #Go back 30 days by default but can override
     daysBack = req.body.daysBack || 30
+
+    #get pitches by player asynch
+    pitchPromises = []
+    _.each athleteProfiles, (athleteProfile) ->
     #Find by AthleteProfileIds
-    database.find('Pitch', { 
-      equal: { 'athleteProfile': athleteProfiles}, 
-      greater: { 'createdAt': moment().add(-daysBack,'d').toDate() },
-      #unneeded byte type columns removed
-      select: ["armSlot",
-        "armSpeed",
-        "athleteProfile",
-        "createdAt",
-        "elbowFlexionFootContact",
-        "elbowFlexionRelease",
-        "elbowHeight",
-        "fingertipVelocityRelease",
-        "footAngle",
-        "footContactTime",
-        "forearmSlotRelease",
-        "keyframeFirstMovement",
-        "keyframeFootContact",
-        "keyframeHipSpeed",
-        "keyframeLegKick",
-        "keyframeTimeWarp",
-        "keyframeTrunkSpeed",
-        "maxElbowFlexion",
-        "maxFootHeight",
-        "maxFootHeightTime",
-        "maxShoulderRotation",
-        "maxTrunkSeparation",
-        "objectId",
-        "peakBicepSpeed",
-        "peakBicepSpeedTime",
-        "peakElbowCompressiveForce",
-        "peakElbowValgusTorque",
-        "peakForearmSpeed",
-        "peakForearmSpeedTime",
-        "peakHipSpeed",
-        "peakHipSpeedTime",
-        "peakShoulderAnteriorForce",
-        "peakShoulderCompressiveForce",
-        "peakShoulderRotationTorque",
-        "peakTrunkSpeed",
-        "peakTrunkSpeedTime",
-        "pelvisFlexionFootContact",
-        "pelvisFlexionRelease",
-        "pelvisRotationFootContact",
-        "pelvisRotationRelease",
-        "pelvisSideTiltFootContact",
-        "pelvisSideTiltRelease",
-        "pitchDate",
-        "pitchTime",
-        "releasePoint",
-        "shoulderAbductionFootContact",
-        "shoulderAbductionRelease",
-        "shoulderRotation",
-        "shoulderRotationFootContact",
-        "shoulderRotationRelease",
-        "strideLength",
-        "tagString",
-        # "timeSeriesForearmSpeed",
-        # "timeSeriesHipSpeed",
-        # "timeSeriesTrunkSpeed",
-        "torque",
-        "trunkFlexionFootContact",
-        "trunkFlexionRelease",
-        "trunkRotationFootContact",
-        "trunkRotationRelease",
-        "trunkSideTiltFootContact",
-        "trunkSideTiltRelease",
-        "updatedAt"
-      ]  
-    })
-    .then (results) ->
+        pitchPromises.push database.find('Pitch', { 
+          equal: { 'athleteProfile': athleteProfile}, 
+          greater: { 'createdAt': moment().add(-daysBack,'d').toDate() },
+          #unneeded byte type columns removed
+          select: ["armSlot",
+            "armSpeed",
+            "athleteProfile",
+            "createdAt",
+            "elbowFlexionFootContact",
+            "elbowFlexionRelease",
+            "elbowHeight",
+            "fingertipVelocityRelease",
+            "footAngle",
+            "footContactTime",
+            "forearmSlotRelease",
+            "keyframeFirstMovement",
+            "keyframeFootContact",
+            "keyframeHipSpeed",
+            "keyframeLegKick",
+            "keyframeTimeWarp",
+            "keyframeTrunkSpeed",
+            "maxElbowFlexion",
+            "maxFootHeight",
+            "maxFootHeightTime",
+            "maxShoulderRotation",
+            "maxTrunkSeparation",
+            "objectId",
+            "peakBicepSpeed",
+            "peakBicepSpeedTime",
+            "peakElbowCompressiveForce",
+            "peakElbowValgusTorque",
+            "peakForearmSpeed",
+            "peakForearmSpeedTime",
+            "peakHipSpeed",
+            "peakHipSpeedTime",
+            "peakShoulderAnteriorForce",
+            "peakShoulderCompressiveForce",
+            "peakShoulderRotationTorque",
+            "peakTrunkSpeed",
+            "peakTrunkSpeedTime",
+            "pelvisFlexionFootContact",
+            "pelvisFlexionRelease",
+            "pelvisRotationFootContact",
+            "pelvisRotationRelease",
+            "pelvisSideTiltFootContact",
+            "pelvisSideTiltRelease",
+            "pitchDate",
+            "pitchTime",
+            "releasePoint",
+            "shoulderAbductionFootContact",
+            "shoulderAbductionRelease",
+            "shoulderRotation",
+            "shoulderRotationFootContact",
+            "shoulderRotationRelease",
+            "strideLength",
+            "tagString",
+            # "timeSeriesForearmSpeed",
+            # "timeSeriesHipSpeed",
+            # "timeSeriesTrunkSpeed",
+            "torque",
+            "trunkFlexionFootContact",
+            "trunkFlexionRelease",
+            "trunkRotationFootContact",
+            "trunkRotationRelease",
+            "trunkSideTiltFootContact",
+            "trunkSideTiltRelease",
+            "updatedAt"
+          ]  
+        })
+    Promise.all(pitchPromises)
+    .then (pitchGroups) ->
+      results = _.flatten pitchGroups
       res.send(results)
     .catch (error) ->
       console.log error
       res.sendStatus(500)
   .catch (error) ->
-      console.log error
-      res.sendStatus(500)
+    console.log error
+    res.sendStatus(500)
 
-  
 
- 
+

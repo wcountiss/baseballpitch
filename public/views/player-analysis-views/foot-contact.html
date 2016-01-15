@@ -24,7 +24,7 @@
           ng-class="{'selected':eliteMetric == foot.selectedMetric}" ng-click="foot.setClickedRow(eliteMetric,$index)">
 
             <td class="metricval">
-              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{::eliteMetric.pstats.score}}</span>
+              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{::eliteMetric.pstats.score | number:0}}</span>
             </td>
 
             <td>
@@ -46,7 +46,7 @@
         <table>
           <tr class="metric-odd">
             <td>PLAYER</td>
-            <td class="metricval"><span class="metricval" ng-if="foot.selectedPlayerMetric==null">NA</span>{{foot.selectedPlayerMetric}}<span class="unit">{{foot.selectedMetric.units}}</span></td>
+            <td class="metricval"><span class="metricval" ng-if="foot.selectedPlayerMetric==null">NA</span>{{foot.selectedPlayerMetric | number:0}}<span class="unit">{{foot.selectedMetric.units}}</span></td>
           </tr>
           <tr class="metric-even">
             <td>ELITE</td>
