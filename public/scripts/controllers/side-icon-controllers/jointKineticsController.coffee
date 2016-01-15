@@ -4,9 +4,8 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   # grab factory data
   cpf = currentPlayerFactory
   ef = eliteFactory
-
   joint.filterType = '30'
-  cpf.getCurrentPlayer()
+
 
   imageMap = {
     "peakElbowCompressiveForce": "images/legend/MAX_ElbowFLexion.jpg",
@@ -46,7 +45,7 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   $q.all(loadPromises).then (results) ->
     joint.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'K' )
     joint.currentPlayer = cpf.currentPlayer 
-    console.log('THIS PLAYER: ',cpf.currentPlayer.athleteProfile.firstName) 
+    console.log('JK THIS PLAYER: ',cpf.currentPlayer.athleteProfile.firstName) 
     $stat.runStatsEngine(joint.currentPlayer.pitches).then (stats) ->
       joint.stats = stats
       _.each joint.eliteMetrics, (eliteMetric) -> 

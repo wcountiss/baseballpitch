@@ -3,7 +3,7 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   cpf = currentPlayerFactory
   ef = eliteFactory
   foot.filterType = '30'
-  cpf.getCurrentPlayer()
+  
 
   imageMap = {
     "elbowFlexionFootContact": "images/legend/FC_ElbowFlexion.jpg",
@@ -47,6 +47,7 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   $q.all(loadPromises).then (results) ->
     foot.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'FC' )
     foot.currentPlayer = cpf.currentPlayer
+    console.log('FC THIS PLAYER: ',cpf.currentPlayer.athleteProfile.firstName) 
     $stat.runStatsEngine(foot.currentPlayer.pitches).then (stats) ->
       foot.stats = stats
 

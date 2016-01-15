@@ -3,7 +3,6 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   cpf = currentPlayerFactory
   ef = eliteFactory
   ball.filterType = '30'
-  cpf.getCurrentPlayer()
 
   imageMap = {
     "fingerTipVelocityRelease": "images/legend/BR_FingertipSpeed.jpg",
@@ -47,6 +46,7 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   $q.all(loadPromises).then (results) ->
     ball.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'BR' )
     ball.currentPlayer = cpf.currentPlayer
+    console.log('BR THIS PLAYER: ',cpf.currentPlayer.athleteProfile.firstName) 
     $stat.runStatsEngine(ball.currentPlayer.pitches).then (stats) ->
       ball.stats = stats
       _.each ball.eliteMetrics, (eliteMetric) -> 

@@ -18,7 +18,8 @@ angular.module('motus').controller('playerController',
         console.log('THIS PLAYER: ',results[1]) 
         console.log('THIS PLAYER NAME: ',pc.currentPlayer.athleteProfile.firstName) 
         $stat.runStatsEngine(pc.currentPlayer.pitches).then (stats) ->
-
+          console.log('DOUBLECHECK PLAYERNAME:', pc.currentPlayer.athleteProfile.firstName)
+          console.log('THIS PLAYER STATS:',stats)
       randomNumber = (min, max) ->
         Math.floor(Math.random() * max + min)
 
@@ -61,10 +62,7 @@ angular.module('motus').controller('playerController',
             player = _.extend(player, { age: _.random(20,40), height: _.random(65,80), weight: _.random(150,180), birthPlace: "USA", position: position[_.random(2)], level: 'mlb', imgUrl: '../images/matt-harvey.png', alt: 'Matt Harvey'})
             player
           pc.playerRoster = players
-          #makes the first player in the list the selected player when the pages loads
-          cpf.currentPlayer = players[0]
-          pc.currentPlayer = players[0]
-
+         
       loadChart = () ->
          #Get pitches a year back
         $pitch.getPitches({ daysBack: 365 })
