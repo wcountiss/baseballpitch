@@ -1,12 +1,25 @@
 angular.module('motus').controller('playerController',
-  ['$http', 'currentPlayerFactory', '$state', '$player'
-    ($http, currentPlayerFactory, $state, $player) ->
+  ['$http', 'currentPlayerFactory','eliteFactory' ,'$state', '$player','$stat','$q'
+    ($http, currentPlayerFactory, eliteFactory, $state, $player, $stat, $q) ->
       pc = this
       pc.state = $state
       #log current state
       console.log 'onLoad Current State:', $state.current.name
       #Grab data from the factory service
       cpf = currentPlayerFactory
+      ef = eliteFactory
+      console.log('ELITE FACTORY:',ef)
+
+      loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
+      $q.all(loadPromises).then (results) ->
+        pc.currentPlayer = results[1]
+        console.log('THIS PLAYER: ',results[1]) 
+        $stat.runStatsEngine(pc.currentPlayer.pitches).then (stats) ->
+         
+
+      
+      
+
       randomNumber = (min, max) ->
         Math.floor(Math.random() * max + min)
 
@@ -15,28 +28,28 @@ angular.module('motus').controller('playerController',
       toolTipOptions = [ 'Bad', 'Ok', 'Good' ]
 
       #random stats
-      statNames = ['arm','throwShoulder','otherShoulder','hip','foot']
-      statSlices = [10,10,9,8,6]
-      _.each statNames, (stat, i) ->
-        scores = [
-          { order: 1, score: 100, weight: 1, label: "Rotation" }
-          { order: 1, score: 100, weight: 1, label: "Movement" }
-          { order: 1, score: 100, weight: 1, label: "Force" }
-          { order: 1, score: 100, weight: 1, label: "Acceleration" }
-          { order: 1, score: 100, weight: 1, label: "Timing" }
-          { order: 1, score: 100, weight: 1, label: "Deceleration" }
-          { order: 1, score: 100, weight: 1, label: "Velocity" }
-          { order: 1, score: 100, weight: 1, label: "Momentum" }
-          { order: 1, score: 100, weight: 1, label: "Distance" }
-          { order: 1, score: 100, weight: 1, label: "Rate" }
-        ]
-        _.each scores, (score) ->
-          randomNum = randomNumber(0,3)
-          score.color = colorOptions[randomNum]
-          score.tooltip = toolTipOptions[randomNum]
-        #Number of slices
-        score = _.slice(scores, 0, statSlices[i])
-        pc[stat] = score
+      # statNames = ['arm','throwShoulder','otherShoulder','hip','foot']
+      # statSlices = [10,10,9,8,6]
+      # _.each statNames, (stat, i) ->
+      #   scores = [
+      #     { order: 1, score: 100, weight: 1, label: "Rotation" }
+      #     { order: 1, score: 100, weight: 1, label: "Movement" }
+      #     { order: 1, score: 100, weight: 1, label: "Force" }
+      #     { order: 1, score: 100, weight: 1, label: "Acceleration" }
+      #     { order: 1, score: 100, weight: 1, label: "Timing" }
+      #     { order: 1, score: 100, weight: 1, label: "Deceleration" }
+      #     { order: 1, score: 100, weight: 1, label: "Velocity" }
+      #     { order: 1, score: 100, weight: 1, label: "Momentum" }
+      #     { order: 1, score: 100, weight: 1, label: "Distance" }
+      #     { order: 1, score: 100, weight: 1, label: "Rate" }
+      #   ]
+      #   _.each scores, (score) ->
+      #     randomNum = randomNumber(0,3)
+      #     score.color = colorOptions[randomNum]
+      #     score.tooltip = toolTipOptions[randomNum]
+      #   #Number of slices
+      #   score = _.slice(scores, 0, statSlices[i])
+      #   pc[stat] = score
 
       getPlayers = () ->
         $player.getPlayers()
