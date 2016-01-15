@@ -16,7 +16,6 @@ angular.module('motus').controller('teamOverviewController',
         .then (stats) ->
           #map overall score per month
           scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
-          console.log scores
           #Look back 12 months and fill in where no data
           if scores.length < 12
             for month in [1..12]

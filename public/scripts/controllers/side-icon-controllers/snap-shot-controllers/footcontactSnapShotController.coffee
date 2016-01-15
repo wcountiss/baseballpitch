@@ -20,7 +20,7 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
 
   foot.filterLastThrowType = () ->
     if foot.filterType == '30'
-      _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = foot.currentPlayer.stats.metricScores[eliteMetric.metric]
+      _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = foot.stats.metricScores[eliteMetric.metric]
     else
       $stat.filterLastThrowType(foot.currentPlayer.pitches, foot.filterType)
       .then (stats) ->
@@ -30,7 +30,7 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
     cpf.footMetricsIndex = index
     foot.selectedMetric = eliteMetric
     foot.image = imageMap[foot.selectedMetric.metric]
-    if foot.currentPlayer.stats?.metricScores
+    if foot.stats?.metricScores
       foot.selectedPlayerMetric = eliteMetric.pstats.score
 
   foot.setfilterCount = (pitches, type) ->
@@ -46,16 +46,19 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   $q.all(loadPromises).then (results) ->
     foot.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'FC' )
     foot.currentPlayer = cpf.currentPlayer
-    _.each foot.eliteMetrics, (eliteMetric) -> 
-      if foot.currentPlayer.stats?.metricScores?[eliteMetric.metric] 
-        eliteMetric.pstats = foot.currentPlayer.stats.metricScores[eliteMetric.metric]
-      else 
-        eliteMetric.pstats = null
-    foot.setClickedRow(foot.eliteMetrics[cpf.footMetricsIndex], cpf.footMetricsIndex)
-    foot.setfilterCount(foot.currentPlayer.pitches, 'Longtoss')
-    foot.setfilterCount(foot.currentPlayer.pitches, 'Bullpen')
-    foot.setfilterCount(foot.currentPlayer.pitches, 'Game')
-    foot.setfilterCount(foot.currentPlayer.pitches, 'Untagged')
+    $stat.runStatsEngine(foot.currentPlayer.pitches).then (stats) ->
+      foot.stats = stats
+
+      _.each foot.eliteMetrics, (eliteMetric) -> 
+        if foot.stats?.metricScores?[eliteMetric.metric] 
+          eliteMetric.pstats = foot.stats.metricScores[eliteMetric.metric]
+        else 
+          eliteMetric.pstats = null
+      foot.setClickedRow(foot.eliteMetrics[cpf.footMetricsIndex], cpf.footMetricsIndex)
+      foot.setfilterCount(foot.currentPlayer.pitches, 'Longtoss')
+      foot.setfilterCount(foot.currentPlayer.pitches, 'Bullpen')
+      foot.setfilterCount(foot.currentPlayer.pitches, 'Game')
+      foot.setfilterCount(foot.currentPlayer.pitches, 'Untagged')
 
 
   return foot

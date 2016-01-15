@@ -17,7 +17,7 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
 
   joint.filterLastThrowType = () ->
     if joint.filterType == '30'
-      _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = joint.currentPlayer.stats.metricScores[eliteMetric.metric]
+      _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = joint.stats.metricScores[eliteMetric.metric]
     else
       $stat.filterLastThrowType(joint.currentPlayer.pitches, joint.filterType)
       .then (stats) ->
@@ -28,7 +28,7 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
     joint.selectedMetric = eliteMetric
     joint.selectedMetric.avg = Math.round(joint.selectedMetric.avg)
     joint.image = imageMap[joint.selectedMetric.metric]
-    if joint.currentPlayer.stats?.metricScores
+    if joint.stats?.metricScores
       joint.selectedPlayerMetric = Math.round(eliteMetric.pstats.score)
 
   joint.setfilterCount = (pitches, type) ->
@@ -44,17 +44,19 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises).then (results) ->
     joint.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'K' )
-    joint.currentPlayer = cpf.currentPlayer
-    _.each joint.eliteMetrics, (eliteMetric) -> 
-      if joint.currentPlayer.stats?.metricScores?[eliteMetric.metric] 
-        eliteMetric.pstats = joint.currentPlayer.stats.metricScores[eliteMetric.metric]
-      else 
-        eliteMetric.pstats = null
-    joint.setClickedRow(joint.eliteMetrics[cpf.maxMetricsIndex], cpf.maxMetricsIndex)
-    joint.setfilterCount(joint.currentPlayer.pitches, 'Longtoss')
-    joint.setfilterCount(joint.currentPlayer.pitches, 'Bullpen')
-    joint.setfilterCount(joint.currentPlayer.pitches, 'Game')
-    joint.setfilterCount(joint.currentPlayer.pitches, 'Untagged')
+    joint.currentPlayer = cpf.currentPlayer  
+    $stat.runStatsEngine(joint.currentPlayer.pitches).then (stats) ->
+      joint.stats = stats
+      _.each joint.eliteMetrics, (eliteMetric) -> 
+        if joint.stats?.metricScores?[eliteMetric.metric] 
+          eliteMetric.pstats = joint.stats.metricScores[eliteMetric.metric]
+        else 
+          eliteMetric.pstats = null
+      joint.setClickedRow(joint.eliteMetrics[cpf.maxMetricsIndex], cpf.maxMetricsIndex)
+      joint.setfilterCount(joint.currentPlayer.pitches, 'Longtoss')
+      joint.setfilterCount(joint.currentPlayer.pitches, 'Bullpen')
+      joint.setfilterCount(joint.currentPlayer.pitches, 'Game')
+      joint.setfilterCount(joint.currentPlayer.pitches, 'Untagged')
 
   return joint
 ]

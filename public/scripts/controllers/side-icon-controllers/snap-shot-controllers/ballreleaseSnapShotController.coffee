@@ -21,7 +21,7 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
 
   ball.filterLastThrowType = () ->
     if ball.filterType == '30'
-      _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = ball.currentPlayer.stats.metricScores[eliteMetric.metric]
+      _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = ball.stats.metricScores[eliteMetric.metric]
     else
       $stat.filterLastThrowType(ball.currentPlayer.pitches, ball.filterType)
       .then (stats) ->
@@ -31,7 +31,7 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
     cpf.ballMetricsIndex = index
     ball.selectedMetric = eliteMetric
     ball.image = imageMap[ball.selectedMetric.metric]
-    if ball.currentPlayer.stats?.metricScores
+    if ball.stats?.metricScores
       ball.selectedPlayerMetric = eliteMetric.pstats.score
 
   ball.setfilterCount = (pitches, type) ->
@@ -47,16 +47,18 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   $q.all(loadPromises).then (results) ->
     ball.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'BR' )
     ball.currentPlayer = cpf.currentPlayer
-    _.each ball.eliteMetrics, (eliteMetric) -> 
-      if ball.currentPlayer.stats?.metricScores?[eliteMetric.metric] 
-        eliteMetric.pstats = ball.currentPlayer.stats.metricScores[eliteMetric.metric]
-      else 
-        eliteMetric.pstats = null
-    ball.setClickedRow(ball.eliteMetrics[cpf.ballMetricsIndex], cpf.ballMetricsIndex)
-    ball.setfilterCount(ball.currentPlayer.pitches, 'Longtoss')
-    ball.setfilterCount(ball.currentPlayer.pitches, 'Bullpen')
-    ball.setfilterCount(ball.currentPlayer.pitches, 'Game')
-    ball.setfilterCount(ball.currentPlayer.pitches, 'Untagged')
+    $stat.runStatsEngine(ball.currentPlayer.pitches).then (stats) ->
+      ball.stats = stats
+      _.each ball.eliteMetrics, (eliteMetric) -> 
+        if ball.stats?.metricScores?[eliteMetric.metric] 
+          eliteMetric.pstats = ball.stats.metricScores[eliteMetric.metric]
+        else 
+          eliteMetric.pstats = null
+      ball.setClickedRow(ball.eliteMetrics[cpf.ballMetricsIndex], cpf.ballMetricsIndex)
+      ball.setfilterCount(ball.currentPlayer.pitches, 'Longtoss')
+      ball.setfilterCount(ball.currentPlayer.pitches, 'Bullpen')
+      ball.setfilterCount(ball.currentPlayer.pitches, 'Game')
+      ball.setfilterCount(ball.currentPlayer.pitches, 'Untagged')
 
 
   return ball

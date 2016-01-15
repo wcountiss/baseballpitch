@@ -14,7 +14,7 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
 
   max.filterLastThrowType = () ->
     if max.filterType == '30'
-      _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = max.currentPlayer.stats.metricScores[eliteMetric.metric]
+      _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = max.stats.metricScores[eliteMetric.metric]
     else
       $stat.filterLastThrowType(max.currentPlayer.pitches, max.filterType)
       .then (stats) ->
@@ -24,7 +24,7 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
     cpf.maxMetricsIndex = index
     max.selectedMetric = eliteMetric
     max.image = imageMap[max.selectedMetric.metric]
-    if max.currentPlayer.stats?.metricScores
+    if max.stats?.metricScores
       max.selectedPlayerMetric = eliteMetric.pstats.score
 
   max.setfilterCount = (pitches, type) ->
@@ -40,16 +40,18 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
   $q.all(loadPromises).then (result) ->
     max.eliteMetrics = _.filter(result[0], (metric) -> metric.categoryCode == 'ME' )
     max.currentPlayer = cpf.currentPlayer
-    _.each max.eliteMetrics, (eliteMetric) -> 
-      if max.currentPlayer.stats?.metricScores?[eliteMetric.metric] 
-        eliteMetric.pstats = max.currentPlayer.stats.metricScores[eliteMetric.metric]
-      else 
-        eliteMetric.pstats = null
-    max.setClickedRow(max.eliteMetrics[cpf.maxMetricsIndex], cpf.maxMetricsIndex)
-    max.setfilterCount(max.currentPlayer.pitches, 'Longtoss')
-    max.setfilterCount(max.currentPlayer.pitches, 'Bullpen')
-    max.setfilterCount(max.currentPlayer.pitches, 'Game')
-    max.setfilterCount(max.currentPlayer.pitches, 'Untagged')
+    $stat.runStatsEngine(max.currentPlayer.pitches).then (stats) ->
+      max.stats = stats
+      _.each max.eliteMetrics, (eliteMetric) -> 
+        if max.stats?.metricScores?[eliteMetric.metric] 
+          eliteMetric.pstats = max.stats.metricScores[eliteMetric.metric]
+        else 
+          eliteMetric.pstats = null
+      max.setClickedRow(max.eliteMetrics[cpf.maxMetricsIndex], cpf.maxMetricsIndex)
+      max.setfilterCount(max.currentPlayer.pitches, 'Longtoss')
+      max.setfilterCount(max.currentPlayer.pitches, 'Bullpen')
+      max.setfilterCount(max.currentPlayer.pitches, 'Game')
+      max.setfilterCount(max.currentPlayer.pitches, 'Untagged')
 
   return max
 ]

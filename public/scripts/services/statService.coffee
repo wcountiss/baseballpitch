@@ -119,7 +119,6 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     )
 
   stat.getPlayersStats = (players) =>
-    defer = $q.defer()
     _.each players, (player) -> 
       #get aggregate values
       player.stats = {
@@ -127,19 +126,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
         bullPen:  didThrowType(player.pitches, 'Bullpen')
         game: didThrowType(player.pitches, 'Game')
       }
-    statPromises = []
-    _.each players, (player) ->
-      if player.pitches.length
-        statPromises.push stat.runStatsEngine(player.pitches)
-      else
-        statPromises.push $q.when(null)
-    $q.all(statPromises)
-    .then (playersStats) ->
-      _.each playersStats, (playerStats, i) ->
-        if playerStats
-          players[i].stats = _.extend(players[i].stats, playerStats)
-      defer.resolve(players)
-    return defer.promise
+    return players
 
   #give "awards" to players
   stat.getPlayerAwards = (players) ->

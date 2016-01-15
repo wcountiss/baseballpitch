@@ -6,15 +6,14 @@ End of Week 3:
 Couch View of Players in Team Overview
 
 End of Week 4:
-Test IE, Edge, FireFox, Safari and add message if not using what looks good
+Player Analysis
 Player Analysis Overview Chart
 Player Analysis Pie Charts
-Player Analysis
 
-Load 90 days of Pitches by default
 Break out stats into its own calls
 
 End of Week 5:
+Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Natural Language Descriptions
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
@@ -37,6 +36,7 @@ Tagging Throws on Tagging Chart
 Download Data in Excel
 Player View
 SubTag Filter
+90 day back filter
 Persistable Filter
 LocalStorage?
 
