@@ -8,11 +8,12 @@ Couch View of Players in Team Overview
 End of Week 4:
 Separate Angular d3
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
-Player Analysis Natural Language Descriptions
 Player Analysis Overview Chart
 Player Analysis Pie Charts
 Player Analysis
+
 Load Pitches by Player
+Player Analysis Natural Language Descriptions
 
 
 End of Week 5:
