@@ -2,7 +2,6 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   ball = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-
   ball.filterType = '30'
   cpf.getCurrentPlayer()
 

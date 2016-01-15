@@ -2,8 +2,8 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
   max = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-
   max.filterType = '30'
+  cpf.getCurrentPlayer()
 
   imageMap = {
     "maxElbowFlexion": "images/legend/MAX_ElbowFLexion.jpg",
