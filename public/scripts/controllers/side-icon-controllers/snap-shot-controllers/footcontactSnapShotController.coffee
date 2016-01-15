@@ -3,6 +3,7 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   cpf = currentPlayerFactory
   ef = eliteFactory
   foot.filterType = '30'
+  cpf.getCurrentPlayer()
 
   imageMap = {
     "elbowFlexionFootContact": "images/legend/FC_ElbowFlexion.jpg",

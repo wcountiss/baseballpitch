@@ -6,6 +6,7 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   ef = eliteFactory
 
   joint.filterType = '30'
+  cpf.getCurrentPlayer()
 
   imageMap = {
     "peakElbowCompressiveForce": "images/legend/MAX_ElbowFLexion.jpg",

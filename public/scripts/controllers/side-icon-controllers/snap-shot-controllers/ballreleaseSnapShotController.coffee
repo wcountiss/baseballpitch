@@ -4,6 +4,7 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   ef = eliteFactory
 
   ball.filterType = '30'
+  cpf.getCurrentPlayer()
 
   imageMap = {
     "fingerTipVelocityRelease": "images/legend/BR_FingertipSpeed.jpg",
