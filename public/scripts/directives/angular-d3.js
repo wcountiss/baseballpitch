@@ -10150,9 +10150,9 @@ angular.module('d3').directive('arealinechart', [
             // elite data
             svg.append("line")
               .attr("x1", 0)
-              .attr("y1", 66)
+              .attr("y1", function(){ return y(66);})
               .attr("x2", d3.max(data, function(d) { return x(d.date); }))
-              .attr("y2", 66)
+              .attr("y2", function(){ return y(66);})
               .attr("class", "average")
               .attr("stroke-width", 2)
               .attr("stroke", "black")
