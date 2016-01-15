@@ -52,11 +52,11 @@
         }"class="joint-rating-box"></div>
         </td> 
         <td class="overallScore" ng-class="{
-          'overall-good': player.stats.overallScore.rating.rating == 'Good',
-          'overall-ok': player.stats.overallScore.rating.rating == 'OK',
-          'overall-poor': player.stats.overallScore.rating.rating == 'Poor'
+          'overall-good': player.stats.overallScore.rating == 'Good',
+          'overall-ok': player.stats.overallScore.rating == 'OK',
+          'overall-poor': player.stats.overallScore.rating == 'Poor'
           }">
-          {{::player.stats.overallScore.rating.rating || "NA"}}
+          {{::player.stats.overallScore.rating || "NA"}}
         </td>
       </tr>
     </table>
