@@ -7,9 +7,6 @@ Couch View of Players in Team Overview
 
 End of Week 4:
 Player Analysis
-
-Player Analysis Overview Chart
-
 Player Analysis Pie Charts
 
 End of Week 5:

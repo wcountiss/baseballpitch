@@ -165,6 +165,18 @@ angular.module('d3').directive('arealinechart', [
           if (angular.isDefined(scope.bind())) {
             var bindData = scope.bind()
 
+            //Look back 12 months and fill in where no data
+            if (bindData.length < 12) {
+              for (var month = 1; month <= 12; month++) {
+                var lastMonthsScore = _.find(bindData, function (score) { 
+                  return score.date == moment().add(-month, 'M')
+                })
+                if (!lastMonthsScore) {
+                  bindData.push({ date: moment().add(-month,'M').format('MM/YYYY'), score: 0, filler: true })
+                }   
+              }       
+            }
+
             var data = _.cloneDeep(bindData);
             data.forEach(function(d) {
               d.date = parseDate(d.date);
