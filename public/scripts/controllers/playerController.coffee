@@ -1,6 +1,11 @@
 angular.module('motus').controller('playerController',
-  ['$http', 'currentPlayerFactory','eliteFactory' ,'$state', '$player','$stat','$q'
-    ($http, currentPlayerFactory, eliteFactory, $state, $player, $stat, $q) ->
+
+  ['$http', 'currentPlayerFactory','eliteFactory' ,'$state', '$player','$stat','$q','$pitch'
+    ($http, currentPlayerFactory, eliteFactory, $state, $player, $stat, $q, $pitch) ->
+
+  ['$http', '$q', 'currentPlayerFactory', '$state', '$player', '$pitch', '$stat'
+    ($http, $q, currentPlayerFactory, $state, $player, $pitch, $stat) ->
+
       pc = this
       pc.state = $state
       #log current state
@@ -52,7 +57,7 @@ angular.module('motus').controller('playerController',
       #   pc[stat] = score
 
       getPlayers = () ->
-        $player.getPlayers()
+        return $player.getPlayers()
         .then (players) ->
           position = ['starter', 'relief', 'closer']
 
@@ -66,8 +71,33 @@ angular.module('motus').controller('playerController',
           cpf.currentPlayer = players[0]
           pc.currentPlayer = players[0]
 
+      loadChart = () ->
+         #Get pitches a year back
+        $pitch.getPitches({ daysBack: 365 })
+        .then (pitches) ->
+          pitches = _.filter pitches, (pitch) -> pitch.athleteProfile.objectId == pc.currentPlayer.athleteProfile.objectId
+          #group pitches by month
+          pitches = _.groupBy pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/01/YYYY')
+          #run engine through all pitches per month
+          statsPromises = []
+          _.each _.keys(pitches), (key) -> statsPromises.push $stat.runStatsEngine(pitches[key])
+          $q.all(statsPromises)
+          .then (stats) ->
+            #map overall score per month
+            scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
+            #Look back 12 months and fill in where no data
+            if scores.length < 12
+              for month in [1..12]
+                lastMonthsScore = _.find scores, (score) -> score.date == moment().add(-month, 'M')
+                if !lastMonthsScore 
+                  scores.push { date: moment().add(-month,'M').format('MM/YYYY'), score: 0, filler: true }          
+            pc.playerScores = scores
+
       #Page Load
       getPlayers()
+      .then () ->
+        loadChart()
+
 
       #Select Current Player
       pc.selectedPlayer = (selected) ->

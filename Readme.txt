@@ -7,10 +7,10 @@ Couch View of Players in Team Overview
 
 End of Week 4:
 Player Analysis
-Player Analysis Overview Chart
-Player Analysis Pie Charts
 
-Break out stats into its own calls
+Player Analysis Overview Chart
+
+Player Analysis Pie Charts
 
 End of Week 5:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
@@ -38,6 +38,7 @@ Player View
 SubTag Filter
 90 day back filter
 Persistable Filter
+Caching
 LocalStorage?
 
 

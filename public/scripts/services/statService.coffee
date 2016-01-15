@@ -136,71 +136,72 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     #Need at least 10 pitches to get awards
     awardedPlayers = _.filter players, (player) -> return player.pitches.length >= 10
 
-    #Best Performer Award goes to:
-    bestOverallScore = _.max(_.pluck(awardedPlayers, 'stats.overallScore.ratingScore'))
-    player = _.find awardedPlayers, (player) -> player.stats.overallScore?.ratingScore == bestOverallScore
-    awards.push({award: 'Best Performer', player})
+    #get stats on pitches player did
+    statPromises = []
+    _.each awardedPlayers, (player) -> 
+      statPromises.push(stat.runStatsEngine(player.pitches))
+    $q.all(statPromises).then (thisMonthsStats) ->
+      #Best Performer Award goes to:
+      bestOverallScore = _.max(_.pluck(thisMonthsStats, 'overallScore.ratingScore'))
+      awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.overallScore?.ratingScore == bestOverallScore
+      awards.push({award: 'Best Performer', player: awardedPlayers[awardIndex]})
 
-    #Worst Performer Award goes to:
-    worstOverallScore = _.min(_.pluck(awardedPlayers, 'stats.overallScore.ratingScore'))
-    player = _.find awardedPlayers, (player) -> player.stats.overallScore?.ratingScore == worstOverallScore
-    awards.push({award: 'Worst Performer', player})
+      #Worst Performer Award goes to:
+      worstOverallScore = _.min(_.pluck(thisMonthsStats, 'overallScore.ratingScore'))
+      awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.overallScore?.ratingScore == worstOverallScore
+      awards.push({award: 'Worst Performer', player: awardedPlayers[awardIndex]})
 
-    #Highest Elbow Torque
-    BestElbowTorqueScore = _.max(_.pluck(awardedPlayers, 'stats.metricScores.peakElbowValgusTorque.ratingScore'))
-    player = _.find awardedPlayers, (player) -> player.stats.metricScores.peakElbowValgusTorque.ratingScore == BestElbowTorqueScore
-    awards.push({award: 'Highest Elbow Torque', player})
+      #Highest Elbow Torque
+      BestElbowTorqueScore = _.max(_.pluck(thisMonthsStats, 'metricScores.peakElbowValgusTorque.ratingScore'))
+      awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.metricScores.peakElbowValgusTorque.ratingScore == BestElbowTorqueScore
+      awards.push({award: 'Highest Elbow Torque', player: awardedPlayers[awardIndex]})
 
-    #Lowest Elbow Torque
-    worstElbowTorqueScore = _.min(_.pluck(awardedPlayers, 'stats.metricScores.peakElbowValgusTorque.ratingScore'))
-    player = _.find awardedPlayers, (player) -> player.stats.metricScores.peakElbowValgusTorque.ratingScore == worstElbowTorqueScore
-    awards.push({award: 'Lowest Elbow Torque', player})
+      #Lowest Elbow Torque
+      worstElbowTorqueScore = _.min(_.pluck(thisMonthsStats, 'metricScores.peakElbowValgusTorque.ratingScore'))
+      awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.metricScores.peakElbowValgusTorque.ratingScore == worstElbowTorqueScore
+      awards.push({award: 'Lowest Elbow Torque', player: awardedPlayers[awardIndex]})
 
-    $pitch.getPitches({ daysBack: 60 })
-    .then (pitches) ->
-      #already have 30 days for filter them out
-      pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate.iso) < moment().add('d', -30);
-      #group by player
-      pitches = _.groupBy pitches, (pitch) -> pitch.athleteProfile.objectId
+      $pitch.getPitches({ daysBack: 60 })
+      .then (pitches) ->
+        #already have 30 days for filter them out
+        pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate.iso) < moment().add('d', -30);
+        #group by player
+        pitches = _.groupBy pitches, (pitch) -> pitch.athleteProfile.objectId
 
-      #Most Improved/Regressed goes to
-      statPromises = []
-      _.each awardedPlayers, (player) -> 
-        playerPitchesLastMonth = pitches[player.athleteProfile.objectId]
-        statPromises.push(stat.runStatsEngine(playerPitchesLastMonth))
-      $q.all(statPromises).then (lastMonthStats) ->
-        mostImprovedIndex = null
-        mostImprovedScore = null
-        _.each awardedPlayers, (player, i) -> 
-          if pitches[player.athleteProfile.objectId]
-            if player.stats.overallScore.ratingScore > lastMonthStats[i].overallScore.ratingScore
-              scoreDifference = player.stats.overallScore.ratingScore - lastMonthStats[i].overallScore.ratingScore
+        #Most Improved/Regressed goes to
+        statPromises = []
+        _.each awardedPlayers, (player) -> 
+          playerPitchesLastMonth = pitches[player.athleteProfile.objectId]
+          statPromises.push(stat.runStatsEngine(playerPitchesLastMonth))
+        $q.all(statPromises).then (lastMonthStats) ->
+          mostImprovedIndex = null
+          mostImprovedScore = null
+          _.each thisMonthsStats, (thisMonthsStat, i) -> 
+            if thisMonthsStat.overallScore.ratingScore > lastMonthStats[i].overallScore.ratingScore
+              scoreDifference = thisMonthsStat.overallScore.ratingScore - lastMonthStats[i].overallScore.ratingScore
               if !mostImprovedScore || scoreDifference > mostImprovedScore
                 mostImprovedScore = scoreDifference
                 mostImprovedIndex = i
-        if mostImprovedIndex
-          player = players[mostImprovedIndex]
-          awards.push({award: 'Most Improved', player})
-        else
-          awards.push({award: 'Most Improved', player: { athleteProfile: { firstName: 'NA' } }})
+          if mostImprovedIndex != null
+            awards.push({award: 'Most Improved', player: players[mostImprovedIndex]})
+          else
+            awards.push({award: 'Most Improved', player: { athleteProfile: { firstName: 'NA' } }})
 
 
-        mostRegressedIndex = null
-        mostRegressedScore = null
-        _.each awardedPlayers, (player, i) -> 
-          if pitches[player.athleteProfile.objectId]
-            if lastMonthStats[i].overallScore.ratingScore > player.stats.overallScore.ratingScore
-              scoreDifference = lastMonthStats[i].overallScore.ratingScore - player.stats.overallScore.ratingScore
+          mostRegressedIndex = null
+          mostRegressedScore = null
+          _.each thisMonthsStats, (thisMonthsStat, i) -> 
+            if lastMonthStats[i].overallScore.ratingScore > thisMonthsStat.overallScore.ratingScore
+              scoreDifference = lastMonthStats[i].overallScore.ratingScore - thisMonthsStat.overallScore.ratingScore
               if !mostRegressedScore ||  scoreDifference > mostRegressedScore
                 mostRegressedScore = scoreDifference
                 mostRegressedIndex = i
-        if mostRegressedIndex
-          player = players[mostRegressedIndex]
-          awards.push({award: 'Most Regressed', player})
-        else
-          awards.push({award: 'Most Regressed', player: { athleteProfile: { firstName: 'NA' } }})
+          if mostRegressedIndex != null
+            awards.push({award: 'Most Regressed', player: players[mostRegressedIndex]})
+          else
+            awards.push({award: 'Most Regressed', player: { athleteProfile: { firstName: 'NA' } }})
 
-        defer.resolve(awards)
+          defer.resolve(awards)
     return defer.promise
 
 
