@@ -117,6 +117,7 @@ app.run ($rootScope, $state, $cookies, $location) ->
       event.preventDefault();
 
 _.mixin(s.exports());
+require './directives/d3-charts.js'
 require './services/currentPlayerFactory.coffee'
 require './services/currentUserFactory.coffee'
 require './services/statService.coffee'

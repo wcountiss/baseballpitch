@@ -6,21 +6,19 @@ End of Week 3:
 Couch View of Players in Team Overview
 
 End of Week 4:
-Separate Angular d3
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Overview Chart
 Player Analysis Pie Charts
 Player Analysis
 
-Load Pitches by Player
-Player Analysis Natural Language Descriptions
-
+Load 90 days of Pitches by default
+Break out stats into its own calls
 
 End of Week 5:
+Player Analysis Natural Language Descriptions
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
 Load Pitches by Player Skip
-
 
 End of Week 6:
 Final Feedback for Launch
