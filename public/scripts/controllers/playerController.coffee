@@ -10,27 +10,51 @@ angular.module('motus').controller('playerController',
       #Grab data from the factory service
       cpf = currentPlayerFactory
       ef = eliteFactory
-      console.log('ELITE FACTORY:',ef)
+      
+
 
       loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
       $q.all(loadPromises).then (results) ->
         pc.currentPlayer = results[1]
-        console.log('THIS PLAYER: ',results[1]) 
-        console.log('THIS PLAYER NAME: ',pc.currentPlayer.athleteProfile.firstName) 
+       
         $stat.runStatsEngine(pc.currentPlayer.pitches).then (stats) ->
           console.log('DOUBLECHECK PLAYERNAME:', pc.currentPlayer.athleteProfile.firstName)
           console.log('THIS PLAYER STATS:',stats)
+      
       randomNumber = (min, max) ->
         Math.floor(Math.random() * max + min)
 
       # Random number to generate boolean for Roster list icon colors
       colorOptions = [ '#f90b1c', '#ffaa22', '#00be76' ]
-      toolTipOptions = [ 'Bad', 'Ok', 'Good' ]
+      toolTipOptions = [ 'Poor', 'Ok', 'Good' ]
 
-      # random stats
-      statNames = ['arm','throwShoulder','otherShoulder','hip','foot']
+
+      # color = {
+      #   "Poor": '#f90b1c'
+      #   "OK": '#ffaa22'
+      #   "Good": '#00be76'
+      # }
+      
+
+      # scores = {
+      #   joint: 'foot'
+      #   order: 1
+      #   score: 100
+      #   weight: 1
+      #   label: "peakVulgusTorque"
+      #   color: "#ffaa22"
+      #   tooltip: "Poor"
+      #   opacity: 1
+      #   weight: 1
+      #   width: 1
+      # }
+
+
+
+      statNames = ['elbow','shoulder','trunk','hip','foot']
       statSlices = [10,10,9,8,6]
       _.each statNames, (stat, i) ->
+        console.log("STAT NAME:",stat)
         scores = [
           { order: 1, score: 100, weight: 1, label: "Rotation" }
           { order: 1, score: 100, weight: 1, label: "Movement" }
@@ -44,12 +68,14 @@ angular.module('motus').controller('playerController',
           { order: 1, score: 100, weight: 1, label: "Rate" }
         ]
         _.each scores, (score) ->
+          console.log("SCORES:",stat)
           randomNum = randomNumber(0,3)
-          score.color = colorOptions[randomNum]
+          score.color = "#ffaa22"
           score.tooltip = toolTipOptions[randomNum]
         #Number of slices
-        score = _.slice(scores, 0, statSlices[i])
+        score = _.slice(scores, 1, statSlices[i])
         pc[stat] = score
+        console.log("FINALRESULT",pc[stat])
 
       getPlayers = () ->
         return $player.getPlayers()
