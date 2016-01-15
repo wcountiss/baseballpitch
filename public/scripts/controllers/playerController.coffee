@@ -3,9 +3,6 @@ angular.module('motus').controller('playerController',
   ['$http', 'currentPlayerFactory','eliteFactory' ,'$state', '$player','$stat','$q','$pitch'
     ($http, currentPlayerFactory, eliteFactory, $state, $player, $stat, $q, $pitch) ->
 
-  ['$http', '$q', 'currentPlayerFactory', '$state', '$player', '$pitch', '$stat'
-    ($http, $q, currentPlayerFactory, $state, $player, $pitch, $stat) ->
-
       pc = this
       pc.state = $state
       #log current state
@@ -20,10 +17,6 @@ angular.module('motus').controller('playerController',
         pc.currentPlayer = results[1]
         console.log('THIS PLAYER: ',results[1]) 
         $stat.runStatsEngine(pc.currentPlayer.pitches).then (stats) ->
-         
-
-      
-      
 
       randomNumber = (min, max) ->
         Math.floor(Math.random() * max + min)
