@@ -25,7 +25,7 @@
           ng-class="{'selected':eliteMetric == max.selectedMetric}" ng-click="max.setClickedRow(eliteMetric,$index)">
 
             <td class="metricval">
-              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{::eliteMetric.pstats.score}}</span>
+              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{::eliteMetric.pstats.score | number:0}}</span>
             </td>
             <td>
               <span class="unit">{{::eliteMetric.units}}</span>
@@ -44,7 +44,7 @@
          <table>
           <tr class="metric-odd">
             <td>PLAYER</td>
-            <td class="metricval"><span class="metricval" ng-if="max.selectedPlayerMetric==null">NA</span>{{max.selectedPlayerMetric}}<span class="unit">{{max.selectedMetric.units}}</span></td>
+            <td class="metricval"><span class="metricval" ng-if="max.selectedPlayerMetric==null">NA</span>{{max.selectedPlayerMetric | number:0}}<span class="unit">{{max.selectedMetric.units}}</span></td>
           </tr>
           <tr class="metric-even">
             <td>ELITE</td>
