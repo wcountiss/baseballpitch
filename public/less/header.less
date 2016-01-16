@@ -2,7 +2,7 @@
   font-family:Arial;
   nav {
     background-color: white;
-    height: 100px;
+    height: 7.143em;
 
   }
   nav.nav-flex {
@@ -11,12 +11,12 @@
   }
   .motus-svg-logo {
 
-    min-width:280px;
+    min-width: 20em;
     img {
-      height: 65px;
+      height: 4.643em;
       width: auto;
-      margin-top: 1px;
-      margin-left: 30px;
+      margin-top: 0.071em;
+      margin-left: 2.143em;
     }
   }
   .nav-links {
@@ -24,10 +24,10 @@
     align-items: center;
     flex-grow:50;
     span {
-      padding-left: 20px;
-      padding-right:20px;
-      font-size: 20px;
-      line-height:30px;
+      padding-left: 1.429em;
+      padding-right:1.429em;
+      font-size: 1.429em;
+      line-height:2.143em;
       a {
         color: @motus-blue;
         text-decoration: none;
@@ -39,7 +39,7 @@
         content: '';
         display: block;
         width: 100%;
-        border: 1px solid @motus-lightorange;
+        border: 0.071em solid @motus-lightorange;
         transform: translate(0px, 6px);
         opacity: 0;
         transition: transform .2s ease-out, opacity .2s ease-out;
@@ -57,25 +57,24 @@
   .team-logo {
 
     img, .team-logo-svg {
-      margin-top:2px;
-      margin-right: 22px;
-      -webkit-border-radius: 100px;
-      -moz-border-radius: 100px;
-      border-radius: 100px;
+      margin-top:0.143em;
+      margin-right: 1.571em;
+      -webkit-border-radius: 7.143em;
+      -moz-border-radius: 7.143em;
+      border-radius: 7.143em;
     }
     .team-logo-svg {
-      width: 60px;
-      height:60px;
+      width: 4.286em;
+      height:4.286em;
       background-image: url('../images/nym-logo.svg');
-      -webkit-background-size: 60px 60px;
-      -webkit-background-size: 60px 60px;
-      background-size: 60px 60px;;
+      -webkit-background-size: 4.286em 4.286em;
+      background-size: 4.286em 4.286em;;
     }
   }
   .login-name-account {
     font-size:21px;
     color: @motus-blue;
-    margin-right: 30px;
+    margin-right: 2.143em;
     display: flex;
     flex-direction: column;
     a {
@@ -88,7 +87,7 @@
       width: 100%;
       margin-left:auto;
       border: 1px solid @motus-lightorange;
-      transform: translate(0px, 6px);
+      transform: translate(0, 0.429em);
       opacity: 0;
       transition: transform .2s ease-out, opacity .2s ease-out;
     }
@@ -97,7 +96,7 @@
       transition: .2s ease-out;
     }
     a:hover:after {
-      transform: translate(0px, 0px);
+      transform: translate(0, 0);
       opacity: 1;
     }
     .account-or-logout {
@@ -107,7 +106,7 @@
       span.icon-logout {
         position:relative;
         top: 0.1em;
-        font-size:24px;
+        font-size:1.143em;
       }
     }
 
@@ -122,7 +121,7 @@
   @media (max-width : 1024px) {
     .login-name-account {
       span {
-        font-size:18px !important;
+        font-size:0.857em !important;
       }
     }
 
@@ -131,14 +130,14 @@
   /* Small Devices, Tablets */
   @media (max-width : 768px) {
     .nav-links span {
-      padding-left: 0px;
-      font-size: 14px;
+      padding-left: 0;
+      font-size: 1em;
     }
     .login-name-account span {
-      font-size: 14px!important;
+      font-size: 0.667em !important;
     }
     .motus-svg-logo {
-      min-width: 252px;
+      min-width: 18.000em;
     }
 
   }
