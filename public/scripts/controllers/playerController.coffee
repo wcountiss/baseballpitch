@@ -10,11 +10,10 @@ angular.module('motus').controller('playerController',
       cpf = currentPlayerFactory
       ef = eliteFactory
 
-
       getPlayers = () ->
-            return $player.getPlayers()
-            .then (players) ->
-              pc.playerRoster = players
+        return $player.getPlayers()
+        .then (players) ->
+          pc.playerRoster = players
          
       loadChart = () ->
          #Get pitches a year back
@@ -89,7 +88,8 @@ angular.module('motus').controller('playerController',
               elb.label = elb.title
               elb.color = color[elb.rating]
               elbArray.push(elb)
-              pc.elbow = elbArray
+            pc.elbow = elbArray
+
 
             _.each trunkObj, (tru)->
 
@@ -105,7 +105,7 @@ angular.module('motus').controller('playerController',
               tru.label = tru.title
               tru.color = color[tru.rating]
               trunkArray.push(tru)
-              pc.trunk = trunkArray
+            pc.trunk = trunkArray
 
             _.each shoulderObj, (sho)->
 
@@ -121,7 +121,7 @@ angular.module('motus').controller('playerController',
               sho.label = sho.title
               sho.color = color[sho.rating]
               shoulderArray.push(sho)
-              pc.shoulder = shoulderArray
+            pc.shoulder = shoulderArray
 
             _.each hipObj, (hip)->
 
@@ -137,7 +137,7 @@ angular.module('motus').controller('playerController',
               hip.label = hip.title
               hip.color = color[hip.rating]
               hipArray.push(hip)
-              pc.hip = hipArray
+            pc.hip = hipArray
 
             _.each footObj, (foo)->
 
@@ -153,7 +153,7 @@ angular.module('motus').controller('playerController',
               foo.label = foo.title
               foo.color = color[foo.rating]
               footArray.push(foo)
-              pc.foot = footArray
+            pc.foot = footArray
 
             loadNotes(stats)
 
@@ -162,8 +162,9 @@ angular.module('motus').controller('playerController',
 
 
       #Page Load
-      getPlayers()  
-      loadCurrentPlayer()   
+      getPlayers()
+      .then () ->
+        loadCurrentPlayer()   
 
 
       return pc

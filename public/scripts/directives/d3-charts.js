@@ -58,6 +58,7 @@ angular.module('d3').directive('piestats', [
 
           if (angular.isDefined(scope.bind())) {
             var slices = scope.bind().length;            
+
             // Pass in number of slices
             if (angular.isDefined(attrs.slices)){
               slices = +attrs.slices;
@@ -81,7 +82,7 @@ angular.module('d3').directive('piestats', [
             });
             
             var path = svg.selectAll(".solidArc")
-                .data(pie(data))
+              .data(pie(data))
               .enter()
               .append("path")
                 .attr("fill", function(d) { return d.data.color; })
@@ -104,7 +105,7 @@ angular.module('d3').directive('piestats', [
              .attr("r", 7);
           }
         }
-        scope.$watch("bind", function(){ updateChart() }, false);
+        scope.$watch("bind()", function(){ updateChart() }, false);
       }
     };
   }
