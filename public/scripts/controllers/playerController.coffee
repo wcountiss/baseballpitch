@@ -34,7 +34,6 @@ angular.module('motus').controller('playerController',
 
       loadNotes = (stats) ->
         pc.notes = $stat.getLanguage(stats)
-        
 
       #Select Current Player
       pc.selectedPlayer = (selected) ->
@@ -52,6 +51,9 @@ angular.module('motus').controller('playerController',
       }
 
       loadCurrentPlayer = () ->
+        #reset
+        pc.notes = []
+
         loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
         $q.all(loadPromises).then (results) ->
           pc.currentPlayer = results[1]
@@ -72,7 +74,7 @@ angular.module('motus').controller('playerController',
           $stat.runStatsEngine(pc.currentPlayer.pitches)
           .then (stats) ->
             return if !stats
-             
+
             _.each elbowObj, (elb)->
 
               elb.stats = stats.metricScores[elb.metric]

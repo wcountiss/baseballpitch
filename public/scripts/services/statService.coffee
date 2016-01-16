@@ -227,6 +227,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
 
     #filter to only Ok and Poor
     listOfImprovementMetrics = _.filter(metricScores, (metricScore) -> metricScore.scores.rating != 'Good')
+
     #sort by worst first
     listOfImprovementMetrics = _.slice(_.sortBy(listOfImprovementMetrics, 'scores.ratingScore'),0,3)
 
