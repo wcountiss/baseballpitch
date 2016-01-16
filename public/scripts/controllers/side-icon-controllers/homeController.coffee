@@ -5,7 +5,6 @@ angular.module('motus').controller 'homeController', ['currentPlayerFactory','el
   ef = eliteFactory
   cpf.getCurrentPlayer().then () ->
     home.currentPlayer = cpf.currentPlayer
-    console.log 'home.currentPlayer: ',home.currentPlayer
   ef.getEliteMetrics()
 
 
