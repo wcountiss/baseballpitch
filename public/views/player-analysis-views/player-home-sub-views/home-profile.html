@@ -9,22 +9,18 @@
         <img ng-src="{{home.currentPlayer.imgUrl}}" alt="{{home.currentPlayer.alt}}">
       </div>
       <div class="player-key-stats">
-        <h3>{{home.currentPlayer.athleteProfile.firstName}}  {{home.currentPlayer.athleteProfile.lastName}}</h3>
-        <span>Age: {{home.currentPlayer.age}}</span>
-        <span>Pitches: left</span>
-        <span>Position: {{home.currentPlayer.position}}</span>
-        <span>Level: {{home.currentPlayer.level | uppercase}}</span>
+        <h3>{{::home.currentPlayer.athleteProfile.firstName}}  {{::home.currentPlayer.athleteProfile.lastName}}</h3>
+        <span>Age: {{::home.currentPlayer.athleteProfile.age}}</span>
+        <span>Pitches: {{::home.currentPlayer.athleteProfile.throwHandedness}}</span>
+        <span>Position: {{::home.currentPlayer.athleteProfile.position}}</span>
+        <span>Level: {{::home.currentPlayer.athleteProfile.level | uppercase}}</span>
       </div>
     </div>
     <div class="player-notes">
       <!-- Hard Coded Notes results-->
-      <div>
-        <h3>Lorem ipsum dolor sit amet, consectetur adipisicing.</h3>
-        <h3>Other areas of improvement include:</h3>
-      </div>
-      <li>Lorem ipsum dolor sit</li>
-      <li>Amet consectetur adipisicing</li>
-      <li>Elit Blanditiis id quidem</li>
+      <ul>
+        <li ng-repeat="note in pc.notes">{{::note}}</li>
+      </ul>
     </div>
   </div>
 </div>

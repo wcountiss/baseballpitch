@@ -110,6 +110,8 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     return $q.when(
       eliteFactory.getEliteMetrics()
         .then (eliteMetrics) ->
+          return null if !pitches || !pitches.length
+
           #get aggregate values
           stats = {}
           stats.metricScores = getMetricsScore(pitches, eliteMetrics)
@@ -118,7 +120,19 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
           return stats
     )
 
+  #get the player object back with the stats on it
+  #best for binding the players to page
   stat.getPlayersStats = (players) =>
+    statsPromises = []
+    _.each players, (player) -> 
+      statsPromises.push stat.runStatsEngine(player.pitches)
+    return $q.all(statsPromises)
+    .then (stats) ->
+      returnPlayers = _.clone players
+      _.each returnPlayers, (returnPlayer,i) ->
+        returnPlayer.stats = _.extend(returnPlayer.stats, stats[i])
+
+  stat.getPlayersDidThrowType = (players) =>
     _.each players, (player) -> 
       #get aggregate values
       player.stats = {
@@ -134,7 +148,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     
     awards = []
     #Need at least 10 pitches to get awards
-    awardedPlayers = _.filter players, (player) -> return player.pitches.length >= 10
+    awardedPlayers = _.filter players, (player) -> return player.pitches?.length >= 10
 
     #get stats on pitches player did
     statPromises = []
@@ -176,14 +190,15 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
         $q.all(statPromises).then (lastMonthStats) ->
           mostImprovedIndex = null
           mostImprovedScore = null
-          _.each thisMonthsStats, (thisMonthsStat, i) -> 
-            if thisMonthsStat.overallScore.ratingScore > lastMonthStats[i].overallScore.ratingScore
-              scoreDifference = thisMonthsStat.overallScore.ratingScore - lastMonthStats[i].overallScore.ratingScore
-              if !mostImprovedScore || scoreDifference > mostImprovedScore
-                mostImprovedScore = scoreDifference
-                mostImprovedIndex = i
+          _.each thisMonthsStats, (thisMonthsStat, i) ->
+            if lastMonthStats[i] 
+              if thisMonthsStat.overallScore.ratingScore > lastMonthStats[i].overallScore.ratingScore
+                scoreDifference = thisMonthsStat.overallScore.ratingScore - lastMonthStats[i].overallScore.ratingScore
+                if !mostImprovedScore || scoreDifference > mostImprovedScore
+                  mostImprovedScore = scoreDifference
+                  mostImprovedIndex = i
           if mostImprovedIndex != null
-            awards.push({award: 'Most Improved', player: players[mostImprovedIndex]})
+            awards.push({award: 'Most Improved', player: awardedPlayers[mostImprovedIndex]})
           else
             awards.push({award: 'Most Improved', player: { athleteProfile: { firstName: 'NA' } }})
 
@@ -191,13 +206,14 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
           mostRegressedIndex = null
           mostRegressedScore = null
           _.each thisMonthsStats, (thisMonthsStat, i) -> 
-            if lastMonthStats[i].overallScore.ratingScore > thisMonthsStat.overallScore.ratingScore
-              scoreDifference = lastMonthStats[i].overallScore.ratingScore - thisMonthsStat.overallScore.ratingScore
-              if !mostRegressedScore ||  scoreDifference > mostRegressedScore
-                mostRegressedScore = scoreDifference
-                mostRegressedIndex = i
+            if lastMonthStats[i] 
+              if lastMonthStats[i].overallScore.ratingScore > thisMonthsStat.overallScore.ratingScore
+                scoreDifference = lastMonthStats[i].overallScore.ratingScore - thisMonthsStat.overallScore.ratingScore
+                if !mostRegressedScore ||  scoreDifference > mostRegressedScore
+                  mostRegressedScore = scoreDifference
+                  mostRegressedIndex = i
           if mostRegressedIndex != null
-            awards.push({award: 'Most Regressed', player: players[mostRegressedIndex]})
+            awards.push({award: 'Most Regressed', player: awardedPlayers[mostRegressedIndex]})
           else
             awards.push({award: 'Most Regressed', player: { athleteProfile: { firstName: 'NA' } }})
 
@@ -205,12 +221,14 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     return defer.promise
 
 
-  stat.getLanguage = (player) ->
-    debugger;
+  stat.getLanguage = (stats) ->
+    #turn stats into array
+    metricScores = _.map _.keys(stats.metricScores), (statKey) -> { metric: statKey, scores: stats.metricScores[statKey] }
+
     #filter to only Ok and Poor
-    listOfImprovementMetrics = _.filter(player.metricScores, (metricScore) -> metricScore.rating != 'Good')
+    listOfImprovementMetrics = _.filter(metricScores, (metricScore) -> metricScore.scores.rating != 'Good')
     #sort by worst first
-    listOfImprovementMetrics = _.limit(_.sortBy(listOfImprovementMetrics, 'ratingScore'),3,'desc')
+    listOfImprovementMetrics = _.slice(_.sortBy(listOfImprovementMetrics, 'scores.ratingScore'),0,3)
 
     return _.map(listOfImprovementMetrics, (improvementMetric) -> return "Needs to improve #{_.humanize(improvementMetric.metric)}")
 

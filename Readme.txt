@@ -11,16 +11,16 @@ Player Analysis Pie Charts
 
 End of Week 5:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
-Player Analysis Natural Language Descriptions
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
-Load Pitches by Player Skip
 
 End of Week 6:
 Final Feedback for Launch
 Parse get Players by Game Manager
 Game Manager View
 Start Kinetic Charts
+Load Pitches by Player Skip
+
 
 End of Week 7  Assumption: Kinetic Data is in Parse
 Player Analysis Kinetic Chart Timing

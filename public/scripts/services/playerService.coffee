@@ -15,7 +15,7 @@ angular.module('motus').service('$player', ['$http', '$q', '$stat', '$pitch', ($
         players = results[0].data
         pitches = results[1]
         _.each players, (player) -> player.pitches = _.filter(pitches, (pitch) -> pitch.athleteProfile.objectId == player.athleteProfile.objectId )
-        players = $stat.getPlayersStats(players)
+        players = $stat.getPlayersDidThrowType(players)
         cachedPlayers = players
         defer.resolve(players)
       return defer.promise
