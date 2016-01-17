@@ -5,6 +5,7 @@ angular.module('motus').controller('playerController',
 
       pc = this
       pc.state = $state
+      console.log('PC IS: ',pc)
 
 
       #Grab data from the factory service
