@@ -1,4 +1,6 @@
 #player {
+
+
   font-family:Arial;
   // Wrapper div to give box shadow
   h2 {
@@ -111,6 +113,8 @@
         }
       }
       .player-details-stats {
+        padding-bottom: 10em;
+        padding-right: 2.7em;
         display: flex;
         .player-stats-box1 {
           display: flex;
@@ -168,6 +172,7 @@
         padding-left:8px;
       }
       span {
+        cursor: pointer;
         font-size: 40px;
         padding-top:19px;
         color: #2b2f2e;
@@ -240,13 +245,13 @@
           .nested-stride-icon-padding {
             padding-top: 4px;
           }
-          .yellow-footer {
+          .yellowfooter {
             color: @motus-tangerine;
           }
-          .green-footer {
+          .greenfooter {
             color: @motus-green;
           }
-          .red-footer {
+          .redfooter {
             color: @motus-red;                                      ;
           }
           span.icon-downarrow {
@@ -255,6 +260,11 @@
             padding-right:1px;
           }
           span.icon-okarrow {
+            font-size:26px;
+            line-height:0.3;
+          }
+
+          span.icon-uparrow {
             font-size:26px;
             line-height:0.3;
           }
@@ -296,7 +306,7 @@
           left: 35%;
         }
         &#trunk {
-          top: 28%;
+          top: 26%;
           left: 45%;
         }
         &#hip {
@@ -312,7 +322,13 @@
   }
 
   span.icon-profile {
+    cursor:pointer;
     font-size: 1.9em!important;
+  }
+
+
+  .graph-context {
+    padding-left: 3.6em;
   }
 
   .side-menu-buttons-nav {
@@ -367,7 +383,7 @@
 /* Large Devices, Wide Screens */
   @media (max-width: 1200px) {
     .nested-view .pitcher-silhouette piestats {
-      transform: translate(-50%, -50%) scale(.9) ;
+      transform: translate(-50%, -50%) scale(.75) ;
     }
   }
 

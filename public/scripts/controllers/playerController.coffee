@@ -6,6 +6,7 @@ angular.module('motus').controller('playerController',
       pc = this
       pc.state = $state
 
+
       #Grab data from the factory service
       cpf = currentPlayerFactory
       ef = eliteFactory
@@ -41,13 +42,15 @@ angular.module('motus').controller('playerController',
         loadCurrentPlayer()
         myState = $state.current.name
         $state.reload(myState)
-        pc.hip = pc.hipObj
+        # pc.hip = pc.hipObj
 
       color = {
         "Poor": '#f90b1c'
         "OK": '#ffaa22'
         "Good": '#00be76'
       }
+
+    
 
       loadCurrentPlayer = () ->
         #reset
@@ -69,6 +72,7 @@ angular.module('motus').controller('playerController',
           shoulderArray = []
           hipArray = []
           footArray = []
+          
 
           $stat.runStatsEngine(pc.currentPlayer.pitches)
           .then (stats) ->
@@ -139,6 +143,7 @@ angular.module('motus').controller('playerController',
               hipArray.push(hip)
             pc.hip = hipArray
 
+
             _.each footObj, (foo)->
 
               foo.stats = stats.metricScores[foo.metric]
@@ -155,6 +160,22 @@ angular.module('motus').controller('playerController',
               footArray.push(foo)
             pc.foot = footArray
 
+            #The five status Icons code
+            pc.hipIcon = Math.round(hipObj[9].stats.score)
+            pc.hipIconStatus = hipObj[9].stats.rating
+
+            pc.trunkIcon = Math.round(hipObj[1].stats.score)
+            pc.trunkIconStatus = hipObj[1].stats.rating
+
+            pc.strideIcon = Math.round(footObj[4].stats.score)
+            pc.strideIconStatus = footObj[4].stats.rating
+
+            pc.shldIcon = Math.round(shoulderObj[9].stats.score)
+            pc.shldIconStatus = shoulderObj[9].stats.rating
+
+            pc.shldRotIcon = Math.round(shoulderObj[8].stats.score)
+            pc.shldRotIconStatus = shoulderObj[8].stats.rating
+            
             loadNotes(stats)
 
           loadChart()

@@ -1,7 +1,7 @@
 <div class="pitcher-silhouette">
   <piestats id="elbow" bind="pc.elbow" slices="10"></piestats>
-  <piestats id="shoulder" bind="pc.shoulder" slices="10"></piestats>
   <piestats id="trunk" bind="pc.trunk" slices="10"></piestats>
+  <piestats id="shoulder" bind="pc.shoulder" slices="10"></piestats>
   <piestats id="hip" bind="pc.hip" slices="10"></piestats>
   <piestats id="foot" bind="pc.foot" slices="10"></piestats>
   <img src="../../../images/pitcher-sil-3.png" alt="Pitcher silhouette">
@@ -11,40 +11,60 @@
     <div class="nested-footer-body-icon">
       <span class="icon-hips"></span>
       <div class="part-nested-stack">
-        <span class="yellow-footer nested-hip-icon-padding">505 <sup>o</sup>/s</span>
-        <span class="icon-okarrow yellow-footer"></span>
+        <span ng-class="{'greenfooter': pc.hipIconStatus=='Good',
+        'yellowfooter': pc.hipIconStatus=='OK',
+        'redfooter': pc.hipIconStatus=='Poor'}" class="nested-hip-icon-padding">{{pc.hipIcon}}<sup>o</sup>/s</span>
+        <span ng-if="pc.hipIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
+        <span ng-if="pc.hipIconStatus=='OK'"class="icon-okarrow yellowfooter"></span>
+        <span ng-if="pc.hipIconStatus=='Good'"class="icon-uparrow greenfooter"></span>
       </div>
     </div>
 
     <div class="nested-footer-body-icon">
       <span class="icon-trunk"></span>
       <div class="part-nested-stack">
-        <span class="green-footer">909 <sup>o</sup>/s</span>
-        <span class="icon-okarrow green-footer"></span>
+        <span ng-class="{'greenfooter': pc.trunkIconStatus=='Good',
+        'yellowfooter': pc.trunkIconStatus=='OK',
+        'redfooter': pc.trunkIconStatus=='Poor'}">{{pc.trunkIcon}}<sup>o</sup>/s</span>
+        <span ng-if="pc.trunkIconStatus=='Poor'"class="icon-downarrow redfooter"></span>
+        <span ng-if="pc.trunkIconStatus=='OK'"class="icon-okarrow yellowfooter"></span>
+        <span ng-if="pc.trunkIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
       </div>
     </div>
 
     <div class="nested-footer-body-icon">
       <span class="icon-stride"></span>
       <div class="part-nested-stack">
-        <span class="green-footer nested-stride-icon-padding">78%</span>
-        <span class="icon-okarrow green-footer"></span>
+        <span ng-class="{'greenfooter': pc.strideIconStatus=='Good',
+        'yellowfooter': pc.strideIconStatus=='OK',
+        'redfooter': pc.strideIconStatus=='Poor'}" class="nested-stride-icon-padding">{{pc.strideIcon}}%</span>
+        <span ng-if="pc.strideIconStatus=='Poor'"class="icon-downarrow redfooter"></span>
+        <span ng-if="pc.strideIconStatus=='OK'"class="icon-okarrow yellowfooter"></span>
+        <span ng-if="pc.strideIconStatus=='Good'"class="icon-uparrow greenfooter"></span>
       </div>
     </div>
 
     <div class="nested-footer-body-icon">
       <span class="icon-shoulderslot"></span>
       <div class="part-nested-stack">
-        <span class="red-footer">862<sup>o</sup></span>
-        <span class="icon-downarrow red-footer"></span>
+        <span ng-class="{ 'greenfooter': pc.shldIconStatus=='Good',
+        'yellowfooter': pc.shldIconStatus=='OK',
+        'redfooter': pc.shldIconStatus=='Poor'}">{{pc.shldIcon}}<sup>o</sup></span>
+        <span ng-if="pc.shldIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
+        <span ng-if="pc.shldIconStatus=='OK'" class="icon-okarrow yellowfooter"></span>
+        <span ng-if="pc.shldIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
       </div>
     </div>
 
     <div class="nested-footer-body-icon">
       <span class="icon-shoulderrotate"></span>
       <div class="part-nested-stack">
-        <span class="green-footer">15<sup>o</sup></span>
-        <span class="icon-okarrow green-footer"></span>
+        <span ng-class="{'greenfooter': pc.shldRotIconStatus=='Good',
+        'yellowfooter': pc.shldRotIconStatus=='OK',
+        'redfooter': pc.shldRotIconStatus=='Poor'}">{{pc.shldRotIcon}}<sup>o</sup></span>
+        <span ng-if="pc.shldRotIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
+        <span ng-if="pc.shldRotIconStatus=='OK'" class="icon-okarrow yellowfooter"></span>
+        <span ng-if="pc.shldRotIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
       </div>
     </div>
   </div>
