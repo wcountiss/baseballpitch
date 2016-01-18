@@ -47,7 +47,6 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   $q.all(loadPromises).then (results) ->
     foot.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'FC' )
     foot.currentPlayer = cpf.currentPlayer
-    console.log('FC THIS PLAYER: ',cpf.currentPlayer.athleteProfile.firstName) 
     $stat.runStatsEngine(foot.currentPlayer.pitches).then (stats) ->
       foot.stats = stats
 

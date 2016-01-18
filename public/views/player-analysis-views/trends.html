@@ -1,2 +1,8 @@
 <p>Trends</p>
 <groupedbarchart style="text-transform: uppercase; font-size:.75em" width="60%" height="400" id="playerTrendChart" bind="trends.playerScores"></groupedbarchart>
+
+<div>
+  <ul>
+    <li ng-repeat="eliteMetric in trends.eliteMetrics" ng-click="trends.selectMetric(eliteMetric)">{{eliteMetric.metric}}</li>
+  </ul>
+</div>

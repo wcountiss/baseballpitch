@@ -355,7 +355,6 @@ angular.module('d3').directive('groupedbarchart', [
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-          console.log(scope.bind());
           if (angular.isDefined(scope.bind())) {
             var bindData = scope.bind()
 
@@ -366,13 +365,19 @@ angular.module('d3').directive('groupedbarchart', [
 
             data.groups.forEach(function(d) {
               d.groupData = data.keys.map(function(key) { 
-                return {name: key, value: +d[key]}; 
+                var value = 0
+                if (d[key])
+                  value = +d[key]
+                return { 
+                  name: key, 
+                  value: value
+                }; 
               });
             });
 
             x0.domain(data.groups.map(function(d) { return d.date; }));
             x1.domain(data.keys).rangeRoundBands([0, x0.rangeBand()]);
-            y.domain([0, d3.max(data.groups, function(d) { return d3.max(d.groupData, function(d) { return d.value; }); })]);
+            y.domain([d3.min(data.groups, function(d) { return d3.min(d.groupData, function(d) { return d.value; }); }), d3.max(data.groups, function(d) { return d3.max(d.groupData, function(d) { return d.value; }); })]);
 
             svg.append("g")
                 .attr("class", "x axis")

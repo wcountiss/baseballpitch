@@ -39,7 +39,6 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
   $q.all(loadPromises).then (result) ->
     max.eliteMetrics = _.filter(result[0], (metric) -> metric.categoryCode == 'ME' )
     max.currentPlayer = cpf.currentPlayer
-    console.log('ME THIS PLAYER: ',cpf.currentPlayer.athleteProfile.firstName) 
     $stat.runStatsEngine(max.currentPlayer.pitches).then (stats) ->
       max.stats = stats
       _.each max.eliteMetrics, (eliteMetric) -> 
