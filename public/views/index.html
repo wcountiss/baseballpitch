@@ -22,13 +22,14 @@
         <script src="angular-animate/angular-animate.min.js"></script>
         <script src="angular-touch/angular-touch.min.js"></script>
         <script src="scripts/vendor/angular-d3.js"></script>
+        <script src="angular-bootstrap/ui-bootstrap.js"></script>
         <script src="js/app.js"></script>
 
         <!-- Latest compiled -->
         <link rel="stylesheet" type="text/css" href="./css/app.css">
     </head>
 
-    <body id="app" ng-controller="indexController as index">        
+    <body id="app" ng-controller="indexController as index">
         <header ng-if="index.state.current.authenticate" ng-include src="'views/header.html'"></header>
 
         <main id="main-content">
