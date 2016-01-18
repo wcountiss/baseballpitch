@@ -53,6 +53,12 @@ app.config ($stateProvider, $urlRouterProvider) ->
     controller: 'homeController as home',
     authenticate: true
   })
+  .state('player.home.accordion', {
+    url: '/accordion',
+    templateUrl: 'views/accordion-test.html',
+    controller: 'homeController as home',
+    authenticate: true
+  })
   .state('player.home.overview', {
     url: '/overview',
     templateUrl: 'views/player-analysis-views/player-home-sub-views/home-overview.html',
