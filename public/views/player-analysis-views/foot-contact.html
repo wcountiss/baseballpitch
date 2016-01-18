@@ -2,7 +2,7 @@
   <div class="main-bg-foot-contact">
     <div class="flex-container-row">
       <h2 class="large-flexitem">Foot Contact</h2>
-      <select ng-if="foot.currentPlayer.stats.metricScores" class="small-flexitem" ng-model="foot.filterType" name="sessions" ng-change="foot.filterLastThrowType()">
+      <select class="small-flexitem" ng-model="foot.filterType" name="sessions" ng-change="foot.filterLastThrowType()">
         <option value="30">Last 30 Days AVG ({{foot.currentPlayer.pitches.length}})</option>
         <option value="Game" ng-if="foot.currentPlayer.stats.game" >Last Game ({{foot.GameCount}})</option>
         <option value="Bullpen" ng-if="foot.currentPlayer.stats.bullPen">Last Bullpen ({{foot.BullpenCount}})</option>
@@ -50,7 +50,7 @@
           </tr>
           <tr class="metric-even">
             <td>ELITE</td>
-            <td class="metricval">{{foot.selectedMetric.avg}}<span class="unit">{{foot.selectedMetric.units}}</span></td>
+            <td class="metricval">{{foot.selectedMetric.avg | number:0}}<span class="unit">{{foot.selectedMetric.units}}</span></td>
           </tr>
         </table>
 
