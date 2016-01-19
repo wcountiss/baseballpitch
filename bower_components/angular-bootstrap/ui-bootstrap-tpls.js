@@ -98,6 +98,8 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
 .controller('UibAccordionController', ['$scope', '$attrs', 'uibAccordionConfig', function($scope, $attrs, accordionConfig) {
   // This array keeps track of the accordion groups
   this.groups = [];
+  this.hello = "hello from uibAccordionController";
+  this.isOpen = false;
 
   // Ensure that all the groups in this accordion are closed, unless close-others explicitly says not to
   this.closeOthers = function(openGroup) {
@@ -149,14 +151,16 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
   return {
     require: '^uibAccordion',         // We need this directive to be inside an accordion
     transclude: true,              // It transcludes the contents of the directive into the template
-    replace: true,                // The element containing the directive will be replaced with the template
+    // The element containing the directive will be replaced with the template
     templateUrl: function(element, attrs) {
       return attrs.templateUrl || 'uib/template/accordion/accordion-group.html';
     },
     scope: {
       heading: '@',               // Interpolate the heading attribute onto this scope
       isOpen: '=?',
-      isDisabled: '=?'
+      isDisabled: '=?',
+      part: '@',
+      shared: '='
     },
     controller: function() {
       this.setHeading = function(element) {
@@ -165,9 +169,13 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
     },
     link: function(scope, element, attrs, accordionCtrl) {
       accordionCtrl.addGroup(scope);
-
+      scope.partGroups = ['FOOT', 'HIP', 'TRUNK', 'SHOULDER', 'ELBOW'];
+      element.ready(function (){
+        console.log('ready scope: ',scope);
+      });
       scope.openClass = attrs.openClass || 'panel-open';
       scope.panelClass = attrs.panelClass || 'panel-default';
+
       scope.$watch('isOpen', function(value) {
         element.toggleClass(scope.openClass, !!value);
         if (value) {
@@ -175,13 +183,54 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
         }
       });
 
-      scope.toggleOpen = function($event) {
-        if (!scope.isDisabled) {
-          if (!$event || $event.which === 32) {
-            scope.isOpen = !scope.isOpen;
-            // console.log( status.open,"TEST")
-          }
+      scope.toggleOpen = function() {
+
+        scope.isOpen = !scope.isOpen;
+
+
+        console.log('Should all be false: ', scope.shared);
+
+        if (scope.part === 'FOOT') {
+          scope.shared.foot = !scope.shared.foot;
+          scope.shared.hip = false;
+          scope.shared.trunk = false;
+          scope.shared.shoulder = false;
+          scope.shared.elbow = false;
         }
+        if (scope.part === 'HIP') {
+          scope.shared.hip = !scope.shared.hip;
+          scope.shared.foot = false;
+          scope.shared.trunk = false;
+          scope.shared.shoulder = false;
+          scope.shared.elbow = false;
+        }
+        if (scope.part === 'TRUNK') {
+          scope.shared.trunk = !scope.shared.trunk;
+          scope.shared.foot = false;
+          scope.shared.hip = false;
+          scope.shared.shoulder = false;
+          scope.shared.elbow = false;
+        }
+        if (scope.part === 'SHOULDER') {
+          scope.shared.shoulder = !scope.shared.shoulder;
+          scope.shared.foot = false;
+          scope.shared.hip = false;
+          scope.shared.trunk = false;
+          scope.shared.elbow = false;
+        }
+        if (scope.part === 'ELBOW') {
+          scope.shared.elbow = !scope.shared.elbow;
+          scope.shared.foot = false;
+          scope.shared.hip = false;
+          scope.shared.trunk = false;
+          scope.shared.shoulder = false;
+        }
+        console.log('One is True: ', scope.shared);
+        //if (!scope.isDisabled) {
+        //  if (!$event || $event.which === 32) {
+        //    scope.isOpen = !scope.isOpen;
+        //  }
+        //}
       };
     }
   };
@@ -1010,7 +1059,7 @@ angular.module('ui.bootstrap.dateparser', [])
   this.timezoneToOffset = timezoneToOffset;
   this.addDateMinutes = addDateMinutes;
   this.convertTimezoneToLocal = convertTimezoneToLocal;
-  
+
   function toTimezone(date, timezone) {
     return date && timezone ? convertTimezoneToLocal(date, timezone) : date;
   }
