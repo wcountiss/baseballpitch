@@ -1,57 +1,59 @@
-<p>Trends</p>
-<groupedbarchart style="text-transform: uppercase; font-size:.75em" width="60%" height="400" id="playerTrendChart" bind="trends.playerScores"></groupedbarchart>
-<span>{{accordian.scope.isOpen}}</span>
-<div>
+<section id="snap-shot-theme">
+  <h2>Trends</h2>
+  <groupedbarchart style="text-transform: uppercase; font-size:.75em" width="60%" height="400" id="playerTrendChart" bind="trends.playerScores"></groupedbarchart>
+  <span>accordion.isOpen: {{accordion.status.open}}</span>
+  <div>
 
-  <div class="accordion-box">
+    <div class="accordion-box">
 
-    <uib-accordion close-others="true">
-      <uib-accordion-group>
-        <uib-accordion-heading>
-          FOOT
-          <i class="pull-right glyphicon" ng-class="{'icon-chevdown': status.open, 'icon-chevdown': !status.open}"></i>
-        </uib-accordion-heading>
-        <ul>
-          <li ng-click="trends.selectMetric(foot)" ng-repeat="foot in trends.footJoint">{{foot.label}}</li>
-        </ul>
-      </uib-accordion-group>
-      <uib-accordion-group>
+      <uib-accordion close-others="true">
+        <uib-accordion-group>
+          <uib-accordion-heading>
+            FOOT
+            <i class="pull-right glyphicon" ng-class="{'icon-chevdown': status.open, 'icon-chevdown': !status.open}"></i>
+          </uib-accordion-heading>
+          <ul>
+            <li ng-class-odd="'accordion-odd'" ng-class-even="'accordion-even'" ng-class="{'accordion-active': foot.label == trends.accordionSelected}" ng-click="trends.selectMetric(foot)" ng-repeat="foot in trends.footJoint">{{foot.label}}</li>
+          </ul>
+        </uib-accordion-group>
+        <uib-accordion-group>
 
-        <uib-accordion-heading >
-          HIPS           <i class="pull-right" ng-class="{'icon-chevdown': status.open, 'icon-chevdown': !status.open}"></i>
-        </uib-accordion-heading>
-        <ul>
-          <li ng-click="trends.selectMetric(hip)" ng-repeat="hip in trends.hipJoint">{{hip.label}}</li>
-        </ul>
-      </uib-accordion-group>
-      <uib-accordion-group>
-        <uib-accordion-heading >
-          TRUNK
-          <i class="pull-right glyphicon" ng-class="{'icon-chevdown': status.open, 'icon-chevdown': !status.open}"></i>
-        </uib-accordion-heading>
-        <ul>
-          <li ng-click="trends.selectMetric(trunk)" ng-repeat="trunk in trends.trunkJoint">{{trunk.label}}</li>
-        </ul>
-      </uib-accordion-group>
-      <uib-accordion-group>
-        <uib-accordion-heading >
-          SHOULDERS
-          <i class="pull-right glyphicon" ng-class="{'icon-chevdown': status.open, 'icon-chevdown': !status.open}"></i>
-        </uib-accordion-heading>
-        <ul>
-          <li ng-click="trends.selectMetric(shoulder)" ng-repeat="shoulder in trends.shoulderJoint">{{shoulder.label}}</li>
-        </ul>
-      </uib-accordion-group>
-      <uib-accordion-group>
-        <uib-accordion-heading >
-          ELBOW
-          <i class="pull-right glyphicon" ng-class="{'icon-chevdown': status.open, 'icon-chevdown': !status.open}"></i>
-        </uib-accordion-heading>
-        <ul>
-          <li ng-click="trends.selectMetric(elbow)" ng-repeat="elbow in trends.elbowJoint">{{elbow.label}}</li>
-        </ul>
-      </uib-accordion-group>
-    </uib-accordion>
+          <uib-accordion-heading >
+            HIPS           <i class="pull-right" ng-class="{'icon-chevdown': status.open, 'icon-chevdown': !status.open}"></i>
+          </uib-accordion-heading>
+          <ul>
+            <li ng-class-odd="'accordion-odd'" ng-class-even="'accordion-even'" ng-click="trends.selectMetric(hip)" ng-repeat="hip in trends.hipJoint">{{hip.label}}</li>
+          </ul>
+        </uib-accordion-group>
+        <uib-accordion-group>
+          <uib-accordion-heading >
+            TRUNK
+            <i class="pull-right glyphicon" ng-class="{'icon-chevdown': status.open, 'icon-chevdown': !status.open}"></i>
+          </uib-accordion-heading>
+          <ul>
+            <li ng-class-odd="'accordion-odd'" ng-class-even="'accordion-even'" ng-click="trends.selectMetric(trunk)" ng-repeat="trunk in trends.trunkJoint">{{trunk.label}}</li>
+          </ul>
+        </uib-accordion-group>
+        <uib-accordion-group>
+          <uib-accordion-heading >
+            SHOULDERS
+            <i class="pull-right glyphicon" ng-class="{'icon-chevdown': status.open, 'icon-chevdown': !status.open}"></i>
+          </uib-accordion-heading>
+          <ul>
+            <li ng-class-odd="'accordion-odd'" ng-class-even="'accordion-even'" ng-click="trends.selectMetric(shoulder)" ng-repeat="shoulder in trends.shoulderJoint">{{shoulder.label}}</li>
+          </ul>
+        </uib-accordion-group>
+        <uib-accordion-group>
+          <uib-accordion-heading >
+            ELBOW
+            <i class="pull-right glyphicon" ng-class="{'icon-chevdown': status.open, 'icon-chevdown': !status.open}"></i>
+          </uib-accordion-heading>
+          <ul>
+            <li ng-class-odd="'accordion-odd'" ng-class-even="'accordion-even'" ng-click="trends.selectMetric(elbow)" ng-repeat="elbow in trends.elbowJoint">{{elbow.label}}</li>
+          </ul>
+        </uib-accordion-group>
+      </uib-accordion>
 
+    </div>
   </div>
-</div>
+</section>

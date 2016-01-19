@@ -62,7 +62,9 @@ angular.module('motus').controller 'trendsController', ['$q','currentPlayerFacto
 
   #select metric and map to the chart
   trends.selectMetric = (metric) ->
-
+    #Grab the current metric.label and place it into trends.accordionSelected
+    #This will add the propper CSS to the selected metric
+    trends.accordionSelected = metric.label
 
     #group the pitches into sessions and tags
     pitches = _.groupBy trends.currentPlayer.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
