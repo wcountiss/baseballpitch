@@ -10,8 +10,6 @@ Player Analysis
 
 End of Week 5:
 Player Analysis Trend Chart - Bar Graph
-Elite Line
-ToolTips
 
 Chart Ng-click opens lower chart
 Player Analysis Session Throw Chart

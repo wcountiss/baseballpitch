@@ -360,8 +360,14 @@ angular.module('d3').directive('groupedbarchart', [
 
             var data = _.cloneDeep(bindData);
 
-            // var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "State"; });
-            // data = data.slice(1)
+            //tool tip
+            var tip = d3.tip()
+              .attr('class', 'd3-tip')
+              .html(function(d) {
+                console.log(data.units);
+                return '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'; 
+              })
+            svg.call(tip)
 
             data.groups.forEach(function(d) {
               d.groupData = data.keys.map(function(key) { 
@@ -377,7 +383,14 @@ angular.module('d3').directive('groupedbarchart', [
 
             x0.domain(data.groups.map(function(d) { return d.date; }));
             x1.domain(data.keys).rangeRoundBands([0, x0.rangeBand()]);
-            y.domain([d3.min(data.groups, function(d) { return d3.min(d.groupData, function(d) { return d.value; }); }), d3.max(data.groups, function(d) { return d3.max(d.groupData, function(d) { return d.value; }); })]);
+            var ymin = d3.min(data.groups, function(d) { return d3.min(d.groupData, function(d) { return d.value; }); })
+            if (data.average < ymin)
+              ymin = data.average
+            var ymax = d3.max(data.groups, function(d) { return d3.max(d.groupData, function(d) { return d.value; }); })
+            if (data.average > ymax)
+              ymax = data.average
+
+            y.domain([ymin, ymax]);
 
             svg.append("g")
                 .attr("class", "x axis")
@@ -407,271 +420,23 @@ angular.module('d3').directive('groupedbarchart', [
                 .attr("x", function(d) { return x1(d.name); })
                 .attr("y", function(d) { return y(d.value); })
                 .attr("height", function(d) { return height - y(d.value); })
-                .style("fill", function(d) { return color(d.name); });
+                .style("fill", function(d) { return color(d.name); })
+                .on('mouseover', function(d) { tip.show(d); })
+                .on('mouseout', tip.hide);
+          
+            // elite data
+            svg.append("line")
+              .attr("x1", 0)
+              .attr("x2", d3.max(data.groups, function(d) { return width; }))
+              .attr("y1", function(d){ return y(data.average);})
+              .attr("y2", function(d){ return  y(data.average);})
+              .attr("class", "average")
+              .attr("stroke-width", 2)
+              .attr("stroke", "black")
           }
         }
         scope.$watch("bind()", function(){ updateChart() }, false);
         angular.element($window).bind('resize', function(){ updateChart()});
-      }
-    };
-  }
-]);
-
-
-
-
-
-
-
-'use strict';
-angular.module('d3').config([
-  '$provide',
-  function ($provide) {
-    var d3HorizonChartDecorator = function ($delegate) {
-      var d3 = $delegate;
-      (function () {
-        d3.horizon = function () {
-          var bands = 1, mode = 'offset', interpolate = 'linear', x = d3_horizonX, y = d3_horizonY, w = 960, h = 40, duration = 0;
-          var color = d3.scale.linear().domain([
-              -1,
-              0,
-              1
-            ]).range([
-              '#d62728',
-              '#fff',
-              '#1f77b4'
-            ]);
-          function horizon(g) {
-            g.each(function (d) {
-              var g = d3.select(this), xMin = Infinity, xMax = -Infinity, yMax = -Infinity, x0, y0, t0, id;
-              var data = d.map(function (d, i) {
-                  var xv = x.call(this, d, i), yv = y.call(this, d, i);
-                  if (xv < xMin)
-                    xMin = xv;
-                  if (xv > xMax)
-                    xMax = xv;
-                  if (-yv > yMax)
-                    yMax = -yv;
-                  if (yv > yMax)
-                    yMax = yv;
-                  return [
-                    xv,
-                    yv
-                  ];
-                });
-              var x1 = d3.scale.linear().domain([
-                  xMin,
-                  xMax
-                ]).range([
-                  0,
-                  w
-                ]), y1 = d3.scale.linear().domain([
-                  0,
-                  yMax
-                ]).range([
-                  0,
-                  h * bands
-                ]), t1 = d3_horizonTransform(bands, h, mode);
-              if (this.__chart__) {
-                x0 = this.__chart__.x;
-                y0 = this.__chart__.y;
-                t0 = this.__chart__.t;
-                id = this.__chart__.id;
-              } else {
-                x0 = x1.copy();
-                y0 = y1.copy();
-                t0 = t1;
-                id = ++d3_horizonId;
-              }
-              var defs = g.selectAll('defs').data([null]);
-              defs.enter().append('defs').append('clipPath').attr('id', 'd3_horizon_clip' + id).append('rect').attr('width', w).attr('height', h);
-              defs.select('rect').transition().duration(duration).attr('width', w).attr('height', h);
-              g.selectAll('g').data([null]).enter().append('g').attr('clip-path', 'url(#d3_horizon_clip' + id + ')');
-              var path = g.select('g').selectAll('path').data(d3.range(-1, -bands - 1, -1).concat(d3.range(1, bands + 1)), Number);
-              var d0 = d3_horizonArea.interpolate(interpolate).x(function (d) {
-                  return x0(d[0]);
-                }).y0(h * bands).y1(function (d) {
-                  return h * bands - y0(d[1]);
-                })(data);
-              var d1 = d3_horizonArea.x(function (d) {
-                  return x1(d[0]);
-                }).y1(function (d) {
-                  return h * bands - y1(d[1]);
-                })(data);
-              path.enter().append('path').style('fill', color).attr('transform', t0).attr('d', d0);
-              path.transition().duration(duration).style('fill', color).attr('transform', t1).attr('d', d1);
-              path.exit().transition().duration(duration).attr('transform', t1).attr('d', d1).remove();
-              this.__chart__ = {
-                x: x1,
-                y: y1,
-                t: t1,
-                id: id
-              };
-            });
-            d3.timer.flush();
-          }
-          horizon.duration = function (x) {
-            if (!arguments.length)
-              return duration;
-            duration = +x;
-            return horizon;
-          };
-          horizon.bands = function (x) {
-            if (!arguments.length)
-              return bands;
-            bands = +x;
-            color.domain([
-              -bands,
-              0,
-              bands
-            ]);
-            return horizon;
-          };
-          horizon.mode = function (x) {
-            if (!arguments.length)
-              return mode;
-            mode = x + '';
-            return horizon;
-          };
-          horizon.colors = function (x) {
-            if (!arguments.length)
-              return color.range();
-            color.range(x);
-            return horizon;
-          };
-          horizon.interpolate = function (x) {
-            if (!arguments.length)
-              return interpolate;
-            interpolate = x + '';
-            return horizon;
-          };
-          horizon.x = function (z) {
-            if (!arguments.length)
-              return x;
-            x = z;
-            return horizon;
-          };
-          horizon.y = function (z) {
-            if (!arguments.length)
-              return y;
-            y = z;
-            return horizon;
-          };
-          horizon.width = function (x) {
-            if (!arguments.length)
-              return w;
-            w = +x;
-            return horizon;
-          };
-          horizon.height = function (x) {
-            if (!arguments.length)
-              return h;
-            h = +x;
-            return horizon;
-          };
-          return horizon;
-        };
-        var d3_horizonArea = d3.svg.area(), d3_horizonId = 0;
-        function d3_horizonX(d) {
-          return d[0];
-        }
-        function d3_horizonY(d) {
-          return d[1];
-        }
-        function d3_horizonTransform(bands, h, mode) {
-          return mode == 'offset' ? function (d) {
-            return 'translate(0,' + (d + (d < 0) - bands) * h + ')';
-          } : function (d) {
-            return (d < 0 ? 'scale(1,-1)' : '') + 'translate(0,' + (d - bands) * h + ')';
-          };
-        }
-      }());
-      return d3;
-    };
-    $provide.decorator('d3', d3HorizonChartDecorator);
-  }
-]);
-'use strict';
-angular.module('d3').directive('horizonChart', [
-  'd3',
-  function (d3) {
-    return {
-      restrict: 'E',
-      scope: {
-        width: '@',
-        height: '@',
-        fixBands: '@',
-        mode: '@',
-        data: '=',
-        bands: '=',
-        onClick: '&',
-        onHover: '&'
-      },
-      link: function postLink(scope, element, attrs) {
-        var width = 800;
-        var height = 600;
-        var fixBands = 1;
-        var mode = 'mirror';
-        var interpolate = 'basic';
-        var bands, data;
-        var svg, chart;
-        if (angular.isDefined(attrs.width))
-          width = attrs.width;
-        if (angular.isDefined(attrs.height))
-          height = attrs.height;
-        if (angular.isDefined(attrs.fixBands))
-          fixBands = attrs.fixBands * 1 || 0;
-        if (angular.isDefined(attrs.mode))
-          mode = attrs.mode;
-        if (angular.isDefined(attrs.interpolate))
-          interpolate = attrs.interpolate;
-        if (angular.isDefined(scope.data))
-          data = scope.data;
-        if (angular.isDefined(scope.bands))
-          bands = scope.bands;
-        if (angular.isUndefined(bands)) {
-          bands = fixBands;
-        }
-        var parseSimpleData = function (data) {
-          return data.value.map(function (value, i) {
-            return [
-              i,
-              value
-            ];
-          });
-        };
-        var parseWithTimestamp = function (data) {
-          return data.value.map(function (value, i) {
-            return [
-              data.timestamp[i],
-              value
-            ];
-          });
-        };
-        var parseData = function (data) {
-          if (angular.isDefined(data) && angular.isDefined(data.value) && angular.isDefined(data.timestamp)) {
-            data = parseWithTimestamp(data);
-          } else if (angular.isDefined(data) && angular.isDefined(data.value)) {
-            data = parseSimpleData(data);
-          } else {
-            data = parseSimpleData({ value: [] });
-          }
-          return data;
-        };
-        var horizonChartFactory = function (data) {
-          var rootElement = element[0];
-          svg = d3.select(rootElement).append('svg').attr('width', width).attr('height', height);
-          chart = d3.horizon().width(width).height(height).bands(bands).mode(mode).interpolate(interpolate);
-          svg.data([parseData(data)]).call(chart);
-        };
-        horizonChartFactory(data);
-        var updateChart = function () {
-          chart.bands(scope.bands);
-          svg.data([parseData(data)]).call(chart);
-        };
-        var doDeepWatch = true;
-        scope.$watch('bands', updateChart, doDeepWatch);
-        scope.$watch('data', updateChart, doDeepWatch);
       }
     };
   }

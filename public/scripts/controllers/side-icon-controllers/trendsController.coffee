@@ -80,7 +80,7 @@ angular.module('motus').controller 'trendsController', ['$q','currentPlayerFacto
       groups = _.sortBy(groups, (group) -> moment(group.date))
 
       trends.playerScores = {
-        heading: metric.label, units: metric.units, average: metric.avg
+        heading: metric.metric, units: metric.units, average: metric.avg
         keys: ['longToss', 'bullPen', 'game', 'untagged']
         groups: groups
       }
