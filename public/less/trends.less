@@ -1,0 +1,100 @@
+#trends {
+
+  svg {
+    position: relative;
+    bottom:1.5em;
+  }
+
+  .flex-container-row {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .flex-container-col {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .large-flexitem {
+    -webkit-flex: .5 0 0;
+    flex: .5 0 0;
+  }
+
+  .small-flexitem {
+    -webkit-flex: .30 0 0;
+    flex: .30 0 0;
+  }
+
+    // Accordion Styles - The accordion is in the 'trends.html' file
+  .accordion-box {
+
+    .accordion-even {
+      background-color: darken(#888b8a, 5%);
+    }
+    .accordion-active {
+      background-color: @motus-darkgrey;
+    }
+
+    .icon-chevdown:before {
+      content: "\e91e" !important;
+    }
+    .icon-chevright:before {
+      content: "\e91f"!important;
+    }
+
+    .panel {
+      border:none;
+
+    }
+    .panel-body {
+      background-color: #888b8a;
+      color: #ffffff;
+      padding:0;
+
+      ul li {
+        list-style: none;
+        line-height: 1.25em;
+        padding: 0.75em;
+        cursor: pointer;
+        &:hover {
+          background-color: @motus-darkgrey;
+
+        }
+      }
+
+      ul {
+        //padding: .75em;
+        padding:0;
+        font-size: 1.05em;
+        font-family: 'Arial-Narrow-Bold', 'Arial', sans-serif !important;
+      }
+    }
+    .panel-default {
+      width:13.214em;
+
+    }
+
+    .panel-default>.panel-heading {
+      color: @motus-black;
+      background-color: @motus-darkgrey;
+      border-bottom: 3px solid @motus-lightorange;
+      border-radius: 0px;
+
+    }
+    .panel-group .panel {
+      margin-top: 0;
+    }
+    .panel-group .panel-heading+.panel-collapse>.panel-body {
+      border-top: 0;
+    }
+  }
+  
+}
