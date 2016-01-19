@@ -1,7 +1,11 @@
 angular.module('motus').controller 'trendsController', ['$q','currentPlayerFactory','eliteFactory', '$stat',($q, currentPlayerFactory, eliteFactory, $stat) ->
+
   trends = this
   cpf = currentPlayerFactory
   ef = eliteFactory
+
+  #Accordion State open or closed
+  trends.isOpen = { foot: false, hip: false, trunk: false, shoulder: false, elbow: false }
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises).then (results) ->
