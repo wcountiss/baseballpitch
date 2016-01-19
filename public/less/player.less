@@ -1,7 +1,33 @@
 #player {
-
-
   font-family:Arial;
+
+  // Accordion Styles - The accordion is in the 'trends.html' file
+  .accordion-box {
+    .panel {
+      border:none;
+    }
+    .panel-body {
+      background-color: #888b8a;
+      color: #ffffff;
+    }
+    .panel-default {
+      width:13.214em;
+
+    }
+    .panel-default>.panel-heading {
+      color: @motus-black;
+      background-color: @motus-darkgrey;
+      border-bottom: 3px solid @motus-lightorange;
+
+    }
+    .panel-group .panel {
+      margin-top: 0;
+    }
+    .panel-group .panel-heading+.panel-collapse>.panel-body {
+      border-top: 0;
+    }
+  }
+
   // Wrapper div to give box shadow
   h2 {
     color: @motus-blue;
@@ -362,7 +388,7 @@
       font-size:58px;
       padding-top: 3px;
     }
-    
+
     span.side-button-active {
       color: white;
       background-color: #232323;
