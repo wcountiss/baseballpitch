@@ -2,12 +2,44 @@ angular.module('motus').controller 'trendsController', ['$q','currentPlayerFacto
   trends = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-  
+
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises).then (results) ->
     trends.eliteMetrics = results[0]
-    trends.currentPlayer = cpf.currentPlayer    
+    trends.currentPlayer = cpf.currentPlayer
     trends.selectMetric(trends.eliteMetrics[0])
+    console.log trends.eliteMetrics
+
+    #Create footJoint array for the accordion
+    trends.footJoint = _.filter trends.eliteMetrics, (obj) ->
+      if obj.jointCode == 'FOOT'
+        return obj
+    console.log 'trends.footJoint: ',trends.footJoint
+
+    #Create hipJoint array for the accordion
+    trends.hipJoint = _.filter trends.eliteMetrics, (obj) ->
+      if obj.jointCode == 'HIP'
+        return obj
+    console.log 'trends.hipJoint: ',trends.hipJoint
+
+    #Create trunkJoint array for the accordion
+    trends.trunkJoint = _.filter trends.eliteMetrics, (obj) ->
+      if obj.jointCode == 'TRUNK'
+        return obj
+    console.log 'trends.trunkJoint: ',trends.trunkJoint
+
+    #Create shoulderJoint array for the accordion
+    trends.shoulderJoint = _.filter trends.eliteMetrics, (obj) ->
+      if obj.jointCode == 'SHOULDER'
+        return obj
+    console.log 'trends.shoulderJoint: ',trends.shoulderJoint
+
+    #Create elbowJoint array for the accordion
+    trends.elbowJoint = _.filter trends.eliteMetrics, (obj) ->
+      if obj.jointCode == 'ELBOW'
+        return obj
+    console.log 'trends.elbowJoint: ',trends.elbowJoint
+
 
 
   getStats = (sessionPitches, metric) ->
@@ -19,11 +51,11 @@ angular.module('motus').controller 'trendsController', ['$q','currentPlayerFacto
     ]
     $q.all(statsPromises)
     .then (stats) ->
-      return { 
-        longToss: stats[0]?.metricScores[metric.metric].score, 
-        bullPen: stats[1]?.metricScores[metric.metric].score, 
-        game: stats[2]?.metricScores[metric.metric].score, 
-        untagged: stats[3]?.metricScores[metric.metric].score  
+      return {
+        longToss: stats[0]?.metricScores[metric.metric].score,
+        bullPen: stats[1]?.metricScores[metric.metric].score,
+        game: stats[2]?.metricScores[metric.metric].score,
+        untagged: stats[3]?.metricScores[metric.metric].score
       }
 
   #select metric and map to the chart

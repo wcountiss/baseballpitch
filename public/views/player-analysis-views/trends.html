@@ -10,41 +10,47 @@
           FOOT
           <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>
-        Content
+        <ul>
+          <li ng-click="trends.selectMetric(foot)" ng-repeat="foot in trends.footJoint">{{foot.label}}</li>
+        </ul>
       </uib-accordion-group>
       <uib-accordion-group>
         <uib-accordion-heading >
           HIPS
           <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>
-        Content
+        <ul>
+          <li ng-click="trends.selectMetric(hip)" ng-repeat="hip in trends.hipJoint">{{hip.label}}</li>
+        </ul>
       </uib-accordion-group>
       <uib-accordion-group>
         <uib-accordion-heading >
           TRUNK
           <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>
-        Content
+        <ul>
+          <li ng-click="trends.selectMetric(trunk)" ng-repeat="trunk in trends.trunkJoint">{{trunk.label}}</li>
+        </ul>
       </uib-accordion-group>
       <uib-accordion-group>
         <uib-accordion-heading >
           SHOULDERS
           <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>
-        Content
+        <ul>
+          <li ng-click="trends.selectMetric(shoulder)" ng-repeat="shoulder in trends.shoulderJoint">{{shoulder.label}}</li>
+        </ul>
       </uib-accordion-group>
       <uib-accordion-group>
         <uib-accordion-heading >
           ELBOW
           <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>
-        Content
+        <ul>
+          <li ng-click="trends.selectMetric(elbow)" ng-repeat="elbow in trends.elbowJoint">{{elbow.label}}</li>
+        </ul>
       </uib-accordion-group>
     </uib-accordion>
 
   </div>
-
-  <ul>
-    <li ng-repeat="eliteMetric in trends.eliteMetrics" ng-click="trends.selectMetric(eliteMetric)">{{eliteMetric.metric}}</li>
-  </ul>
 </div>
