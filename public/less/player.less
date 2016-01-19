@@ -3,21 +3,45 @@
 
   // Accordion Styles - The accordion is in the 'trends.html' file
   .accordion-box {
+
+    .icon-chevdown:before {
+      content: "\e91e" !important;
+    }
+    .icon-chevright:before {
+      content: "\e91f"!important;
+    }
+
     .panel {
       border:none;
+
     }
     .panel-body {
       background-color: #888b8a;
       color: #ffffff;
+
+      ul li {
+        list-style: none;
+        line-height: 1.25em;
+        padding-bottom: 1em;
+        cursor: pointer;
+      }
+
+      ul {
+        padding: .75em;
+        font-size: 1.05em;
+        font-family: 'Arial-Narrow-Bold' !important;
+      }
     }
     .panel-default {
       width:13.214em;
 
     }
+
     .panel-default>.panel-heading {
       color: @motus-black;
       background-color: @motus-darkgrey;
       border-bottom: 3px solid @motus-lightorange;
+      border-radius: 0px;
 
     }
     .panel-group .panel {
@@ -232,7 +256,7 @@
 
 
       .nested-view .nested-footer .nested-footer-body-icon>span {
-        font-family: "Arial Black";
+        font-family: "Arial-Black";
         padding-left: 1px;
         padding-right: 1px;
         font-size: 27px;
@@ -241,13 +265,13 @@
 
 
       .nested-footer-body-icon {
-        font-family:"Arial Black";
+        font-family:"Arial-Black";
         color: white;
         display: flex;
         flex:1;
         margin-left:1.5em;
         > span {
-          font-family:"Arial Black";
+          font-family:"Arial-Black";
           padding-left: 1px;
           padding-right: 1px;
           font-size: 30px;
@@ -261,7 +285,7 @@
 
 
         .part-nested-stack {
-          font-family:"Arial Black";
+          font-family:"Arial-Black";
           font-weight:bold;
           display: flex;
           flex-direction:column;
@@ -542,7 +566,7 @@
     }
 
     .nested-view .nested-footer .nested-footer-body-icon>span {
-      font-family: "Arial Black";
+      font-family: "Arial-Black";
       padding-left: 1px;
       padding-right: 1px;
       font-size: 19px;

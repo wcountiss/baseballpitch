@@ -41,6 +41,8 @@ angular.module('motus').controller 'trendsController', ['$q','currentPlayerFacto
     console.log 'trends.elbowJoint: ',trends.elbowJoint
 
 
+  trends.toggleOpen = ()->
+    console.log("TEST")
 
   getStats = (sessionPitches, metric) ->
     statsPromises = [
@@ -60,6 +62,8 @@ angular.module('motus').controller 'trendsController', ['$q','currentPlayerFacto
 
   #select metric and map to the chart
   trends.selectMetric = (metric) ->
+
+
     #group the pitches into sessions and tags
     pitches = _.groupBy trends.currentPlayer.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
 

@@ -179,6 +179,7 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
         if (!scope.isDisabled) {
           if (!$event || $event.which === 32) {
             scope.isOpen = !scope.isOpen;
+            // console.log( status.open,"TEST")
           }
         }
       };
