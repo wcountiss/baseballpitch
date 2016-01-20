@@ -1,4 +1,4 @@
-angular.module('motus').controller 'trendsController', ['$q','currentPlayerFactory','eliteFactory', '$stat',($q, currentPlayerFactory, eliteFactory, $stat) ->
+angular.module('motus').controller 'trendsController', ['$scope', '$q','currentPlayerFactory','eliteFactory', '$stat',($scope, $q, currentPlayerFactory, eliteFactory, $stat) ->
 
   trends = this
   cpf = currentPlayerFactory
@@ -45,6 +45,9 @@ angular.module('motus').controller 'trendsController', ['$q','currentPlayerFacto
     console.log 'trends.elbowJoint: ',trends.elbowJoint
 
 
+  trends.groupClick = (element) ->
+    console.log 'hit t', element
+
   trends.toggleOpen = ()->
     console.log("TEST")
 
@@ -66,8 +69,8 @@ angular.module('motus').controller 'trendsController', ['$q','currentPlayerFacto
 
   #select metric and map to the chart
   trends.selectMetric = (metric) ->
-#Grab the current metric.label and place it into trends.accordionSelected
-#This will add the propper CSS to the selected metric
+    #Grab the current metric.label and place it into trends.accordionSelected
+    #This will add the propper CSS to the selected metric
     trends.accordionSelected = metric.label
 
     #group the pitches into sessions and tags

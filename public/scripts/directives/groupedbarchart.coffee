@@ -8,7 +8,6 @@ angular.module('d3').directive 'groupedbarchart', [
       scope:
         width: '@'
         height: '@'
-        windowWidth: '@'
         text: '@'
         fontFamily: '@'
         fontSize: '@'
@@ -83,9 +82,10 @@ angular.module('d3').directive 'groupedbarchart', [
                 value = 0
                 if d[key]
                   value = +d[key]
-                {
+                return {
                   name: key
                   value: value
+                  group: d.date
                 }
               )
               return
@@ -130,7 +130,9 @@ angular.module('d3').directive 'groupedbarchart', [
               tip.show d
               return
             ).on 'mouseout', tip.hide
-            
+            .on 'click', (d) ->
+              scope.onClick({ element: d });
+
             # elite data
             svg.append('line').attr('x1', 0).attr('x2', d3.max(data.groups, (d) ->
               width
