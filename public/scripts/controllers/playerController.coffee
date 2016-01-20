@@ -54,7 +54,6 @@ angular.module('motus').controller('playerController',
     
 
       loadCurrentPlayer = () ->
-        return
         #reset
         pc.notes = []
 
