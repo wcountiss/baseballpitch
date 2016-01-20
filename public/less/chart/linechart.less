@@ -1,0 +1,46 @@
+linechart{
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+  }
+
+  .line {
+    stroke: @motus-darkorange;
+    stroke-width: .3em;
+    fill: none;
+  }
+
+  .circle{
+    stroke: #000;
+    stroke-width: 0;
+    r: .7em;
+    fill: @motus-darkorange;
+    transition: all 0.2s ease;
+    &:hover {
+      r: .9em;
+    }
+  }
+
+  .average{
+    stroke: @motus-blue;
+    stroke-width: .3em;
+  }
+
+
+}
+
+.chart-holder {
+  margin:auto;
+  padding-bottom: 2em;
+  position: relative;
+  transition: all 0.2s ease;
+  transform-origin: left top;
+}
+
+.elite-label {
+  position:absolute;
+  top:32.5%;
+  color: @motus-blue;
+  left: 1em;
+}

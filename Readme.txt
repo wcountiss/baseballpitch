@@ -11,11 +11,7 @@ Player Analysis
 End of Week 5:
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
-
-Create Chart Directive
-Match Data to Chart
 Hook up player data
-Elite Line
 Chart UI
 Filters
 
