@@ -1,6 +1,84 @@
 #player {
   font-family:Arial;
 
+  .tooltip.subNavicons .tooltip-inner {
+    position: absolute;
+    top: -.2em;
+    left:-2em;
+  }
+
+  .tooltip.subNavicons .tooltip-arrow {
+    position: absolute;
+    top: 3.2em;
+    left:0em;
+  }
+
+  .tooltip.subNavProfile .tooltip-inner {
+    position: absolute;
+    top: -.6em;
+    left:-2em;
+  }
+  .tooltip.subNavProfile .tooltip-arrow {
+    position: absolute;
+    top: 2.7em;
+    left:0em;
+  }
+
+  .tooltip.mainNavIcons .tooltip-inner {
+    position: relative;
+    top: .5em;
+    right:2.5em;
+    z-index: 10;
+  }
+
+  .tooltip.mainNavIcons .tooltip-arrow {
+    position: relative;
+    top: 1.9em;
+    left:4.7em;
+    z-index: 10;
+  }
+
+  .tooltip.ballRelease .tooltip-inner {
+    position: relative;
+    top: .5em;
+    right:2.1em;
+    z-index: 10;
+  }
+
+  .tooltip.ballRelease .tooltip-arrow {
+    position: relative;
+    top: 1.9em;
+    left:4.7em;
+    z-index: 10;
+  }
+
+  .tooltip.maxEx .tooltip-inner {
+    position: relative;
+    top: .5em;
+    right:2.5em;
+    z-index: 10;
+  }
+
+  .tooltip.maxEx .tooltip-arrow {
+    position: relative;
+    top: 1.9em;
+    left:5.5em;
+    z-index: 10;
+  }
+
+  .tooltip.jointKinetics .tooltip-inner {
+    position: relative;
+    top: .5em;
+    right:2.7em;
+    z-index: 10;
+  }
+
+  .tooltip.jointKinetics .tooltip-arrow {
+    position: relative;
+    top: 1.9em;
+    left:4.67em;
+    z-index: 10;
+  }
   // Wrapper div to give box shadow
   h2 {
     color: @motus-blue;
@@ -90,8 +168,14 @@
         span {
           // color: #6c6d70;
         }
+      
+
       }
     }
+  }
+
+  .icon-compare {
+    cursor: pointer;
   }
   .player-details-outter {
     width: 100%;

@@ -2,9 +2,9 @@
   <div class="nested-view">
     <div class="overview-header">
       <h2>Overview</h2>
-      <span class="icon-eye" ui-sref="player.home.overview" ng-class="{'active-overview-icon': pc.state.includes('player.home.overview')}"></span>
-      <span ng-class="{'active-overview-icon': pc.state.includes('player.home.trends')}" ui-sref="player.home.trends" class="icon-trends"></span>
-      <span ng-class="{'active-overview-icon': pc.state.includes('player.home.profile')}" ui-sref="player.home.profile" class="icon-profile"></span>
+      <span tooltip-class='subNavicons' tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Visual View"class="icon-eye" ui-sref="player.home.overview" ng-class="{'active-overview-icon': pc.state.includes('player.home.overview')}"></span>
+      <span tooltip-class='subNavicons' tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Graphed View" ng-class="{'active-overview-icon': pc.state.includes('player.home.trends')}" ui-sref="player.home.trends" class="icon-trends"></span>
+      <span tooltip-class='subNavProfile' tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Player Profile" ng-class="{'active-overview-icon': pc.state.includes('player.home.profile')}" ui-sref="player.home.profile" class="icon-profile"></span>
     </div>
     <div ui-view></div>
   </div>

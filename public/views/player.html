@@ -3,7 +3,7 @@
     <div class="padding-box">
       <div class="roster-list">
         <!--Contains the names of pitches listed in a column -->
-        <h2>Roster <span class="icon-compare"></span></h2>
+        <h2>Roster <span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='right'}}" uib-tooltip="Player Comparison" class="icon-compare"></span></h2>
         <ul class="player-names">
           <li ng-class-odd="'odd'" ng-class-even="'even'" ng-class="{'selected': pc.currentPlayer.athleteProfile.objectId == player.athleteProfile.objectId }" ng-repeat="player in pc.playerRoster" ng-click="pc.selectedPlayer(player)">
             <p>{{::player.athleteProfile.firstName}} {{::player.athleteProfile.lastName}}</p>
@@ -20,31 +20,31 @@
 
       <div class="side-menu-buttons">
         <div class="side-menu-buttons-nav">
-          <span class="icon-home" ng-class="{'side-button-active': pc.state.includes('player.home.*')}" ui-sref=".home.overview">
+          <span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='left'}}" uib-tooltip="Home" type="button" class="icon-home" ng-class="{'side-button-active': pc.state.includes('player.home.*')}" ui-sref=".home.overview">
             <!--Home Button Icon-->
           </span>
 
-          <span class="icon-kinetic_chain" ui-sref-active="side-button-active" ui-sref=".kinetic-chain">
+          <span tooltip-class="mainNavIcons" tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='left'}}" uib-tooltip="Kinetic Chain" type="button" class="icon-kinetic_chain" ui-sref-active="side-button-active" ui-sref=".kinetic-chain">
             <!--Kinetic Chain Button Icon-->
           </span>
 
-          <span class="icon-footcontact" ui-sref-active="side-button-active" ui-sref=".foot-contact">
+          <span tooltip-class="mainNavIcons" tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='left'}}" uib-tooltip="Foot Contact" type="button" class="icon-footcontact" ui-sref-active="side-button-active" ui-sref=".foot-contact">
             <!--Foot Contact Button Icon-->
           </span>
 
-          <span class="icon-ballrelease" ui-sref-active="side-button-active" ui-sref=".ball-release">
+          <span tooltip-class="ballRelease" tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='left'}}" uib-tooltip="Ball Release" type="button" class="icon-ballrelease" ui-sref-active="side-button-active" ui-sref=".ball-release">
             <!--Ball Release Button Icon-->
           </span>
 
-          <span class="icon-maxexcursion" ui-sref-active="side-button-active" ui-sref=".max-excursion">
+          <span tooltip-class="maxEx" tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='left'}}" uib-tooltip="Max Excursion" type="button" class="icon-maxexcursion" ui-sref-active="side-button-active" ui-sref=".max-excursion">
             <!--Max Excursion Button Icon-->
           </span>
 
-          <span class="icon-jointkinetics" ui-sref-active="side-button-active" ui-sref=".joint-kinetics">
+          <span tooltip-class="jointKinetics" tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='left'}}" uib-tooltip="Joint Kinetics" type="button"class="icon-jointkinetics" ui-sref-active="side-button-active" ui-sref=".joint-kinetics">
             <!--Join Kinetics Button Icon-->
           </span>
 
-          <span class="icon-trends" ui-sref-active="side-button-active" ui-sref=".trends">
+          <span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='left'}}" uib-tooltip="Trends" type="button" class="icon-trends" ui-sref-active="side-button-active" ui-sref=".trends">
             <!--Trends Button Icon-->
           </span>
 
