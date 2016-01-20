@@ -125,7 +125,7 @@ angular.module('d3').directive 'groupedbarchart', [
             ).attr('height', (d) ->
               height - y(d.value)
             )
-            .attr('class', (d) -> d.name )
+            .attr('class', (d) -> "rect #{d.name}" )
             .on('mouseover', (d) ->
               tip.show d
               return
