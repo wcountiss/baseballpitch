@@ -66,8 +66,8 @@ angular.module('motus').controller 'trendsController', ['$q','currentPlayerFacto
 
   #select metric and map to the chart
   trends.selectMetric = (metric) ->
-    #Grab the current metric.label and place it into trends.accordionSelected
-    #This will add the propper CSS to the selected metric
+#Grab the current metric.label and place it into trends.accordionSelected
+#This will add the propper CSS to the selected metric
     trends.accordionSelected = metric.label
 
     #group the pitches into sessions and tags
@@ -86,7 +86,7 @@ angular.module('motus').controller 'trendsController', ['$q','currentPlayerFacto
       groups = _.sortBy(groups, (group) -> moment(group.date))
 
       trends.playerScores = {
-        heading: metric.metric, units: metric.units, average: metric.avg
+        heading: metric.label, units: metric.units, average: metric.avg
         keys: ['longToss', 'bullPen', 'game', 'untagged']
         groups: groups
       }
