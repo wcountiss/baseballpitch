@@ -24,6 +24,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     1: (playerScore) ->
        return 'Poor' if playerScore == 0 
        return 'OK' if playerScore <= .25
+       return 'Exceed' if playerScore > .75
        return 'Good'
     #in-range
     2: (playerScore) ->
@@ -34,6 +35,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     3: (playerScore) ->
       return 'Poor' if playerScore == 0 
       return 'OK' if playerScore <= .25
+      return 'Exceed' if playerScore > .75
       return 'Good'
 
   } 

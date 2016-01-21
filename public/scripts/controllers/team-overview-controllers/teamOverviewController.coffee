@@ -28,17 +28,20 @@ angular.module('motus').controller('teamOverviewController',
         $stat.getPlayerAwards(players)
         .then (awards) ->
           judgements = {
-            'Best Performer': {title: 'Best', subtitle: 'Performer'},
-            'Worst Performer': {title: 'Worst', subtitle: 'Performer'},
-            'Most Improved': {title: 'Improved', subtitle: 'Most Since Last Month'},
-            'Most Regressed': { title: 'Regressed', subtitle: 'Most Since Last Month'},
-            'Highest Elbow Torque': { title: 'Highest', subtitle: 'Elbow Torque'},
-            'Lowest Elbow Torque': { title: 'Lowest', subtitle: 'Elbow Torque'}
+            'Best Performer': {title: 'Best', subtitle: 'Performer', order: 1},
+            'Worst Performer': {title: 'Worst', subtitle: 'Performer', order: 4},
+            'Most Improved': {title: 'Improved', subtitle: 'Most Since Last Month', order: 2},
+            'Most Regressed': { title: 'Regressed', subtitle: 'Most Since Last Month', order: 5},
+            'Highest Elbow Torque': { title: 'Highest', subtitle: 'Elbow Torque', order: 3},
+            'Lowest Elbow Torque': { title: 'Lowest', subtitle: 'Elbow Torque', order: 6}
           }
-          team.awardedPlayers = _.map awards, (award) ->
+          awardedPlayers = _.map awards, (award) ->
             award.awardtitle = judgements[award.award].title
             award.awardsub = judgements[award.award].subtitle
+            award.order = judgements[award.award].order
             return award
-    
+          awardedPlayers = _.sortBy awardedPlayers, (awardedPlayer) -> awardedPlayer.order
+          team.awardedPlayers = awardedPlayers
+            
       return team
   ])
