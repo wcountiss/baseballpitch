@@ -22,6 +22,7 @@ End of Week 6:
 Player Analysis Kinetic Chart Timing
 Player Analysis Kinetic Chart Force
 Load Pitches by Player Skip
+Create Player to Player comparison views
 
 End of Week 7:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
