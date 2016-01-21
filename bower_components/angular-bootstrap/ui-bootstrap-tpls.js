@@ -169,10 +169,6 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
       },
       link: function(scope, element, attrs, accordionCtrl) {
         accordionCtrl.addGroup(scope);
-        scope.partGroups = ['FOOT', 'HIP', 'TRUNK', 'SHOULDER', 'ELBOW'];
-        element.ready(function (){
-          console.log('ready scope: ',scope);
-        });
         scope.openClass = attrs.openClass || 'panel-open';
         scope.panelClass = attrs.panelClass || 'panel-default';
 
