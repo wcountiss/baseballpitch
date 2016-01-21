@@ -2,37 +2,38 @@
  <div class="player-details-outter">
    <div class="player-details">
 
-     <div class="player-details-header">
+     <div class="player-details-header flex-container-col">
        <h2>Trends</h2>
+       <div class="flex-container-row checkbox-filters">
+         <input type="checkbox" id="lt" name="LT">
+         <label for="lt"><span>LT</span></label>
+
+         <input type="checkbox" id="bp" name="BP">
+         <label for="bp"><span>BP</span></label>
+
+         <input type="checkbox" id="gm" name="GM">
+         <label for="gm"><span>GM</span></label>
+
+         <input type="checkbox" id="untagged" name="UNTAGGED">
+         <label for="untagged"><span>UNTAGGED</span></label>
+       </div>
      </div>
 
-     <section class="flex-container-col">
-
-       <div class="flex-container-row">
-
+     <section>
          <div class="flex-container-row">
-
            <div class="accordion-box">
              <div ui-view="trendsaccordion"></div>
            </div>
 
            <div class="flex-container-col">
-             <div class="checkbox-filters">
-               <input type="checkbox" id="c1" name="LT"> <label for="c1"><span>LT</span></label>
-               <input type="checkbox">
-               <input type="checkbox">
-               <input type="checkbox">
-             </div>
-             <div>
+
+             <div class="trends-graphs flex-grow-max">
                <groupedbarchart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendChart" bind="trends.playerScores"  on-click="trends.groupClick(element)"></groupedbarchart>
 
                <linechart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendDetailChart" bind="trends.playerDetailScores"></linechart>
              </div>
            </div>
-
-
          </div>
-       </div>
      </section>
    </div>
  </div>

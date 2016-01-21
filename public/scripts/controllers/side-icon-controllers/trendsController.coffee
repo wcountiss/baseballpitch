@@ -48,8 +48,6 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
       ]
     }
 
-  trends.toggleOpen = ()->
-    console.log("TEST")
 
   getStats = (sessionPitches, metric) ->
     statsPromises = [
