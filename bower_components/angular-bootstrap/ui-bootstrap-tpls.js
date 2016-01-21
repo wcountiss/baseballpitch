@@ -183,9 +183,6 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
 
           scope.isOpen = !scope.isOpen;
 
-
-          console.log('Should all be false: ', scope.shared);
-
           if (scope.part === 'FOOT') {
             scope.shared.foot = !scope.shared.foot;
             scope.shared.hip = false;
@@ -221,7 +218,6 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
             scope.shared.trunk = false;
             scope.shared.shoulder = false;
           }
-          console.log('One is True: ', scope.shared);
           //if (!scope.isDisabled) {
           //  if (!$event || $event.which === 32) {
           //    scope.isOpen = !scope.isOpen;
