@@ -13,11 +13,12 @@
     -moz-appearance: none;
     appearance: none;
     border: none;
-    border-radius: 0px;
-    border-bottom: 3px solid #f38d4f;
-    background: url(/images/arrow-down-orange.png) no-repeat;
+    border-radius: 0;
+    border-bottom: 0.214em solid #f38d4f;
+    background: url(../../../images/arrow-down-orange.png) no-repeat;
     background-position: 100%;
-    background-size: 20px;
+    background-size: 1.429em;
+    min-width: 12.054em;
 
     &:focus, input:focus{
       outline: 0;
@@ -27,7 +28,7 @@
       border-bottom-color: darken(#f38d4f, 10%);
       background: url('../../../images/arrow-down-orange-dark.png') no-repeat;
       background-position: 100%;
-      background-size: 20px;
+      background-size: 1.429em;
     }
 
   }
@@ -42,14 +43,14 @@
     background-image: url('../../../images/maxex-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 50px 0px;
+    background-position: 3.571em 0;
     background-color:rgba(255, 255, 255, 0.15);
   }
   .main-bg-ball-release {
     background-image: url('../../../images/ball-release-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 50px 0px;
+    background-position: 3.571em 0;
     background-color:rgba(255, 255, 255, 0.15);
   }
   .main-bg-foot-contact {
@@ -62,13 +63,9 @@
 
 
   h2 {
-    color: @motus-blue;
-    font-size: 36px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0px;
-    padding-top: 20px;
-    padding-left: 40px
+    margin: 0;
+    padding-top: 0.556em;
+    padding-left: 1.111em;
   }
 
   .flex-container-row {
@@ -100,26 +97,26 @@
   }
 
   .metricval {
-    font-family: "Arial-Black", Arial;
-    font-size: 30px;
+    font-family: "Arial-Black", Arial, sans-serif;
+    font-size: 1.464em;
     padding-left: 0.6em;
     text-align: right;
   }
 
   .unit {
     font-family: 'Arial-Narrow', Arial, sans-serif;
-    font-size: 12px;
+    font-size: 0.857em;
     padding:.25em;
     text-align: left;
   }
 
   select {
-    margin-top: 30px;
-    margin-right: 40px;
+    margin-top: 2.143em;
+    margin-right: 2.857em;
   }
 
   td, th {
-    padding: 8px;
+    padding: 0.571em;
   }
 
   tr .col-data {
@@ -144,15 +141,15 @@
     cursor: pointer;
   }
   .metric-table {
-    margin-left: 40px;
-    margin-top: 15px;
-    padding-bottom: 40px;
+    margin-left: 2.857em;
+    margin-top: 1.071em;
+    padding-bottom: 2.857em;
   }
 
   .comparison table {
     width: 100%;
-    min-width: 213px;
-    margin-top: 31px;
+    min-width: 15.214em;
+    margin-top: 2.214em;
     text-align: center;
   }
 
@@ -168,21 +165,21 @@
   }
 
   .icon-okarrow {
-    font-size: 30px;
+    font-size: 2.143em;
     position: relative;
-    top: 3.9px;
+    top: 0.279em;
   }
 
   .icon-uparrow {
-    font-size: 30px;
+    font-size: 2.143em;
     position: relative;
-    top: 3.9px;
+    top: 0.279em;
   }
 
    .icon-downarrow {
-    font-size: 30px;
+    font-size: 2.143em;
     position: relative;
-    top: 3.9px;
+    top: 0.279em;
     color: @motus-red;
   }
 
@@ -195,21 +192,21 @@
   }
 
   .img {
-    min-width: 243px;
-    min-height: 243px;
+    min-width: 17.357em;
+    min-height: 17.357em;
   }
 
   .comparison {
-    min-width: 243px;
-    margin-top: 20px;
-    margin-right:40px;
-    padding-bottom: 40px;
+    min-width: 17.357em;
+    margin-top: 1.429em;
+    margin-right:2.857em;
+    padding-bottom: 2.857em;
   }
 
   .description {
-    padding: 20px 15px 30px 15px;
+    padding: 1.429em 1.071em 2.143em 1.071em;
     background: rgba(175, 197, 211,.75);
-    min-width: 243px;
+    min-width: 17.357em;
   }
 
   .title {
@@ -226,15 +223,15 @@
   /* Medium Devices, Desktops */
   @media (max-width : 1024px) {
     h2 {
-      font-size: 30px;
+      font-size: 2.143em;
     }
 
   }
   /* Extra large Devices */
   @media (max-width: 1920px) {
     .metric-table {
-      margin-left: 40px;
-      margin-top: 15px;
+      margin-left: 2.857em;
+      margin-top: 1.071em;
       table {
         width: 75%;
       }
