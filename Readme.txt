@@ -11,7 +11,10 @@ Player Analysis
 End of Week 5:
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
-Chart update and UI
+
+Chart background lines
+tips
+
 SubTag Filter
 Trend Filters
 

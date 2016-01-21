@@ -16,7 +16,6 @@ angular.module('d3').directive 'linechart', [
         onClick: '&'
         onHover: '&'
       link: (scope, element, attrs) ->
-
         updateChart = ->
           width = 960
           height = 500
@@ -72,7 +71,7 @@ angular.module('d3').directive 'linechart', [
             lineFunction = d3.svg.line()
             .x((d) -> x(d.index))
             .y((d) -> y(d.score))
-            .interpolate('linear')
+            .interpolate('basis')
             
             svg.append('path')
             .datum(data.scores)
@@ -89,17 +88,6 @@ angular.module('d3').directive 'linechart', [
             .attr('class', 'average')
             .attr('stroke-width', 2)
             .attr 'stroke', 'black'
-            
-            #circles along linear
-            data.scores.forEach (d) ->
-              svg.append('circle')
-              .datum(d).attr('r', 2).attr('cx', (d) ->
-                x d.index
-              ).attr('cy', (d) ->
-                y d.score
-              ).attr('class', 'circle')
-              .attr('fill', 'black')
-              .attr 'stroke', 'black'
             
             svg.append('g').attr('class', 'x-axis').attr('transform', 'translate(0,' + height + ')').call xAxis
             svg.append('g').attr('class', 'y-axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '.71em').style('text-anchor', 'end').text scope.text

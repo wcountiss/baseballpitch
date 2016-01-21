@@ -72,6 +72,9 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
 
   #select metric and map to the chart
   trends.selectMetric = (metric) ->
+    #blank out detail chart
+    trends.playerDetailScores = null
+
     #Grab the current metric.label and place it into trends.accordionSelected
     #This will add the propper CSS to the selected metric
     trends.accordionSelected = metric.label
