@@ -90,6 +90,9 @@ angular.module('motus').controller('playerController',
               elb.width = 1
               elb.order = 1
               elb.tooltip = elb.rating
+              elb.playerscore = Math.round(elb.stats.score)
+              elb.eliteval = elb.avg
+              elb.unitmeasure = elb.units
               elb.label = elb.title
               elb.color = color[elb.rating]
               elbArray.push(elb)
@@ -107,6 +110,9 @@ angular.module('motus').controller('playerController',
               tru.width = 1
               tru.order = 1
               tru.tooltip = tru.rating
+              tru.playerscore = Math.round(tru.stats.score)
+              tru.eliteval = tru.avg
+              tru.unitmeasure = tru.units
               tru.label = tru.title
               tru.color = color[tru.rating]
               trunkArray.push(tru)
@@ -123,6 +129,9 @@ angular.module('motus').controller('playerController',
               sho.width = 1
               sho.order = 1
               sho.tooltip = sho.rating
+              sho.playerscore = Math.round(sho.stats.score)
+              sho.eliteval = sho.avg
+              sho.unitmeasure = sho.units
               sho.label = sho.title
               sho.color = color[sho.rating]
               shoulderArray.push(sho)
@@ -139,6 +148,9 @@ angular.module('motus').controller('playerController',
               hip.width = 1
               hip.order = 1
               hip.tooltip = hip.rating
+              hip.playerscore = Math.round(hip.stats.score)
+              hip.eliteval = hip.avg
+              hip.unitmeasure = hip.units
               hip.label = hip.title
               hip.color = color[hip.rating]
               hipArray.push(hip)
@@ -156,6 +168,9 @@ angular.module('motus').controller('playerController',
               foo.width = 1
               foo.order = 1
               foo.tooltip = foo.rating
+              foo.playerscore = Math.round(foo.stats.score)
+              foo.eliteval = foo.avg
+              foo.unitmeasure = foo.units
               foo.label = foo.title
               foo.color = color[foo.rating]
               footArray.push(foo)
