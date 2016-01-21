@@ -7,18 +7,11 @@ Couch View of Players in Team Overview
 
 End of Week 4:
 Player Analysis
-Team overview rearrange top and bottom
-Elbow to Foot
-Tips have value and arrows
-
-FingerReleaseVelocity - Change Pitch column
-Stats sends Exceed
 
 End of Week 5:
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
-Hook up player data
-Chart UI
+Chart update and UI
 SubTag Filter
 Trend Filters
 
