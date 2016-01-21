@@ -111,6 +111,9 @@ app.config ($stateProvider, $urlRouterProvider) ->
       },
       'trendsaccordion@player.trends': {
         templateUrl: 'views/player-analysis-views/trends/trends-tmpls/trends-accordion-tmpl.html',
+      },
+      'checkboxes@player.trends':{
+        templateUrl: 'views/player-analysis-views/trends/trends-tmpls/trends-checkbox-tmpl.html'
       }
     }
   })

@@ -54,6 +54,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     }
 
     $scope.$apply()
+    return
 
   getStats = (sessionPitches, metric) ->
     statsPromises = [

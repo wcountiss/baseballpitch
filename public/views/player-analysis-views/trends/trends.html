@@ -4,36 +4,14 @@
 
      <div class="player-details-header flex-container-col">
        <h2>Trends</h2>
-       <div class="flex-container-row checkbox-filters">
-         <div>
-           <input type="checkbox" id="lt" name="LT">
-           <label for="lt"><span>LT</span></label>
-         </div>
-
-         <div>
-           <input type="checkbox" id="bp" name="BP">
-           <label for="bp"><span>BP</span></label>
-         </div>
-
-         <div>
-           <input type="checkbox" id="gm" name="GM">
-           <label for="gm"><span>GM</span></label>
-         </div>
-
-         <div>
-           <input type="checkbox" id="untagged" name="UNTAGGED">
-           <label for="untagged"><span>UNTAGGED</span></label>
-         </div>
-
-         <div>
-           <h3>{{trends.accordionSelected}}</h3>
-         </div>
-       </div>
+       <!--Injected Checkboxes-->
+       <div ui-view="checkboxes"></div>
      </div>
 
      <section>
          <div class="flex-container-row">
            <div class="accordion-box">
+             <!--Injected Accordion Box-->
              <div ui-view="trendsaccordion"></div>
            </div>
 
