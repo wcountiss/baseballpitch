@@ -24,5 +24,14 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
         defer.resolve(pitches)
       return defer.promise
 
+  pitchService.filterTag = (pitches, tag) ->
+    pitches = _.filter pitches, (pitch) -> 
+      if tag == 'Untagged'
+        return !pitch.tagString
+      else
+        return false if !pitch.tagString
+        return pitch.tagString.split(',')[0] == tag
+      return pitches
+
   return pitchService
 ])

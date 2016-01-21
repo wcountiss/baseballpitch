@@ -1,4 +1,4 @@
-angular.module('motus').controller 'trendsController', ['$scope', '$q','currentPlayerFactory','eliteFactory', '$stat',($scope, $q, currentPlayerFactory, eliteFactory, $stat) ->
+angular.module('motus').controller 'trendsController', ['$scope', '$q','currentPlayerFactory','eliteFactory', '$pitch', '$stat',($scope, $q, currentPlayerFactory, eliteFactory, $pitch, $stat) ->
 
   trends = this
   cpf = currentPlayerFactory
@@ -39,15 +39,21 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         return obj
 
   trends.groupClick = (element) ->
+    #group the pitches into sessions and tags
+    pitches = _.groupBy trends.currentPlayer.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
+    pitches = pitches[element.group]
+    pitches = $pitch.filterTag(pitches, element.name)
+    pitches = _.sortBy pitches, (pitch) -> moment(pitch.pitchDate.iso)
+
+    scores = _.map pitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric]}
+
+    #filter the trend chart down to the clicked element and rebind to detail chart
     trends.playerDetailScores = {
-      average: 2500,
-      scores: [
-        {index: 1, score: 3000}
-        {index: 2, score: 2540}
-        {index: 3, score: 2000}
-      ]
+      average: trends.playerScores.average,
+      scores: scores
     }
 
+    $scope.$apply()
 
   getStats = (sessionPitches, metric) ->
     statsPromises = [
@@ -59,23 +65,27 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     $q.all(statsPromises)
     .then (stats) ->
       return {
-        longToss: stats[0]?.metricScores[metric.metric].score,
-        bullPen: stats[1]?.metricScores[metric.metric].score,
-        game: stats[2]?.metricScores[metric.metric].score,
-        untagged: stats[3]?.metricScores[metric.metric].score
+        Longtoss: stats[0]?.metricScores[metric.metric].score,
+        Bullpen: stats[1]?.metricScores[metric.metric].score,
+        Game: stats[2]?.metricScores[metric.metric].score,
+        Untagged: stats[3]?.metricScores[metric.metric].score
       }
 
   #select metric and map to the chart
   trends.selectMetric = (metric) ->
+    #blank out detail chart
+    trends.playerDetailScores = null
+
     #Grab the current metric.label and place it into trends.accordionSelected
     #This will add the propper CSS to the selected metric
     trends.accordionSelected = metric.label
+    trends.selectedMetric = metric
 
     #group the pitches into sessions and tags
     pitches = _.groupBy trends.currentPlayer.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
 
-    statsPromises = []
     groups = []
+    statsPromises = []
     _.each _.keys(pitches), (sessionKey) ->
       sessionPitches = pitches[sessionKey]
       statsPromises.push getStats(sessionPitches, metric).then (sessionStats) ->
@@ -88,7 +98,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
 
       trends.playerScores = {
         heading: metric.label, units: metric.units, average: metric.avg
-        keys: ['longToss', 'bullPen', 'game', 'untagged']
+        keys: ['Longtoss', 'Bullpen', 'Game', 'Untagged']
         groups: groups
       }
 
