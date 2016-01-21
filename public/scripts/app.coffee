@@ -103,9 +103,19 @@ app.config ($stateProvider, $urlRouterProvider) ->
   })
   .state('player.trends',{
     url: '/trends',
-    templateUrl: 'views/player-analysis-views/trends.html',
-    controller: 'trendsController as trends',
-    authenticate: true
+    authenticate: true,
+    views: {
+      '': {
+        templateUrl: 'views/player-analysis-views/trends/trends.html',
+        controller: 'trendsController as trends',
+      },
+      'trendsaccordion@player.trends': {
+        templateUrl: 'views/player-analysis-views/trends/trends-tmpls/trends-accordion-tmpl.html',
+      },
+      'checkboxes@player.trends':{
+        templateUrl: 'views/player-analysis-views/trends/trends-tmpls/trends-checkbox-tmpl.html'
+      }
+    }
   })
 
 app.run ($rootScope, $state, $cookies, $location) ->

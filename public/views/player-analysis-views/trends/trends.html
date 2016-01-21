@@ -1,0 +1,30 @@
+<section id="trends">
+ <div class="player-details-outter">
+   <div class="player-details">
+
+     <div class="player-details-header flex-container-col">
+       <h2>Trends</h2>
+       <!--Injected Checkboxes-->
+       <div ui-view="checkboxes"></div>
+     </div>
+
+     <section>
+         <div class="flex-container-row">
+           <div class="accordion-box">
+             <!--Injected Accordion Box-->
+             <div ui-view="trendsaccordion"></div>
+           </div>
+
+           <div class="flex-container-col">
+
+             <div class="trends-graphs flex-grow-max">
+               <groupedbarchart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendChart" bind="trends.playerScores"  on-click="trends.groupClick(element)"></groupedbarchart>
+
+               <linechart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendDetailChart" bind="trends.playerDetailScores"></linechart>
+             </div>
+           </div>
+         </div>
+     </section>
+   </div>
+ </div>
+</section>

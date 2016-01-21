@@ -42,7 +42,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     #group the pitches into sessions and tags
     pitches = _.groupBy trends.currentPlayer.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
     pitches = pitches[element.group]
-    pitches = $pitch.filterTag(pitches, element.name) 
+    pitches = $pitch.filterTag(pitches, element.name)
     pitches = _.sortBy pitches, (pitch) -> moment(pitch.pitchDate.iso)
 
     scores = _.map pitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric]}
@@ -52,7 +52,9 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
       average: trends.playerScores.average,
       scores: scores
     }
+
     $scope.$apply()
+    return
 
   getStats = (sessionPitches, metric) ->
     statsPromises = [

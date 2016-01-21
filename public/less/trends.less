@@ -1,5 +1,6 @@
 #trends {
 
+
   svg {
     position: relative;
     bottom:1.5em;
@@ -15,6 +16,9 @@
     display: -webkit-flex;
     display: flex;
     flex-direction: row;
+  }
+  .flex-space-between {
+    justify-content: space-between;
   }
 
   .flex-container-col {
@@ -43,7 +47,10 @@
       background-color: darken(#888b8a, 5%);
     }
     .accordion-active {
-      background-color: @motus-darkgrey;
+      background-color: @motus-lightorange;
+      &:hover {
+        background-color: @motus-lightorange !important;
+      }
     }
 
     .icon-chevdown:before {
@@ -99,5 +106,37 @@
       border-top: 0;
     }
   }
-  
+  .checkbox-filters {
+
+    h3 {
+      font-family: "Arial-Black", Arial, sans-serif;
+      margin: 0;
+      margin-left: 1em;
+    }
+
+
+    input[type="checkbox"] {
+      cursor: pointer;
+      //display: none;
+    }
+    input[type="checkbox"] + label span {
+      display: inline-block;
+      //width:19px;
+      //height:19px;
+      margin-left: 0.2em;
+      margin-right: 1em;
+      //background: url('') left top no-repeat;
+      cursor: pointer;
+    }
+    input[type="checkbox"]:checked + label span {
+      //background: url('') -19px top no-repeat;
+    }
+    .flex-grow-max {
+
+    }
+    .trends-graph {
+
+    }
+  }
+
 }
