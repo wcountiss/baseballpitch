@@ -1,5 +1,6 @@
 #trends {
-
+  font-family: "Arial", "Arial Narrow",sans-serif;
+  @import 'checkboxes';
 
   svg {
     position: relative;
@@ -115,25 +116,25 @@
     }
 
 
-    input[type="checkbox"] {
-      cursor: pointer;
-      display: none;
-
-    }
-
-    input[type="checkbox"] + label span {
-      display: inline-block;
-      width:20px;
-      height:20px;
-      background: url('/images/checkbox/check_20x20.svg') left top no-repeat;
-      cursor: pointer;
-    }
-    input[type="checkbox"] + label {
-      margin-right: 1.5em;
-    }
-    input[type="checkbox"]:checked + label span {
-      background: url('/images/checkbox/check_20x20.svg') -20px top no-repeat;
-    }
+    //input[type="checkbox"] {
+    //  cursor: pointer;
+    //  display: none;
+    //
+    //}
+    //
+    //input[type="checkbox"] + label span {
+    //  display: inline-block;
+    //  width:20px;
+    //  height:20px;
+    //  background: url('/images/checkbox/check_20x20.svg') left top no-repeat;
+    //  cursor: pointer;
+    //}
+    //input[type="checkbox"] + label {
+    //  margin-right: 1.5em;
+    //}
+    //input[type="checkbox"]:checked + label span {
+    //  background: url('/images/checkbox/check_20x20.svg') -20px top no-repeat;
+    //}
     .flex-grow-max {
 
     }
@@ -141,5 +142,22 @@
 
     }
   }
+  @media (max-width: 1024px) {
+    .checkbox-filters {
+
+      h3 {
+        font-family: "Arial-Black", Arial, sans-serif;
+        margin: 0;
+        margin-left: 2em;
+        font-size: 1.3em;
+        padding-top: 0.3em;
+      }
+
+      .check-box + span {
+        font-size: 1em;
+      }
+    }
+  }
+
 
 }
