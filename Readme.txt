@@ -13,6 +13,7 @@ Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
 Trend Filters
 
+Untagged not showing?
 SubTag Filter Snapshots
 
 End of Week 6:
@@ -50,7 +51,4 @@ Game Manager View
 Parse get Players by Game Manager
 moment formatting pitchDate
 Logo and Player images
-
-UI Fixes:
-Align all snapshots
 
