@@ -114,18 +114,6 @@ angular.module('d3').directive 'linechart', [
               .attr('stroke-width', 2)
               .attr('stroke', 'black')
               
-              #selection circle
-              focus = svg.append("g").style("display", "none")
-              focus.append("circle")
-              .attr("class", "selection-circle")
-              .attr("r", 4);
-              
-              focus.append("text")
-              .attr("class", "selection-text")
-              .attr("x", "-1.2em")
-              .attr("dy", "-.4em");
-
-
               #rect to capture mouse
               svg.append("rect")
               .attr("width", width)
@@ -138,6 +126,17 @@ angular.module('d3').directive 'linechart', [
 
               svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call xAxis
               svg.append('g').attr('class', 'y axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '-4.5em').style('text-anchor', 'end').text data.units
+
+              #selection circle
+              focus = svg.append("g").style("display", "none")
+              focus.append("circle")
+              .attr("class", "selection-circle")
+              .attr("r", 4);
+              
+              focus.append("text")
+              .attr("class", "selection-text")
+              .attr("x", "-1.2em")
+              .attr("dy", "-.4em");
 
         scope.$watch 'bind()', (-> updateChart()), false
         angular.element($window).bind 'resize', -> updateChart()
