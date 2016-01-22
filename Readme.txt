@@ -11,17 +11,26 @@ Player Analysis
 End of Week 5:
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
-
-Chart background lines
-tips
+Trend Filters
 
 SubTag Filter
-Trend Filters
 
 End of Week 6:
 Player Analysis Kinetic Chart Timing
 Player Analysis Kinetic Chart Force
+
 Load Pitches by Player Skip
+Get Timing Data
+Cheate Kinetic Chart Directive Line
+Kinetic Timer
+Kinectic Data hook in
+Kinetic Player Data
+Kinetic UI
+Kinetic Force Directive
+Kinetic Data hook
+Kinetic Player Data
+Kinetic UI
+
 Create Player to Player comparison views
 
 End of Week 7:

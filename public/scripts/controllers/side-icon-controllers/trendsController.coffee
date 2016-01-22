@@ -50,11 +50,11 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     #filter the trend chart down to the clicked element and rebind to detail chart
     trends.playerDetailScores = {
       average: trends.playerScores.average,
+      units: trends.playerScores.units
       scores: scores
     }
-
-    $scope.$apply()
-    return
+    if !element.firstLoad
+      $scope.$apply()
 
   getStats = (sessionPitches, metric) ->
     statsPromises = [
@@ -102,6 +102,9 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         keys: ['Longtoss', 'Bullpen', 'Game', 'Untagged']
         groups: groups
       }
+
+      #set detail chart
+      trends.groupClick({group: groups[0].date, name: 'Longtoss', firstLoad: true})
 
 
   return trends

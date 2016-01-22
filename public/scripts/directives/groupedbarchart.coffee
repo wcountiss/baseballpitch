@@ -46,17 +46,8 @@ angular.module('d3').directive 'groupedbarchart', [
             0
           ])
 
-          color = d3.scale.ordinal().range([
-            '#98abc5'
-            '#8a89a6'
-            '#7b6888'
-            '#6b486b'
-            '#a05d56'
-            '#d0743c'
-            '#ff8c00'
-          ])
           xAxis = d3.svg.axis().scale(x0).orient('bottom')
-          yAxis = d3.svg.axis().scale(y).orient('left').tickFormat(d3.format('.2s'))
+          yAxis = d3.svg.axis().scale(y).orient('left')
 
           # remove the last version and recreate 
           elementChildren = element[0].children
@@ -110,8 +101,16 @@ angular.module('d3').directive 'groupedbarchart', [
               ymax = data.average
             y.domain [ymin, ymax]
 
+            #background lines
+            svg.append("g")      
+            .attr("class", "grid")
+            .call(d3.svg.axis().scale(y).orient('left')
+              .tickSize(-width, 0, 0)
+              .tickFormat("")
+            )            
+
             svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call xAxis
-            svg.append('g').attr('class', 'y axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '.71em').style('text-anchor', 'end').text data.units
+            svg.append('g').attr('class', 'y axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('y', '-4em').style('text-anchor', 'end').text data.units
             date = svg.selectAll('.date').data(data.groups).enter().append('g').attr('class', 'date').attr('transform', (d) ->
               'translate(' + x0(d.date) + ',0)'
             )
@@ -134,14 +133,12 @@ angular.module('d3').directive 'groupedbarchart', [
               scope.onClick({ element: d });
 
             # elite data
-            svg.append('line').attr('x1', 0).attr('x2', d3.max(data.groups, (d) ->
-              width
-            )).attr('y1', (d) ->
-              y data.average
-            ).attr('y2', (d) ->
-              y data.average
-            ).attr('class', 'average').attr('stroke-width', 2).attr 'stroke', 'black'
-          return
+            svg.append('line')
+            .attr('x1', 0)
+            .attr('x2', (d) -> width)
+            .attr('y1', (d) -> y data.average)
+            .attr('y2', (d) -> y data.average)
+            .attr('class', 'average').attr('stroke-width', 2).attr 'stroke', 'black'
 
         scope.$watch 'bind()', (->
           updateChart()
