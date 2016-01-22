@@ -13,7 +13,7 @@ Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
 Trend Filters
 
-SubTag Filter
+SubTag Filter Snapshots
 
 End of Week 6:
 Player Analysis Kinetic Chart Timing

@@ -70,7 +70,7 @@ angular.module('d3').directive 'groupedbarchart', [
             
             data.groups.forEach (d) ->
               d.groupData = data.keys.map((key) ->
-                value = 0
+                value = null
                 if d[key]
                   value = +d[key]
                 return {
@@ -119,10 +119,12 @@ angular.module('d3').directive 'groupedbarchart', [
               d.groupData
             ).enter().append('rect').attr('width', x1.rangeBand()).attr('x', (d) ->
               x1 d.name
-            ).attr('y', (d) ->
-              y d.value
+            ).attr('y', (d) -> 
+              if d.value             
+                y d.value
             ).attr('height', (d) ->
-              height - y(d.value)
+              if d.value
+                height - y(d.value)
             )
             .attr('class', (d) -> "rect #{d.name}" )
             .on('mouseover', (d) ->
