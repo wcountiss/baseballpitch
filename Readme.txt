@@ -3,54 +3,45 @@ End of Week 2:
 SnapShot Charts All
 
 End of Week 3:
-Couch View of Players in Team Overview
+Coach View of Players in Team Overview
 
 End of Week 4:
 Player Analysis
 
 End of Week 5:
+Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
-Trend Filters
-
-SubTag Filter Snapshots
+Player Analysis - trends - polish it up
 
 End of Week 6:
+Final Feedback for Launch
+Parse get Players by Game Manager
+Game Manager View
+Start Kinetic Charts
+Load Pitches by Player Skip
+
+
+End of Week 7  Assumption: Kinetic Data is in Parse
 Player Analysis Kinetic Chart Timing
 Player Analysis Kinetic Chart Force
-
-Load Pitches by Player Skip
-Get Timing Data
-Cheate Kinetic Chart Directive Line
-Kinetic Timer
-Kinectic Data hook in
-Kinetic Player Data
-Kinetic UI
-Kinetic Force Directive
-Kinetic Data hook
-Kinetic Player Data
-Kinetic UI
-
-Create Player to Player comparison views
-
-End of Week 7:
-Test IE, Edge, FireFox, Safari and add message if not using what looks good
-Final Feedback for Launch
-90 day back session filter
-Persistable Filter
 Add Google Analytics
-Player View
 
 End of Week 8
-Download Data in Excel
+Feedback
 Tagging Throws on Tagging Chart
+Download Data in Excel
+Player View
+SubTag Filter
+90 day back filter
+Persistable Filter
 Caching
 LocalStorage?
-Game Manager View
-Parse get Players by Game Manager
-moment formatting pitchDate
-Logo and Player images
+
+
 
 UI Fixes:
 Align all snapshots
+Elite Rounding snapshots
+
 
