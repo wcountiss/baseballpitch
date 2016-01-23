@@ -33,6 +33,10 @@ module.exports.find = (collectionName, query, options) ->
     if query.select
       parseQuery.select(query.select.join(','))
 
+    #paging
+    if query.page
+      parseQuery.skip(query.page)
+
   #what to include
   if options?.include
     _.each options.include, (includeItem) ->

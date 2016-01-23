@@ -24,18 +24,24 @@
           <tr class="col-data" ng-class-odd="'metric-odd'" ng-class-even="'metric-even'" ng-repeat="eliteMetric in joint.eliteMetrics"
           ng-class="{'selected':eliteMetric == joint.selectedMetric}" ng-click="joint.setClickedRow(eliteMetric,$index)">
 
+            <!--VALUE-->
             <td class="metricval">
               <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{eliteMetric.pstats.score | number:0}}</span>
             </td>
 
+            <!--Units-->
             <td>
               <span class="unit">{{::eliteMetric.units}}</span>
             </td>
 
+            <!--METRIC-->
             <td class="capitalize">{{::eliteMetric.title}}</td>
+
+            <!--RATING ARROWS-->
+            <td ng-if="eliteMetric.pstats.rating=='Exceed'"><span class="icon-uparrow good"></span></td>
             <td ng-if="eliteMetric.pstats.score==null"></td>
             <td ng-if="eliteMetric.pstats.rating=='OK'"><span class="icon-okarrow ok"></span></td>
-            <td ng-if="eliteMetric.pstats.rating=='Good'"><span class="icon-uparrow good"></span></td>
+            <td ng-if="eliteMetric.pstats.rating=='Good'"><span class="icon-okarrow good"></span></td>
             <td ng-if="eliteMetric.pstats.rating=='Poor'"><span class="icon-downarrow"></span></td>
           </tr>
         </table>

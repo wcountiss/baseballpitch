@@ -88,12 +88,12 @@
   }
   .player-box-shadow {
     box-shadow: 0 0 1em #555555;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 1.071em;
+    margin-right: 1.071em;
     display: flex;
   }
   .padding-box {
-    padding: 8px 8px 8px 8px;
+    padding: 0.571em;
     display: flex;
     width: 100%;
     .ui-view-nested-width {
@@ -110,7 +110,7 @@
     background-color: #2b2f2e;
     display: flex;
     flex-direction: column;
-    min-width: 280px;
+    width: 280px;
     h2 {
       text-transform: uppercase;
       display: flex;
@@ -122,7 +122,8 @@
       font-size: 36px;
       span {
         line-height: 30px;
-        padding-left: 24px;
+        padding-left: .45em;
+        padding-right: 0.45em;
       }
     }
     ul {
@@ -289,7 +290,7 @@
 
 
       .nested-view .nested-footer .nested-footer-body-icon>span {
-        font-family: "Arial-Black";
+        font-family:"Arial-Black", "Arial", sans-serif;
         padding-left: 1px;
         padding-right: 1px;
         font-size: 27px;
@@ -298,13 +299,13 @@
 
 
       .nested-footer-body-icon {
-        font-family:"Arial-Black";
+        font-family:"Arial-Black", "Arial", sans-serif;
         color: white;
         display: flex;
         flex:1;
         margin-left:1.5em;
         > span {
-          font-family:"Arial-Black";
+          font-family:"Arial-Black", "Arial", sans-serif;
           padding-left: 1px;
           padding-right: 1px;
           font-size: 30px;
@@ -318,7 +319,7 @@
 
 
         .part-nested-stack {
-          font-family:"Arial-Black";
+          font-family:"Arial-Black", "Arial", sans-serif;
           font-weight:bold;
           display: flex;
           flex-direction:column;
@@ -477,8 +478,20 @@
     }
     // Roster List
     .roster-list {
+      width:17.143em;
       h2 {
-        font-size: 30px !important;
+        font-size: 1.429em;
+        padding-left:1em;
+        span {
+          font-size: 1.429em;
+          line-height: 0.7em;
+        }
+      }
+      ul li {
+        padding-left: 1em;
+      }
+      ul li span {
+
       }
     }
 
@@ -490,9 +503,6 @@
       font-size: 31px;
     }
 
-    .roster-list ul li span {
-    font-size: 30px !important;
-    }
     // player portrait
     .player-details-stats {
       .player-stats-box1 {
@@ -506,7 +516,7 @@
     // player-details h2
     .player-details-header {
       h2 {
-        font-size: 30px !important;
+        font-size: 30px;
       }
     }
     // player-details-stats
@@ -536,16 +546,7 @@
       }
     }
   }
-  /* Medium Devices, Desktops */
-  @media (max-width: 1024px) {
 
-    .nested-view .pitcher-silhouette piestats {
-      transform: translate(-50%, -50%) scale(.6);
-    }
-    .nested-view .pitcher-silhouette piestats:nth-child(5) {
-      transform: translate(-50%, -50%) scale(.5);
-    }
-  }
   /* Small Devices, Tablets */
   @media (max-width: 768px) {
     .nested-view .pitcher-silhouette piestats {
