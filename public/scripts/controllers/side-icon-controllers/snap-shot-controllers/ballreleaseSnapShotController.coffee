@@ -5,7 +5,7 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   ball.filterType = '30'
 
   imageMap = {
-    "fingerTipVelocityRelease": "images/legend/BR_FingertipSpeed.jpg",
+    "fingertipVelocityRelease": "images/legend/BR_FingertipSpeed.jpg",
     "forearmSlotRelease": "images/legend/BR_ForearmSlot.jpg",
     "elbowFlexionRelease": "images/legend/BR_ElbowFlexion.jpg",
     "shoulderRotationRelease": "images/legend/BR_ShoulderRotation.jpg",

@@ -47,6 +47,7 @@ angular.module('motus').controller('playerController',
         "Poor": '#f90b1c'
         "OK": '#ffaa22'
         "Good": '#00be76'
+        "Exceed": '#00be76'
       }
 
     
