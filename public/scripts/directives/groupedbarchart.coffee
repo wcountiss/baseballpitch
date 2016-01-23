@@ -80,25 +80,32 @@ angular.module('d3').directive 'groupedbarchart', [
                 }
               )
               return
-            x0.domain data.groups.map((d) ->
-              d.date
-            )
-            x1.domain(data.keys).rangeRoundBands [
-              0
-              x0.rangeBand()
-            ]
-            ymin = d3.min(data.groups, (d) ->
+            x0.domain data.groups.map((d) -> d.date )
+            x1.domain(data.keys).rangeRoundBands [0,x0.rangeBand()]
+            
+            #set yxis to 0 or min - 1 if under 0 to whichever is higher max value or average 
+            ymin = 0
+            minValue = d3.min(data.groups, (d) ->
               d3.min d.groupData, (d) ->
                 d.value
             )
-            if data.average < ymin
-              ymin = data.average
-            ymax = d3.max(data.groups, (d) ->
-              d3.max d.groupData, (d) ->
-                d.value
-            )
-            if data.average > ymax
-              ymax = data.average
+            if minValue < 0
+              ymin = minValue - 1
+
+            if data.average > 0
+              ymax = d3.max(data.groups, (d) ->
+                d3.max d.groupData, (d) ->
+                  d.value
+              )
+              if data.average > ymax
+                ymax = data.average
+            else 
+               ymax = d3.min(data.groups, (d) ->
+                d3.min d.groupData, (d) ->
+                  d.value
+              )
+              if data.average < ymax
+                ymax = data.average
             y.domain [ymin, ymax]
 
             #background lines
@@ -111,28 +118,30 @@ angular.module('d3').directive 'groupedbarchart', [
 
             svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call xAxis
             svg.append('g').attr('class', 'y axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('y', '-4em').style('text-anchor', 'end').text data.units
-            date = svg.selectAll('.date').data(data.groups).enter().append('g').attr('class', 'date').attr('transform', (d) ->
-              'translate(' + x0(d.date) + ',0)'
-            )
+            date = svg.selectAll('.date')
+            .data(data.groups)
+            .enter().append('g')
+            .attr('class', 'date')
+            .attr('transform', (d) -> 'translate(' + x0(d.date) + ',0)')
             
-            date.selectAll('rect').data((d) ->
-              d.groupData
-            ).enter().append('rect').attr('width', x1.rangeBand()).attr('x', (d) ->
-              x1 d.name
-            ).attr('y', (d) -> 
+            console.log data
+            date.selectAll('rect').data((d) -> d.groupData)
+            .enter()
+            .append('rect')
+            .attr('width', x1.rangeBand())
+            .attr('x', (d) -> x1 d.name)
+            .attr('y', (d) -> 
               if d.value             
-                y d.value
-            ).attr('height', (d) ->
+                y(d.value)
+            )
+            .attr('height', (d) ->
               if d.value
                 height - y(d.value)
             )
             .attr('class', (d) -> "rect #{d.name}" )
-            .on('mouseover', (d) ->
-              tip.show d
-              return
-            ).on 'mouseout', tip.hide
-            .on 'click', (d) ->
-              scope.onClick({ element: d });
+            .on('mouseover', (d) -> tip.show d)
+            .on 'mouseout', tip.hide
+            .on('click', (d) -> scope.onClick({ element: d }))
 
             # elite data
             svg.append('line')

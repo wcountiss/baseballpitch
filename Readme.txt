@@ -17,13 +17,12 @@ SubTag Filter Snapshots
 Player Analysis - trends - polish it up
 
 End of Week 6:
-Final Feedback for Launch
 Parse get Players by Game Manager
 Game Manager View
 Start Kinetic Charts
 Trend Filters
 
-End of Week 7  Assumption: Kinetic Data is in Parse
+End of Week 7
 Player Analysis Kinetic Chart Timing
 Player Analysis Kinetic Chart Force
 Add Google Analytics
@@ -39,13 +38,3 @@ Persistable Filter
 Caching
 LocalStorage?
 
-
-
-<<<<<<< HEAD
-=======
-UI Fixes:
-Align all snapshots
-Elite Rounding snapshots
-
-
->>>>>>> 8fc9e70c99eca2c8acfb28471e02d809c637aec8
