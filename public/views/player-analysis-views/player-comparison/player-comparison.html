@@ -6,23 +6,21 @@
     </div>
 
     <nav class="flex-container flex-justify-content-space-around">
-      <p>Sub-nav1</p>
-      <p>Sub-nav2</p>
-      <p>Sub-nav3</p>
+      <a>Overview</a>
+      <a>Visual</a>
+      <a>Stats</a>
     </nav>
 
-    <div class="player-details-header flex-container">
+    <div class="flex-container flex-justify-content-space-around">
 
-      <div class="flex-container-col dev-border">
-            <pre>
-              {{pc.currentPlayer | json}}
-            </pre>
+      <div class="dev-border flex-container-col">
+        <img src="http://placehold.it/120x120" alt="">
+        <h4>{{pc.currentPlayer.athleteProfile.firstName}} {{pc.currentPlayer.athleteProfile.lastName}}</h4>
       </div>
 
       <div class="dev-border">
-            <pre>
-              {{pc.currentPlayer | json}}
-            </pre>
+        <img src="http://placehold.it/120x120" alt="">
+        <h4>{{pc.currentPlayer.athleteProfile.firstName}} {{pc.currentPlayer.athleteProfile.lastName}}</h4>
       </div>
 
     </div>
