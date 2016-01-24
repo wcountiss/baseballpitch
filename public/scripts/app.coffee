@@ -117,6 +117,16 @@ app.config ($stateProvider, $urlRouterProvider) ->
       }
     }
   })
+  .state('player.comparison', {
+    url: '/comparison',
+    authenticate: true,
+    views: {
+      '': {
+        templateUrl: 'views/player-analysis-views/player-comparison/player-comparison.html',
+        controller: 'playerController as pc'
+      }
+    }
+  })
 
 app.run ($rootScope, $state, $cookies, $location) ->
   $rootScope.$on "$stateChangeStart", (event, toState, toParams, fromState, fromParams) ->
