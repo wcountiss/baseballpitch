@@ -1,8 +1,11 @@
- angular.module('motus').controller 'kineticChainController', ['currentPlayerFactory','eliteFactory',(currentPlayerFactory, eliteFactory) ->
+angular.module('motus').controller 'kineticChainController', ['currentPlayerFactory','eliteFactory', (currentPlayerFactory, eliteFactory) ->
   chain = this
-  cpf = currentPlayerFactory
-  ef = eliteFactory
-  chain.greeting = 'hello from kineticChainController'
-  chain.currentPlayer = cpf.currentPlayer
-  console.log 'chain.currentPlayer: ',chain.currentPlayer
- ]
+  
+  chain.playerScores = [
+    { key: "Hips", scores: [10, 12, 14] },
+    { key: "Trunk", scores: [120, 3, 60] },
+    { key: "Forearm", scores: [1, 34, 70] }
+  ]
+
+  return chain
+]

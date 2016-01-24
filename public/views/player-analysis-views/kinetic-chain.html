@@ -1,9 +1,20 @@
-<div class="player-details-outter">
+<section id="chain">
+ <div class="player-details-outter">
    <div class="player-details">
-      <div class="player-details-header">
-        <h2 tooltip-placement="{{placement.selected}}" uib-tooltip="On the {{placement.selected}}">Test</h2>
-      </div>
-      <p>Kinetic Chain</p>
-      <p>greeting:{{chain.greeting}}</p>
+     <div class="player-details-header flex-container-col">
+       <h2>Kinetic Chain</h2>
+     </div>
+    
+    chainData {{chain.playerScores}}
+     <section>
+         <div class="flex-container-row">
+           <div class="flex-container-col">
+             <div class="chain-graphs flex-grow-max">
+               <kinetic style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerKineticChart" bind="chain.playerScores"></kinetic>
+             </div>
+           </div>
+         </div>
+     </section>
    </div>
-</div>
+ </div>
+</section>
