@@ -52,6 +52,15 @@ angular.module('d3').directive 'linechart', [
             bindData = scope.bind()            
             data = _.cloneDeep(bindData)
             
+
+            #tool tip
+            tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .html((d) ->
+              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.score).toFixed(1) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
+            )
+            svg.call tip
+
             if data.scores.length
               data.scores.forEach (d) ->
                 d.index = d.index
@@ -85,12 +94,29 @@ angular.module('d3').directive 'linechart', [
                 d1 = data.scores[i]
                 d = if x0 - d0.index > d1.index - x0 then d1 else d0
                 
-                focus.select("circle.selection-circle")
-                .attr("transform", "translate(" + x(d.index) + "," + y(d.score) + ")")
+                d3.selectAll(".selector").remove();
                 
-                focus.select('text')
-                .attr("transform", "translate(" + x(d.index) + "," + y(d.score) + ")")
-                .text(d.score)  
+                svg.append('line')
+                .attr('x1', x(d.index))
+                .attr('y1', 0)
+                .attr('x2', x(d.index) )
+                .attr('y2', height)
+                .attr('class', 'selector')
+                .attr('stroke-width', 2)
+                .attr('stroke', 'black')
+
+                svg.append('line')
+                .attr('x1', 0)
+                .attr('y1', y(d.score))
+                .attr('x2', width)
+                .attr('y2', y(d.score))
+                .attr('class', 'selector')
+                .attr('stroke-width', 2)
+                .attr('stroke', 'black')
+
+                tip.show(d)
+                .style("top", (event.pageY-10)+"px")
+                .style("left",(event.pageX+10)+"px")
 
               # create line
               lineFunction = d3.svg.line()
@@ -120,23 +146,11 @@ angular.module('d3').directive 'linechart', [
               .attr("height", height)
               .style("fill", "none")
               .style("pointer-events", "all") 
-              .on("mouseover", () -> focus.style("display", null))
-              # .on("mouseout", () -> focus.style("display", "none"))
+              # .on("mouseout", (d) -> tip.hide())
               .on("mousemove", mousemove)
 
               svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call xAxis
               svg.append('g').attr('class', 'y axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '-4.5em').style('text-anchor', 'end').text data.units
-
-              #selection circle
-              focus = svg.append("g").style("display", "none")
-              focus.append("circle")
-              .attr("class", "selection-circle")
-              .attr("r", 4);
-              
-              focus.append("text")
-              .attr("class", "selection-text")
-              .attr("x", "-1.2em")
-              .attr("dy", "-.4em");
 
         scope.$watch 'bind()', (-> updateChart()), false
         angular.element($window).bind 'resize', -> updateChart()
