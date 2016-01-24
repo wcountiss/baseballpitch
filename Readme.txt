@@ -12,8 +12,6 @@ End of Week 5:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
-Untagged not showing?
-SubTag Filter Snapshots
 Player Analysis - trends - polish it up
 
 End of Week 6:
@@ -26,6 +24,8 @@ End of Week 7
 Player Analysis Kinetic Chart Timing
 Player Analysis Kinetic Chart Force
 Add Google Analytics
+SubTag Filter Snapshots
+
 
 End of Week 8
 Feedback
