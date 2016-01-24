@@ -9,30 +9,39 @@ End of Week 4:
 Player Analysis
 
 End of Week 5:
-Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
 Player Analysis - trends - polish it up
 
 End of Week 6:
-Parse get Players by Game Manager
-Game Manager View
-Start Kinetic Charts
-Trend Filters
-
-End of Week 7
+Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Kinetic Chart Timing
+Lines
+Timing x axis
+Hook Data
+Player Data
+UI
+
 Player Analysis Kinetic Chart Force
-Add Google Analytics
+Lines
+Timing x axis
+Hook Data
+Player Data
+UI
+
+Trend Filters
 SubTag Filter Snapshots
 
+End of Week 7
+Parse get Players by Game Manager
+Game Manager View
+Add Google Analytics
 
 End of Week 8
 Feedback
 Tagging Throws on Tagging Chart
 Download Data in Excel
 Player View
-SubTag Filter
 90 day back filter
 Persistable Filter
 Caching

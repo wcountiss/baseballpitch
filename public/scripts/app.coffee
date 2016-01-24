@@ -130,6 +130,7 @@ app.run ($rootScope, $state, $cookies, $location) ->
 _.mixin(s.exports());
 require './directives/arealinechart.coffee'
 require './directives/groupedbarchart.coffee'
+require './directives/kinetic.coffee'
 require './directives/linechart.coffee'
 require './directives/piestats.coffee'
 require './services/currentPlayerFactory.coffee'
