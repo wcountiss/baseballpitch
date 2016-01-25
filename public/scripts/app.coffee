@@ -124,6 +124,12 @@ app.config ($stateProvider, $urlRouterProvider) ->
       '': {
         templateUrl: 'views/player-analysis-views/player-comparison/player-comparison.html',
         controller: 'playerController as pc'
+      },
+      'playerOneView@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/player-one-comparison-tmpl.html'
+      },
+      'playerTwoView@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/player-two-comparison-tmpl.html'
       }
     }
   })

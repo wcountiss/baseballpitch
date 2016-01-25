@@ -13,34 +13,13 @@
 
     <div class="flex-container flex-justify-content-space-around">
 
-      <div class="dev-border flex-comparison-col white-bg">
-
-        <h4>{{pc.currentPlayer.athleteProfile.firstName}} {{pc.currentPlayer.athleteProfile.lastName}}</h4>
-        <div class="flex-container">
-          <div>
-            <span class="overall-percentage">80%</span>
-          </div>
-          <div class="flex-container-col">
-            <span>Overall</span>
-            <span>Score</span>
-          </div>
-        </div>
-        <div class="awardment">
-          <span>GOOD</span>
-        </div>
-        <div>
-          FILTER
-        </div>
-        <div>
-          <arealinechart style="text-transform: uppercase; font-size:.75em" width="30%" height="150" id="playerOverviewChart" bind="pc.playerScores"></arealinechart>
-        </div>
-        <div>
-          <button class="remove-comparison">remove from comparison</button>
-        </div>
+      <!-- Player Comparison One -->
+      <div ui-view="playerOneView" id="playerComparisonOne" class="dev-border flex-comparison-col white-bg">
       </div>
 
-      <div class="dev-border white-bg flex-comparison-col">
-        <span class="icon-compare-add"></span>
+
+      <!-- Player Comparison Two -->
+      <div ui-view="playerTwoView" id="playerComparisonTwo" class="dev-border white-bg flex-comparison-col">
       </div>
 
     </div>
