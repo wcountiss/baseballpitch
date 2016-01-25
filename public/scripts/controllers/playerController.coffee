@@ -5,7 +5,7 @@ angular.module('motus').controller('playerController',
 
       pc = this
       pc.state = $state
-
+      console.log 'the pc obj: ',pc
       #Grab data from the factory service
       cpf = currentPlayerFactory
       ef = eliteFactory
@@ -14,7 +14,7 @@ angular.module('motus').controller('playerController',
         return $player.getPlayers()
         .then (players) ->
           pc.playerRoster = players
-         
+
       loadChart = () ->
          #Get pitches a year back
         $pitch.getPitches({ daysBack: 365 })
@@ -33,6 +33,9 @@ angular.module('motus').controller('playerController',
 
       loadNotes = (stats) ->
         pc.notes = $stat.getLanguage(stats)
+        #for the player comparison nightmare
+        pc.currentPlayer.notes = $stat.getLanguage(stats)
+
 
       #Select Current Player
       pc.selectedPlayer = (selected) ->
@@ -50,7 +53,7 @@ angular.module('motus').controller('playerController',
         "Exceed": '#00be76'
       }
 
-    
+
 
       loadCurrentPlayer = () ->
         #reset
@@ -60,7 +63,13 @@ angular.module('motus').controller('playerController',
         $q.all(loadPromises).then (results) ->
           pc.currentPlayer = results[1]
           pc.eliteMetrics = results[0]
-          
+
+          #Create the player Comparison Object
+          pc.comparisonObj = {
+            player1: pc.currentPlayer,
+            player2: null
+          }
+
           elbowObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "ELBOW"
           trunkObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "TRUNK"
           shoulderObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "SHOULDER"
@@ -72,7 +81,7 @@ angular.module('motus').controller('playerController',
           shoulderArray = []
           hipArray = []
           footArray = []
-          
+
 
           $stat.runStatsEngine(pc.currentPlayer.pitches)
           .then (stats) ->
@@ -96,6 +105,8 @@ angular.module('motus').controller('playerController',
               elb.color = color[elb.rating]
               elbArray.push(elb)
             pc.elbow = elbArray
+            #for the player comparison nightmare
+            pc.currentPlayer.elbow = elbArray
 
 
             _.each trunkObj, (tru)->
@@ -116,6 +127,8 @@ angular.module('motus').controller('playerController',
               tru.color = color[tru.rating]
               trunkArray.push(tru)
             pc.trunk = trunkArray
+            #for the player comparison nightmare
+            pc.currentPlayer.trunk = trunkArray
 
             _.each shoulderObj, (sho)->
 
@@ -135,6 +148,8 @@ angular.module('motus').controller('playerController',
               sho.color = color[sho.rating]
               shoulderArray.push(sho)
             pc.shoulder = shoulderArray
+            #for the player comparison nightmare
+            pc.currentPlayer.shoulder = shoulderArray
 
             _.each hipObj, (hip)->
 
@@ -154,6 +169,8 @@ angular.module('motus').controller('playerController',
               hip.color = color[hip.rating]
               hipArray.push(hip)
             pc.hip = hipArray
+            #for the player comparison nightmare
+            pc.currentPlayer.hip = hipArray
 
 
             _.each footObj, (foo)->
@@ -174,33 +191,52 @@ angular.module('motus').controller('playerController',
               foo.color = color[foo.rating]
               footArray.push(foo)
             pc.foot = footArray
+            #for the player comparison nightmare
+            pc.currentPlayer.foot = footArray
 
             #The five status Icons code
             pc.hipIcon = Math.round(hipObj[9].stats.score)
             pc.hipIconStatus = hipObj[9].stats.rating
+            #for the player comparison nightmare
+            pc.currentPlayer.hipIcon = Math.round(hipObj[9].stats.score)
+            pc.currentPlayer.hipIconStatus = hipObj[9].stats.rating
 
             pc.trunkIcon = Math.round(hipObj[1].stats.score)
             pc.trunkIconStatus = hipObj[1].stats.rating
+            #for the player comparison nightmare
+            pc.currentPlayer.trunkIcon = Math.round(hipObj[1].stats.score)
+            pc.currentPlayer.trunkIconStatus = hipObj[1].stats.rating
+
 
             pc.strideIcon = Math.round(footObj[4].stats.score)
             pc.strideIconStatus = footObj[4].stats.rating
+            #for the player comparison nightmare
+            pc.currentPlayer.strideIcon = Math.round(footObj[4].stats.score)
+            pc.currentPlayer.strideIconStatus = footObj[4].stats.rating
 
             pc.shldIcon = Math.round(shoulderObj[9].stats.score)
             pc.shldIconStatus = shoulderObj[9].stats.rating
+            #for the player comparison nightmare
+            pc.currentPlayer.shldIcon = Math.round(shoulderObj[9].stats.score)
+            pc.currentPlayer.shldIconStatus = shoulderObj[9].stats.rating
 
             pc.shldRotIcon = Math.round(shoulderObj[8].stats.score)
             pc.shldRotIconStatus = shoulderObj[8].stats.rating
-            
+            #for the player comparison nightmare
+            pc.currentPlayer.shldRotIcon = Math.round(shoulderObj[8].stats.score)
+            pc.currentPlayer.shldRotIconStatus = shoulderObj[8].stats.rating
+
             loadNotes(stats)
 
           loadChart()
-        
+
 
 
       #Page Load
       getPlayers()
       .then () ->
-        loadCurrentPlayer()   
+        loadCurrentPlayer()
+
 
 
       return pc
