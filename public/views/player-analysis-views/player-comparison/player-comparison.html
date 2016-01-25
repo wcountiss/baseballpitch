@@ -1,0 +1,52 @@
+<section id="comparison" class="dev-border">
+  <div class="flex-container-col">
+
+    <div class="flex-container flex-justify-content-center">
+      <h2>Player Comparison</h2>
+    </div>
+
+    <nav class="flex-container flex-justify-content-space-around">
+      <a>Overview</a>
+      <a>Visual</a>
+      <a>Stats</a>
+    </nav>
+
+    <div class="flex-container flex-justify-content-space-around">
+
+      <div class="dev-border flex-comparison-col white-bg">
+        <div>
+          <img src="http://placehold.it/120x120" alt="">
+        </div>
+        <h4>{{pc.currentPlayer.athleteProfile.firstName}} {{pc.currentPlayer.athleteProfile.lastName}}</h4>
+        <div class="flex-container">
+          <div>
+            <span class="overall-percentage">80%</span>
+          </div>
+          <div class="flex-container-col">
+            <span>Overall</span>
+            <span>Score</span>
+          </div>
+        </div>
+        <div class="awardment">
+          <span>GOOD</span>
+        </div>
+        <div>
+          FILTER
+        </div>
+        <div>
+          <arealinechart style="text-transform: uppercase; font-size:.75em" width="330" height="150" id="playerOverviewChart" bind="pc.playerScores"></arealinechart>
+        </div>
+        <div>
+          <button class="remove-comparison">remove from comparison</button>
+        </div>
+      </div>
+
+      <div class="dev-border white-bg flex-comparison-col">
+        <img src="http://placehold.it/120x120" alt="">
+        <h4>{{pc.currentPlayer.athleteProfile.firstName}} {{pc.currentPlayer.athleteProfile.lastName}}</h4>
+      </div>
+
+    </div>
+
+  </div>
+</section>
