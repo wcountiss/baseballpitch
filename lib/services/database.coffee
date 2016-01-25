@@ -35,12 +35,13 @@ module.exports.find = (collectionName, query, options) ->
 
     #paging
     if query.page
-      parseQuery.skip(query.page)
+      parseQuery.skip(query.page * 1000)
 
     #what to include
     if query.include
       _.each query.include, (includeItem) ->
         parseQuery.include(includeItem)
+  
   return new Promise (resolve, reject) ->
     parseQuery.find()
     .then(

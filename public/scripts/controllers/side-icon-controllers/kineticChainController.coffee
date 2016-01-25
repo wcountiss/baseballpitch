@@ -1,11 +1,20 @@
-angular.module('motus').controller 'kineticChainController', ['currentPlayerFactory','eliteFactory', (currentPlayerFactory, eliteFactory) ->
+angular.module('motus').controller 'kineticChainController', ['currentPlayerFactory', '$pitch', '$stat' , (currentPlayerFactory, $pitch, $stat) ->
   chain = this
-  
-  chain.playerScores = [
-    { key: "Hips", scores: [10, 12, 14] },
-    { key: "Trunk", scores: [120, 3, 60] },
-    { key: "Forearm", scores: [1, 34, 70] }
-  ]
+  cpf = currentPlayerFactory
+
+
+  cpf.getCurrentPlayer()
+  .then () ->
+    $pitch.getPitchesByAtheleteId(cpf.currentPlayer.athleteProfile.objectId)
+    .then (pitches) ->
+      console.log 'running stats'
+      stats = $stat.averageTimingData(pitches)
+      console.log 'chart bind'
+      chain.playerScores = [
+        { key: "Hips", scores: stats.timeSeriesHipSpeed },
+        { key: "Trunk", scores: stats.timeSeriesTrunkSpeed },
+        { key: "Forearm", scores: stats.timeSeriesForearmSpeed }
+      ]
 
   return chain
 ]

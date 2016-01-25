@@ -255,5 +255,26 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
       defer.resolve(stats)
     return defer.promise
 
+  stat.averageTimingData = (pitches) ->
+    keys = ['timeSeriesForearmSpeed', 'timeSeriesHipSpeed', 'timeSeriesTrunkSpeed']
+    statResult = {}
+    #Loop over the properties
+    _.each keys, (key) ->
+      #pluck out the array
+      keyPitchTimings = _.pluck(pitches, key)
+      #average each index of the plucked arary
+      averagedTimings = []  
+      arrayToAverage = []
+      for index in [0..keyPitchTimings[0].length]
+        #show stat for every 10
+        if index%10 == 0
+          _.each keyPitchTimings, (keyPitchTiming) ->
+            arrayToAverage.push keyPitchTiming[index]
+          averagedTimings.push average(arrayToAverage)
+      statResult[key] = averagedTimings
+    return statResult
+
+
+
   return stat
 ])
