@@ -124,7 +124,6 @@ angular.module('d3').directive 'groupedbarchart', [
             .attr('class', 'date')
             .attr('transform', (d) -> 'translate(' + x0(d.date) + ',0)')
             
-            console.log data
             date.selectAll('rect').data((d) -> d.groupData)
             .enter()
             .append('rect')
