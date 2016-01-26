@@ -17,6 +17,7 @@ angular.module('motus').controller('teamOverviewController',
           #map overall score per month
           scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
           team.teamScores = scores
+          console.log 'stats: ', stats
 
       #get the awards
       team.myteam = $player.getPlayers()
@@ -24,7 +25,7 @@ angular.module('motus').controller('teamOverviewController',
         $stat.getPlayersStats(players)
         .then (playerStats) ->
           team.bullpen = playerStats
-         
+
         $stat.getPlayerAwards(players)
         .then (awards) ->
           judgements = {
@@ -42,6 +43,6 @@ angular.module('motus').controller('teamOverviewController',
             return award
           awardedPlayers = _.sortBy awardedPlayers, (awardedPlayer) -> awardedPlayer.order
           team.awardedPlayers = awardedPlayers
-            
+
       return team
   ])

@@ -124,6 +124,12 @@ app.config ($stateProvider, $urlRouterProvider) ->
       '': {
         templateUrl: 'views/player-analysis-views/player-comparison/player-comparison.html',
         controller: 'playerController as pc'
+      },
+      'playerOneView@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/player-one-comparison-tmpl.html'
+      },
+      'playerTwoView@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/player-two-comparison-tmpl.html'
       }
     }
   })
@@ -161,3 +167,4 @@ require './controllers/side-icon-controllers/homeController.coffee'
 require './controllers/side-icon-controllers/kineticChainController.coffee'
 require './controllers/side-icon-controllers/jointKineticsController.coffee'
 require './controllers/side-icon-controllers/trendsController.coffee'
+require './filters/rounded.coffee'

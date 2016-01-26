@@ -3,6 +3,38 @@
   background-color: @motus-offwhite;
   width:inherit;
 
+  .dev-border {
+    border: 2px solid red;
+  }
+  .comparison-padding-right {
+    padding-right:35px;
+  }
+  .flex-container {
+    display: flex;
+  }
+  .flex-container-row {
+    display: flex;
+  }
+  .flex-grow-1 {
+    flex:1;
+  }
+  .flex-container-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .flex-justify-content-space-around {
+    justify-content: space-around;
+  }
+  .flex-justify-content-center {
+    justify-content: center;
+  }
+  .flex-align-content-center {
+    align-content: center;
+  }
+  .flex-align-content-center {
+
+  }
+
   .white-bg {
     background-color: white;
   }
@@ -28,6 +60,30 @@
     border: 4px solid @motus-blue;
     background-color: transparent;
     text-transform: uppercase;
+
+  }
+  select.small-flexitem {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    border-radius: 0;
+    border-bottom: 0.214em solid #f38d4f;
+    background: url(/images/arrow-down-orange.png) no-repeat;
+    background-position: 100%;
+    background-size: 1.429em;
+    min-width: 12.054em;
+
+    &:focus, input:focus{
+      outline: 0;
+    }
+    &:hover {
+      transition: all 0.3s ease-out;
+      border-bottom-color: darken(#f38d4f, 10%);
+      background: url('/images/arrow-down-orange-dark.png') no-repeat;
+      background-position: 100%;
+      background-size: 1.429em;
+    }
 
   }
 

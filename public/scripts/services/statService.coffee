@@ -1,7 +1,7 @@
 angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch', ($http, $q, eliteFactory, $pitch) ->
   stat = this
 
-  #function to use based on eliteMetric ColorType (ex: higher than elite is good, bad or in-range) 
+  #function to use based on eliteMetric ColorType (ex: higher than elite is good, bad or in-range)
   limitNumbers = (score,min, max) ->
     return min if score < min
     return max if score > max
@@ -14,7 +14,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     #in-range
     2: (playerScore, eliteMetric) ->
        return 1- (Math.abs((playerScore - eliteMetric.avg))/(2*eliteMetric.stdev))
-    #bad above    
+    #bad above
     3: (playerScore, eliteMetric) ->
        return  1 - ((playerScore - (eliteMetric.avg-(2*eliteMetric.stdev)))/(4*eliteMetric.stdev))
   }
@@ -22,28 +22,28 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
   scoreMetricRating = {
     # bad below
     1: (playerScore) ->
-       return 'Poor' if playerScore == 0 
+       return 'Poor' if playerScore == 0
        return 'OK' if playerScore <= .25
        return 'Exceed' if playerScore > .75
        return 'Good'
     #in-range
     2: (playerScore) ->
-      return 'Poor' if playerScore == 0 
+      return 'Poor' if playerScore == 0
       return 'OK' if playerScore <= .5
       return 'Good'
-    #bad above    
+    #bad above
     3: (playerScore) ->
-      return 'Poor' if playerScore == 0 
+      return 'Poor' if playerScore == 0
       return 'OK' if playerScore <= .25
       return 'Exceed' if playerScore > .75
       return 'Good'
 
-  } 
+  }
 
-  scoreOverallRating = (score) -> 
+  scoreOverallRating = (score) ->
     #if your score is above 2/3 you are Elite
     if score >= .66
-      return 'Good' 
+      return 'Good'
     #if your score is above 1/3 you are doing ok
     if score >= .33
       return 'OK'
@@ -68,9 +68,9 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
 
   #Did the player complete the throw pitch type
   didThrowType = (pitches, type) ->
-    return _.any(pitches, (pitch) -> 
-      if pitch.tagString 
-        pitch.tagString.split(',')[0] == type 
+    return _.any(pitches, (pitch) ->
+      if pitch.tagString
+        pitch.tagString.split(',')[0] == type
     )
 
   #get scores for each individual metric
@@ -88,7 +88,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
   #get scroes for each category of metrics
   getCategoryOverallScore = (metricScores, eliteMetrics) ->
     #build object with everything in it to group by categories
-    allMetrics = _.map(_.keys(metricScores), (key) -> 
+    allMetrics = _.map(_.keys(metricScores), (key) ->
       eliteMetric = _.find(eliteMetrics, (eliteMetric) -> eliteMetric.metric == key)
       _.merge({"key": key}, metricScores[key], eliteMetric )
     )
@@ -96,7 +96,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     jointMetrics = _.groupBy(allMetrics, (allMetric) -> allMetric.jointCode)
     #average the result to get a categoryScore
     returnMetrics = {}
-    _.each(_.keys(jointMetrics), (jointMetric) ->       
+    _.each(_.keys(jointMetrics), (jointMetric) ->
       averageScore = average(_.pluck(jointMetrics[jointMetric], 'ratingScore'))
       returnMetrics[jointMetric] = { ratingScore: averageScore, rating: scoreOverallRating(averageScore) }
     )
@@ -126,7 +126,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
   #best for binding the players to page
   stat.getPlayersStats = (players) =>
     statsPromises = []
-    _.each players, (player) -> 
+    _.each players, (player) ->
       statsPromises.push stat.runStatsEngine(player.pitches)
     return $q.all(statsPromises)
     .then (stats) ->
@@ -135,26 +135,28 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
         returnPlayer.stats = _.extend(returnPlayer.stats, stats[i])
 
   stat.getPlayersDidThrowType = (players) =>
-    _.each players, (player) -> 
+    _.each players, (player) ->
       #get aggregate values
       player.stats = {
         longToss: didThrowType(player.pitches, 'Longtoss')
         bullPen:  didThrowType(player.pitches, 'Bullpen')
         game: didThrowType(player.pitches, 'Game')
+        #added this line in to create an 'untagged' hope this works. sorry if it doesn't. 1-25-2016
+        untagged: didThrowType(player.pitches, 'Untagged')
       }
     return players
 
   #give "awards" to players
   stat.getPlayerAwards = (players) ->
     defer = $q.defer()
-    
+
     awards = []
     #Need at least 10 pitches to get awards
     awardedPlayers = _.filter players, (player) -> return player.pitches?.length >= 10
 
     #get stats on pitches player did
     statPromises = []
-    _.each awardedPlayers, (player) -> 
+    _.each awardedPlayers, (player) ->
       statPromises.push(stat.runStatsEngine(player.pitches))
     $q.all(statPromises).then (thisMonthsStats) ->
       #Best Performer Award goes to:
@@ -186,14 +188,14 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
 
         #Most Improved/Regressed goes to
         statPromises = []
-        _.each awardedPlayers, (player) -> 
+        _.each awardedPlayers, (player) ->
           playerPitchesLastMonth = pitches[player.athleteProfile.objectId]
           statPromises.push(stat.runStatsEngine(playerPitchesLastMonth))
         $q.all(statPromises).then (lastMonthStats) ->
           mostImprovedIndex = null
           mostImprovedScore = null
           _.each thisMonthsStats, (thisMonthsStat, i) ->
-            if lastMonthStats[i] 
+            if lastMonthStats[i]
               if thisMonthsStat.overallScore.ratingScore > lastMonthStats[i].overallScore.ratingScore
                 scoreDifference = thisMonthsStat.overallScore.ratingScore - lastMonthStats[i].overallScore.ratingScore
                 if !mostImprovedScore || scoreDifference > mostImprovedScore
@@ -207,8 +209,8 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
 
           mostRegressedIndex = null
           mostRegressedScore = null
-          _.each thisMonthsStats, (thisMonthsStat, i) -> 
-            if lastMonthStats[i] 
+          _.each thisMonthsStats, (thisMonthsStat, i) ->
+            if lastMonthStats[i]
               if lastMonthStats[i].overallScore.ratingScore > thisMonthsStat.overallScore.ratingScore
                 scoreDifference = lastMonthStats[i].overallScore.ratingScore - thisMonthsStat.overallScore.ratingScore
                 if !mostRegressedScore ||  scoreDifference > mostRegressedScore
@@ -240,7 +242,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     defer = $q.defer()
 
     #if you did not have that throwtype, return empty array
-    pitches = _.filter pitches, (pitch) -> 
+    pitches = _.filter pitches, (pitch) ->
       if type == 'Untagged'
         return !pitch.tagString
       else
@@ -248,7 +250,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
         return pitch.tagString.split(',')[0] == type
 
     defer.resolve(null) if !pitches.length
-    
+
     #run through Player stats
     stat.runStatsEngine(pitches)
     .then (stats) ->
@@ -263,7 +265,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
       #pluck out the array
       keyPitchTimings = _.pluck(pitches, key)
       #average each index of the plucked arary
-      averagedTimings = []  
+      averagedTimings = []
       arrayToAverage = []
       for index in [0..keyPitchTimings[0].length]
         #show stat for every 10
