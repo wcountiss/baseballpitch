@@ -28,7 +28,7 @@ angular.module('motus').controller('playerController',
           $q.all(statsPromises)
           .then (stats) ->
             #map overall score per month
-            scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
+            scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore, overall: stats[i].overallScore.rating}
             pc.playerScores = scores
             #for the player comparison nightmare
             pc.currentPlayer.playerScores = scores
