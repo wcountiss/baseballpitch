@@ -13,7 +13,7 @@
   <span>{{pc.currentPlayer.playerScores[0].overall}}</span>
 </div>
 <div>
-  <select class="small-flexitem" ng-model="joint.filterType" name="sessions" ng-change="pc.filterLastThrowType()">
+  <select class="small-flexitem" ng-model="pc.filterType" name="sessions" ng-change="pc.filterLastThrowType()">
     <option value="30">Last 30 Days AVG ({{pc.currentPlayer.pitches.length}})</option>
     <option value="Game" ng-if="pc.currentPlayer.stats.game" >Last Game ({{pc.GameCount}})</option>
     <option value="Bullpen" ng-if="pc.currentPlayer.stats.bullPen">Last Bullpen ({{pc.BullpenCount}})</option>
