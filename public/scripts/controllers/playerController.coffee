@@ -5,8 +5,9 @@ angular.module('motus').controller('playerController',
 
       pc = this
       pc.state = $state
+      pc.filterType = '30'
 
-      #Grab data from the factory service
+
       cpf = currentPlayerFactory
       ef = eliteFactory
 
@@ -32,6 +33,7 @@ angular.module('motus').controller('playerController',
             pc.playerScores = scores
             #for the player comparison nightmare
             pc.currentPlayer.playerScores = scores
+
 
 
       loadNotes = (stats) ->
@@ -242,6 +244,10 @@ angular.module('motus').controller('playerController',
         loadCurrentPlayer()
 
 
+      #From jointKineticsController
+      #Trying to make this work here so we can use the drop down filter
+      pc.filterLastThrowType = () ->
+        console.log 'Player Comparison filter will trigger here. currently non-functional'
 
       return pc
   ])
