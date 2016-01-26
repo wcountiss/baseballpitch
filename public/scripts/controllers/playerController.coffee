@@ -5,7 +5,7 @@ angular.module('motus').controller('playerController',
 
       pc = this
       pc.state = $state
-      console.log 'the pc obj: ',pc
+
       #Grab data from the factory service
       cpf = currentPlayerFactory
       ef = eliteFactory
@@ -30,6 +30,9 @@ angular.module('motus').controller('playerController',
             #map overall score per month
             scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
             pc.playerScores = scores
+            #for the player comparison nightmare
+            pc.currentPlayer.playerScores = scores
+
 
       loadNotes = (stats) ->
         pc.notes = $stat.getLanguage(stats)
@@ -229,6 +232,7 @@ angular.module('motus').controller('playerController',
             loadNotes(stats)
 
           loadChart()
+          console.log 'the pc obj: ',pc
 
 
 
