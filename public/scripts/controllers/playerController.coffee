@@ -1,7 +1,7 @@
 angular.module('motus').controller('playerController',
 
-  ['$http', 'currentPlayerFactory','eliteFactory','$state', '$player','$stat','$q','$pitch', '$timeout'
-    ($http, currentPlayerFactory, eliteFactory, $state, $player, $stat, $q, $pitch, $timeout) ->
+  ['$http', 'currentPlayerFactory','eliteFactory','$state', '$player','$stat','$q','$pitch', '$timeout', '$scope',
+    ($http, currentPlayerFactory, eliteFactory, $state, $player, $stat, $q, $pitch, $timeout, $scope) ->
 
       pc = this
       pc.state = $state
@@ -14,7 +14,12 @@ angular.module('motus').controller('playerController',
       getPlayers = () ->
         return $player.getPlayers()
         .then (players) ->
+
+          #Adding this in to make each player
+          #in the roster the completed obj like pc.currentPlayer
+
           pc.playerRoster = players
+          console.log pc.playerRoster
 
       loadChart = () ->
          #Get pitches a year back
@@ -45,7 +50,9 @@ angular.module('motus').controller('playerController',
       #Select Current Player
       pc.selectedPlayer = (selected) ->
         cpf.currentPlayer = selected
+        cpf.comparisonObj.player1 = selected
         pc.currentPlayer = cpf.currentPlayer
+        pc.comparisonObj = cpf.comparisonObj
         loadCurrentPlayer()
         myState = $state.current.name
         $state.reload(myState)
@@ -66,14 +73,11 @@ angular.module('motus').controller('playerController',
 
         loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
         $q.all(loadPromises).then (results) ->
-          pc.currentPlayer = results[1]
           pc.eliteMetrics = results[0]
+          pc.currentPlayer = results[1]
 
           #Create the player Comparison Object
-          pc.comparisonObj = {
-            player1: pc.currentPlayer,
-            player2: null
-          }
+          pc.comparisonObj = cpf.comparisonObj
 
           elbowObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "ELBOW"
           trunkObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "TRUNK"
@@ -234,7 +238,7 @@ angular.module('motus').controller('playerController',
             loadNotes(stats)
 
           loadChart()
-          console.log 'the pc obj: ',pc
+
 
 
 
@@ -243,6 +247,11 @@ angular.module('motus').controller('playerController',
       .then () ->
         loadCurrentPlayer()
 
+      pc.hello = (whodis) ->
+        cpf.comparisonObj.player2 = whodis
+        console.log pc.comparisonObj
+        myState = $state.current.name
+        $state.reload(myState)
 
       #From jointKineticsController
       #Trying to make this work here so we can use the drop down filter

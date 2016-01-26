@@ -5,7 +5,7 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q', ($pla
   cpf.ballMetricsIndex = 0
   cpf.maxMetricsIndex = 0
   cpf.jointMetricsIndex = 0
-  
+
   #ability to get the current player the user selected
   cpf.getCurrentPlayer = () ->
     if cpf.currentPlayer
@@ -15,6 +15,11 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q', ($pla
       .then (players) ->
         cpf.currentPlayer = players[0]
 
+
+  cpf.comparisonObj = {
+    player1: {},
+    player2: null
+  }
   # return the factory object
   cpf
 ]
