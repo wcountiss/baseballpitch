@@ -19,8 +19,10 @@
 
 
       <!-- Player Comparison Two -->
-      <div ui-view="playerTwoView" id="playerComparisonTwo" class="dev-border white-bg flex-comparison-col">
+      <div ng-if="pc.comparisonObj.player2 == !null" ui-view="playerTwoView" id="playerComparisonTwo" class="dev-border white-bg flex-comparison-col">
       </div>
+
+      <div ng-if="pc.comparisonObj.player2 == null" ui-view="addComparisonView" id="addComparison" class="dev-border white-bg flex-comparison-col"></div>
 
     </div>
 

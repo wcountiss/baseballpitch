@@ -130,6 +130,9 @@ app.config ($stateProvider, $urlRouterProvider) ->
       },
       'playerTwoView@player.comparison':{
         templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/player-two-comparison-tmpl.html'
+      },
+      'addComparisonView@player.comparison': {
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/add-player-comparison.html'
       }
     }
   })
