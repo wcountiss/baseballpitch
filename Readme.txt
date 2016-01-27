@@ -19,7 +19,6 @@ End of Week 6:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Kinetic Chart Timing
 Averages
-UI
 
 Player Analysis Kinetic Chart Force
 Lines
@@ -28,20 +27,19 @@ Hook Data
 Player Data
 UI
 
-SubTag Filter Snapshots
 
 End of Week 7
+SubTag Filter Snapshots
+90 day back filter
+Persistable Filter
 Parse get Players by Game Manager
 Game Manager View
 Add Google Analytics
 
 End of Week 8
-Feedback
 Tagging Throws on Tagging Chart
 Download Data in Excel
 Player View
-90 day back filter
-Persistable Filter
 Caching
 LocalStorage?
 
