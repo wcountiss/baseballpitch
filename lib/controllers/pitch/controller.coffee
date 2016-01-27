@@ -26,9 +26,9 @@ module.exports.find = (req, res) ->
 
     getNumberofPages = 1
     if daysBack > 60
-        getNumberofPages = 2
-    if daysBack >= 365
         getNumberofPages = 4
+    if daysBack >= 365
+        getNumberofPages = 8
 
     #get pitches by player asynch
     pitchPromises = []

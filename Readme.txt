@@ -45,3 +45,6 @@ Persistable Filter
 Caching
 LocalStorage?
 
+Questions for Ben
+Timing can be a tenth the size if you wanted
+Speed
