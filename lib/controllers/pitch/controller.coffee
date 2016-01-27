@@ -36,9 +36,10 @@ module.exports.find = (req, res) ->
     _.each athleteProfiles, (athleteProfile) ->
         _.times getNumberofPages, (pageNum) ->
             #Find by AthleteProfileIds
+            console.log moment().add(-daysBack,'d').toDate()
             pitchPromises.push database.find('Pitch', { 
               equal: { 'athleteProfile': athleteProfile}, 
-              greater: { 'createdAt': moment().add(-daysBack,'d').toDate() },
+              greater: { 'pitchDate': moment().add(-daysBack,'d').toDate() },
               page: pageNum,
               #unneeded byte type columns removed
               select: ["armSlot",

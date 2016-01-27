@@ -41,6 +41,7 @@ module.exports.find = (collectionName, query, options) ->
     if query.include
       _.each query.include, (includeItem) ->
         parseQuery.include(includeItem)
+  
   return new Promise (resolve, reject) ->
     parseQuery.find()
     .then(
