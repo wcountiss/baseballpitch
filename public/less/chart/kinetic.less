@@ -15,10 +15,14 @@ kinetic {
   }
 
   .circle{
-    r: 5;
+    r: .5em;
     stroke: #000;
     stroke-width: 0;
     fill: @motus-darkorange;
+    transition: all 0.2s ease;
+    &:hover {
+      r: .7em;
+    }
   }
 
   .line {
