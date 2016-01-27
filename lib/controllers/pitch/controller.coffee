@@ -26,9 +26,9 @@ module.exports.find = (req, res) ->
 
     getNumberofPages = 1
     if daysBack > 60
-        getNumberofPages = 2
-    if daysBack >= 365
         getNumberofPages = 4
+    if daysBack >= 365
+        getNumberofPages = 8
 
     #get pitches by player asynch
     pitchPromises = []
@@ -37,7 +37,7 @@ module.exports.find = (req, res) ->
             #Find by AthleteProfileIds
             pitchPromises.push database.find('Pitch', { 
               equal: { 'athleteProfile': athleteProfile}, 
-              greater: { 'createdAt': moment().add(-daysBack,'d').toDate() },
+              greater: { 'pitchDate': moment().add(-daysBack,'d').toDate() },
               page: pageNum,
               #unneeded byte type columns removed
               select: ["armSlot",
@@ -51,12 +51,6 @@ module.exports.find = (req, res) ->
                 "footAngle",
                 "footContactTime",
                 "forearmSlotRelease",
-                "keyframeFirstMovement",
-                "keyframeFootContact",
-                "keyframeHipSpeed",
-                "keyframeLegKick",
-                "keyframeTimeWarp",
-                "keyframeTrunkSpeed",
                 "maxElbowFlexion",
                 "maxFootHeight",
                 "maxFootHeightTime",
@@ -140,7 +134,7 @@ module.exports.findByAtheleteProfileId = (req, res) ->
         #Find by AthleteProfileIds
         pitchPromises.push database.find('Pitch', { 
           equal: { 'athleteProfile': athleteProfile}, 
-          greater: { 'createdAt': moment().add(-daysBack,'d').toDate() },
+          greater: { 'pitchDate': moment().add(-daysBack,'d').toDate() },
           page: pageNum,
           #unneeded byte type columns removed
           select: ["armSlot",

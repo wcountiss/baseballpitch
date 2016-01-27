@@ -6,8 +6,23 @@ kinetic {
     shape-rendering: crispEdges;
   }
 
-  .x.axis path {
-    display: none;
+  .x.axis {
+    .tick {
+      text{
+        display: none;
+      }    
+    }
+  }
+
+  .circle{
+    r: .5em;
+    stroke: #000;
+    stroke-width: 0;
+    fill: @motus-darkorange;
+    transition: all 0.2s ease;
+    &:hover {
+      r: .7em;
+    }
   }
 
   .line {
@@ -15,4 +30,10 @@ kinetic {
     stroke: steelblue;
     stroke-width: 1.5px;
   }
+
+  .selector {
+    stroke: @motus-darkorange;
+    stroke-width: 1;
+  }
+
 }
