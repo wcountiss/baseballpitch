@@ -59,7 +59,7 @@ angular.module('d3').directive 'kinetic', [
             xAxis = d3.svg.axis()
             .scale(x)
             .orient("bottom")
-            # .tick(data.length)
+            .ticks(100)
 
             yAxis = d3.svg.axis()
             .scale(y)
@@ -70,9 +70,9 @@ angular.module('d3').directive 'kinetic', [
             .x((d) -> return x(d.index))
             .y((d) -> return y(d.score));
 
-            color.domain(_.pluck(data, 'key'))
+            color.domain(_.pluck(data.speeds, 'key'))
 
-            lines = data.map((d) -> 
+            lines = data.speeds.map((d) -> 
               return {
                 key: d.key,
                 values: d.scores.map((d, i) ->
@@ -103,7 +103,18 @@ angular.module('d3').directive 'kinetic', [
                 .attr("y", 6)
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
-                .text("UNITS")
+                .text("degrees/sec")
+
+            #circles for timing
+            _.each _.keys(data.timings), (key) ->
+              svg.append('circle')
+              .datum(data.timings[key])
+              .attr('r', 3)
+              .attr('cx', (d) -> x d/10)
+              .attr('cy', (d) -> height)
+              .attr('class', 'circle')
+              .attr('fill', 'black')
+              .attr 'stroke', 'black'
 
             line = svg.selectAll(".line")
                 .data(lines)

@@ -12,14 +12,13 @@ End of Week 5:
 Player Analysis Trend Chart - Bar Graph
 Player Analysis Session Throw Chart
 Player Analysis - trends - polish it up
+Trend Filters
+
 
 End of Week 6:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Kinetic Chart Timing
-Lines
-Timing x axis
-Hook Data
-Player Data
+Averages
 UI
 
 Player Analysis Kinetic Chart Force
@@ -29,7 +28,6 @@ Hook Data
 Player Data
 UI
 
-Trend Filters
 SubTag Filter Snapshots
 
 End of Week 7

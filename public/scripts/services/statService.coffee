@@ -274,6 +274,13 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
             arrayToAverage.push keyPitchTiming[index]
           averagedTimings.push average(arrayToAverage)
       statResult[key] = averagedTimings
+    #timing averaged
+    statResult.keyframeFirstMovement = average(_.pluck(pitches, 'keyframeFirstMovement'))
+    statResult.keyframeFootContact  = average(_.pluck(pitches, 'keyframeFootContact'))
+    statResult.keyframeHipSpeed = average(_.pluck(pitches, 'keyframeHipSpeed'))
+    statResult.keyframeLegKick = average(_.pluck(pitches, 'keyframeLegKick'))
+    statResult.keyframeTimeWarp = average(_.pluck(pitches, 'keyframeTimeWarp'))
+    statResult.keyframeTrunkSpeed = average(_.pluck(pitches, 'keyframeTrunkSpeed'))
     return statResult
 
 
