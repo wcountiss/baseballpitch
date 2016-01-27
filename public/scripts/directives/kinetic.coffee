@@ -59,6 +59,7 @@ angular.module('d3').directive 'kinetic', [
             xAxis = d3.svg.axis()
             .scale(x)
             .orient("bottom")
+            # .tick(data.length)
 
             yAxis = d3.svg.axis()
             .scale(y)
