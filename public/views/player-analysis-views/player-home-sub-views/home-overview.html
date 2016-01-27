@@ -1,9 +1,9 @@
 <div class="pitcher-silhouette">
-  <piestats id="elbow" bind="pc.elbow" slices="10"></piestats>
-  <piestats id="trunk" bind="pc.trunk" slices="10"></piestats>
-  <piestats id="shoulder" bind="pc.shoulder" slices="10"></piestats>
-  <piestats id="hip" bind="pc.hip" slices="10"></piestats>
-  <piestats id="foot" bind="pc.foot" slices="10"></piestats>
+  <piestats id="elbow" bind="pc.currentPlayer.elbow" slices="10"></piestats>
+  <piestats id="trunk" bind="pc.currentPlayer.trunk" slices="10"></piestats>
+  <piestats id="shoulder" bind="pc.currentPlayer.shoulder" slices="10"></piestats>
+  <piestats id="hip" bind="pc.currentPlayer.hip" slices="10"></piestats>
+  <piestats id="foot" bind="pc.currentPlayer.foot" slices="10"></piestats>
   <img src="../../../images/pitcher-sil-3.png" alt="Pitcher silhouette">
 
   <div class="nested-footer">
@@ -11,60 +11,60 @@
     <div class="nested-footer-body-icon">
       <span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Peak Hip Speed" class="icon-hips"></span>
       <div class="part-nested-stack">
-        <span ng-class="{'greenfooter': pc.hipIconStatus=='Good',
-        'yellowfooter': pc.hipIconStatus=='OK',
-        'redfooter': pc.hipIconStatus=='Poor'}" class="nested-hip-icon-padding">{{pc.hipIcon}}<sup>o</sup>/s</span>
-        <span ng-if="pc.hipIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
-        <span ng-if="pc.hipIconStatus=='OK'"class="icon-okarrow yellowfooter"></span>
-        <span ng-if="pc.hipIconStatus=='Good'"class="icon-uparrow greenfooter"></span>
+        <span ng-class="{'greenfooter': pc.currentPlayer.hipIconStatus=='Good',
+        'yellowfooter': pc.currentPlayer.hipIconStatus=='OK',
+        'redfooter': pc.currentPlayer.hipIconStatus=='Poor'}" class="nested-hip-icon-padding">{{pc.currentPlayer.hipIcon}}<sup>o</sup>/s</span>
+        <span ng-if="pc.currentPlayer.hipIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
+        <span ng-if="pc.currentPlayer.hipIconStatus=='OK'" class="icon-okarrow yellowfooter"></span>
+        <span ng-if="pc.currentPlayer.hipIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
       </div>
     </div>
 
     <div class="nested-footer-body-icon">
       <span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Peak Trunk Speed" class="icon-trunk"></span>
       <div class="part-nested-stack">
-        <span ng-class="{'greenfooter': pc.trunkIconStatus=='Good',
+        <span ng-class="{'greenfooter': pc.currentPlayer.trunkIconStatus=='Good',
         'yellowfooter': pc.trunkIconStatus=='OK',
-        'redfooter': pc.trunkIconStatus=='Poor'}">{{pc.trunkIcon}}<sup>o</sup>/s</span>
-        <span ng-if="pc.trunkIconStatus=='Poor'"class="icon-downarrow redfooter"></span>
-        <span ng-if="pc.trunkIconStatus=='OK'"class="icon-okarrow yellowfooter"></span>
-        <span ng-if="pc.trunkIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
+        'redfooter': pc.currentPlayer.trunkIconStatus=='Poor'}">{{pc.currentPlayer.trunkIcon}}<sup>o</sup>/s</span>
+        <span ng-if="pc.currentPlayer.trunkIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
+        <span ng-if="pc.currentPlayer.trunkIconStatus=='OK'" class="icon-okarrow yellowfooter"></span>
+        <span ng-if="pc.currentPlayer.trunkIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
       </div>
     </div>
 
     <div class="nested-footer-body-icon">
       <span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Stride Length" class="icon-stride"></span>
       <div class="part-nested-stack">
-        <span ng-class="{'greenfooter': pc.strideIconStatus=='Good',
-        'yellowfooter': pc.strideIconStatus=='OK',
-        'redfooter': pc.strideIconStatus=='Poor'}" class="nested-stride-icon-padding">{{pc.strideIcon}}%</span>
-        <span ng-if="pc.strideIconStatus=='Poor'"class="icon-downarrow redfooter"></span>
-        <span ng-if="pc.strideIconStatus=='OK'"class="icon-okarrow yellowfooter"></span>
-        <span ng-if="pc.strideIconStatus=='Good'"class="icon-uparrow greenfooter"></span>
+        <span ng-class="{'greenfooter': pc.currentPlayer.strideIconStatus=='Good',
+        'yellowfooter': pc.currentPlayer.strideIconStatus=='OK',
+        'redfooter': pc.currentPlayer.strideIconStatus=='Poor'}" class="nested-stride-icon-padding">{{pc.currentPlayer.strideIcon}}%</span>
+        <span ng-if="pc.currentPlayer.strideIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
+        <span ng-if="pc.currentPlayer.strideIconStatus=='OK'" class="icon-okarrow yellowfooter"></span>
+        <span ng-if="pc.currentPlayer.strideIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
       </div>
     </div>
 
     <div class="nested-footer-body-icon">
       <span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Shoulder Abduction Foot Contact" class="icon-shoulderslot"></span>
       <div class="part-nested-stack">
-        <span ng-class="{ 'greenfooter': pc.shldIconStatus=='Good',
-        'yellowfooter': pc.shldIconStatus=='OK',
-        'redfooter': pc.shldIconStatus=='Poor'}">{{pc.shldIcon}}<sup>o</sup></span>
-        <span ng-if="pc.shldIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
-        <span ng-if="pc.shldIconStatus=='OK'" class="icon-okarrow yellowfooter"></span>
-        <span ng-if="pc.shldIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
+        <span ng-class="{ 'greenfooter': pc.currentPlayer.shldIconStatus=='Good',
+        'yellowfooter': pc.currentPlayer.shldIconStatus=='OK',
+        'redfooter': pc.currentPlayer.shldIconStatus=='Poor'}">{{pc.currentPlayer.shldIcon}}<sup>o</sup></span>
+        <span ng-if="pc.currentPlayer.shldIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
+        <span ng-if="pc.currentPlayer.shldIconStatus=='OK'" class="icon-okarrow yellowfooter"></span>
+        <span ng-if="pc.currentPlayer.shldIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
       </div>
     </div>
 
     <div class="nested-footer-body-icon">
       <span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Shoulder Rotation Foot Contact" class="icon-shoulderrotate"></span>
       <div class="part-nested-stack">
-        <span ng-class="{'greenfooter': pc.shldRotIconStatus=='Good',
-        'yellowfooter': pc.shldRotIconStatus=='OK',
-        'redfooter': pc.shldRotIconStatus=='Poor'}">{{pc.shldRotIcon}}<sup>o</sup></span>
-        <span ng-if="pc.shldRotIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
-        <span ng-if="pc.shldRotIconStatus=='OK'" class="icon-okarrow yellowfooter"></span>
-        <span ng-if="pc.shldRotIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
+        <span ng-class="{'greenfooter': pc.currentPlayer.shldRotIconStatus=='Good',
+        'yellowfooter': pc.currentPlayer.shldRotIconStatus=='OK',
+        'redfooter': pc.currentPlayer.shldRotIconStatus=='Poor'}">{{pc.currentPlayer.shldRotIcon}}<sup>o</sup></span>
+        <span ng-if="pc.currentPlayer.shldRotIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
+        <span ng-if="pc.currentPlayer.shldRotIconStatus=='OK'" class="icon-okarrow yellowfooter"></span>
+        <span ng-if="pc.currentPlayer.shldRotIconStatus=='Good'" class="icon-uparrow greenfooter"></span>
       </div>
     </div>
   </div>
