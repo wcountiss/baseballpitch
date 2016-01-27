@@ -3,9 +3,7 @@
   </div>
   <div class="player-details-stats">
     <div class="player-stats-box1">
-      <div class="player-photo">
-        <img ng-src="{{home.currentPlayer.imgUrl}}" alt="{{home.currentPlayer.alt}}">
-      </div>
+
       <div class="player-key-stats">
         <h3>{{::home.currentPlayer.athleteProfile.firstName}}  {{::home.currentPlayer.athleteProfile.lastName}}</h3>
         <span>Age: {{::pc.currentPlayer.athleteProfile.age}}</span>
@@ -18,7 +16,7 @@
       <h3>Notes</h3>
       <!-- Hard Coded Notes results-->
       <ul>
-        <li ng-repeat="note in pc.notes">{{note}}</li>
+        <li ng-repeat="note in pc.currentPlayer.notes">{{note}}</li>
       </ul>
     </div>
   </div>
