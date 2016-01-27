@@ -16,7 +16,6 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
 
   #Setter for currentPlayer
   cpf.setCurrentPlayer = (xx) ->
-    console.log 'passed into setCurrentPlayer(): ', xx
     cpf.currentPlayer = xx
     cpf.comparisonObj.player1 = xx
     console.log 'cpf.currentPlayer is now: ',cpf.currentPlayer
@@ -24,6 +23,7 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
 
   #Getter for currentPlayer
   cpf.getCurrentPlayer = () ->
+
     if cpf.currentPlayer
       return $q.when(cpf.currentPlayer)
     else
@@ -33,6 +33,7 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
 
   #Get playerRoster
   cpf.getPlayerRoster = () ->
+
     if cpf.playerRoster
       return $q.when(cpf.playerRoster)
     else
@@ -220,7 +221,6 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
     object.notes = $stat.getLanguage(stats)
 
 
-  getPlayers()
   # return the factory object
   return cpf
 ]

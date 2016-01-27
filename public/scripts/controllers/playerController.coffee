@@ -13,21 +13,21 @@ angular.module('motus').controller('playerController',
       cpf.getPlayerRoster().then (results) ->
         pc.playerRoster = results
 
+      cpf.getCurrentPlayer().then (results) ->
+        pc.currentPlayer = results
+
 
 
       #Select Current Player
       pc.selectedPlayer = (selected) ->
-        x = selected
         console.log 'passed into selectedPlayer(): ', selected
-        cpf.setCurrentPlayer(x).then () ->
+        cpf.setCurrentPlayer(selected).then () ->
           cpf.getCurrentPlayer().then (results) ->
-            console.log 'results returned from getCurrentPlayer()', results
-            pc.currentPlayer = results
-            console.log 'cpf before $state.reload() :', cpf
-#            myState = $state.current.name
-#            $state.reload(myState)
-            console.log 'pc: ',pc
-            console.log 'cpf :', cpf
+              pc.currentPlayer = results
+              myState = $state.current.name
+              $state.reload(myState)
+              console.log 'pc: ',pc
+              console.log 'cpf :', cpf
 
 
 
