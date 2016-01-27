@@ -59,7 +59,7 @@ angular.module('d3').directive 'arealinechart', [
               month = 1
               while month <= 12
                 lastMonthsScore = _.find(bindData, (score) ->
-                  score.date == moment().add(-month, 'M')
+                  score.date == moment().add(-month, 'M').format('MM/YYYY')
                 )
                 if !lastMonthsScore
                   bindData.push
@@ -71,7 +71,8 @@ angular.module('d3').directive 'arealinechart', [
             data.forEach (d) ->
               d.date = parseDate(d.date)
               d.score = +d.score
-            
+            data = _.sortBy data, (d) -> d.date
+
             # set axis
             xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(data.length).tickFormat(d3.time.format('%b'))
             yAxis = d3.svg.axis().scale(y).orient('left')
