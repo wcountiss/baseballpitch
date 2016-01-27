@@ -115,8 +115,8 @@ angular.module('d3').directive 'linechart', [
                 .attr('stroke', 'black')
 
                 tip.show(d)
-                .style("top", (event.pageY-10)+"px")
-                .style("left",(event.pageX+10)+"px")
+                .style("top", (event.pageY-50)+"px")
+                .style("left",(event.pageX-40)+"px")
 
               # create line
               lineFunction = d3.svg.line()
@@ -146,7 +146,7 @@ angular.module('d3').directive 'linechart', [
               .attr("height", height)
               .style("fill", "none")
               .style("pointer-events", "all") 
-              # .on("mouseout", (d) -> tip.hide())
+              .on("mouseout", (d) -> tip.hide())
               .on("mousemove", mousemove)
 
               svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call xAxis
