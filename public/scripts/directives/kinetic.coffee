@@ -174,6 +174,17 @@ angular.module('d3').directive 'kinetic', [
               .on('mouseover', (d) -> timingTip.show(d))
               .on('mouseout', timingTip.hide)
 
+            #circles for averages
+            _.each _.keys(data.averages), (key) ->
+              svg.append('circle')
+              .datum(data.averages[key])
+              .attr('r', 4)
+              .attr('cx', (d) -> x(100 + (d.avg/10)))
+              .attr('cy', (d) -> height+10)
+              .attr('class', 'average')
+              .attr('fill', 'black')
+              .attr 'stroke', 'black'
+
             line = svg.selectAll(".line")
                 .data(lines)
               .enter().append("g")
