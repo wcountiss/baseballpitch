@@ -17,12 +17,11 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
           keyframeFootContact: stats.keyframeFootContact,
           keyframeHipSpeed: stats.keyframeHipSpeed,
           keyframeLegKick: stats.keyframeLegKick,
-          keyframeTimeWarp: stats.keyframeTimeWarp,
+          # keyframeTimeWarp: stats.keyframeTimeWarp,
           keyframeTrunkSpeed: stats.keyframeTrunkSpeed
         },
         averages: {
           footContactTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'footContactTime'
-          maxFootHeightTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'maxFootHeightTime'
           maxFootHeightTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'maxFootHeightTime'
           peakBicepSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakBicepSpeedTime'
           peakForearmSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakForearmSpeedTime'

@@ -44,3 +44,4 @@ LocalStorage?
 Questions for Ben
 Timing can be a tenth the size if you wanted
 Is each part of the array a MS?
+How does the keyframes match with the elites?
