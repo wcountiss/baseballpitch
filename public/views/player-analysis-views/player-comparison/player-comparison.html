@@ -14,17 +14,27 @@
     <div class="flex-container flex-justify-content-space-around">
 
       <!-- Selected Player -->
-      <div ui-view="overviewOne" id="playerComparisonOne" class="dev-border flex-comparison-col white-bg">
+      <div ng-if="pc.state.includes('player.comparison.overview')" ui-view="overviewOne" id="playerComparisonOne" class="dev-border flex-comparison-col white-bg">
+      </div>
+      <div ng-if="pc.state.includes('player.comparison.visual')" ui-view="visualOne" class="dev-border flex-comparison-col white-bg">
+      </div>
+      <div ng-if="pc.state.includes('player.comparison.stats')" ui-view="statsOne"  class="dev-border flex-comparison-col white-bg">
       </div>
 
 
 
 
       <!-- Compared Player  -->
-      <div ng-if="pc.comparedPlayer.athleteProfile.firstName" ui-view="playerTwoView" id="playerComparisonTwo" class="dev-border white-bg flex-comparison-col">
+      <div ng-if="pc.state.includes('player.comparison.overview') && pc.comparedPlayer.athleteProfile.firstName" ui-view="overviewTwo" id="playerComparisonTwo" class="dev-border white-bg flex-comparison-col">
+      </div>
+      <div ng-if="pc.state.includes('player.comparison.visual') && pc.comparedPlayer.athleteProfile.firstName" ui-view="visualTwo" class="dev-border white-bg flex-comparison-col">
+      </div>
+      <div ng-if="pc.state.includes('player.comparison.stats') && pc.comparedPlayer.athleteProfile.firstName" ui-view="statsTwo" class="dev-border white-bg flex-comparison-col">
       </div>
 
-      <div ng-if="!pc.comparedPlayer.athleteProfile.firstName" ui-view="addComparisonView" id="addComparison" class="dev-border white-bg flex-comparison-col"></div>
+
+      <div ng-if="!pc.comparedPlayer.athleteProfile.firstName" ui-view="addPlayer" id="addComparison" class="dev-border white-bg flex-comparison-col"></div>
+
 
     </div>
 
