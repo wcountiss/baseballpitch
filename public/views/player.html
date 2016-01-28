@@ -14,7 +14,7 @@
               <span class="icon-bullpen" ng-class="{'green-icon': player.stats.bullPen, 'gray-icon': !player.stats.bullPen}"></span>
               <span class="icon-game" ng-class="{'green-icon': player.stats.game, 'gray-icon': !player.stats.game}"></span>
             </nav>
-            <span ng-if="pc.state.includes('player.comparison')" class="icon-compare-add" ng-click="pc.hello(player)"></span>
+            <span ng-if="pc.state.includes('player.comparison')" class="icon-compare-add" ng-click="pc.setComparison(player)"></span>
           </li>
         </ul>
       </div>

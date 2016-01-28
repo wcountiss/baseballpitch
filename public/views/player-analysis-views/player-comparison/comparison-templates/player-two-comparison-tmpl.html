@@ -1,7 +1,7 @@
-<h4>STATIC NAME</h4>
+<h4>{{pc.comparedPlayer.athleteProfile.firstName}} {{pc.comparedPlayer.athleteProfile.lastName}}</h4>
 <div class="flex-container">
   <div>
-    <span class="overall-percentage">80%</span>
+    <span class="overall-percentage">{{pc.comparedPlayer.playerScores[0].score | rounded}} %</span>
   </div>
   <div class="flex-container-col">
     <span>Overall</span>
@@ -10,14 +10,18 @@
 </div>
 
 <div class="awardment">
-  <span>STATIC RATING</span>
+  <span>{{pc.comparedPlayer.playerScores[0].overall}}</span>
 </div>
 <div>
-  FILTER
+  <select class="small-flexitem" ng-model="pc.filterType" name="sessions" ng-change="pc.filterLastThrowType()">
+    <option value="30">Last 30 Days AVG ({{pc.comparedPlayer.pitches.length}})</option>
+    <option value="Game" ng-if="pc.comparedPlayer.stats.game" >Last Game ({{pc.GameCount}})</option>
+    <option value="Bullpen" ng-if="pc.comparedPlayer.stats.bullPen">Last Bullpen ({{pc.BullpenCount}})</option>
+    <option value="Longtoss" ng-if="pc.comparedPlayer.stats.longToss">Last Longtoss ({{pc.LongtossCount}})</option>
+    <option value="Untagged" ng-if="pc.comparedPlayer.stats.untagged">Untagged ({{pc.UntaggedCount}})</option>
+
+  </select>
 </div>
 <div>
-  <arealinechart style="text-transform: uppercase; font-size:.75em" width="30%" height="150" id="playerOverviewChart" bind="pc.playerScores"></arealinechart>
-</div>
-<div>
-  <button class="remove-comparison">remove from comparison</button>
+  <arealinechart style="text-transform: uppercase; font-size:.75em" width="30%" height="150" id="playerOverviewChart" bind="pc.comparedPlayer.playerScores"></arealinechart>
 </div>

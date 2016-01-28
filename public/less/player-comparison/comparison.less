@@ -3,7 +3,38 @@
   background-color: @motus-offwhite;
   width:inherit;
 
-  .dev-border {
+  .comparison-nav  {
+    font-size: 1.3em;
+    a:nth-child(2) {
+      margin-left: 3em;
+      margin-right: 3.9em;
+    }
+    a {
+      color: @motus-blue;
+      text-decoration: none;
+    }
+    a.active {
+      color: @motus-lightorange;
+    }
+    a:after {
+      content: '';
+      display: block;
+      width: 100%;
+      border: 0.071em solid @motus-lightorange;
+      transform: translate(0px, 6px);
+      opacity: 0;
+      transition: transform .2s ease-out, opacity .2s ease-out;
+    }
+    a:hover {
+      color: @motus-lightorange;
+      transition: .2s ease-out;
+    }
+    a:hover:after {
+      transform: translate(0px, 0px);
+      opacity: 1;
+    }
+  }
+  .dev-border {margin-top: .7em;
     border: 2px solid red;
   }
   .comparison-padding-right {
@@ -87,6 +118,8 @@
 
   }
   #addComparison {
+    margin-right: .7em;
+    margin-top: .7em;
     h3 {
       text-align: center;
     }
@@ -94,6 +127,15 @@
       font-size: 8em;
       color: @motus-blue;
     }
+  }
+  #playerComparisonOne {
+    margin-top: .7em;
+    margin-right: .7em;
+    margin-left: .7em;
+  }
+  #playerComparisonTwo {
+    margin-top: .7em;
+    margin-right: .7em;
   }
 
 }

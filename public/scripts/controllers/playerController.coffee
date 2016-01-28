@@ -16,7 +16,9 @@ angular.module('motus').controller('playerController',
       cpf.getCurrentPlayer().then (results) ->
         pc.currentPlayer = results
 
-
+      cpf.getComparedPlayer().then (results) ->
+        pc.comparedPlayer = results
+        console.log 'peaking at PC', pc
 
       #Select Current Player
       pc.selectedPlayer = (selected) ->
@@ -31,21 +33,21 @@ angular.module('motus').controller('playerController',
 
 
 
+      pc.setComparison = (compared) ->
+        console.log 'pc.setComparison passing in: ',compared
+        cpf.setComparison(compared).then (results) ->
+          pc.comparedPlayer = results
+          myState = $state.current.name
+          $state.reload(myState)
+          console.log 'logging pc object, should have a current and comparedPlayer now: ', pc
 
-
-
-
-
-      pc.hello = (whodis) ->
-        cpf.comparisonObj.player2 = whodis
-        console.log pc.comparisonObj
-        myState = $state.current.name
-        $state.reload(myState)
 
       #From jointKineticsController
       #Trying to make this work here so we can use the drop down filter
       pc.filterLastThrowType = () ->
-        console.log 'Player Comparison filter will trigger here. currently non-functional'
+        console.log 'Filter Stuff, currently non-functional'
+
+
 
       return pc
   ])
