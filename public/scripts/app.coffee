@@ -146,14 +146,14 @@ app.config ($stateProvider, $urlRouterProvider) ->
     url: '/visual',
     authenticate: true,
     views: {
-      'playerOneView@player.comparison':{
-        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/overview-one.html'
+      'visualOne@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/visual/visual-one.html'
       },
-      'playerTwoView@player.comparison':{
-        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/overview-two.html'
+      'visualTwo@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/visual/visual-two.html'
       },
-      'addComparisonView@player.comparison': {
-        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/add-player.html'
+      'addPlayer@player.comparison': {
+        templateUrl: 'views/player-analysis-views/player-comparison/add-player.html'
       }
     }
   })
@@ -161,14 +161,14 @@ app.config ($stateProvider, $urlRouterProvider) ->
     url: '/stats',
     authenticate: true,
     views: {
-      'playerOneView@player.comparison':{
-        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/overview-one.html'
+      'statsOne@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/stats/stats-one.html'
       },
-      'playerTwoView@player.comparison':{
-        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/overview-two.html'
+      'statsTwo@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/stats/stats-two.html'
       },
-      'addComparisonView@player.comparison': {
-        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/add-player.html'
+      'addPlayer@player.comparison': {
+        templateUrl: 'views/player-analysis-views/player-comparison/add-player.html'
       }
     }
   })
