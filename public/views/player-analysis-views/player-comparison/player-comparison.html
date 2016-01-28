@@ -1,4 +1,4 @@
-<section id="comparison" class="dev-border">
+<section id="comparison">
   <div class="flex-container-col">
 
     <div class="flex-container flex-justify-content-center">
@@ -6,19 +6,21 @@
     </div>
 
     <nav class="flex-container flex-justify-content-center comparison-nav">
-      <a>Overview</a>
-      <a>Visual</a>
-      <a>Stats</a>
+      <a ui-sref-active="active" ui-sref="player.comparison.overview">Overview</a>
+      <a ui-sref-active="active" ui-sref="player.comparison.visual">Visual</a>
+      <a ui-sref-active="active" ui-sref="player.comparison.stats">Stats</a>
     </nav>
 
     <div class="flex-container flex-justify-content-space-around">
 
-      <!-- Player Comparison One -->
-      <div ui-view="playerOneView" id="playerComparisonOne" class="dev-border flex-comparison-col white-bg">
+      <!-- Selected Player -->
+      <div ui-view="overviewOne" id="playerComparisonOne" class="dev-border flex-comparison-col white-bg">
       </div>
 
 
-      <!-- Player Comparison Two -->
+
+
+      <!-- Compared Player  -->
       <div ng-if="pc.comparedPlayer.athleteProfile.firstName" ui-view="playerTwoView" id="playerComparisonTwo" class="dev-border white-bg flex-comparison-col">
       </div>
 

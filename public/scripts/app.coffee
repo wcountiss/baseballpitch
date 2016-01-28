@@ -120,19 +120,55 @@ app.config ($stateProvider, $urlRouterProvider) ->
   .state('player.comparison', {
     url: '/comparison',
     authenticate: true,
+    controller: 'playerController as pc',
     views: {
       '': {
         templateUrl: 'views/player-analysis-views/player-comparison/player-comparison.html',
-        controller: 'playerController as pc'
+      }
+    }
+  })
+  .state('player.comparison.overview', {
+    url: '/overview',
+    authenticate: true,
+    views: {
+      'overviewOne@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/overview/overview-one.html'
       },
+      'overviewTwo@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/overview/overview-two.html'
+      },
+      'addPlayer@player.comparison': {
+        templateUrl: 'views/player-analysis-views/player-comparison/add-player.html'
+      }
+    }
+  })
+  .state('player.comparison.visual', {
+    url: '/visual',
+    authenticate: true,
+    views: {
       'playerOneView@player.comparison':{
-        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/player-one-comparison-tmpl.html'
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/overview-one.html'
       },
       'playerTwoView@player.comparison':{
-        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/player-two-comparison-tmpl.html'
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/overview-two.html'
       },
       'addComparisonView@player.comparison': {
-        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/add-player-comparison.html'
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/add-player.html'
+      }
+    }
+  })
+  .state('player.comparison.stats', {
+    url: '/stats',
+    authenticate: true,
+    views: {
+      'playerOneView@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/overview-one.html'
+      },
+      'playerTwoView@player.comparison':{
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/overview-two.html'
+      },
+      'addComparisonView@player.comparison': {
+        templateUrl: 'views/player-analysis-views/player-comparison/comparison-templates/add-player.html'
       }
     }
   })
