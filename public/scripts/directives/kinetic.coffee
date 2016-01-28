@@ -63,7 +63,7 @@ angular.module('d3').directive 'kinetic', [
           timingTip = d3.tip()
           .attr('class', 'd3-tip')
           .html((d) ->
-            '<div class="d3-tip-heading">Timing</div><div class="d3-tip-tooltip">' + parseFloat(d).toFixed(1) + ' MS</div>'
+            '<div class="d3-tip-heading">' + _.humanize(d.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' MS</div>'
           )
           svg.call timingTip
 
@@ -171,7 +171,7 @@ angular.module('d3').directive 'kinetic', [
               .attr('class', 'circle')
               .attr('fill', 'black')
               .attr 'stroke', 'black'
-              .on('mouseover', (d) -> timingTip.show(d))
+              .on('mouseover', (d) -> timingTip.show({ heading: key, value: d}))
               .on('mouseout', timingTip.hide)
 
             #circles for averages
@@ -183,7 +183,9 @@ angular.module('d3').directive 'kinetic', [
               .attr('cy', (d) -> height+10)
               .attr('class', 'average')
               .attr('fill', 'black')
-              .attr 'stroke', 'black'
+              .attr('stroke', 'black')
+              .on('mouseover', (d) -> timingTip.show({ heading: key, value: d.avg}))
+              .on('mouseout', timingTip.hide)
 
             line = svg.selectAll(".line")
                 .data(lines)
