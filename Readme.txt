@@ -20,6 +20,7 @@ Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Kinetic Chart Timing
 get point to squash, reduce index before by 1/2, after by 2x
 
+LocalStorage
 Player Analysis Kinetic Chart Force
 Bar Graph directive
 Player Data
@@ -37,8 +38,6 @@ End of Week 8
 Tagging Throws on Tagging Chart
 Download Data in Excel
 Player View
-Caching
-LocalStorage?
 
 
 Questions for Ben
