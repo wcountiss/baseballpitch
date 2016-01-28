@@ -18,15 +18,12 @@ Trend Filters
 End of Week 6:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Kinetic Chart Timing
-Averages
+get point to squash, reduce index before by 1/2, after by 2x
 
 Player Analysis Kinetic Chart Force
-Lines
-Timing x axis
-Hook Data
+Bar Graph directive
 Player Data
 UI
-
 
 End of Week 7
 SubTag Filter Snapshots
@@ -43,5 +40,7 @@ Player View
 Caching
 LocalStorage?
 
+
 Questions for Ben
 Timing can be a tenth the size if you wanted
+Is each part of the array a MS?
