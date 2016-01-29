@@ -1,5 +1,7 @@
-cachedPitches = {}
+allCachedPitches = null
+thisMonthsCachedPitches = null
 cachedAtheletePitches = {}
+
 
 
 angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
@@ -13,20 +15,20 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
       return _.contains(['Longtoss','Bullpen','Game'], tag)
 
   #get pitches
-  pitchService.getPitches = (options={daysBack: 30}) ->
-    cacheKey = options.daysBack.toString()
-    if cachedPitches[cacheKey]
-      return $q.when(cachedPitches[cacheKey])
+  pitchService.getPitches = (options={daysBack: 30}) ->    
+    if allCachedPitches
+      returnedPitches = _.filter allCachedPitches, (pitch) -> moment(pitch.pitchDate.iso) > moment().add('d', -options.daysBack)
+      return $q.when(returnedPitches)
     else
       defer = $q.defer()
       
       #go to server and get pitches
-      $http.post("pitch", options)
+      $http.post("pitch", {daysBack: 365})
       .then (result) ->
         pitches = transformPitches(result.data)
 
         #cache the pitches in the session
-        cachedPitches[cacheKey] = pitches
+        allCachedPitches = pitches
         defer.resolve(pitches)
     return defer.promise
 

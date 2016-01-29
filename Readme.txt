@@ -18,9 +18,19 @@ Trend Filters
 End of Week 6:
 Test IE, Edge, FireFox, Safari and add message if not using what looks good
 Player Analysis Kinetic Chart Timing
-get point to squash, reduce index before by 1/2, after by 2x
 
+get 365 and filter
 LocalStorage
+
+Trend Selected Color
+12 Months back on trends
+Scale Min and Max
+Vertical Intersection
+Elite is orange
+Grouped Bar, tooltip stays and you hover others
+Max value is the peakHip and Trunk
+
+get point to squash, reduce index before by 1/2, after by 2x
 Player Analysis Kinetic Chart Force
 Bar Graph directive
 Player Data
@@ -38,9 +48,9 @@ End of Week 8
 Tagging Throws on Tagging Chart
 Download Data in Excel
 Player View
+Cloud Code or Cron job
+
 
 
 Questions for Ben
 Timing can be a tenth the size if you wanted
-Is each part of the array a MS?
-How does the keyframes match with the elites?
