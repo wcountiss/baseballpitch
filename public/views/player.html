@@ -29,7 +29,7 @@
             <!--Home Button Icon-->
           </span>
 
-          <span tooltip-class="mainNavIcons" tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='left'}}" uib-tooltip="Kinetic Chain" type="button" class="icon-kinetic_chain" ui-sref-active="side-button-active" ui-sref=".kinetic-chain">
+          <span tooltip-class="mainNavIcons" tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='left'}}" uib-tooltip="Kinetic Chain" type="button" class="icon-kinetic_chain" ng-class="{'side-button-active': pc.state.includes('player.kinetic-chain.*')}" ui-sref=".kinetic-chain.timeline">
             <!--Kinetic Chain Button Icon-->
           </span>
 

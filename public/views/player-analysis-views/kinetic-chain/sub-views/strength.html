@@ -1,0 +1,15 @@
+<div class="player-details-header flex-container-col">
+  <h2>Kinetic Chain Strength
+    <span ui-sref="player.kinetic-chain.timeline" class="icon-kinetic_chain"></span>
+      <span  ui-sref="player.kinetic-chain.strength" class="icon-chainstrength"></span></h2>
+</div>
+
+<section>
+  <div class="flex-container-row">
+    <div class="flex-container-col">
+      <div class="chain-graphs flex-grow-max">
+        <kinetic style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerKineticChart" bind="chain.playerScores"></kinetic>
+      </div>
+    </div>
+  </div>
+</section>

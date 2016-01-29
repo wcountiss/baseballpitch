@@ -73,7 +73,19 @@ app.config ($stateProvider, $urlRouterProvider) ->
   })
   .state('player.kinetic-chain',{
     url: '/kinetic-chain',
-    templateUrl: 'views/player-analysis-views/kinetic-chain.html',
+    templateUrl: 'views/player-analysis-views/kinetic-chain/kinetic-chain.html',
+    controller: 'kineticChainController as chain',
+    authenticate: true
+  })
+  .state('player.kinetic-chain.timeline',{
+    url: '/kinetic-chain',
+    templateUrl: 'views/player-analysis-views/kinetic-chain/sub-views/timeline.html',
+    controller: 'kineticChainController as chain',
+    authenticate: true
+  })
+  .state('player.kinetic-chain.strength',{
+    url: '/kinetic-chain',
+    templateUrl: 'views/player-analysis-views/kinetic-chain/sub-views/strength.html',
     controller: 'kineticChainController as chain',
     authenticate: true
   })
