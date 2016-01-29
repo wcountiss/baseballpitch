@@ -3,6 +3,7 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
   cpf = currentPlayerFactory
   ef = eliteFactory
 
+  return
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises)
   .then (results) ->

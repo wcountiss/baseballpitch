@@ -17,7 +17,8 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
   #get pitches
   pitchService.getPitches = (options={daysBack: 30}) ->    
     if allCachedPitches
-      returnedPitches = _.filter allCachedPitches, (pitch) -> moment(pitch.pitchDate.iso) > moment().add('d', -options.daysBack)
+      returnedPitches = _.filter allCachedPitches, (pitch) -> 
+        moment(pitch.pitchDate.iso) >= moment().add('d', -options.daysBack)
       return $q.when(returnedPitches)
     else
       defer = $q.defer()

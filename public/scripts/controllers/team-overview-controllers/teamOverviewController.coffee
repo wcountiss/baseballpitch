@@ -24,6 +24,7 @@ angular.module('motus').controller('teamOverviewController',
         #get the awards
         team.myteam = $player.getPlayers()
         .then (players) ->
+          
           $stat.getPlayersStats(players)
           .then (playerStats) ->
             team.bullpen = playerStats
