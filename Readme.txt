@@ -29,6 +29,7 @@ Game Manager View
 
 Fix Firefox
 LocalStorage
+ServerCache
 SubTag Filter Snapshots
 90 day back filter and get sessions
 Persistable Filter
