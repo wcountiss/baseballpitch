@@ -2,16 +2,28 @@ _ = require 'lodash'
 Promise = require 'bluebird'
 Parse = require('parse/node')
 database = require './database'
+NodeCache = require( "node-cache" );
+
+cache = new NodeCache({ stdTTL: 60 * 60 * 24 * 90 });
+
 
 Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_JS_KEY)
 
 #gets the current user
 module.exports.getUser = (userObjectId) ->
   return new Promise (resolve, reject) ->
+   #try cache
+    try
+      user = cache.get("user#{userObjectId}", true)
+      resolve user
+      return
+
     userQuery = new Parse.Query(Parse.User);
     userQuery.equalTo("objectId", userObjectId);
     userQuery.first({
       success: (user) ->
+        #cache
+        cache.set( "user#{userObjectId}", user)
         resolve user
       ,
       error: (error) ->
