@@ -1,55 +1,45 @@
 Motus
-End of Week 2:
-SnapShot Charts All
-
-End of Week 3:
-Coach View of Players in Team Overview
-
-End of Week 4:
-Player Analysis
-
-End of Week 5:
-Player Analysis Trend Chart - Bar Graph
-Player Analysis Session Throw Chart
-Player Analysis - trends - polish it up
-Trend Filters
-
 
 End of Week 6:
-Test IE, Edge, FireFox, Safari and add message if not using what looks good
-Player Analysis Kinetic Chart Timing
-
-get 365 and filter
-LocalStorage
-
+Trend Feedback
+Trend Filters - select all by default
+Trend Filters not working
 Trend Selected Color
 12 Months back on trends
-Scale Min and Max
-Vertical Intersection
-Elite is orange
+Line Chart Scale Min and Max
+Vertical crosshair Intersection only
 Grouped Bar, tooltip stays and you hover others
-Max value is the peakHip and Trunk
+Elite is orange everywhere
 
-get point to squash, reduce index before by 1/2, after by 2x
 Player Analysis Kinetic Chart Force
 Bar Graph directive
 Player Data
 UI
 
+
 End of Week 7
-SubTag Filter Snapshots
-90 day back filter
-Persistable Filter
+Cloud Code or Cron job
+
+Player Analysis Kinetic Chain Chart
+get point to squash, reduce index before by 1/2, after by 2x
+Max value is the peakHip and Trunk
+
 Parse get Players by Game Manager
 Game Manager View
+
+Fix Firefox
+LocalStorage
+ServerCache
+SubTag Filter Snapshots
+90 day back filter and get sessions
+Persistable Filter
 Add Google Analytics
+
 
 End of Week 8
 Tagging Throws on Tagging Chart
 Download Data in Excel
 Player View
-Cloud Code or Cron job
-
 
 
 Questions for Ben

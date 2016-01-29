@@ -2,6 +2,8 @@ database = require '../../services/database'
 moment = require 'moment'
 _ = require 'lodash'
 Promise = require 'bluebird'
+NodeCache = require( "node-cache" );
+cache = new NodeCache({ stdTTL: 60 * 60 * 24 });
 
 # module.exports.save = (req, res) ->
 #   #simple validation, replace with parseModel later
@@ -17,6 +19,12 @@ Promise = require 'bluebird'
 #     res.sendStatus(500)
 
 module.exports.find = (req, res) ->
+  # try cache
+  try
+    results = cache.get("pitch#{req.currentUser.id}", true)
+    res.send(results)
+    return
+
   #Security, you only have access to your team's althletes
   database.find('TeamMember', {equal: { team: req.currentUser.MTTeams}})
   .then (teamMembers) ->
@@ -26,9 +34,9 @@ module.exports.find = (req, res) ->
 
     getNumberofPages = 1
     if daysBack > 60
-        getNumberofPages = 2
-    if daysBack >= 365
         getNumberofPages = 4
+    if daysBack >= 365
+        getNumberofPages = 8
 
     #get pitches by player asynch
     pitchPromises = []
@@ -99,6 +107,9 @@ module.exports.find = (req, res) ->
     Promise.all(pitchPromises)
     .then (pitchGroups) ->
       results = _.flatten pitchGroups
+      #cache
+      cache.set( "pitch#{req.currentUser.id}", results)
+
       res.send(results)
     .catch (error) ->
       console.log error

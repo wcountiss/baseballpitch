@@ -12,10 +12,12 @@ parseObjecttoObject = (parseObject) ->
 #generic finder method for database objects
 #if performance is needed in future make new method that takes in a parsequery and runs it
 module.exports.find = (collectionName, query, options) ->
+  limit = 500
+
   ParseObject = Parse.Object.extend(collectionName)
   parseQuery = new Parse.Query(ParseObject)
   #set limit to max
-  parseQuery.limit(1000)
+  parseQuery.limit(limit)
   #query params
   #equal to
   if query
@@ -35,7 +37,7 @@ module.exports.find = (collectionName, query, options) ->
 
     #paging
     if query.page
-      parseQuery.skip(query.page * 1000)
+      parseQuery.skip(query.page * limit)
 
     #what to include
     if query.include

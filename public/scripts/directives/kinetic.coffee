@@ -158,7 +158,7 @@ angular.module('d3').directive 'kinetic', [
               .attr("height", height)
               .style("fill", "none")
               .style("pointer-events", "all") 
-              .on("mouseout", (d) -> speedTip.hide())
+              .on("mouseout", (d) ->  d3.selectAll(".selector").remove(); speedTip.hide())
               .on("mousemove", mousemove)
 
             #circles for timing
