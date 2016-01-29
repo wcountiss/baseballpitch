@@ -1,14 +1,14 @@
 <div class="player-details-header flex-container-row">
   <h2>Kinetic Chain Strength
-    <a ui-sref="player.kinetic-chain.timeline"><span class="icon-timing"></span></a>
-    <a ui-sref="player.kinetic-chain.strength"><span class="icon-chainstrength"></span></a>
+    <a ui-sref-active="active-overview-icon" ui-sref="player.kinetic-chain.timeline"><span class="icon-timing"></span></a>
+    <a ui-sref-active="active-overview-icon" ui-sref="player.kinetic-chain.strength"><span class="icon-chainstrength"></span></a>
   </h2>
 </div>
 <section>
   <div class="flex-container-row">
     <div class="flex-container-col">
       <div class="chain-graphs flex-grow-max">
-        <kinetic style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerKineticChart" bind="chain.playerScores"></kinetic>
+        <kinetic style="text-transform: uppercase; font-size:.75em" width="70%" height="600" id="playerKineticChart" bind="chain.playerScores"></kinetic>
       </div>
     </div>
   </div>
