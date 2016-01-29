@@ -17,7 +17,7 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
   #Setter for currentPlayer
   cpf.setCurrentPlayer = (xx) ->
     cpf.currentPlayer = xx
-    console.log 'cpf.currentPlayer is now: ',cpf.currentPlayer
+
     return $q.when(cpf.currentPlayer)
 
   #Getter for currentPlayer
@@ -46,7 +46,7 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
   #return the entire Player Comparison Object
   cpf.setComparison = (compared) ->
     cpf.comparedPlayer = compared
-    console.log 'cpf.comparedPlayer now set: ',cpf.comparedPlayer
+
     return $q.when(cpf.comparedPlayer)
 
 
