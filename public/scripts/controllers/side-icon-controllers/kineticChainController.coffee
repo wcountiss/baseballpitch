@@ -3,7 +3,6 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
   cpf = currentPlayerFactory
   ef = eliteFactory
 
-  return
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises)
   .then (results) ->
@@ -14,18 +13,13 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
       stats = $stat.averageTimingData(pitches)
       chain.playerScores = {
         timings: {
-          keyframeFirstMovement: stats.keyframeFirstMovement,
           keyframeFootContact: stats.keyframeFootContact,
           keyframeHipSpeed: stats.keyframeHipSpeed,
           keyframeLegKick: stats.keyframeLegKick,
-          # keyframeTimeWarp: stats.keyframeTimeWarp,
           keyframeTrunkSpeed: stats.keyframeTrunkSpeed
+          # keyframeTimeWarp: stats.keyframeTimeWarp,
         },
         averages: {
-          footContactTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'footContactTime'
-          maxFootHeightTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'maxFootHeightTime'
-          peakBicepSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakBicepSpeedTime'
-          peakForearmSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakForearmSpeedTime'
           peakHipSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakHipSpeedTime'
           peakTrunkSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakTrunkSpeedTime'
         }
