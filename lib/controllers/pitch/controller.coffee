@@ -3,7 +3,7 @@ moment = require 'moment'
 _ = require 'lodash'
 Promise = require 'bluebird'
 NodeCache = require( "node-cache" );
-cache = new NodeCache({ stdTTL: 60 * 60 * 24 });
+cache = new NodeCache({ stdTTL: 60 * 60 * 24 * 90 });
 
 # module.exports.save = (req, res) ->
 #   #simple validation, replace with parseModel later
@@ -19,11 +19,15 @@ cache = new NodeCache({ stdTTL: 60 * 60 * 24 });
 #     res.sendStatus(500)
 
 module.exports.find = (req, res) ->
-  # try cache
+  cachedResults = null
+  #if cache, get 30 days and combine with the cache to reduce calls but stay current 
   try
-    results = cache.get("pitch#{req.currentUser.id}", true)
-    res.send(results)
-    return
+    cachedResults = cache.get("pitch#{req.currentUser.id}", true)
+    #filter down to 365 days ago to 30 days ago
+    cachedResults = _.filter cachedResults, (result) -> 
+        moment(result.pitchDate.iso) >= moment().add(-365,'d') && moment(result.pitchDate.iso) <= moment().add(-30,'d')
+    #go 30 back for real data
+    daysBack = 30
 
   #Security, you only have access to your team's althletes
   database.find('TeamMember', {equal: { team: req.currentUser.MTTeams}})
@@ -107,6 +111,12 @@ module.exports.find = (req, res) ->
     Promise.all(pitchPromises)
     .then (pitchGroups) ->
       results = _.flatten pitchGroups
+      
+      #if cached results combine
+      if cachedResults
+        results = results.concat cachedResults
+        results = _.sortBy results, (result) -> moment(result.pitchDate.iso)
+
       #cache
       cache.set( "pitch#{req.currentUser.id}", results)
 
@@ -136,7 +146,6 @@ module.exports.findByAtheleteProfileId = (req, res) ->
         getNumberofPages = 2
     if daysBack >= 365
         getNumberofPages = 4
-
 
     #get pitches by player asynch
     pitchPromises = []

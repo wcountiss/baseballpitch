@@ -86,7 +86,7 @@ app.config ($stateProvider, $urlRouterProvider) ->
   .state('player.kinetic-chain.strength',{
     url: '/strength',
     templateUrl: 'views/player-analysis-views/kinetic-chain/sub-views/strength.html',
-    controller: 'kineticChainController as chain',
+    controller: 'kineticStrengthController as strength',
     authenticate: true
   })
   .state('player.foot-contact',{
@@ -196,6 +196,7 @@ app.run ($rootScope, $state, $cookies, $location) ->
 
 _.mixin(s.exports());
 require './directives/arealinechart.coffee'
+require './directives/barchart.coffee'
 require './directives/groupedbarchart.coffee'
 require './directives/kinetic.coffee'
 require './directives/linechart.coffee'
@@ -216,6 +217,7 @@ require './controllers/side-icon-controllers/snap-shot-controllers/footcontactSn
 require './controllers/side-icon-controllers/snap-shot-controllers/maxexcursionSnapShotController.coffee'
 require './controllers/side-icon-controllers/homeController.coffee'
 require './controllers/side-icon-controllers/kineticChainController.coffee'
+require './controllers/side-icon-controllers/kineticStrengthController.coffee'
 require './controllers/side-icon-controllers/jointKineticsController.coffee'
 require './controllers/side-icon-controllers/trendsController.coffee'
 require './filters/rounded.coffee'
