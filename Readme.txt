@@ -16,9 +16,6 @@ Player Data
 Elite Lines
 UI
 
-pitch increase to 30 cache and get only last 30 days
-
-
 End of Week 7
 Player Analysis Kinetic Chain Chart
 get point to squash, reduce index before by 1/2, after by 2x
