@@ -57,9 +57,10 @@
       opacity: 1;
     }
   }
-  .dev-border {margin-top: .7em;
-    border: 2px solid red;
-  }
+  //.dev-border {
+  //  margin-top: .7em;
+  //  border: 2px solid red;
+  //}
   .comparison-padding-right {
     padding-right:35px;
   }
@@ -85,15 +86,18 @@
   .flex-align-content-center {
     align-content: center;
   }
-  .flex-align-content-center {
-
-  }
-
   .white-bg {
     background-color: white;
   }
-
   .flex-comparison-col {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: space-around;
+    flex:1;
+
+  }
+  .flex-comparison-row {
     display: flex;
     flex-direction:column;
     align-items: center;

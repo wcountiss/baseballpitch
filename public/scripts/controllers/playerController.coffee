@@ -22,6 +22,7 @@ angular.module('motus').controller('playerController',
 
       cpf.getComparedPlayer().then (results) ->
         pc.comparedPlayer = results
+        console.log 'pc:', pc
 
 
       #Select Current Player

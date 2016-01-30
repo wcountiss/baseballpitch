@@ -161,11 +161,15 @@
     }
     span.icon-compare-add {
       display: inline-block;
+      transition: all 0.3s ease;
       &:hover {
-        transition: all 0.3s ease;
         color: @motus-lightorange;
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
+      }
+      &:hover:after {
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
       }
     }
     span.compare-active {
