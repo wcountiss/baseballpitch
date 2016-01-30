@@ -10,7 +10,13 @@
 </div>
 
 <div class="awardment">
-  <span>{{pc.comparedPlayer.playerScores[0].overall}}</span>
+  <span ng-class="{
+          'overall-good': pc.comparedPlayer.playerScores[0].overall == 'Good',
+          'overall-ok': pc.comparedPlayer.playerScores[0].overall == 'OK',
+          'overall-poor': pc.comparedPlayer.playerScores[0].overall == 'Poor'
+          }">
+    {{pc.comparedPlayer.playerScores[0].overall}}
+  </span>
 </div>
 <div>
   <select class="small-flexitem" ng-model="pc.filterType" name="sessions" ng-change="pc.filterLastThrowType()">
