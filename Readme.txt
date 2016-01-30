@@ -12,14 +12,14 @@ Grouped Bar, tooltip stays and you hover others
 Elite is orange everywhere
 
 Player Analysis Kinetic Chart Force
-Bar Graph directive
 Player Data
+Elite Lines
 UI
+
+pitch increase to 30 cache and get only last 30 days
 
 
 End of Week 7
-Cloud Code or Cron job
-
 Player Analysis Kinetic Chain Chart
 get point to squash, reduce index before by 1/2, after by 2x
 Max value is the peakHip and Trunk
@@ -37,6 +37,7 @@ Add Google Analytics
 
 
 End of Week 8
+Cloud Code or Cron job
 Tagging Throws on Tagging Chart
 Download Data in Excel
 Player View
