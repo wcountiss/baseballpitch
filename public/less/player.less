@@ -159,6 +159,20 @@
         padding-right: 0.45em;
       }
     }
+    span.icon-compare-add {
+      display: inline-block;
+      &:hover {
+        transition: all 0.3s ease;
+        color: @motus-lightorange;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    }
+    span.compare-active {
+      color: @motus-lightorange !important;
+      -webkit-transform: rotate(45deg) !important;
+      transform: rotate(45deg) !important;
+    }
     ul {
       font-size:20px;
       font-weight:bold;
