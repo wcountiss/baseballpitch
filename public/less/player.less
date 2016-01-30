@@ -121,8 +121,22 @@
     color: @motus-lightorange;
   }
 
+
   .odd {
     background-color: #333736;
+  }
+
+  .scrollwarn {
+    color: @motus-darkorange;
+    text-align: center;
+    position: relative;
+    bottom: .5em;
+
+    .icon-uparrow {
+      font-size: 2em;
+      position:relative;
+      top: .31em;
+    }
   }
 
   .roster-list {
@@ -154,6 +168,8 @@
       padding-bottom:32px;
       width: 100%;
       color: #6c6d70;
+      overflow: auto;
+      max-height: 360px;
       li {
         cursor: pointer;
         padding-left: 40px;

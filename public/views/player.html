@@ -17,6 +17,11 @@
             <span ng-if="pc.state.includes('player.comparison')" class="icon-compare-add" ng-click="pc.setComparison(player)"></span>
           </li>
         </ul>
+        <div class="scrollwarn" ng-if="pc.overflowCheck">
+          <span class="icon-uparrow"></span>
+          <span>scroll to view more players</span>
+          <span class="icon-uparrow"></span>
+        </div>
       </div>
 
 
