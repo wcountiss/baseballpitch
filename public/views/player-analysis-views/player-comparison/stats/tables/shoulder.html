@@ -1,0 +1,32 @@
+<thead>
+<tr>
+  <th>
+    Metric
+  </th>
+  <th>
+    Player
+  </th>
+  <th>
+    Comparison
+  </th>
+  <th>
+    Elite
+  </th>
+</tr>
+</thead>
+<tbody>
+<tr class="col-data" ng-repeat="shoulder in pc.currentPlayer.shoulder" ng-class-even="metric-even" ng-class-odd="metric-odd">
+  <td>
+    {{shoulder.label}}
+  </td>
+  <td>
+    {{shoulder.playerscore}}
+  </td>
+  <td>
+    {{pc.comparedPlayer.shoulder[$index].playerscore}}
+  </td>
+  <td>
+    {{shoulder.eliteHigh}}
+  </td>
+</tr>
+</tbody>

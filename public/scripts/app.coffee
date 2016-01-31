@@ -174,10 +174,22 @@ app.config ($stateProvider, $urlRouterProvider) ->
     authenticate: true,
     views: {
       'statsOne@player.comparison':{
-        templateUrl: 'views/player-analysis-views/player-comparison/stats/stats-one.html'
+        templateUrl: 'views/player-analysis-views/player-comparison/stats/stats-one.html',
       },
-      'statsTwo@player.comparison':{
-        templateUrl: 'views/player-analysis-views/player-comparison/stats/stats-two.html'
+      'elbowTable@player.comparison.stats': {
+        templateUrl: 'views/player-analysis-views/player-comparison/stats/tables/elbow.html'
+      },
+      'shoulderTable@player.comparison.stats': {
+        templateUrl: 'views/player-analysis-views/player-comparison/stats/tables/shoulder.html'
+      },
+      'trunkTable@player.comparison.stats': {
+        templateUrl: 'views/player-analysis-views/player-comparison/stats/tables/trunk.html'
+      },
+      'hipsTable@player.comparison.stats': {
+        templateUrl: 'views/player-analysis-views/player-comparison/stats/tables/hips.html'
+      },
+      'footTable@player.comparison.stats': {
+        templateUrl: 'views/player-analysis-views/player-comparison/stats/tables/foot.html'
       },
       'addPlayer@player.comparison': {
         templateUrl: 'views/player-analysis-views/player-comparison/add-player.html'

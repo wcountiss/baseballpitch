@@ -97,11 +97,10 @@
     flex:1;
 
   }
-  .flex-comparison-row {
+  .flex-comparison-col-stats-view {
     display: flex;
     flex-direction:column;
-    align-items: center;
-    justify-content: space-around;
+
     flex:1;
 
   }
@@ -162,6 +161,67 @@
     margin-right: .7em;
     min-height: 46.429em;
   }
+  /*
+   TABLES
+   *************************************/
+
+  .metric-odd {
+    background-color: rgba(202, 227, 243,.85);
+  }
+  .metric-even {
+    background-color: rgba(175, 197, 211,.85);
+  }
+  .metricval {
+    font-family: "Arial-Black", Arial, sans-serif;
+    font-size: 1.464em;
+    padding-left: 0.6em;
+    text-align: right;
+  }
+
+  .unit {
+    font-family: 'Arial-Narrow', Arial, sans-serif;
+    font-size: 0.857em;
+    padding:.25em;
+    text-align: left;
+  }
+
+  select {
+    margin-top: 2.143em;
+    margin-right: 2.857em;
+  }
+
+  td, th {
+    padding: 0.571em;
+  }
+
+  tr .col-data {
+    padding-left: 1.5em;
+  }
+
+  tr.col-data {
+
+    &:hover {
+      transition: all 0.3s ease-out;
+      color: @motus-lightorange;
+      background-color: @motus-darkgrey!important;
+    }
+  }
+
+  .selected {
+    color: @motus-lightorange;
+    background-color: @charcoalgray!important;
+  }
+
+  .metric-table tr {
+    cursor: pointer;
+  }
+  .metric-table {
+    margin-left: 2.857em;
+    margin-top: 1.071em;
+    padding-bottom: 2.857em;
+  }
+
+
 
   @media (max-width: 1024px) {
 

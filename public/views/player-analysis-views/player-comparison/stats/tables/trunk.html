@@ -1,0 +1,32 @@
+<thead>
+<tr>
+  <th>
+    Metric
+  </th>
+  <th>
+    Player
+  </th>
+  <th>
+    Comparison
+  </th>
+  <th>
+    Elite
+  </th>
+</tr>
+</thead>
+<tbody>
+<tr class="col-data" ng-repeat="trunk in pc.currentPlayer.trunk" ng-class-even="metric-even" ng-class-odd="metric-odd">
+  <td>
+    {{trunk.label}}
+  </td>
+  <td>
+    {{trunk.playerscore}}
+  </td>
+  <td>
+    {{pc.comparedPlayer.trunk[$index].playerscore}}
+  </td>
+  <td>
+    {{trunk.eliteHigh}}
+  </td>
+</tr>
+</tbody>
