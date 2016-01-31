@@ -5,8 +5,11 @@
   </div>
 
   <div class="judgement-list">
+  <!-- <div class="judgementloader"ng-if="true">
+      LOADING
+  </div> -->
     <div ng-repeat="award in team.awardedPlayers | limitTo : 3" class="judged-player">
-      <div class="imghldr"></div>
+      <div class="imghldr"><img ng-src="../images/{{award.iconpath}}" alt=""></div>
       <div class="texthldr">
        <span>{{::award.player.athleteProfile.firstName}} {{::award.player.athleteProfile.lastName}}</span><br>
        <span class="textrating">{{::award.awardtitle}}</span><br>
@@ -19,7 +22,7 @@
   <div class="judgement-list" ng-if="team.awardedPlayers.length > 3">
     
     <div ng-repeat="award in team.awardedPlayers | limitTo : -(team.awardedPlayers.length-3)"class="judged-player">
-      <div class="imghldr"></div>
+      <div class="imghldr"><img ng-src="../images/{{award.iconpath}}" alt=""></div>
       <div class="texthldr">
        <span>{{::award.player.athleteProfile.firstName}} {{::award.player.athleteProfile.lastName}}</span><br>
        <span class="textrating">{{::award.awardtitle}}</span><br>
