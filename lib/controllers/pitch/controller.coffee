@@ -3,7 +3,8 @@ moment = require 'moment'
 _ = require 'lodash'
 Promise = require 'bluebird'
 NodeCache = require( "node-cache" );
-cache = new NodeCache({ stdTTL: 60 * 60 * 24 * 90 });
+extendedCache = new NodeCache({ stdTTL: 60 * 60 * 24 * 90 }); #90 day cache
+cache = new NodeCache({ stdTTL: 60 * 60 * 24 * 1 }); #1 day cache
 
 # module.exports.save = (req, res) ->
 #   #simple validation, replace with parseModel later
@@ -21,10 +22,11 @@ cache = new NodeCache({ stdTTL: 60 * 60 * 24 * 90 });
 module.exports.find = (req, res) ->
   daysBack = req.body.daysBack || 30
   cachedResults = null
-  console.log 'start:', moment().format('MM/DD/YYYY mm:ss:SSS')
+  pitchGotFullSet = false
+
   #if cache, get recent days and combine with the cache to reduce calls but stay current 
   try
-    cachedResults = cache.get("pitch#{req.currentUser.id}", true)
+    cachedResults = extendedCache.get("pitch#{req.currentUser.id}", true)
 
     cachedResults = _.sortBy cachedResults, (cachedResult) -> moment(cachedResult.pitchDate.iso)
     #filter down to 365 days ago
@@ -32,22 +34,24 @@ module.exports.find = (req, res) ->
     #go until the last load back for real data
     daysBack = moment().diff(moment(cachedResults[cachedResults.length-1].pitchDate.iso), 'days')
 
-  console.log 'loadTeam:', moment().format('MM/DD/YYYY mm:ss:SSS')
+    #if you recently loaded everything, you do not need to get it until 24 hours later
+    pitchGotFullSet = cache.get("pitchGotFullSet", true)
+    if pitchGotFullSet
+      res.send(cachedResults)
+      return
 
   #Security, you only have access to your team's althletes
   database.find('TeamMember', {equal: { team: req.currentUser.MTTeams}})
   .then (teamMembers) ->
-    console.log 'finish team:', moment().format('MM/DD/YYYY mm:ss:SSS')
     athleteProfiles = _.pluck(teamMembers, 'athleteProfile')
+    
     #Go back 30 days by default but can override
-
     getNumberofPages = 1
     if daysBack > 60
         getNumberofPages = 2
     if daysBack >= 365
         getNumberofPages = 8
 
-    console.log 'load pitch:', moment().format('MM/DD/YYYY mm:ss:SSS')
     #get pitches by player asynch
     pitchPromises = []
     _.each athleteProfiles, (athleteProfile) ->
@@ -58,7 +62,8 @@ module.exports.find = (req, res) ->
               greater: { 'pitchDate': moment().add(-daysBack,'d').toDate() },
               page: pageNum,
               #unneeded byte type columns removed
-              select: ["armSlot",
+              select: [
+                "armSlot",
                 "armSpeed",
                 "athleteProfile",
                 "createdAt",
@@ -117,16 +122,17 @@ module.exports.find = (req, res) ->
     Promise.all(pitchPromises)
     .then (pitchGroups) ->
       results = _.flatten pitchGroups
-      console.log 'finish pitch:', moment().format('MM/DD/YYYY mm:ss:SSS')
 
       #if cached results combine
       if cachedResults
         results = results.concat cachedResults
         results = _.sortBy results, (result) -> moment(result.pitchDate.iso)
-      console.log 'combine cache:', moment().format('MM/DD/YYYY mm:ss:SSS')
+      else
+        #save 365 was gotten so you don't have to get again for 24 hours
+        cache.set( "pitchGotFullSet", true)
 
       #cache
-      cache.set( "pitch#{req.currentUser.id}", results)
+      extendedCache.set( "pitch#{req.currentUser.id}", results)
 
       res.send(results)
     .catch (error) ->

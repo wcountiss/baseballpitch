@@ -27,8 +27,6 @@ Parse get Players by Game Manager
 Game Manager View
 
 Fix Firefox
-LocalStorage
-ServerCache
 SubTag Filter Snapshots
 90 day back filter and get sessions
 Persistable Filter
@@ -40,6 +38,7 @@ Cloud Code or Cron job
 Tagging Throws on Tagging Chart
 Download Data in Excel
 Player View
+LocalStorage?
 
 
 Questions for Ben
