@@ -144,6 +144,9 @@
     display: flex;
     flex-direction: column;
     min-width: 280px;
+    nav {
+      display: inline;
+    }
     h2 {
       text-transform: uppercase;
       display: flex;
@@ -162,20 +165,21 @@
     span.icon-compare-add {
       display: inline-block;
       transition: all 0.3s ease;
+      margin-left:2.567em;
       &:hover {
         color: @motus-lightorange;
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
       }
       &:hover:after {
-        -webkit-transform: rotate(-45deg);
-        transform: rotate(-45deg);
+        -webkit-transform: rotate(-90deg);
+        transform: rotate(-90deg);
       }
     }
     span.compare-active {
       color: @motus-lightorange !important;
-      -webkit-transform: rotate(45deg) !important;
-      transform: rotate(45deg) !important;
+      -webkit-transform: rotate(90deg) !important;
+      transform: rotate(90deg) !important;
     }
     ul {
       font-size:20px;
