@@ -1,4 +1,4 @@
-<thead>
+<table><thead>
 <tr>
   <th>
     Metric
@@ -14,19 +14,20 @@
   </th>
 </tr>
 </thead>
-<tbody>
-<tr class="col-data" ng-repeat="hip in pc.currentPlayer.hip" ng-class-even="metric-even" ng-class-odd="metric-odd">
-  <td>
-    {{hip.label}}
-  </td>
-  <td>
-    {{hip.playerscore}}
-  </td>
-  <td>
-    {{pc.comparedPlayer.hip[$index].playerscore}}
-  </td>
-  <td>
-    {{hip.eliteHigh}}
-  </td>
-</tr>
-</tbody>
+  <tbody>
+  <tr class="col-data" ng-repeat="hip in pc.currentPlayer.hip" ng-class-even="'metric-even'" ng-class-odd="'metric-odd'">
+    <td>
+      {{hip.label}}
+    </td>
+    <td>
+      {{hip.playerscore}}
+    </td>
+    <td>
+      {{pc.comparedPlayer.hip[$index].playerscore}}
+    </td>
+    <td>
+      {{hip.eliteHigh}}
+    </td>
+  </tr>
+  </tbody>
+</table>

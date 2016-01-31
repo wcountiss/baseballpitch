@@ -1,32 +1,35 @@
-<thead>
-<tr>
-  <th>
-    Metric
-  </th>
-  <th>
-    Player
-  </th>
-  <th>
-    Comparison
-  </th>
-  <th>
-    Elite
-  </th>
-</tr>
-</thead>
-<tbody>
-<tr class="col-data" ng-repeat="foot in pc.currentPlayer.foot" ng-class-even="metric-even" ng-class-odd="metric-odd">
-  <td>
-    {{foot.label}}
-  </td>
-  <td>
-    {{foot.playerscore}}
-  </td>
-  <td>
-    {{pc.comparedPlayer.foot[$index].playerscore}}
-  </td>
-  <td>
-    {{foot.eliteHigh}}
-  </td>
-</tr>
-</tbody>
+<table>
+  <thead>
+  <tr>
+    <th>
+      Metric
+    </th>
+    <th>
+      Player
+    </th>
+    <th>
+      Comparison
+    </th>
+    <th>
+      Elite
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="col-data" ng-repeat="foot in pc.currentPlayer.foot" ng-class-even="'metric-even'" ng-class-odd="'metric-odd'">
+    <td>
+      {{foot.label}}
+    </td>
+    <td>
+      {{foot.playerscore}}
+    </td>
+    <td>
+      {{pc.comparedPlayer.foot[$index].playerscore}}
+    </td>
+    <td>
+      {{foot.eliteHigh}}
+    </td>
+  </tr>
+  </tbody>
+
+</table>

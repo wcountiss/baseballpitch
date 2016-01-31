@@ -1,19 +1,19 @@
-<div class="flex-container">
+<div class="flex-container flex-justify-content-space-around">
   <h3>{{pc.currentPlayer.athleteProfile.firstName}} {{pc.currentPlayer.athleteProfile.lastName}}</h3>
   <h3>{{pc.comparedPlayer.athleteProfile.firstName}} {{pc.comparedPlayer.athleteProfile.lastName}}</h3>
 </div>
 
-<h4>Elbow</h4>
-<table ui-view="elbowTable" class="metric-table"></table>
+<h3>Elbow</h3>
+<section ui-view="elbowTable" class="metric-table flex-container"></section>
 
-<h4>Shoulder</h4>
-<table ui-view="shoulderTable" class="metric-table"></table>
+<h3>Shoulder</h3>
+<section ui-view="shoulderTable" class="metric-table flex-container"></section>
 
-<h4>Trunk</h4>
-<table ui-view="trunkTable" class="metric-table"></table>
+<h3>Trunk</h3>
+<section ui-view="trunkTable" class="metric-table flex-container"></section>
 
-<h4>Hips</h4>
-<table ui-view="hipsTable" class="metric-table"></table>
+<h3>Hips</h3>
+<section ui-view="hipsTable" class="metric-table flex-container"></section>
 
-<h4>Foot</h4>
-<table ui-view="footTable" class="metric-table"></table>
+<h3>Foot</h3>
+<section ui-view="footTable" class="metric-table flex-container"></section>

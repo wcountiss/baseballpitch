@@ -18,7 +18,7 @@
       </div>
       <div ng-if="pc.state.includes('player.comparison.visual')" ui-view="visualOne" class="comparison-one flex-comparison-col white-bg">
       </div>
-      <div ng-if="pc.state.includes('player.comparison.stats') && pc.comparedPlayer.athleteProfile.firstName" ui-view="statsOne"  class="comparison-one flex-comparison-col white-bg">
+      <div ng-if="pc.state.includes('player.comparison.stats') && pc.comparedPlayer.athleteProfile.firstName" ui-view="statsOne"  class="comparison-one flex-comparison-col-stats-view white-bg">
       </div>
 
 
@@ -29,9 +29,6 @@
       </div>
       <div ng-if="pc.state.includes('player.comparison.visual') && pc.comparedPlayer.athleteProfile.firstName" ui-view="visualTwo" class="comparison-two dev-border white-bg flex-comparison-col">
       </div>
-      <!--<div ng-if="pc.state.includes('player.comparison.stats') && pc.comparedPlayer.athleteProfile.firstName" ui-view="statsTwo" class="comparison-two dev-border white-bg flex-comparison-col">-->
-      <!--</div>-->
-
 
       <div ng-if="!pc.comparedPlayer.athleteProfile.firstName" ui-view="addPlayer" id="addComparison" class="add-comparison comparison-two dev-border white-bg flex-comparison-col"></div>
 
