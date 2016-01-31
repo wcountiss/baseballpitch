@@ -1,24 +1,24 @@
 <div class="flex-container-row checkbox-filters">
   <div class="checkbox-spacer">
-    <input type="checkbox" id="lt"  name="LT" checked>
+    <input type="checkbox" id="lt"  name="LT" ng-model="filter.longtoss" checked>
     <label for="lt" class="check-box longtoss"></label>
     <span>LT</span>
   </div>
 
   <div class="checkbox-spacer">
-    <input type="checkbox" id="bp" name="BP" checked>
+    <input type="checkbox" id="bp" name="BP" ng-model="filter.bullpen" checked>
     <label for="bp" class="check-box bullpen"></label>
     <span>BP</span>
   </div>
 
   <div class="checkbox-spacer">
-    <input type="checkbox" id="gm" name="GM" checked>
+    <input type="checkbox" id="gm" name="GM" ng-model="filter.game" checked>
     <label for="gm" class="check-box game"></label>
     <span>GM</span>
   </div>
 
   <div class="checkbox-spacer">
-    <input type="checkbox" id="untagged" name="UNTAGGED" checked>
+    <input type="checkbox" id="untagged" name="UNTAGGED" ng-model="filter.untagged" checked>
     <label for="untagged" class="check-box untagged"></label>
     <span>Untagged</span>
   </div>
