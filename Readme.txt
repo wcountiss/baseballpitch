@@ -3,7 +3,9 @@ Motus
 End of Week 6:
 Trend Feedback
 Trend Filters - select all by default (DONE)
-Trend Filters not working
+
+Trend Filters not working ** Filters now have booleans associated with them, George please tie in the boolean values into the directives for the charts. **
+
 Trend Selected Color
 12 Months back on trends
 Line Chart Scale Min and Max
