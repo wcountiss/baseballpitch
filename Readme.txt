@@ -2,7 +2,7 @@ Motus
 
 End of Week 6:
 Trend Feedback
-Trend Filters - select all by default
+Trend Filters - select all by default (DONE)
 Trend Filters not working
 Trend Selected Color
 12 Months back on trends
