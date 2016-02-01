@@ -9,6 +9,6 @@ router.post '/', controller.find
 router.post '/find', controller.find
 
 #find pitches with timing data
-router.post '/findByAtheleteProfileId', controller.findByAtheleteProfileId 
+router.post '/findPitchTimingByAtheleteProfileId', controller.findPitchTimingByAtheleteProfileId 
 
 module.exports = router

@@ -4,7 +4,7 @@ angular.module('motus').controller('teamOverviewController',
     ($http, $state, $q, $elite, $player, $pitch, $stat, $scope) ->
       team = this
 
-      # cache upfront
+      #cache upfront
       #Get pitches a year back
       GetAllDataPromises = [$elite.getEliteMetrics(), $pitch.getPitches({ daysBack: 365 })]
       $q.all(GetAllDataPromises)
@@ -27,6 +27,7 @@ angular.module('motus').controller('teamOverviewController',
           
           $stat.getPlayersStats(players)
           .then (playerStats) ->
+            console.log playerStats
             team.bullpen = playerStats
 
           $stat.getPlayerAwards(players)

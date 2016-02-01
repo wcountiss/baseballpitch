@@ -143,10 +143,17 @@ module.exports.find = (req, res) ->
     res.sendStatus(500)
 
 
-module.exports.findByAtheleteProfileId = (req, res) ->
+module.exports.findPitchTimingByAtheleteProfileId = (req, res) ->
   #required params
   if !req.body.athleteProfileId
     res.status(400).send({ error: 'No AthleteProfileId'})
+
+  #if cache, get recent days and combine with the cache to reduce calls but stay current 
+  #try cache
+  try
+    results = cache.get("pitchTiming#{req.body.athleteProfileId}", true)
+    res.send(results)
+    return
 
   #Security, you only have access to your team's althletes
   database.find('TeamMember', {equal: { team: req.currentUser.MTTeams}})
@@ -171,74 +178,36 @@ module.exports.findByAtheleteProfileId = (req, res) ->
           greater: { 'pitchDate': moment().add(-daysBack,'d').toDate() },
           page: pageNum,
           #unneeded byte type columns removed
-          select: ["armSlot",
-            "armSpeed",
+          select: [
             "athleteProfile",
-            "createdAt",
-            "elbowFlexionFootContact",
-            "elbowFlexionRelease",
-            "elbowHeight",
-            "fingertipVelocityRelease",
-            "footAngle",
             "footContactTime",
-            "forearmSlotRelease",
             "keyframeFirstMovement",
             "keyframeFootContact",
             "keyframeHipSpeed",
             "keyframeLegKick",
             "keyframeTimeWarp",
             "keyframeTrunkSpeed",
-            "maxElbowFlexion",
-            "maxFootHeight",
             "maxFootHeightTime",
-            "maxShoulderRotation",
-            "maxTrunkSeparation",
             "objectId",
-            "peakBicepSpeed",
             "peakBicepSpeedTime",
-            "peakElbowCompressiveForce",
-            "peakElbowValgusTorque",
-            "peakForearmSpeed",
             "peakForearmSpeedTime",
-            "peakHipSpeed",
             "peakHipSpeedTime",
-            "peakShoulderAnteriorForce",
-            "peakShoulderCompressiveForce",
-            "peakShoulderRotationTorque",
-            "peakTrunkSpeed",
             "peakTrunkSpeedTime",
-            "pelvisFlexionFootContact",
-            "pelvisFlexionRelease",
-            "pelvisRotationFootContact",
-            "pelvisRotationRelease",
-            "pelvisSideTiltFootContact",
-            "pelvisSideTiltRelease",
             "pitchDate",
             "pitchTime",
-            "releasePoint",
-            "shoulderAbductionFootContact",
-            "shoulderAbductionRelease",
-            "shoulderRotation",
-            "shoulderRotationFootContact",
-            "shoulderRotationRelease",
-            "strideLength",
             "tagString",
             "timeSeriesForearmSpeed",
             "timeSeriesHipSpeed",
-            "timeSeriesTrunkSpeed",
-            "torque",
-            "trunkFlexionFootContact",
-            "trunkFlexionRelease",
-            "trunkRotationFootContact",
-            "trunkRotationRelease",
-            "trunkSideTiltFootContact",
-            "trunkSideTiltRelease",
-            "updatedAt"
+            "timeSeriesTrunkSpeed"
           ]  
         })
     Promise.all(pitchPromises)
     .then (pitchGroups) ->
       results = _.flatten pitchGroups
+      
+      #cache
+      cache.set("pitchTiming#{req.body.athleteProfileId}", results)
+
       res.send(results)
     .catch (error) ->
       console.log error

@@ -52,7 +52,7 @@ angular.module('d3').directive 'barchart', [
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html (d) ->
-              return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
+              return "<span style='color:red'>" + parseFloat(d.value).toFixed(1) + " Degrees/Second</span>";
 
           # remove the last version and recreate 
           elementChildren = element[0].children
@@ -75,20 +75,12 @@ angular.module('d3').directive 'barchart', [
             data = _.cloneDeep(bindData)
 
            #set yxis to 0 or min - 1 if under 0 to whichever is higher max value or average 
-            ymin = 0
-            minValue = d3.min(data, (d) -> d.value)
-            # minAverage = d3.min(data, (d) -> d.average)
-            # if minValue < minAverage then ymin = minValue else ymin = minAverage
-            ymin = minValue #remove when averages come in 
-            ymin = minValue - 1 if minValue < 0
-
             maxValue = d3.max(data, (d) -> d.value)
-            # maxAverage = d3.max(data, (d) -> d.average)
-            # if maxValue > minAverage then ymax = minValue else ymax = minAverage
-            ymax = maxValue #remove when averages come in 
-
+            maxAverage = d3.max(data, (d) -> d.average)
+            if maxValue > maxAverage then ymax = maxValue else ymax = maxAverage
+            
             x.domain(data.map((d) -> d.bar ))
-            y.domain [ymin, ymax]
+            y.domain [0, ymax]
 
             svg.append("g")
                 .attr("class", "x axis")
@@ -103,7 +95,7 @@ angular.module('d3').directive 'barchart', [
                 .attr("y", 6)
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
-                .text("Frequency")
+                .text("Degrees/Second")
 
             svg.selectAll(".bar")
                 .data(data)
@@ -116,6 +108,20 @@ angular.module('d3').directive 'barchart', [
                 .attr("height", (d) -> height - y(d.value))
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide)
+
+            #average lines
+            svg.selectAll(".average")
+                .data(data)
+              .enter()
+                .append("line")
+                .attr('x1', (d) -> x(d.bar))
+                .attr('x2', (d) -> x(d.bar) + x.rangeBand())
+                .attr('y1', (d) -> y(d.average))
+                .attr('y2', (d) -> y(d.average))
+                .attr('class', 'average')
+                .attr('stroke-width', 2)
+                .attr('stroke', 'black')
+
 
         scope.$watch 'bind()', (->
           updateChart()

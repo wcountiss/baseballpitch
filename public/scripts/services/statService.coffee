@@ -182,7 +182,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
       $pitch.getPitches({ daysBack: 60 })
       .then (pitches) ->
         #already have 30 days for filter them out
-        pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate.iso) < moment().add('d', -30);
+        pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate.iso) < moment().add(-30,'d');
         #group by player
         pitches = _.groupBy pitches, (pitch) -> pitch.athleteProfile.objectId
 

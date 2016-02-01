@@ -18,7 +18,7 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
   pitchService.getPitches = (options={daysBack: 30}) ->    
     if allCachedPitches
       returnedPitches = _.filter allCachedPitches, (pitch) -> 
-        moment(pitch.pitchDate.iso) >= moment().add('d', -options.daysBack)
+        moment(pitch.pitchDate.iso) >= moment().add(-options.daysBack, 'd')
       return $q.when(returnedPitches)
     else
       defer = $q.defer()
@@ -30,6 +30,9 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
 
         #cache the pitches in the session
         allCachedPitches = pitches
+
+        pitches = _.filter allCachedPitches, (pitch) -> 
+          moment(pitch.pitchDate.iso) >= moment().add(-options.daysBack, 'd')
         defer.resolve(pitches)
     return defer.promise
 
@@ -45,9 +48,8 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
       param.athleteProfileId = athleteProfileId
 
       #go to server and get pitches
-      $http.post("pitch/findByAtheleteProfileId", param)
+      $http.post("pitch/findPitchTimingByAtheleteProfileId", param)
       .then (result) ->
-        console.log result.data
         pitches = transformPitches(result.data)
 
         #cache the pitches in the session

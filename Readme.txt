@@ -2,10 +2,8 @@ Motus
 
 End of Week 6:
 Trend Feedback
-Trend Filters - select all by default (DONE)
 
 Trend Filters not working ** Filters now have booleans associated with them, George please tie in the boolean values into the directives for the charts. **
-
 Trend Selected Color
 12 Months back on trends
 Line Chart Scale Min and Max
@@ -14,9 +12,11 @@ Grouped Bar, tooltip stays and you hover others
 Elite is orange everywhere
 
 Player Analysis Kinetic Chart Force
-Player Data
-Elite Lines
 UI
+
+Console errors when no pitches
+Speed up Player Analysis
+
 
 End of Week 7
 Player Analysis Kinetic Chain Chart
