@@ -1,24 +1,24 @@
 <div class="flex-container-row checkbox-filters">
   <div class="checkbox-spacer">
-    <input type="checkbox" id="lt"  name="LT" ng-model="filter.longtoss" ng-init="filter.longtoss = true" />
+    <input type="checkbox" id="lt"  name="LT" ng-model="trends.filter.Longtoss" ng-change="trends.filterChange()">
     <label for="lt" class="check-box longtoss"></label>
     <span>LT</span>
   </div>
 
   <div class="checkbox-spacer">
-    <input type="checkbox" id="bp" name="BP" ng-model="filter.bullpen" ng-init="filter.bullpen = true" />
+    <input type="checkbox" id="bp" name="BP" ng-model="trends.filter.Bullpen" ng-change="trends.filterChange()">
     <label for="bp" class="check-box bullpen"></label>
     <span>BP</span>
   </div>
 
   <div class="checkbox-spacer">
-    <input type="checkbox" id="gm" name="GM" ng-model="filter.game" ng-init="filter.game = true" />
+    <input type="checkbox" id="gm" name="GM" ng-model="trends.filter.Game" ng-change="trends.filterChange()">
     <label for="gm" class="check-box game"></label>
     <span>GM</span>
   </div>
 
   <div class="checkbox-spacer">
-    <input type="checkbox" id="untagged" name="UNTAGGED" ng-model="filter.untagged" ng-init="filter.untagged = true" />
+    <input type="checkbox" id="untagged" name="UNTAGGED" ng-model="trends.filter.Untagged" ng-change="trends.filterChange()">
     <label for="untagged" class="check-box untagged"></label>
     <span>Untagged</span>
   </div>

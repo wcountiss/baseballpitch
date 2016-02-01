@@ -4,6 +4,9 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
   cpf = currentPlayerFactory
   ef = eliteFactory
 
+  #default all checked
+  trends.filter = {Longtoss: true, Bullpen: true, Game: true, Untagged: true}
+
   #Accordion State open or closed
   trends.isOpen = { foot: false, hip: false, trunk: false, shoulder: false, elbow: false }
 
@@ -72,6 +75,9 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         Untagged: stats[3]?.metricScores[metric.metric].score
       }
 
+  trends.filterChange = () ->
+    trends.selectMetric(trends.selectedMetric)
+
   #select metric and map to the chart
   trends.selectMetric = (metric) ->
     #blank out detail chart
@@ -93,18 +99,22 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         groupStats = _.extend({date: sessionKey}, sessionStats)
         groups.push groupStats
 
+
     $q.all(statsPromises)
     .then () ->
       groups = _.sortBy(groups, (group) -> moment(group.date))
 
       trends.playerScores = {
         heading: metric.label, units: metric.units, average: metric.avg
-        keys: ['Longtoss', 'Bullpen', 'Game', 'Untagged']
+        keys: _.filter _.keys(trends.filter), (key) -> 
+          if trends.filter[key] 
+            return key # ['Longtoss', 'Bullpen', 'Game', 'Untagged']
         groups: groups
       }
 
-      #set detail chart
-      trends.groupClick({group: groups[0].date, name: 'Longtoss', firstLoad: true})
+      if groups[0]
+        #set detail chart
+        trends.groupClick({group: groups[0].date, name: 'Longtoss', firstLoad: true})
 
 
   return trends

@@ -48,7 +48,8 @@ angular.module('d3').directive 'linechart', [
           .attr('width', width + margin.left + margin.right)
           .attr('height', height + margin.top + margin.bottom).append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-          if angular.isDefined(scope.bind())
+          
+          if scope.bind()
             bindData = scope.bind()            
             data = _.cloneDeep(bindData)
             
@@ -61,7 +62,7 @@ angular.module('d3').directive 'linechart', [
             )
             svg.call tip
 
-            if data.scores.length
+            if data.scores?.length
               data.scores.forEach (d) ->
                 d.index = d.index
                 d.score = +d.score
