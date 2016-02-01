@@ -1,1 +1,12 @@
-<h3>Visual Two</h3>
+ <div class="flex-container flex-justify-content-space-around">
+  <h3>{{pc.comparedPlayer.athleteProfile.firstName}} {{pc.comparedPlayer.athleteProfile.lastName}}</h3>
+ </div>
+
+<div class="compare-silhouette">
+  <piestats id="elbow" bind="pc.comparedPlayer.elbow" slices="10"></piestats>
+    <piestats id="trunk" bind="pc.comparedPlayer.trunk" slices="10"></piestats>
+    <piestats id="shoulder" bind="pc.comparedPlayer.shoulder" slices="10"></piestats>
+    <piestats id="hip" bind="pc.comparedPlayer.hip" slices="10"></piestats>
+    <piestats id="foot" bind="pc.comparedPlayer.foot" slices="10"></piestats>
+    <img src="../../../images/pitcher-sil-small.png" alt="Pitcher silhouette">
+</div>

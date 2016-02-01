@@ -1,5 +1,55 @@
 #comparison {
 
+  .compare-silhouette {
+      position: relative;
+
+
+
+      piestats {
+        z-index: 2;
+        transition: all 0.2s ease;
+        position: absolute;
+        transform: translate(-50%, -50%);
+
+        svg {
+          transform-origin: center;
+          transition: all 0.2s ease;
+
+          &:hover {
+            opacity: .9;
+            transform: scale(3);
+          }
+
+        }
+
+        &#elbow {
+          top: 23%;
+          left: 29%;
+        }
+
+        &#shoulder {
+          top: 19%;
+          left: 47%;
+        }
+        &#trunk {
+          top: 26%;
+          left: 55%;
+        }
+        &#hip {
+          top: 50%;
+          left: 53%;
+        }
+        &#foot {
+          top: 84%;
+          left: 79%;
+        }
+      }
+    }
+
+  img {
+    max-width: 100%;
+  }
+
   background-color: @motus-offwhite;
   width:inherit;
   // border: 2px solid gold;
@@ -238,8 +288,18 @@
   }
 
 
+   @media (max-width: 1200px) {
+    .compare-silhouette piestats {
+      transform: translate(-50%, -50%) scale(.50) ;
+    }
+  }
+
 
   @media (max-width: 1024px) {
+
+    .compare-silhouette piestats {
+      transform: translate(-50%, -50%) scale(.35) ;
+    }
 
     .comparison-one {
       min-height: 459px;
