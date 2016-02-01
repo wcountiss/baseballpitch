@@ -37,8 +37,8 @@ angular.module('motus').controller('teamOverviewController',
               'Worst Performer': {iconpath: 'worstmechanics.svg', title: 'Worst', subtitle: 'Performer', order: 4},
               'Most Improved': {iconpath: 'mostimproved.svg', title: 'Improved', subtitle: 'Most Since Last Month', order: 2},
               'Most Regressed': {iconpath: 'mostregressed.svg', title: 'Regressed', subtitle: 'Most Since Last Month', order: 5},
-              'Highest Elbow Torque': {iconpath: 'worsttorque.svg', title: 'Highest', subtitle: 'Elbow Torque', order: 3},
-              'Lowest Elbow Torque': {iconpath: 'besttorque.svg', title: 'Lowest', subtitle: 'Elbow Torque', order: 6}
+              'Highest Elbow Torque': {iconpath: 'worsttorque.svg', title: 'Highest', subtitle: 'Elbow Torque', order: 6},
+              'Lowest Elbow Torque': {iconpath: 'besttorque.svg', title: 'Lowest', subtitle: 'Elbow Torque', order: 3}
             }
             awardedPlayers = _.map awards, (award) ->
               award.awardtitle = judgements[award.award].title

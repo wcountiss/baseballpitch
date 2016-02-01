@@ -1,33 +1,29 @@
 <table><thead>
 <tr>
-  <th>
-    Metric
-  </th>
-  <th>
-    Player
-  </th>
-  <th>
-    Comparison
-  </th>
-  <th>
-    Elite
-  </th>
+      <th>
+        Player Metric
+      </th>
+       <th class='center-column'>
+        Elite Metric
+      </th>
+      <th class='right-column'>
+        Player Metric
+      </th>
+    </tr>>
 </tr>
 </thead>
   <tbody>
   <tr class="col-data" ng-repeat="hip in pc.currentPlayer.hip" ng-class-even="'metric-even'" ng-class-odd="'metric-odd'">
     <td>
-      {{hip.label}}
-    </td>
-    <td>
-      {{hip.playerscore}}
-    </td>
-    <td>
-      {{pc.comparedPlayer.hip[$index].playerscore}}
-    </td>
-    <td>
-      {{hip.eliteHigh}}
-    </td>
+         <span class="thick-number">{{hip.playerscore}}</span>
+      </td>
+      <td class='center-column'>
+         <span class="thick-number">{{hip.eliteHigh}}</span>
+        {{hip.label}}
+      </td>
+      <td class='right-column'>
+         <span class="thick-number">{{pc.comparedPlayer.hip[$index].playerscore}}</span>
+      </td>
   </tr>
   </tbody>
 </table>

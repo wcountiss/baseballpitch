@@ -2,32 +2,28 @@
   <thead>
     <tr>
       <th>
-        Metric
+        Player Metric
       </th>
-      <th>
-        Player
+       <th class='center-column'>
+        Elite Metric
       </th>
-      <th>
-        Comparison
-      </th>
-      <th>
-        Elite
+      <th class='right-column'>
+        Player Metric
       </th>
     </tr>
   </thead>
   <tbody>
     <tr class="col-data" ng-repeat="elbow in pc.currentPlayer.elbow" ng-class-even="'metric-even'" ng-class-odd="'metric-odd'">
+      
       <td>
+        <span class="thick-number">{{elbow.playerscore}}</span>
+      </td>
+      <td class='center-column'>
+         <span class="thick-number">{{elbow.eliteHigh}}</span>
         {{elbow.label}}
       </td>
-      <td>
-        {{elbow.playerscore}}
-      </td>
-      <td>
-        {{pc.comparedPlayer.elbow[$index].playerscore}}
-      </td>
-      <td>
-        {{elbow.eliteHigh}}
+      <td class='right-column'>
+         <span class="thick-number">{{pc.comparedPlayer.elbow[$index].playerscore}}</span>
       </td>
     </tr>
   </tbody>
