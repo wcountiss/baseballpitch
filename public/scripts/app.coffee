@@ -7,6 +7,16 @@ app = angular.module('motus', [
   'ui.bootstrap'
 ])
 
+require './services/playerService.coffee'
+require './services/pitchService.coffee'
+require './services/eliteFactory.coffee'
+
+app.service 'initService', ($q, eliteFactory, $player) ->
+  return {
+    cache: () ->
+      cachedPromises = [eliteFactory.getEliteMetrics(), $player.getPlayers()]
+      return $q.all(cachedPromises)
+  }
 
 app.config ($stateProvider, $urlRouterProvider) ->
   $urlRouterProvider.otherwise ($injector, $location) ->
@@ -38,14 +48,22 @@ app.config ($stateProvider, $urlRouterProvider) ->
       'bullpen@teamOverview': {templateUrl: 'views/team-overview/overview-templates/bullpen.html'},
       'roster@teamOverview': {templateUrl: 'views/team-overview/overview-templates/roster-chart.html'}
     },
-    authenticate: true
+    authenticate: true,
+    resolve: {
+      init: (initService) ->
+        initService.cache()
+    }
   })
   .state('player', {
     url: "/player",
     views: {
       '': {templateUrl: "views/player.html", controller: 'playerController as pc'}
     },
-    authenticate: true
+    authenticate: true,
+    resolve: {
+      init: (initService) ->
+        initService.cache()
+    }
   })
   .state('player.home', {
     url: '/home',
@@ -205,6 +223,7 @@ app.run ($rootScope, $state, $cookies, $location) ->
       $location.url('/#/login');
       $state.go('login')
       event.preventDefault();
+       
 
 _.mixin(s.exports());
 require './directives/arealinechart.coffee'
@@ -216,10 +235,7 @@ require './directives/piestats.coffee'
 require './services/currentPlayerFactory.coffee'
 require './services/currentUserFactory.coffee'
 require './services/statService.coffee'
-require './services/playerService.coffee'
-require './services/pitchService.coffee'
 require './controllers/indexController.coffee'
-require './services/eliteFactory.coffee'
 require './controllers/team-overview-controllers/teamOverviewController.coffee'
 require './controllers/playerController.coffee'
 require './controllers/login/loginController.coffee'
