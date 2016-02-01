@@ -106,15 +106,6 @@ angular.module('d3').directive 'linechart', [
                 .attr('stroke-width', 2)
                 .attr('stroke', 'black')
 
-                svg.append('line')
-                .attr('x1', 0)
-                .attr('y1', y(d.score))
-                .attr('x2', width)
-                .attr('y2', y(d.score))
-                .attr('class', 'selector')
-                .attr('stroke-width', 2)
-                .attr('stroke', 'black')
-
                 tip.show(d)
                 .style("top", (event.pageY-50)+"px")
                 .style("left",(event.pageX-40)+"px")

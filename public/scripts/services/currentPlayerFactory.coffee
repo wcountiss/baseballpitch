@@ -74,7 +74,6 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
           hipArray = []
           footArray = []
 
-
           $stat.runStatsEngine(daPlaya.pitches)
           .then (stats) ->
             return if !stats
