@@ -24,7 +24,7 @@
       <span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Peak Trunk Speed" class="icon-trunk"></span>
       <div class="part-nested-stack">
         <span ng-class="{'greenfooter': pc.currentPlayer.trunkIconStatus=='Good',
-        'yellowfooter': pc.trunkIconStatus=='OK',
+        'yellowfooter': pc.currentPlayer.trunkIconStatus=='OK',
         'redfooter': pc.currentPlayer.trunkIconStatus=='Poor'}">{{pc.currentPlayer.trunkIcon}}<sup>o</sup>/s</span>
         <span ng-if="pc.currentPlayer.trunkIconStatus=='Poor'" class="icon-downarrow redfooter"></span>
         <span ng-if="pc.currentPlayer.trunkIconStatus=='OK'" class="icon-okarrow yellowfooter"></span>
