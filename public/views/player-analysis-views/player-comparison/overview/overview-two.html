@@ -1,9 +1,9 @@
 <h4>{{pc.comparedPlayer.athleteProfile.firstName}} {{pc.comparedPlayer.athleteProfile.lastName}}</h4>
 <div class="flex-container">
   <div>
-    <span class="overall-percentage">{{pc.comparedPlayer.playerScores[0].score | rounded}} %</span>
+    <span class="overall-percentage">{{pc.comparedPlayer.playerScores[0].score | rounded}}%</span>
   </div>
-  <div class="flex-container-col">
+  <div class="flex-container-col overall-text">
     <span>Overall</span>
     <span>Score</span>
   </div>
@@ -29,5 +29,5 @@
   </select>
 </div>
 <div>
-  <arealinechart style="text-transform: uppercase; font-size:.75em" width="30%" height="150" id="playerOverviewChart" bind="pc.comparedPlayer.playerScores"></arealinechart>
+  <arealinechart style="margin: auto;text-transform: uppercase; font-size:.38em" width="30%" height="150" id="playerOverviewChart" bind="pc.comparedPlayer.playerScores"></arealinechart>
 </div>

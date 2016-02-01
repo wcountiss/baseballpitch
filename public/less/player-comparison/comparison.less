@@ -2,18 +2,31 @@
 
   background-color: @motus-offwhite;
   width:inherit;
-  border: 2px solid gold;
+  // border: 2px solid gold;
+
+  arealinechart {
+    left: -5%;
+    position: relative;
+  }
 
   h4 {
     font-size: 2.5em;
     font-family: Arial, sans-serif;
   }
+  
+  .overall-text {
+    line-height: 1.25em;
+    padding-left: 1em;
+    padding-top: .6em;
+  }
 
   .overall-ok {
+    font-family: 'Arial-Black';
     color: @motus-tangerine !important;
   }
 
   .overall-poor {
+    font-family: 'Arial-Black';
     color: @motus-red !important;
   }
 
@@ -23,6 +36,7 @@
     }
   }
   .overall-good {
+    font-family: 'Arial-Black';
     color: @motus-green !important;
   }
 
@@ -104,7 +118,7 @@
 
   }
   .overall-percentage {
-      font-size:2em;
+      font-size:2.5em;
       font-family: "Arial-Black", Arial, sans-serif;
   }
   .remove-comparison {
@@ -125,6 +139,7 @@
     background-position: 100%;
     background-size: 1.429em;
     min-width: 12.7em;
+    margin: auto;
 
     &:focus, input:focus{
       outline: 0;
@@ -141,9 +156,12 @@
   .add-comparison {
     h3 {
       text-align: center;
+      font-size: 1.5em;
+      padding-left: 2em;
+      padding-right: 2em;
     }
     span {
-      font-size: 16em;
+      font-size: 12em;
       color: @motus-blue;
     }
   }
@@ -159,6 +177,7 @@
     margin-top: .7em;
     margin-right: .7em;
     min-height: 46.429em;
+    margin-left: .7em;
   }
   /*
    TABLES
