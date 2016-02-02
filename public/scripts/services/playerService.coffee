@@ -5,6 +5,7 @@ angular.module('motus').service('$player', ['$http', '$q', '$stat', '$pitch', ($
 
   #get players, pitches and stats
   playerService.getPlayers = () =>
+    console.log("THIS FIRED")
     if cachedPlayers
       return $q.when(cachedPlayers)
     else

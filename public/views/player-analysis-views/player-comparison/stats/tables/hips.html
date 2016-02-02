@@ -14,12 +14,12 @@
 </thead>
   <tbody>
   <tr class="col-data" ng-repeat="hip in pc.currentPlayer.hip" ng-class-even="'metric-even'" ng-class-odd="'metric-odd'">
-    <td>
-         <span class="thick-number">{{hip.playerscore}}</span>
+     <td>
+        <span class="thick-number">{{hip.playerscore}}</span>
       </td>
       <td class='center-column'>
-         <span class="thick-number">{{hip.eliteHigh}}</span>
-        {{hip.label}}
+         <span class="thick-number">{{hip.eliteHigh}}</span><br><span class="metric-name-unit">{{hip.units}}</span>
+        <br><span class="metric-name-unit">{{hip.label}}</span>
       </td>
       <td class='right-column'>
          <span class="thick-number">{{pc.comparedPlayer.hip[$index].playerscore}}</span>

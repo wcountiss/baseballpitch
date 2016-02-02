@@ -14,12 +14,12 @@
   </thead>
   <tbody>
   <tr class="col-data" ng-repeat="shoulder in pc.currentPlayer.shoulder" ng-class-even="'metric-even'" ng-class-odd="'metric-odd'">
-    <td>
-         <span class="thick-number">{{shoulder.playerscore}}</span>
+     <td>
+        <span class="thick-number">{{shoulder.playerscore}}</span>
       </td>
       <td class='center-column'>
-         <span class="thick-number">{{shoulder.eliteHigh}}</span>
-        {{shoulder.label}}
+         <span class="thick-number">{{shoulder.eliteHigh}}</span><br><span class="metric-name-unit">{{shoulder.units}}</span>
+        <br><span class="metric-name-unit">{{shoulder.label}}</span>
       </td>
       <td class='right-column'>
          <span class="thick-number">{{pc.comparedPlayer.shoulder[$index].playerscore}}</span>

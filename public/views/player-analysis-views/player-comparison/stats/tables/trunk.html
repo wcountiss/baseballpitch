@@ -14,12 +14,12 @@
   </thead>
   <tbody>
   <tr class="col-data" ng-repeat="trunk in pc.currentPlayer.trunk | limitTo: 7" ng-class-even="'metric-even'" ng-class-odd="'metric-odd'">
-    <td>
-         <span class="thick-number">{{trunk.playerscore}}</span>
+     <td>
+        <span class="thick-number">{{trunk.playerscore}}</span>
       </td>
       <td class='center-column'>
-         <span class="thick-number">{{trunk.eliteHigh}}</span>
-        {{trunk.label}}
+         <span class="thick-number">{{trunk.eliteHigh}}</span><br><span class="metric-name-unit">{{trunk.units}}</span>
+        <br><span class="metric-name-unit">{{trunk.label}}</span>
       </td>
       <td class='right-column'>
          <span class="thick-number">{{pc.comparedPlayer.trunk[$index].playerscore}}</span>

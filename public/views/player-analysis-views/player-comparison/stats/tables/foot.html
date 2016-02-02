@@ -14,15 +14,15 @@
   </thead>
   <tbody>
   <tr class="col-data" ng-repeat="foot in pc.currentPlayer.foot | limitTo: 5" ng-class-even="'metric-even'" ng-class-odd="'metric-odd'">
-    <td>
+     <td>
         <span class="thick-number">{{foot.playerscore}}</span>
       </td>
       <td class='center-column'>
-        <span class="thick-number">{{foot.eliteHigh}}</span>
-        {{foot.label}}
+         <span class="thick-number">{{foot.eliteHigh}}</span><br><span class="metric-name-unit">{{foot.units}}</span>
+        <br><span class="metric-name-unit">{{foot.label}}</span>
       </td>
       <td class='right-column'>
-        <span class="thick-number">{{pc.comparedPlayer.foot[$index].playerscore}}</span>
+         <span class="thick-number">{{pc.comparedPlayer.foot[$index].playerscore}}</span>
       </td>
   </tr>
   </tbody>
