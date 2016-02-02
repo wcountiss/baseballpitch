@@ -12,22 +12,25 @@ groupedbarchart {
 
   .rect {
     cursor: pointer;
+    fill: @charcoalgray;
+    
+    &:hover{
+      fill: @motus-black;
+    }
   }
+
+  .rect.selected {
+    fill: @motus-lightorange;
+    
+    &:hover{
+      fill: @motus-darkorange;
+    }
+  }
+
+
 
   .x.axis path {
     display: none;
-  }
-
-  .Longtoss{
-    fill: @motus-blue;
-  }
-
-  .Bullpen{
-    fill: @motus-tangerine;
-  }
-
-  .Game{
-    fill: @motus-green;
   }
 
   .average{

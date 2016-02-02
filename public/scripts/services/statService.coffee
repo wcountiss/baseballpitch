@@ -268,11 +268,9 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
       averagedTimings = []
       arrayToAverage = []
       for index in [0..keyPitchTimings[0].length]
-        #show stat for every 10
-        if index%10 == 0
-          _.each keyPitchTimings, (keyPitchTiming) ->
-            arrayToAverage.push keyPitchTiming[index]
-          averagedTimings.push average(arrayToAverage)
+        _.each keyPitchTimings, (keyPitchTiming) ->
+          arrayToAverage.push keyPitchTiming[index]
+        averagedTimings.push average(arrayToAverage)
       statResult[key] = averagedTimings
     #timing averaged
     statResult.keyframeFirstMovement = average(_.pluck(pitches, 'keyframeFirstMovement'))

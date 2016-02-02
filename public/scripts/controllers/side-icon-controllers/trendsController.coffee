@@ -4,16 +4,19 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
   cpf = currentPlayerFactory
   ef = eliteFactory
 
+  trends.selectedPlayerDetailScores = {}
+
   #default all checked
   trends.filter = {Longtoss: true, Bullpen: true, Game: true, Untagged: true}
 
   #Accordion State open or closed
   trends.isOpen = { foot: false, hip: false, trunk: false, shoulder: false, elbow: false }
 
-  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
+  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), $pitch.getPitches({ daysBack: 90 })]
   $q.all(loadPromises).then (results) ->
     trends.eliteMetrics = results[0]
     trends.currentPlayer = cpf.currentPlayer
+    trends.pitches = _.filter results[2], (pitch) -> pitch.athleteProfile.objectId == cpf.currentPlayer.athleteProfile.objectId
     trends.selectMetric(trends.eliteMetrics[0])
 
     #Create footJoint array for the accordion
@@ -42,13 +45,26 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         return obj
 
   trends.groupClick = (element) ->
-    #group the pitches into sessions and tags
-    pitches = _.groupBy trends.currentPlayer.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
-    pitches = pitches[element.group]
-    pitches = $pitch.filterTag(pitches, element.name)
-    pitches = _.sortBy pitches, (pitch) -> moment(pitch.pitchDate.iso)
+    if element.selected
+      #group the pitches into sessions and tags
+      pitches = _.groupBy trends.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
+      pitches = pitches[element.group]
+      pitches = $pitch.filterTag(pitches, element.name)
 
-    scores = _.map pitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric]}
+      #add it to object to keep all of the groups selected
+      trends.selectedPlayerDetailScores[element.group + element.name] = pitches
+    else
+      delete trends.selectedPlayerDetailScores[element.group + element.name]
+
+    #flatten them out to be bound
+    bindedPitches = []
+    _.each _.keys(trends.selectedPlayerDetailScores), (key) ->
+      bindedPitches = bindedPitches.concat trends.selectedPlayerDetailScores[key]
+    
+    #sort the pitches
+    bindedPitches = _.sortBy bindedPitches, (pitch) -> moment(pitch.pitchDate.iso)
+
+    scores = _.map bindedPitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric]}
 
     #filter the trend chart down to the clicked element and rebind to detail chart
     trends.playerDetailScores = {
@@ -89,7 +105,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     trends.selectedMetric = metric
 
     #group the pitches into sessions and tags
-    pitches = _.groupBy trends.currentPlayer.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
+    pitches = _.groupBy trends.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
 
     groups = []
     statsPromises = []
