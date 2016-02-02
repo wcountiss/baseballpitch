@@ -1,6 +1,7 @@
 angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','eliteFactory', '$stat', '$pitch', ($player, $q, eliteFactory, $stat, $pitch)  ->
   cpf = this
   ef = eliteFactory
+  ps = $player
 
   cpf.footMetricsIndex = 0
   cpf.ballMetricsIndex = 0
@@ -25,8 +26,8 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
     if cpf.currentPlayer
       return $q.when(cpf.currentPlayer)
     else
-      return getPlayers().then (results) ->
-        cpf.currentPlayer = results[0]
+      if ps.playerRoster
+        return $q.when(ps.playerRoster[0])
 
   #Getter for comparedPlayer
   cpf.getComparedPlayer = () ->
@@ -35,7 +36,6 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
 
   #Get playerRoster
   cpf.getPlayerRoster = () ->
-
     if cpf.playerRoster
       return $q.when(cpf.playerRoster)
     else
@@ -50,15 +50,13 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
     return $q.when(cpf.comparedPlayer)
 
 
-
-
   getPlayers = () ->
     return $player.getPlayers().then (players) ->
       ef.getEliteMetrics()
       .then (eliteStuff) ->
 
-        #Adding this in to make each player
-        #in the roster the completed obj like pc.currentPlayer
+#Adding this in to make each player
+#in the roster the completed obj like pc.currentPlayer
 
         cpf.playerRoster = _.each players, (daPlaya) ->
 
@@ -204,7 +202,7 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
 
 
   loadChart = (object) ->
-    #Get pitches a year back
+#Get pitches a year back
     $pitch.getPitches({ daysBack: 365 })
     .then (pitches) ->
       pitches = _.filter pitches, (pitch) -> pitch.athleteProfile.objectId == object.athleteProfile.objectId
@@ -215,7 +213,7 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
       _.each _.keys(pitches), (key) -> statsPromises.push $stat.runStatsEngine(pitches[key])
       $q.all(statsPromises)
       .then (stats) ->
-        #map overall score per month
+#map overall score per month
         scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore, overall: stats[i].overallScore.rating}
 
         object.playerScores = scores
