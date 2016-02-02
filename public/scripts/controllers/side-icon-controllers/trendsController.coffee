@@ -4,6 +4,8 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
   cpf = currentPlayerFactory
   ef = eliteFactory
 
+  tags = ['Longtoss', 'Bullpen', 'Game', 'Untagged']
+
   trends.selectedPlayerDetailScores = {}
 
   #default all checked
@@ -66,12 +68,21 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
 
     scores = _.map bindedPitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric]}
 
-    #filter the trend chart down to the clicked element and rebind to detail chart
-    trends.playerDetailScores = {
-      average: trends.playerScores.average,
-      units: trends.playerScores.units
-      scores: scores
-    }
+    #absolute type of metric
+    if trends.playerScores.yType == 1
+      _.each scores, (score) ->
+        score.score = Math.abs(score.score)
+
+    if scores.length
+      #filter the trend chart down to the clicked element and rebind to detail chart
+      trends.playerDetailScores = {
+        average: trends.playerScores.average,
+        units: trends.playerScores.units
+        yMin: trends.playerScores.yMin
+        yMax: trends.playerScores.yMax
+        yAxisType: trends.playerScores.yType
+        scores: scores
+      }
     if !element.firstLoad
       $scope.$apply()
 
@@ -115,22 +126,32 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         groupStats = _.extend({date: sessionKey}, sessionStats)
         groups.push groupStats
 
-
     $q.all(statsPromises)
     .then () ->
-      groups = _.sortBy(groups, (group) -> moment(group.date))
+      if groups.length
+        groups = _.sortBy(groups, (group) -> moment(group.date))
 
-      trends.playerScores = {
-        heading: metric.label, units: metric.units, average: metric.avg
-        keys: _.filter _.keys(trends.filter), (key) -> 
-          if trends.filter[key] 
-            return key # ['Longtoss', 'Bullpen', 'Game', 'Untagged']
-        groups: groups
-      }
+        #absolute type of metric
+        if metric.yType == 1
+          metric.avg = Math.abs(metric.avg)
+          _.each groups, (group) ->
+            _.each tags, (tag) ->
+              group[tag] = Math.abs(group[tag])
 
-      if groups[0]
+        trends.playerScores = {
+          heading: metric.label, units: metric.units, average: metric.avg
+          keys: _.filter _.keys(trends.filter), (key) -> 
+            if trends.filter[key] 
+              return key # ['Longtoss', 'Bullpen', 'Game', 'Untagged']
+          groups: groups
+          yMin: metric.yMin
+          yMax: metric.yMax
+          yType: metric.yType
+          defaultSelected: {date: groups[0].date, name: 'Longtoss' }       
+        }
+
         #set detail chart
-        trends.groupClick({group: groups[0].date, name: 'Longtoss', firstLoad: true})
+        trends.groupClick({group: groups[0].date, name: 'Longtoss', selected: true, firstLoad: true})
 
 
   return trends

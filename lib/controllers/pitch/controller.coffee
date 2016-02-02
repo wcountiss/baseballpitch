@@ -19,6 +19,17 @@ cache = new NodeCache({ stdTTL: 60 * 60 * 24 * 1 }); #1 day cache
 #     console.log error
 #     res.sendStatus(500)
 
+
+getTeamMembers = (currentUser) ->
+  #cached from player controller
+  try
+    teamMembers = cache.get("player#{currentUser.id}", true)
+    return new Promise(teamMembers)
+
+  #Security, you only have access to your team's althletes
+  return database.find('TeamMember', {equal: { team: currentUser.MTTeams}})  
+
+
 module.exports.find = (req, res) ->
   daysBack = req.body.daysBack || 30
   cachedResults = null
@@ -39,9 +50,8 @@ module.exports.find = (req, res) ->
     if pitchGotFullSet
       res.send(cachedResults)
       return
-
-  #Security, you only have access to your team's althletes
-  database.find('TeamMember', {equal: { team: req.currentUser.MTTeams}})
+      
+  getTeamMembers(req.currentUser)
   .then (teamMembers) ->
     athleteProfiles = _.pluck(teamMembers, 'athleteProfile')
     
@@ -156,7 +166,7 @@ module.exports.findPitchTimingByAtheleteProfileId = (req, res) ->
     return
 
   #Security, you only have access to your team's althletes
-  database.find('TeamMember', {equal: { team: req.currentUser.MTTeams}})
+  getTeamMembers(req.currentUser)
   .then (teamMembers) ->
     athleteProfiles = _.pluck(teamMembers, 'athleteProfile')
     #Go back 30 days by default but can override

@@ -77,7 +77,14 @@ angular.module('d3').directive 'linechart', [
               ymax = d3.max(data.scores, (d) -> d.score)
               if data.average > ymax
                 ymax = data.average
-              y.domain [ymin, ymax]
+
+              #if passed in
+              if data.yMin?
+                ymin = data.yMin
+              if data.yMax?
+                ymax = data.yMax
+
+               y.domain [ymin, ymax]
             
               #background lines
               svg.append("g")      
