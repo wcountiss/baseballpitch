@@ -1,30 +1,23 @@
 Motus
 
 End of Week 6:
+Trend Feedback
 Player Analysis Kinetic Chain Chart
 Player Analysis Kinetic Force Chart
 
-Trend Feedback:
-Grouped Bar, tooltip stays and you hover others
-
-Timing 10th size on server
-Cache Timing
-
-Trend Selected Color
-12 Months back on trends
-
-
 End of Week 7
+Cache TeamMembers Service
 Line Chart Scale Min and Max
 Max value is the peakHip and Trunk
 Fix Firefox
-Parse get Players by Game Manager
-Game Manager View
-Speed up Player Analysis
 SubTag Filter Snapshots
 90 day back filter and get sessions
 Persistable Filter
 Add Google Analytics
+
+Parse get Players by Game Manager
+Game Manager View
+Speed up Player Analysis
 
 End of Week 8
 Player View

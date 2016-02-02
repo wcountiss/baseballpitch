@@ -61,7 +61,7 @@ angular.module('d3').directive 'groupedbarchart', [
             
             bindData = scope.bind()
             data = _.cloneDeep(bindData)
-            
+
             #tool tip
             tip = d3.tip().attr('class', 'd3-tip').html((d) ->
               '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
@@ -137,10 +137,18 @@ angular.module('d3').directive 'groupedbarchart', [
               if d.value
                 height - y(d.value)
             )
-            .attr('class', (d) -> "rect #{d.name}" )
-            .on('mouseover', (d) -> tip.show d)
-            .on 'mouseout', tip.hide
-            .on('click', (d) -> scope.onClick({ element: d }))
+            .attr('class', (d) -> "rect" )
+            .on('mouseover', (d) -> tip.show(d))
+            .on('mouseout', tip.hide)
+            .on('click', (d) -> 
+              #toggle selected
+              d.selected = !d.selected
+              if d.selected
+                d3.select(this).attr("class", "rect selected");
+              else
+               d3.select(this).attr("class", "rect");
+              scope.onClick({ element: d })
+            )
 
             # elite data
             svg.append('line')

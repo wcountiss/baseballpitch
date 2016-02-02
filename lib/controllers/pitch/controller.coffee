@@ -204,7 +204,17 @@ module.exports.findPitchTimingByAtheleteProfileId = (req, res) ->
     Promise.all(pitchPromises)
     .then (pitchGroups) ->
       results = _.flatten pitchGroups
-      
+
+      keys = ['timeSeriesForearmSpeed', 'timeSeriesHipSpeed', 'timeSeriesTrunkSpeed']
+      _.each results, (result) ->
+        _.each keys, (key) ->
+          shrunkTiming = []
+          for index in [0..result[key].length]
+            #show stat for every 10
+            if index%10 == 0
+              shrunkTiming.push result[key][index]
+          result[key] = shrunkTiming
+
       #cache
       cache.set("pitchTiming#{req.body.athleteProfileId}", results)
 
