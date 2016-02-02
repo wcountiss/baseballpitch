@@ -106,6 +106,13 @@ angular.module('d3').directive 'groupedbarchart', [
               )
               if data.average < ymax
                 ymax = data.average
+
+            #if passed in
+            if data.yMin?
+              ymin = data.yMin
+            if data.yMax?
+              ymax = data.yMax
+
             y.domain [ymin, ymax]
 
             #background lines
@@ -124,7 +131,8 @@ angular.module('d3').directive 'groupedbarchart', [
             .attr('class', 'date')
             .attr('transform', (d) -> 'translate(' + x0(d.date) + ',0)')
             
-            date.selectAll('rect').data((d) -> d.groupData)
+            date.selectAll('rect')
+            .data((d) -> d.groupData)
             .enter()
             .append('rect')
             .attr('width', x1.rangeBand())
@@ -137,7 +145,13 @@ angular.module('d3').directive 'groupedbarchart', [
               if d.value
                 height - y(d.value)
             )
-            .attr('class', (d) -> "rect" )
+            .attr('class', (d) -> 
+              if data.defaultSelected.date == d.group && data.defaultSelected.name == d.name
+                d.selected = true
+                "rect selected"
+              else
+                "rect" 
+            )
             .on('mouseover', (d) -> tip.show(d))
             .on('mouseout', tip.hide)
             .on('click', (d) -> 

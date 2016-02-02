@@ -6,27 +6,27 @@ Player Analysis Kinetic Chain Chart
 Player Analysis Kinetic Force Chart
 
 End of Week 7
-Cache TeamMembers Service
-Line Chart Scale Min and Max
 Max value is the peakHip and Trunk
 Fix Firefox
+Player View
+
+Error Handling
+
+
 SubTag Filter Snapshots
+SubTag Filter Trends
 90 day back filter and get sessions
-Persistable Filter
+Speed up Player Analysis
 Add Google Analytics
 
-Parse get Players by Game Manager
-Game Manager View
-Speed up Player Analysis
 
 End of Week 8
-Player View
+Persistable Filter
+Parse get Players by Game Manager
+Game Manager View
 Tagging Throws on Tagging Chart
 Download Data in Excel
-get point to squash, reduce index before by 1/2, after by 2x
+get point to squash - dynamic tick distances
 
-LocalStorage?
+
 Cloud Code or Cron job?
-
-Questions for Ben
-Timing can be a tenth the size if you wanted
