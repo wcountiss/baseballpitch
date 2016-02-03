@@ -61,7 +61,7 @@
       <i class="pull-right glyphicon" ng-class="{'icon-chevdown': trends.isOpen.foot, 'icon-chevright': !trends.isOpen.foot}"></i>
     </uib-accordion-heading>
     <ul>
-      <li ng-class="{'accordion-active': foot.label == trends.accordionSelected}" ng-class-odd="'accordion-odd'" ng-class-even="'accordion-even'" ng-click="trends.selectMetric(foot)" ng-repeat="foot in trends.footJoint">{{foot.label}}</li>
+      <li ng-class="{'accordion-active': foot.label == trends.accordionSelected}" ng-class-odd="'accordion-odd'" ng-class-even="'accordion-even'" ng-click="trends.selectMetric(foot)" ng-repeat="foot in trends.footJoint">{{foot.title}}</li>
     </ul>
   </uib-accordion-group>
 </uib-accordion>

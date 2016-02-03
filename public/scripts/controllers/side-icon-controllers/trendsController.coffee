@@ -25,7 +25,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     trends.footJoint = _.filter trends.eliteMetrics, (obj) ->
       if obj.jointCode == 'FOOT'
         return obj
-
+    console.log('FOOT:',trends.footJoint)
     #Create hipJoint array for the accordion
     trends.hipJoint = _.filter trends.eliteMetrics, (obj) ->
       if obj.jointCode == 'HIP'
