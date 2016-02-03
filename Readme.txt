@@ -8,7 +8,9 @@ Player Analysis Kinetic Force Chart
 comparison:stats- Elite text should be orange
 comparison:overview- remove the drop down filter
 Snap Shots: filter min width needs to be increased
-playerAnalysis:Trends - slant the dates on the chartsupd
+playerAnalysis:Trends - slant the dates on the charts
+                      - needs to display date for the
+                        selected bar(s) / tags
 
 
 End of Week 7
