@@ -22,11 +22,11 @@ angular.module('motus').controller('playerController',
           if (pc.playerRoster.length > 5)
             pc.overflowCheck = true;
 
-      loadChart = () ->
+      loadChart = (player) ->
          #Get pitches a year back
         $pitch.getPitches({ daysBack: 365 })
         .then (pitches) ->
-          pitches = _.filter pitches, (pitch) -> pitch.athleteProfile.objectId == pc.currentPlayer.athleteProfile.objectId
+          pitches = _.filter pitches, (pitch) -> pitch.athleteProfile.objectId == player.athleteProfile.objectId
           #group pitches by month
           pitches = _.groupBy pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/01/YYYY')
           #run engine through all pitches per month
@@ -36,9 +36,8 @@ angular.module('motus').controller('playerController',
           .then (stats) ->
             #map overall score per month
             scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore, overall: stats[i].overallScore.rating}
-            pc.playerScores = scores
-            #for the player comparison nightmare
-            pc.currentPlayer.playerScores = scores
+            
+            player.playerScores = scores
 
 
 
@@ -222,7 +221,7 @@ angular.module('motus').controller('playerController',
           pc.currentPlayer.shldRotIcon = Math.round(shoulderObj[8].stats.score)
           pc.currentPlayer.shldRotIconStatus = shoulderObj[8].stats.rating
 
-        loadChart()
+        loadChart(pc.currentPlayer)
 
       pc.setComparison = (player) ->
         $stat.runStatsEngine(player.pitches)
@@ -231,6 +230,7 @@ angular.module('motus').controller('playerController',
           .then (statPlayer) ->
             pc.comparedPlayer = statPlayer
             pc.comparedPlayer.stats = _.extend(pc.comparedPlayer.stats, stats)
+            loadChart(pc.comparedPlayer)
             myState = $state.current.name
             $state.reload(myState)
 
