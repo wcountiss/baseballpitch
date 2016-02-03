@@ -52,7 +52,6 @@ angular.module('motus').controller('playerController',
         loadCurrentPlayer()
         myState = $state.current.name
         $state.reload(myState)
-        # pc.hip = pc.hipObj
 
       color = {
         "Poor": '#f90b1c'
@@ -63,117 +62,34 @@ angular.module('motus').controller('playerController',
 
 
       getPlayerStats = (player) ->
-        elbowObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "ELBOW"
-        trunkObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "TRUNK"
-        shoulderObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "SHOULDER"
-        hipObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "HIP"
-        footObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "FOOT"
-
-        elbArray = []
-        trunkArray = []
-        shoulderArray = []
-        hipArray = []
-        footArray = []
-
         return $stat.runStatsEngine(player.pitches)
         .then (stats) ->
           return if !stats
 
-          _.each elbowObj, (elb)->
+          joints = ['ELBOW', 'TRUNK', 'SHOULDER', 'HIP', 'FOOT']
 
-            elb.stats = stats.metricScores[elb.metric]
-            elb.rating = elb.stats.rating
-            elb.score = 100
-            elb.ratingScore = elb.stats.ratingScore
-            elb.opacity = 1
-            elb.weight = 1
-            elb.width = 1
-            elb.order = 1
-            elb.tooltip = elb.rating
-            elb.playerscore = Math.round(elb.stats.score)
-            elb.eliteval = elb.avg
-            elb.unitmeasure = elb.units
-            elb.label = elb.title
-            elb.color = color[elb.rating]
-            elbArray.push(elb)
-          player.elbow = elbArray
-
-          _.each trunkObj, (tru)->
-
-            tru.stats = stats.metricScores[tru.metric]
-            tru.rating = tru.stats.rating
-            tru.score = 100
-            tru.ratingScore = tru.stats.ratingScore
-            tru.opacity = 1
-            tru.weight = 1
-            tru.width = 1
-            tru.order = 1
-            tru.tooltip = tru.rating
-            tru.playerscore = Math.round(tru.stats.score)
-            tru.eliteval = tru.avg
-            tru.unitmeasure = tru.units
-            tru.label = tru.title
-            tru.color = color[tru.rating]
-            trunkArray.push(tru)
-          player.trunk = trunkArray
-
-          _.each shoulderObj, (sho)->
-
-            sho.stats = stats.metricScores[sho.metric]
-            sho.rating = sho.stats.rating
-            sho.score = 100
-            sho.ratingScore = sho.stats.ratingScore
-            sho.opacity = 1
-            sho.weight = 1
-            sho.width = 1
-            sho.order = 1
-            sho.tooltip = sho.rating
-            sho.playerscore = Math.round(sho.stats.score)
-            sho.eliteval = sho.avg
-            sho.unitmeasure = sho.units
-            sho.label = sho.title
-            sho.color = color[sho.rating]
-            shoulderArray.push(sho)
-          player.shoulder = shoulderArray
-
-          _.each hipObj, (hip)->
-
-            hip.stats = stats.metricScores[hip.metric]
-            hip.rating = hip.stats.rating
-            hip.score = 100
-            hip.ratingScore = hip.stats.ratingScore
-            hip.opacity = 1
-            hip.weight = 1
-            hip.width = 1
-            hip.order = 1
-            hip.tooltip = hip.rating
-            hip.playerscore = Math.round(hip.stats.score)
-            hip.eliteval = hip.avg
-            hip.unitmeasure = hip.units
-            hip.label = hip.title
-            hip.color = color[hip.rating]
-            hipArray.push(hip)
-          player.hip = hipArray
-
-
-          _.each footObj, (foo)->
-
-            foo.stats = stats.metricScores[foo.metric]
-            foo.rating = foo.stats.rating
-            foo.score = 100
-            foo.ratingScore = foo.stats.ratingScore
-            foo.opacity = 1
-            foo.weight = 1
-            foo.width = 1
-            foo.order = 1
-            foo.tooltip = foo.rating
-            foo.playerscore = Math.round(foo.stats.score)
-            foo.eliteval = foo.avg
-            foo.unitmeasure = foo.units
-            foo.label = foo.title
-            foo.color = color[foo.rating]
-            footArray.push(foo)          
-          player.foot = footArray
+          player.stats = _.extend(player.stats, stats)
+          
+          _.each joints, (joint) ->
+            jointArray = []
+            jointObjs = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == joint                    
+            _.each jointObjs, (jointObj)->
+              jointObj.stats = stats.metricScores[jointObj.metric]
+              jointObj.rating = jointObj.stats.rating
+              jointObj.score = 100
+              jointObj.ratingScore = jointObj.stats.ratingScore
+              jointObj.opacity = 1
+              jointObj.weight = 1
+              jointObj.width = 1
+              jointObj.order = 1
+              jointObj.tooltip = jointObj.rating
+              jointObj.playerscore = Math.round(jointObj.stats.score)
+              jointObj.eliteval = jointObj.avg
+              jointObj.unitmeasure = jointObj.units
+              jointObj.label = jointObj.title
+              jointObj.color = color[jointObj.rating]
+              jointArray.push(jointObj)
+            player[joint.toLowerCase()] = jointArray
 
           loadNotes(stats)
 
@@ -224,15 +140,13 @@ angular.module('motus').controller('playerController',
         loadChart(pc.currentPlayer)
 
       pc.setComparison = (player) ->
-        $stat.runStatsEngine(player.pitches)
-        .then (stats) ->
-          getPlayerStats(player)
-          .then (statPlayer) ->
-            pc.comparedPlayer = statPlayer
-            pc.comparedPlayer.stats = _.extend(pc.comparedPlayer.stats, stats)
-            loadChart(pc.comparedPlayer)
-            myState = $state.current.name
-            $state.reload(myState)
+        getPlayerStats(player)
+        .then (statPlayer) ->
+          pc.comparedPlayer = statPlayer
+          console.log pc.comparedPlayer, pc.currentPlayer
+          loadChart(pc.comparedPlayer)
+          myState = $state.current.name
+          $state.reload(myState)
 
       #Page Load
       loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), getPlayers()]
