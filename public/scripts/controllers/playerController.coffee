@@ -88,6 +88,8 @@ angular.module('motus').controller('playerController',
                   eliteval: jointObj.avg
                   unitmeasure: jointObj.units
                   label: jointObj.title
+                  eliteHigh: jointObj.eliteHigh
+                  units: jointObj.units
                   color: color[stats.metricScores[jointObj.metric].rating]
                 })
             player[joint.toLowerCase()] = jointArray
