@@ -4,22 +4,34 @@ End of Week 6:
 Trend Feedback
 Player Analysis Kinetic Chain Chart
 Player Analysis Kinetic Force Chart
+
 ** screen hero meeting **
 comparison:stats- Elite text should be orange
 comparison:overview- remove the drop down filter
 Snap Shots: filter min width needs to be increased
 playerAnalysis:Trends - slant the dates on the charts
-                      - needs to display date for the
-                        selected bar(s) / tags
+                      - George wanted to know from Ben, "what is the default line chart?"
+
+BEN - owes us 5 images for joint kinetics
+
 
 
 End of Week 7
 Fix Firefox
 Player View
 Error Handling
+
 ** screen hero meeting **
-comparison:visual - tool tips to float a little higher
-team overview: 2 Moe F'in Awards to jam up there
+comparison:visual - tool tips to float a little higher for IPAD
+team overview: 2 More Awards are being added
+playerAnalysis:Trends - needs to display date for the
+                        selected bar(s) / tags comma delimited
+                        Expanding its functionality to create a Start / End grab
+                        that generates the chart on the bottom.
+
+
+playerAnalysis:Trends:Strength: Change the color of the Bar charts to match
+                                'Good', 'Ok', etc..
 
 SubTag Filter Snapshots
 SubTag Filter Trends
