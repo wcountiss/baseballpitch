@@ -4,10 +4,8 @@ angular.module('motus').service('$player', ['$http', '$q', '$stat', '$pitch', ($
   #get players, pitches and stats
   ps.getPlayers = () =>
     if ps.playerRoster
-      console.log 'playerRoster already exits, returning this obj: ', ps.playerRoster
       return $q.when(ps.playerRoster)
     else
-      console.log '$player Service is fetching the playerRoster and getting pitches...'
       defer = $q.defer()
       playerCalls = [$http.post("player"), $pitch.getPitches()]
       $q.all(playerCalls)

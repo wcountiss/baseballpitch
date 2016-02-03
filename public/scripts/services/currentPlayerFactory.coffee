@@ -16,8 +16,8 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
   }
 
   #Setter for currentPlayer
-  cpf.setCurrentPlayer = (xx) ->
-    cpf.currentPlayer = xx
+  cpf.setCurrentPlayer = (selected) ->
+    cpf.currentPlayer = selected
 
     return $q.when(cpf.currentPlayer)
 
@@ -58,147 +58,159 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q','elite
 #Adding this in to make each player
 #in the roster the completed obj like pc.currentPlayer
 
-        cpf.playerRoster = _.each players, (daPlaya) ->
+        # cpf.playerRoster = 
 
-          elbowObj = _.filter eliteStuff, (eliteMetric)-> eliteMetric.jointCode == "ELBOW"
-          trunkObj = _.filter eliteStuff, (eliteMetric)-> eliteMetric.jointCode == "TRUNK"
-          shoulderObj = _.filter eliteStuff, (eliteMetric)-> eliteMetric.jointCode == "SHOULDER"
-          hipObj = _.filter eliteStuff, (eliteMetric)-> eliteMetric.jointCode == "HIP"
-          footObj = _.filter eliteStuff, (eliteMetric)-> eliteMetric.jointCode == "FOOT"
+        statsPromises = []
+        _.each players, (daPlaya) ->
+          statsPromises.push $stat.runStatsEngine(daPlaya.pitches)
+        
+        $q.all(statsPromises)
+        .then (stats) ->
+          _.each players, (daPlaya, i) ->
+            if stats[i]
+              daPlaya.stats = _.extend(daPlaya.stats, stats[i])
 
-          elbArray = []
-          trunkArray = []
-          shoulderArray = []
-          hipArray = []
-          footArray = []
+              elbowObj = _.filter eliteStuff, (eliteMetric)-> eliteMetric.jointCode == "ELBOW"
+              console.log 'elbowObj lets see elb.stats.ratingScore: ', elbowObj
+              trunkObj = _.filter eliteStuff, (eliteMetric)-> eliteMetric.jointCode == "TRUNK"
+              shoulderObj = _.filter eliteStuff, (eliteMetric)-> eliteMetric.jointCode == "SHOULDER"
+              hipObj = _.filter eliteStuff, (eliteMetric)-> eliteMetric.jointCode == "HIP"
+              footObj = _.filter eliteStuff, (eliteMetric)-> eliteMetric.jointCode == "FOOT"
 
-          $stat.runStatsEngine(daPlaya.pitches)
-          .then (stats) ->
-            return if !stats
+              elbArray = []
+              trunkArray = []
+              shoulderArray = []
+              hipArray = []
+              footArray = []
 
-            _.each elbowObj, (elb)->
+              console.log 'pitchtime', daPlaya.stats.metricScores.pitchTime
+              _.each elbowObj, (elb)->
+                elb.stats = daPlaya.stats.metricScores[elb.metric]
+                elb.rating = elb.stats.rating
+                elb.score = 100
+                elb.ratingScore = elb.stats.ratingScore
+                elb.opacity = 1
+                elb.weight = 1
+                elb.width = 1
+                elb.order = 1
+                elb.tooltip = elb.rating
+                elb.playerscore = Math.round(daPlaya.stats.metricScores[elb.metric].score)
+                elb.eliteval = elb.avg
+                elb.unitmeasure = elb.units
+                elb.label = elb.title
+                elb.color = color[elb.rating]
+                elbArray.push(elb)
 
-              elb.stats = stats.metricScores[elb.metric]
-              elb.rating = elb.stats.rating
-              elb.score = 100
-              elb.ratingScore = elb.stats.ratingScore
-              elb.opacity = 1
-              elb.weight = 1
-              elb.width = 1
-              elb.order = 1
-              elb.tooltip = elb.rating
-              elb.playerscore = Math.round(elb.stats.score)
-              elb.eliteval = elb.avg
-              elb.unitmeasure = elb.units
-              elb.label = elb.title
-              elb.color = color[elb.rating]
-              elbArray.push(elb)
-
-            daPlaya.elbow = elbArray
-
-
-            _.each trunkObj, (tru)->
-
-              tru.stats = stats.metricScores[tru.metric]
-              tru.rating = tru.stats.rating
-              tru.score = 100
-              tru.ratingScore = tru.stats.ratingScore
-              tru.opacity = 1
-              tru.weight = 1
-              tru.width = 1
-              tru.order = 1
-              tru.tooltip = tru.rating
-              tru.playerscore = Math.round(tru.stats.score)
-              tru.eliteval = tru.avg
-              tru.unitmeasure = tru.units
-              tru.label = tru.title
-              tru.color = color[tru.rating]
-              trunkArray.push(tru)
-
-            daPlaya.trunk = trunkArray
-
-            _.each shoulderObj, (sho)->
-
-              sho.stats = stats.metricScores[sho.metric]
-              sho.rating = sho.stats.rating
-              sho.score = 100
-              sho.ratingScore = sho.stats.ratingScore
-              sho.opacity = 1
-              sho.weight = 1
-              sho.width = 1
-              sho.order = 1
-              sho.tooltip = sho.rating
-              sho.playerscore = Math.round(sho.stats.score)
-              sho.eliteval = sho.avg
-              sho.unitmeasure = sho.units
-              sho.label = sho.title
-              sho.color = color[sho.rating]
-              shoulderArray.push(sho)
-
-            daPlaya.shoulder = shoulderArray
-
-            _.each hipObj, (hip)->
-
-              hip.stats = stats.metricScores[hip.metric]
-              hip.rating = hip.stats.rating
-              hip.score = 100
-              hip.ratingScore = hip.stats.ratingScore
-              hip.opacity = 1
-              hip.weight = 1
-              hip.width = 1
-              hip.order = 1
-              hip.tooltip = hip.rating
-              hip.playerscore = Math.round(hip.stats.score)
-              hip.eliteval = hip.avg
-              hip.unitmeasure = hip.units
-              hip.label = hip.title
-              hip.color = color[hip.rating]
-              hipArray.push(hip)
-
-            daPlaya.hip = hipArray
+              daPlaya.elbow = elbArray
 
 
-            _.each footObj, (foo)->
+              _.each trunkObj, (tru)->
 
-              foo.stats = stats.metricScores[foo.metric]
-              foo.rating = foo.stats.rating
-              foo.score = 100
-              foo.ratingScore = foo.stats.ratingScore
-              foo.opacity = 1
-              foo.weight = 1
-              foo.width = 1
-              foo.order = 1
-              foo.tooltip = foo.rating
-              foo.playerscore = Math.round(foo.stats.score)
-              foo.eliteval = foo.avg
-              foo.unitmeasure = foo.units
-              foo.label = foo.title
-              foo.color = color[foo.rating]
-              footArray.push(foo)
+                tru.stats = daPlaya.stats.metricScores[tru.metric]
+                tru.rating = tru.stats.rating
+                tru.score = 100
+                tru.ratingScore = tru.stats.ratingScore
+                tru.opacity = 1
+                tru.weight = 1
+                tru.width = 1
+                tru.order = 1
+                tru.tooltip = tru.rating
+                tru.playerscore = Math.round(tru.stats.score)
+                tru.eliteval = tru.avg
+                tru.unitmeasure = tru.units
+                tru.label = tru.title
+                tru.color = color[tru.rating]
+                trunkArray.push(tru)
 
-            daPlaya.foot = footArray
+              daPlaya.trunk = trunkArray
 
-            #The five status Icons code
+              _.each shoulderObj, (sho)->
 
-            daPlaya.hipIcon = Math.round(hipObj[9].stats.score)
-            daPlaya.hipIconStatus = hipObj[9].stats.rating
+                sho.stats = daPlaya.stats.metricScores[sho.metric]
+                sho.rating = sho.stats.rating
+                sho.score = 100
+                sho.ratingScore = sho.stats.ratingScore
+                sho.opacity = 1
+                sho.weight = 1
+                sho.width = 1
+                sho.order = 1
+                sho.tooltip = sho.rating
+                sho.playerscore = Math.round(sho.stats.score)
+                sho.eliteval = sho.avg
+                sho.unitmeasure = sho.units
+                sho.label = sho.title
+                sho.color = color[sho.rating]
+                shoulderArray.push(sho)
+
+              daPlaya.shoulder = shoulderArray
+
+              _.each hipObj, (hip)->
+
+                hip.stats = daPlaya.stats.metricScores[hip.metric]
+                hip.rating = hip.stats.rating
+                hip.score = 100
+                hip.ratingScore = hip.stats.ratingScore
+                hip.opacity = 1
+                hip.weight = 1
+                hip.width = 1
+                hip.order = 1
+                hip.tooltip = hip.rating
+                hip.playerscore = Math.round(hip.stats.score)
+                hip.eliteval = hip.avg
+                hip.unitmeasure = hip.units
+                hip.label = hip.title
+                hip.color = color[hip.rating]
+                hipArray.push(hip)
+
+              daPlaya.hip = hipArray
 
 
-            daPlaya.trunkIcon = Math.round(hipObj[1].stats.score)
-            daPlaya.trunkIconStatus = hipObj[1].stats.rating
+              _.each footObj, (foo)->
 
-            #for the player comparison nightmare
-            daPlaya.strideIcon = Math.round(footObj[4].stats.score)
-            daPlaya.strideIconStatus = footObj[4].stats.rating
+                foo.stats = daPlaya.stats.metricScores[foo.metric]
+                foo.rating = foo.stats.rating
+                foo.score = 100
+                foo.ratingScore = foo.stats.ratingScore
+                foo.opacity = 1
+                foo.weight = 1
+                foo.width = 1
+                foo.order = 1
+                foo.tooltip = foo.rating
+                foo.playerscore = Math.round(foo.stats.score)
+                foo.eliteval = foo.avg
+                foo.unitmeasure = foo.units
+                foo.label = foo.title
+                foo.color = color[foo.rating]
+                footArray.push(foo)
 
-            daPlaya.shldIcon = Math.round(shoulderObj[9].stats.score)
-            daPlaya.shldIconStatus = shoulderObj[9].stats.rating
+              daPlaya.foot = footArray
 
-            daPlaya.shldRotIcon = Math.round(shoulderObj[8].stats.score)
-            daPlaya.shldRotIconStatus = shoulderObj[8].stats.rating
+              #The five status Icons code
 
-            loadNotes(daPlaya,stats)
-            loadChart(daPlaya)
+              daPlaya.hipIcon = Math.round(hipObj[9].stats.score)
+              daPlaya.hipIconStatus = hipObj[9].stats.rating
+
+
+              daPlaya.trunkIcon = Math.round(hipObj[1].stats.score)
+              daPlaya.trunkIconStatus = hipObj[1].stats.rating
+
+              #for the player comparison nightmare
+              daPlaya.strideIcon = Math.round(footObj[4].stats.score)
+              daPlaya.strideIconStatus = footObj[4].stats.rating
+
+              daPlaya.shldIcon = Math.round(shoulderObj[9].stats.score)
+              daPlaya.shldIconStatus = shoulderObj[9].stats.rating
+
+              daPlaya.shldRotIcon = Math.round(shoulderObj[8].stats.score)
+              daPlaya.shldRotIconStatus = shoulderObj[8].stats.rating
+
+              # loadNotes(daPlaya,stats)
+              # loadChart(daPlaya)
+
+          # console.log players
+          console.log 'playas', players
+          cpf.playerRoster = players
+          console.log cpf.playerRoster
 
 
   loadChart = (object) ->

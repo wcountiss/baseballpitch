@@ -7,12 +7,12 @@ angular.module('motus').controller('playerController',
       pc.state = $state
       pc.filterType = '30'
 
-
       cpf = currentPlayerFactory
       ef = eliteFactory
 
-      cpf.getPlayerRoster().then (results) ->
-        pc.playerRoster = results
+      cpf.getPlayerRoster()
+      .then () ->
+        pc.playerRoster = cpf.playerRoster
         if (pc.playerRoster.length > 5)
           pc.overflowCheck = true;
 
@@ -22,15 +22,14 @@ angular.module('motus').controller('playerController',
 
       cpf.getComparedPlayer().then (results) ->
         pc.comparedPlayer = results
-        console.log 'pc:', pc
 
 
       #Select Current Player
       pc.selectedPlayer = (selected) ->
-
         cpf.setCurrentPlayer(selected).then () ->
           cpf.getCurrentPlayer().then (results) ->
               pc.currentPlayer = results
+              console.log pc
               myState = $state.current.name
               $state.reload(myState)
 
