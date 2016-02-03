@@ -74,21 +74,22 @@ angular.module('motus').controller('playerController',
             jointArray = []
             jointObjs = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == joint                    
             _.each jointObjs, (jointObj)->
-              jointObj.stats = stats.metricScores[jointObj.metric]
-              jointObj.rating = jointObj.stats.rating
-              jointObj.score = 100
-              jointObj.ratingScore = jointObj.stats.ratingScore
-              jointObj.opacity = 1
-              jointObj.weight = 1
-              jointObj.width = 1
-              jointObj.order = 1
-              jointObj.tooltip = jointObj.rating
-              jointObj.playerscore = Math.round(jointObj.stats.score)
-              jointObj.eliteval = jointObj.avg
-              jointObj.unitmeasure = jointObj.units
-              jointObj.label = jointObj.title
-              jointObj.color = color[jointObj.rating]
-              jointArray.push(jointObj)
+              jointArray.push({
+                  stats: stats.metricScores[jointObj.metric]
+                  rating: stats.metricScores[jointObj.metric].rating
+                  score: 100
+                  ratingScore: stats.metricScores[jointObj.metric].ratingScore
+                  opacity: 1
+                  weight: 1
+                  width: 1
+                  order: 1
+                  tooltip: stats.metricScores[jointObj.metric].rating
+                  playerscore: Math.round(stats.metricScores[jointObj.metric].score)
+                  eliteval: jointObj.avg
+                  unitmeasure: jointObj.units
+                  label: jointObj.title
+                  color: color[stats.metricScores[jointObj.metric].rating]
+                })
             player[joint.toLowerCase()] = jointArray
 
           loadNotes(stats)
