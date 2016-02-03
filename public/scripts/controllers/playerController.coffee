@@ -140,6 +140,7 @@ angular.module('motus').controller('playerController',
         pc.eliteMetrics = results[0]
         pc.currentPlayer = results[1]
         loadCurrentPlayer()
+        $scope.index.loaded = true
 
       #From jointKineticsController
       #Trying to make this work here so we can use the drop down filter

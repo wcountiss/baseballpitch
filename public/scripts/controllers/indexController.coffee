@@ -23,8 +23,6 @@ angular.module('motus').controller('indexController',
       # $state.go('login')
       $state.go('login')
 
-
-
     #Page Load
     index.loadUser()
 

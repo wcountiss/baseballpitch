@@ -48,7 +48,7 @@ angular.module('motus').controller('teamOverviewController',
               return award
             awardedPlayers = _.sortBy awardedPlayers, (awardedPlayer) -> awardedPlayer.order
             team.awardedPlayers = awardedPlayers
-
+            $scope.index.loaded = true
 
       return team
   ])

@@ -29,6 +29,7 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
           { key: "Forearm", scores: stats.timeSeriesForearmSpeed }
         ]
       }
+      chain.loaded = true
 
   return chain
 ]

@@ -5,8 +5,6 @@ Trend Feedback
 Player Analysis Kinetic Chain Chart
 Player Analysis Kinetic Force Chart
 
-Loading Icon
-
 End of Week 7
 Fix Firefox
 Player View
