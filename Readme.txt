@@ -5,20 +5,20 @@ Trend Feedback
 Player Analysis Kinetic Chain Chart
 Player Analysis Kinetic Force Chart
 
-End of Week 7
+Speed up Player Analysis/Pie Bug
 Max value is the peakHip and Trunk
+
+
+End of Week 7
 Fix Firefox
 Player View
 
 Error Handling
 
-
 SubTag Filter Snapshots
 SubTag Filter Trends
 90 day back filter and get sessions
-Speed up Player Analysis
 Add Google Analytics
-
 
 End of Week 8
 Persistable Filter

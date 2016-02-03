@@ -119,12 +119,13 @@ angular.module('d3').directive 'kinetic', [
 
             color.domain(_.pluck(data.speeds, 'key'))
 
-            lines = data.speeds.map((d) -> 
+            #speed lines
+            lines = data.speeds.map((d) ->
+              maxScore = d3.max(d.scores) 
               return {
                 key: d.key,
-                values: d.scores.map((d, i) ->
-                  return {index: i, score: +d}
-                )
+                values: d.scores.map (d, i) -> return {index: i, score: +d}
+                peakIndex: _.findIndex d.scores, (score) -> score == maxScore
               })
 
             x.domain([
@@ -151,6 +152,19 @@ angular.module('d3').directive 'kinetic', [
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
                 .text("degrees/sec")
+
+            #peak line
+            svg.selectAll("peak")
+                .data(lines)
+              .enter()
+                .append("line")
+                .attr('x1', (d) -> x(d.peakIndex))
+                .attr('x2', (d) -> x(d.peakIndex))
+                .attr('y1', (d) -> y(d.values[d.peakIndex]))
+                .attr('y2', (d) -> height)
+                .attr('class', 'peak')
+                .attr('stroke-width', 2)
+                .attr('stroke', 'black')
 
             #rect to capture mouse
             svg.append("rect")
@@ -187,6 +201,7 @@ angular.module('d3').directive 'kinetic', [
               .on('mouseover', (d) -> timingTip.show({ heading: key, value: d.avg}))
               .on('mouseout', timingTip.hide)
 
+            #speed lines
             line = svg.selectAll(".line")
                 .data(lines)
               .enter().append("g")
