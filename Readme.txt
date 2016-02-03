@@ -4,11 +4,19 @@ End of Week 6:
 Trend Feedback
 Player Analysis Kinetic Chain Chart
 Player Analysis Kinetic Force Chart
+** screen hero meeting **
+comparison:stats- Elite text should be orange
+comparison:overview- remove the drop down filter
+Snap Shots: filter min width needs to be increased
+
 
 End of Week 7
 Fix Firefox
 Player View
 Error Handling
+** screen hero meeting **
+comparison:visual - tool tips to float a little higher
+team overview: 2 Moe F'in Awards to jam up there
 
 SubTag Filter Snapshots
 SubTag Filter Trends
