@@ -5,14 +5,11 @@ Trend Feedback
 Player Analysis Kinetic Chain Chart
 Player Analysis Kinetic Force Chart
 
-Max value is the peakHip and Trunk
 Loading Icon
-
 
 End of Week 7
 Fix Firefox
 Player View
-
 Error Handling
 
 SubTag Filter Snapshots
@@ -29,4 +26,6 @@ Download Data in Excel
 get point to squash - dynamic tick distances
 
 
-Cloud Code or Cron job?
+Ben Questions
+Kinetic Chain
+Lines standard dev from what metric?

@@ -8,7 +8,7 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
   .then (results) ->
     chain.eliteMetrics = results[0]
 
-    $pitch.getPitchesByAtheleteId(cpf.currentPlayer.athleteProfile.objectId)
+    $pitch.findPitchTimingByAtheleteProfileId(cpf.currentPlayer.athleteProfile.objectId)
     .then (pitches) ->
       stats = $stat.averageTimingData(pitches)
       chain.playerScores = {

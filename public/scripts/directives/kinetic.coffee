@@ -17,6 +17,9 @@ angular.module('d3').directive 'kinetic', [
         onHover: '&'
       link: (scope, element, attrs) ->
         updateChart = ->
+          keyframeCompression = 5
+          totalTicks = 1000/keyframeCompression
+
           width = 960
           height = 500
           if angular.isDefined(attrs.width)
@@ -63,7 +66,7 @@ angular.module('d3').directive 'kinetic', [
           timingTip = d3.tip()
           .attr('class', 'd3-tip')
           .html((d) ->
-            '<div class="d3-tip-heading">' + _.humanize(d.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' MS</div>'
+            '<div class="d3-tip-heading">' + _.humanize(d.heading.replace('keyframe','')) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' MS</div>'
           )
           svg.call timingTip
 
@@ -76,7 +79,7 @@ angular.module('d3').directive 'kinetic', [
             xAxis = d3.svg.axis()
             .scale(x)
             .orient("bottom")
-            .ticks(100)
+            .ticks(totalTicks)
 
             yAxis = d3.svg.axis()
             .scale(y)
@@ -160,7 +163,7 @@ angular.module('d3').directive 'kinetic', [
                 .append("line")
                 .attr('x1', (d) -> x(d.peakIndex))
                 .attr('x2', (d) -> x(d.peakIndex))
-                .attr('y1', (d) -> y(d.values[d.peakIndex]))
+                .attr('y1', (d) -> y(d.values[d.peakIndex].score))
                 .attr('y2', (d) -> height)
                 .attr('class', 'peak')
                 .attr('stroke-width', 2)
@@ -180,7 +183,7 @@ angular.module('d3').directive 'kinetic', [
               svg.append('circle')
               .datum(data.timings[key])
               .attr('r', 3)
-              .attr('cx', (d) -> x d/10)
+              .attr('cx', (d) -> x d/keyframeCompression)
               .attr('cy', (d) -> height)
               .attr('class', 'circle')
               .attr('fill', 'black')
@@ -193,7 +196,7 @@ angular.module('d3').directive 'kinetic', [
               svg.append('circle')
               .datum(data.averages[key])
               .attr('r', 4)
-              .attr('cx', (d) -> x(100 + (d.avg/10)))
+              .attr('cx', (d) -> x(totalTicks + (d.avg/keyframeCompression)))
               .attr('cy', (d) -> height+10)
               .attr('class', 'average')
               .attr('fill', 'black')

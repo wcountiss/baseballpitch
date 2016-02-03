@@ -36,7 +36,7 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
         defer.resolve(pitches)
     return defer.promise
 
-  pitchService.getPitchesByAtheleteId = (athleteProfileId, options={daysBack: 30}) ->
+  pitchService.findPitchTimingByAtheleteProfileId = (athleteProfileId, options={daysBack: 30}) ->
     cacheKey = "#{athleteProfileId}!#{options.daysBack.toString()}"
     if cachedAtheletePitches[cacheKey]
       return $q.when(cachedAtheletePitches[cacheKey])
