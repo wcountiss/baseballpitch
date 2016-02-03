@@ -112,7 +112,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
 
     #Grab the current metric.label and place it into trends.accordionSelected
     #This will add the propper CSS to the selected metric
-    trends.accordionSelected = metric.label
+    trends.accordionSelected = metric.title
     trends.selectedMetric = metric
 
     #group the pitches into sessions and tags
