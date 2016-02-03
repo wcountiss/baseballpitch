@@ -5,8 +5,8 @@ Trend Feedback
 Player Analysis Kinetic Chain Chart
 Player Analysis Kinetic Force Chart
 
-Speed up Player Analysis/Pie Bug
 Max value is the peakHip and Trunk
+Loading Icon
 
 
 End of Week 7

@@ -99,44 +99,27 @@ angular.module('motus').controller('playerController',
 
       loadCurrentPlayer = () ->
         getPlayerStats(pc.currentPlayer)
-        .then (player) ->
+        .then (stats) ->
           elbowObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "ELBOW"
           trunkObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "TRUNK"
           shoulderObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "SHOULDER"
           hipObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "HIP"
           footObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "FOOT"
 
-          #The five status Icons code
-          pc.hipIcon = Math.round(hipObj[9].stats.score)
-          pc.hipIconStatus = hipObj[9].stats.rating
-          #for the player comparison nightmare
-          pc.currentPlayer.hipIcon = Math.round(hipObj[9].stats.score)
-          pc.currentPlayer.hipIconStatus = hipObj[9].stats.rating
+          pc.currentPlayer.hipIcon = Math.round(stats.hip[9].stats.score)
+          pc.currentPlayer.hipIconStatus = stats.hip[9].rating
 
-          pc.trunkIcon = Math.round(hipObj[1].stats.score)
-          pc.trunkIconStatus = hipObj[1].stats.rating
-          #for the player comparison nightmare
-          pc.currentPlayer.trunkIcon = Math.round(hipObj[1].stats.score)
-          pc.currentPlayer.trunkIconStatus = hipObj[1].stats.rating
+          pc.currentPlayer.trunkIcon = Math.round(stats.hip[1].stats.score)
+          pc.currentPlayer.trunkIconStatus = stats.hip[1].stats.rating
 
+          pc.currentPlayer.strideIcon = Math.round(stats.foot[4].stats.score)
+          pc.currentPlayer.strideIconStatus = stats.foot[4].rating
 
-          pc.strideIcon = Math.round(footObj[4].stats.score)
-          pc.strideIconStatus = footObj[4].stats.rating
-          #for the player comparison nightmare
-          pc.currentPlayer.strideIcon = Math.round(footObj[4].stats.score)
-          pc.currentPlayer.strideIconStatus = footObj[4].stats.rating
+          pc.currentPlayer.shldIcon = Math.round(stats.shoulder[9].stats.score)
+          pc.currentPlayer.shldIconStatus = stats.shoulder[9].rating
 
-          pc.shldIcon = Math.round(shoulderObj[9].stats.score)
-          pc.shldIconStatus = shoulderObj[9].stats.rating
-          #for the player comparison nightmare
-          pc.currentPlayer.shldIcon = Math.round(shoulderObj[9].stats.score)
-          pc.currentPlayer.shldIconStatus = shoulderObj[9].stats.rating
-
-          pc.shldRotIcon = Math.round(shoulderObj[8].stats.score)
-          pc.shldRotIconStatus = shoulderObj[8].stats.rating
-          #for the player comparison nightmare
-          pc.currentPlayer.shldRotIcon = Math.round(shoulderObj[8].stats.score)
-          pc.currentPlayer.shldRotIconStatus = shoulderObj[8].stats.rating
+          pc.currentPlayer.shldRotIcon = Math.round(stats.shoulder[8].stats.score)
+          pc.currentPlayer.shldRotIconStatus = stats.shoulder[8].rating
 
         loadChart(pc.currentPlayer)
 
@@ -144,7 +127,6 @@ angular.module('motus').controller('playerController',
         getPlayerStats(player)
         .then (statPlayer) ->
           pc.comparedPlayer = statPlayer
-          console.log pc.comparedPlayer, pc.currentPlayer
           loadChart(pc.comparedPlayer)
           myState = $state.current.name
           $state.reload(myState)
