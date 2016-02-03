@@ -56,7 +56,7 @@ angular.module('d3').directive 'groupedbarchart', [
             element[0].removeChild elementChildren[i]
             i++
           
-          svg = d3.select(element[0]).append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+          svg = d3.select(element[0]).append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom + 50).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
           if scope.bind()
             
             bindData = scope.bind()
@@ -123,7 +123,12 @@ angular.module('d3').directive 'groupedbarchart', [
               .tickFormat("")
             )            
 
-            svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call xAxis
+            svg.append('g').attr('class', 'x axis')
+              .attr('transform', 'translate(0,' + height + ')')
+              .call(xAxis)
+              .selectAll("text")
+              .attr('transform', 'translate(12,40) rotate(90)')
+            
             svg.append('g').attr('class', 'y axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('y', '-4em').style('text-anchor', 'end').text data.units
             date = svg.selectAll('.date')
             .data(data.groups)
