@@ -19,7 +19,8 @@ angular.module('motus').controller('playerController',
           #in the roster the completed obj like pc.currentPlayer
 
           pc.playerRoster = players
-          console.log pc.playerRoster
+          if (pc.playerRoster.length > 5)
+            pc.overflowCheck = true;
 
       loadChart = () ->
          #Get pitches a year back
@@ -42,17 +43,13 @@ angular.module('motus').controller('playerController',
 
 
       loadNotes = (stats) ->
-        pc.notes = $stat.getLanguage(stats)
-        #for the player comparison nightmare
         pc.currentPlayer.notes = $stat.getLanguage(stats)
 
 
       #Select Current Player
       pc.selectedPlayer = (selected) ->
         cpf.currentPlayer = selected
-        cpf.comparisonObj.player1 = selected
         pc.currentPlayer = cpf.currentPlayer
-        pc.comparisonObj = cpf.comparisonObj
         loadCurrentPlayer()
         myState = $state.current.name
         $state.reload(myState)
@@ -66,192 +63,184 @@ angular.module('motus').controller('playerController',
       }
 
 
+      getPlayerStats = (player) ->
+        elbowObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "ELBOW"
+        trunkObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "TRUNK"
+        shoulderObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "SHOULDER"
+        hipObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "HIP"
+        footObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "FOOT"
+
+        elbArray = []
+        trunkArray = []
+        shoulderArray = []
+        hipArray = []
+        footArray = []
+
+        return $stat.runStatsEngine(player.pitches)
+        .then (stats) ->
+          return if !stats
+
+          _.each elbowObj, (elb)->
+
+            elb.stats = stats.metricScores[elb.metric]
+            elb.rating = elb.stats.rating
+            elb.score = 100
+            elb.ratingScore = elb.stats.ratingScore
+            elb.opacity = 1
+            elb.weight = 1
+            elb.width = 1
+            elb.order = 1
+            elb.tooltip = elb.rating
+            elb.playerscore = Math.round(elb.stats.score)
+            elb.eliteval = elb.avg
+            elb.unitmeasure = elb.units
+            elb.label = elb.title
+            elb.color = color[elb.rating]
+            elbArray.push(elb)
+          player.elbow = elbArray
+
+          _.each trunkObj, (tru)->
+
+            tru.stats = stats.metricScores[tru.metric]
+            tru.rating = tru.stats.rating
+            tru.score = 100
+            tru.ratingScore = tru.stats.ratingScore
+            tru.opacity = 1
+            tru.weight = 1
+            tru.width = 1
+            tru.order = 1
+            tru.tooltip = tru.rating
+            tru.playerscore = Math.round(tru.stats.score)
+            tru.eliteval = tru.avg
+            tru.unitmeasure = tru.units
+            tru.label = tru.title
+            tru.color = color[tru.rating]
+            trunkArray.push(tru)
+          player.trunk = trunkArray
+
+          _.each shoulderObj, (sho)->
+
+            sho.stats = stats.metricScores[sho.metric]
+            sho.rating = sho.stats.rating
+            sho.score = 100
+            sho.ratingScore = sho.stats.ratingScore
+            sho.opacity = 1
+            sho.weight = 1
+            sho.width = 1
+            sho.order = 1
+            sho.tooltip = sho.rating
+            sho.playerscore = Math.round(sho.stats.score)
+            sho.eliteval = sho.avg
+            sho.unitmeasure = sho.units
+            sho.label = sho.title
+            sho.color = color[sho.rating]
+            shoulderArray.push(sho)
+          player.shoulder = shoulderArray
+
+          _.each hipObj, (hip)->
+
+            hip.stats = stats.metricScores[hip.metric]
+            hip.rating = hip.stats.rating
+            hip.score = 100
+            hip.ratingScore = hip.stats.ratingScore
+            hip.opacity = 1
+            hip.weight = 1
+            hip.width = 1
+            hip.order = 1
+            hip.tooltip = hip.rating
+            hip.playerscore = Math.round(hip.stats.score)
+            hip.eliteval = hip.avg
+            hip.unitmeasure = hip.units
+            hip.label = hip.title
+            hip.color = color[hip.rating]
+            hipArray.push(hip)
+          player.hip = hipArray
+
+
+          _.each footObj, (foo)->
+
+            foo.stats = stats.metricScores[foo.metric]
+            foo.rating = foo.stats.rating
+            foo.score = 100
+            foo.ratingScore = foo.stats.ratingScore
+            foo.opacity = 1
+            foo.weight = 1
+            foo.width = 1
+            foo.order = 1
+            foo.tooltip = foo.rating
+            foo.playerscore = Math.round(foo.stats.score)
+            foo.eliteval = foo.avg
+            foo.unitmeasure = foo.units
+            foo.label = foo.title
+            foo.color = color[foo.rating]
+            footArray.push(foo)          
+          player.foot = footArray
+
+          loadNotes(stats)
+
+          return player
+
 
       loadCurrentPlayer = () ->
-        #reset
-        pc.notes = []
-
-        loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
-        $q.all(loadPromises).then (results) ->
-          pc.eliteMetrics = results[0]
-          pc.currentPlayer = results[1]
-
-          #Create the player Comparison Object
-          pc.comparisonObj = cpf.comparisonObj
-
+        getPlayerStats(pc.currentPlayer)
+        .then (player) ->
           elbowObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "ELBOW"
           trunkObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "TRUNK"
           shoulderObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "SHOULDER"
           hipObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "HIP"
           footObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "FOOT"
 
-          elbArray = []
-          trunkArray = []
-          shoulderArray = []
-          hipArray = []
-          footArray = []
+          #The five status Icons code
+          pc.hipIcon = Math.round(hipObj[9].stats.score)
+          pc.hipIconStatus = hipObj[9].stats.rating
+          #for the player comparison nightmare
+          pc.currentPlayer.hipIcon = Math.round(hipObj[9].stats.score)
+          pc.currentPlayer.hipIconStatus = hipObj[9].stats.rating
+
+          pc.trunkIcon = Math.round(hipObj[1].stats.score)
+          pc.trunkIconStatus = hipObj[1].stats.rating
+          #for the player comparison nightmare
+          pc.currentPlayer.trunkIcon = Math.round(hipObj[1].stats.score)
+          pc.currentPlayer.trunkIconStatus = hipObj[1].stats.rating
 
 
-          $stat.runStatsEngine(pc.currentPlayer.pitches)
-          .then (stats) ->
-            return if !stats
+          pc.strideIcon = Math.round(footObj[4].stats.score)
+          pc.strideIconStatus = footObj[4].stats.rating
+          #for the player comparison nightmare
+          pc.currentPlayer.strideIcon = Math.round(footObj[4].stats.score)
+          pc.currentPlayer.strideIconStatus = footObj[4].stats.rating
 
-            _.each elbowObj, (elb)->
+          pc.shldIcon = Math.round(shoulderObj[9].stats.score)
+          pc.shldIconStatus = shoulderObj[9].stats.rating
+          #for the player comparison nightmare
+          pc.currentPlayer.shldIcon = Math.round(shoulderObj[9].stats.score)
+          pc.currentPlayer.shldIconStatus = shoulderObj[9].stats.rating
 
-              elb.stats = stats.metricScores[elb.metric]
-              elb.rating = elb.stats.rating
-              elb.score = 100
-              elb.ratingScore = elb.stats.ratingScore
-              elb.opacity = 1
-              elb.weight = 1
-              elb.width = 1
-              elb.order = 1
-              elb.tooltip = elb.rating
-              elb.playerscore = Math.round(elb.stats.score)
-              elb.eliteval = elb.avg
-              elb.unitmeasure = elb.units
-              elb.label = elb.title
-              elb.color = color[elb.rating]
-              elbArray.push(elb)
-            pc.elbow = elbArray
-            #for the player comparison nightmare
-            pc.currentPlayer.elbow = elbArray
+          pc.shldRotIcon = Math.round(shoulderObj[8].stats.score)
+          pc.shldRotIconStatus = shoulderObj[8].stats.rating
+          #for the player comparison nightmare
+          pc.currentPlayer.shldRotIcon = Math.round(shoulderObj[8].stats.score)
+          pc.currentPlayer.shldRotIconStatus = shoulderObj[8].stats.rating
 
+        loadChart()
 
-            _.each trunkObj, (tru)->
-
-              tru.stats = stats.metricScores[tru.metric]
-              tru.rating = tru.stats.rating
-              tru.score = 100
-              tru.ratingScore = tru.stats.ratingScore
-              tru.opacity = 1
-              tru.weight = 1
-              tru.width = 1
-              tru.order = 1
-              tru.tooltip = tru.rating
-              tru.playerscore = Math.round(tru.stats.score)
-              tru.eliteval = tru.avg
-              tru.unitmeasure = tru.units
-              tru.label = tru.title
-              tru.color = color[tru.rating]
-              trunkArray.push(tru)
-            pc.trunk = trunkArray
-            #for the player comparison nightmare
-            pc.currentPlayer.trunk = trunkArray
-
-            _.each shoulderObj, (sho)->
-
-              sho.stats = stats.metricScores[sho.metric]
-              sho.rating = sho.stats.rating
-              sho.score = 100
-              sho.ratingScore = sho.stats.ratingScore
-              sho.opacity = 1
-              sho.weight = 1
-              sho.width = 1
-              sho.order = 1
-              sho.tooltip = sho.rating
-              sho.playerscore = Math.round(sho.stats.score)
-              sho.eliteval = sho.avg
-              sho.unitmeasure = sho.units
-              sho.label = sho.title
-              sho.color = color[sho.rating]
-              shoulderArray.push(sho)
-            pc.shoulder = shoulderArray
-            #for the player comparison nightmare
-            pc.currentPlayer.shoulder = shoulderArray
-
-            _.each hipObj, (hip)->
-
-              hip.stats = stats.metricScores[hip.metric]
-              hip.rating = hip.stats.rating
-              hip.score = 100
-              hip.ratingScore = hip.stats.ratingScore
-              hip.opacity = 1
-              hip.weight = 1
-              hip.width = 1
-              hip.order = 1
-              hip.tooltip = hip.rating
-              hip.playerscore = Math.round(hip.stats.score)
-              hip.eliteval = hip.avg
-              hip.unitmeasure = hip.units
-              hip.label = hip.title
-              hip.color = color[hip.rating]
-              hipArray.push(hip)
-            pc.hip = hipArray
-            #for the player comparison nightmare
-            pc.currentPlayer.hip = hipArray
-
-
-            _.each footObj, (foo)->
-
-              foo.stats = stats.metricScores[foo.metric]
-              foo.rating = foo.stats.rating
-              foo.score = 100
-              foo.ratingScore = foo.stats.ratingScore
-              foo.opacity = 1
-              foo.weight = 1
-              foo.width = 1
-              foo.order = 1
-              foo.tooltip = foo.rating
-              foo.playerscore = Math.round(foo.stats.score)
-              foo.eliteval = foo.avg
-              foo.unitmeasure = foo.units
-              foo.label = foo.title
-              foo.color = color[foo.rating]
-              footArray.push(foo)
-            pc.foot = footArray
-            #for the player comparison nightmare
-            pc.currentPlayer.foot = footArray
-
-            #The five status Icons code
-            pc.hipIcon = Math.round(hipObj[9].stats.score)
-            pc.hipIconStatus = hipObj[9].stats.rating
-            #for the player comparison nightmare
-            pc.currentPlayer.hipIcon = Math.round(hipObj[9].stats.score)
-            pc.currentPlayer.hipIconStatus = hipObj[9].stats.rating
-
-            pc.trunkIcon = Math.round(hipObj[1].stats.score)
-            pc.trunkIconStatus = hipObj[1].stats.rating
-            #for the player comparison nightmare
-            pc.currentPlayer.trunkIcon = Math.round(hipObj[1].stats.score)
-            pc.currentPlayer.trunkIconStatus = hipObj[1].stats.rating
-
-
-            pc.strideIcon = Math.round(footObj[4].stats.score)
-            pc.strideIconStatus = footObj[4].stats.rating
-            #for the player comparison nightmare
-            pc.currentPlayer.strideIcon = Math.round(footObj[4].stats.score)
-            pc.currentPlayer.strideIconStatus = footObj[4].stats.rating
-
-            pc.shldIcon = Math.round(shoulderObj[9].stats.score)
-            pc.shldIconStatus = shoulderObj[9].stats.rating
-            #for the player comparison nightmare
-            pc.currentPlayer.shldIcon = Math.round(shoulderObj[9].stats.score)
-            pc.currentPlayer.shldIconStatus = shoulderObj[9].stats.rating
-
-            pc.shldRotIcon = Math.round(shoulderObj[8].stats.score)
-            pc.shldRotIconStatus = shoulderObj[8].stats.rating
-            #for the player comparison nightmare
-            pc.currentPlayer.shldRotIcon = Math.round(shoulderObj[8].stats.score)
-            pc.currentPlayer.shldRotIconStatus = shoulderObj[8].stats.rating
-
-            loadNotes(stats)
-
-          loadChart()
-
-
-
+      pc.setComparison = (player) ->
+        $stat.runStatsEngine(player.pitches)
+        .then (stats) ->
+          getPlayerStats(player)
+          .then (statPlayer) ->
+            pc.comparedPlayer = statPlayer
+            pc.comparedPlayer.stats = _.extend(pc.comparedPlayer.stats, stats)
+            myState = $state.current.name
+            $state.reload(myState)
 
       #Page Load
-      getPlayers()
-      .then () ->
+      loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), getPlayers()]
+      $q.all(loadPromises)
+      .then (results) ->
+        pc.eliteMetrics = results[0]
+        pc.currentPlayer = results[1]
         loadCurrentPlayer()
-
-      pc.hello = (whodis) ->
-        cpf.comparisonObj.player2 = whodis
-        console.log pc.comparisonObj
-        myState = $state.current.name
-        $state.reload(myState)
 
       #From jointKineticsController
       #Trying to make this work here so we can use the drop down filter

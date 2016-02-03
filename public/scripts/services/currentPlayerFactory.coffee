@@ -16,10 +16,6 @@ angular.module('motus').factory 'currentPlayerFactory', [ '$player', '$q', ($pla
         cpf.currentPlayer = players[0]
 
 
-  cpf.comparisonObj = {
-    player1: {},
-    player2: null
-  }
   # return the factory object
   cpf
 ]
