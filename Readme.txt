@@ -7,9 +7,10 @@ Player Analysis Kinetic Force Chart
 
 
 End of Week 7
-Player View
+Trends - Default select last session
 Trends - SubTag Filter 
 
+Player View
 get point to squash - dynamic tick distances
 
 Fix Firefox
