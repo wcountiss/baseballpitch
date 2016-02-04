@@ -7,6 +7,8 @@ Player Analysis Kinetic Force Chart
 
 
 End of Week 7
+
+Add Center Scrolling to Player Comparison
 Trends - display date for the selected bar(s) / tags comma delimited                        
 Kinetic Strength: color of the Bar charts to match 'Good', 'Ok', etc..
 
