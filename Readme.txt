@@ -7,23 +7,18 @@ Player Analysis Kinetic Force Chart
 
 
 End of Week 7
-
-
 Add Center Scrolling to Player Comparison
-Trends - display date for the selected bar(s) / tags comma delimited                        
-Kinetic Strength: color of the Bar charts to match 'Good', 'Ok', etc..
 
-
-Trends - Default select last session
 Trends - SubTag Filter 
-
 Player View
+
 get point to squash - dynamic tick distances
+Kinetic Chain - Pitch Icons
+Kinetic Chain - Std Dev
 
 Fix Firefox
 comparison:visual - tool tips to float a little higher for IPAD
 Error Handling
-
 
 End of Week 8
 DNS
@@ -45,7 +40,6 @@ Increase load up speed
 
 
 Ben Questions
-Kinetic Chain - show
 Trends chart = what is the default line chart?
 owes us 5 images for joint kinetics
 Lines standard dev from what metric?
