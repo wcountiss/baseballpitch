@@ -5,7 +5,7 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
   max.filterType = '30'
 
   imageMap = {
-    "maxElbowFlexion": "images/legend/MAX_ElbowFLexion.jpg",
+    "maxElbowFlexion": "images/legend/MAX_ElbowFlexion.jpg",
     "maxShoulderRotation": "images/legend/MAX_ShoulderRotation.jpg",
     "maxTrunkSeparation": "images/legend/MAX_TrunkRotation.jpg",
     "maxFootHeight": "images/legend/MAX_FootHeight.jpg",

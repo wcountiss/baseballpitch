@@ -8,7 +8,7 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
 
 
   imageMap = {
-    "peakElbowCompressiveForce": "images/legend/MAX_ElbowFLexion.jpg",
+    "peakElbowCompressiveForce": "images/legend/MAX_ElbowFlexion.jpg",
     "peakElbowValgusTorque": "images/legend/MAX_ShoulderRotation.jpg",
     "peakShoulderRotationTorque": "images/legend/MAX_TrunkRotation.jpg",
     "peakShoulderCompressiveForce": "images/legend/MAX_FootHeight.jpg",
