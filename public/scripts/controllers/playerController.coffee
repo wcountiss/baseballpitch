@@ -102,6 +102,8 @@ angular.module('motus').controller('playerController',
       loadCurrentPlayer = () ->
         getPlayerStats(pc.currentPlayer)
         .then (stats) ->
+          return if !stats
+
           elbowObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "ELBOW"
           trunkObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "TRUNK"
           shoulderObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "SHOULDER"

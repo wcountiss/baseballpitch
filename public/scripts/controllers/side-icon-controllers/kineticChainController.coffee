@@ -10,6 +10,10 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
 
     $pitch.findPitchTimingByAtheleteProfileId(cpf.currentPlayer.athleteProfile.objectId)
     .then (pitches) ->
+      if !pitches.length
+        chain.loaded = true
+        return
+        
       stats = $stat.averageTimingData(pitches)
       chain.playerScores = {
         timings: {

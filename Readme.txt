@@ -5,28 +5,20 @@ Trend Feedback
 Player Analysis Kinetic Chain Chart
 Player Analysis Kinetic Force Chart
 
-** screen hero meeting **
-comparison:stats- Elite text should be orange
-comparison:overview- remove the drop down filter
-Snap Shots: filter min width needs to be increased
-
-BEN - owes us 5 images for joint kinetics
-
 
 End of Week 7
-** screen hero meeting **
-comparison:visual - tool tips to float a little higher for IPAD
+Trends - display date for the selected bar(s) / tags comma delimited                        
+Kinetic Strength: color of the Bar charts to match 'Good', 'Ok', etc..
 
-playerAnalysis:Trends - needs to display date for the
-                        selected bar(s) / tags comma delimited                        
-playerAnalysis:Trends:Strength: Change the color of the Bar charts to match
-                                'Good', 'Ok', etc..
-SubTag Filter Trends
+Speed up Player selection
+Trends - SubTag Filter 
+get point to squash - dynamic tick distances
 Player View
-Error Handling
 
 Fix Firefox
-get point to squash - dynamic tick distances
+comparison:visual - tool tips to float a little higher for IPAD
+Error Handling
+
 
 End of Week 8
 DNS
@@ -43,10 +35,11 @@ Add Google Analytics
 Persistable Filter
 team overview: 2 More Awards are being added
 Tagging Throws on Tagging Chart
-
+Increase load up speed
 
 
 Ben Questions
-Kinetic Chain
+Kinetic Chain - show
 Trends chart = what is the default line chart?
+owes us 5 images for joint kinetics
 Lines standard dev from what metric?
