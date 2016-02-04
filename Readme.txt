@@ -7,14 +7,19 @@ Player Analysis Kinetic Force Chart
 
 
 End of Week 7
+<<<<<<< HEAD
 
 Add Center Scrolling to Player Comparison
 Trends - display date for the selected bar(s) / tags comma delimited                        
 Kinetic Strength: color of the Bar charts to match 'Good', 'Ok', etc..
 
+=======
+Trends - Default select last session
+>>>>>>> 6f34fe6c2f4516788120dbd87972bc1dd5e20d89
 Trends - SubTag Filter 
-get point to squash - dynamic tick distances
+
 Player View
+get point to squash - dynamic tick distances
 
 Fix Firefox
 comparison:visual - tool tips to float a little higher for IPAD
@@ -36,6 +41,7 @@ Add Google Analytics
 Persistable Filter
 team overview: 2 More Awards are being added
 Tagging Throws on Tagging Chart
+LocalCache
 Increase load up speed
 
 
