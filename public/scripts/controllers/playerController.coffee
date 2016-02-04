@@ -125,7 +125,17 @@ angular.module('motus').controller('playerController',
           pc.currentPlayer.shldRotIcon = Math.round(stats.shoulder[8].stats.score)
           pc.currentPlayer.shldRotIconStatus = stats.shoulder[8].rating
 
+
+      pc.playerHomeTrendsClick = () ->
         loadChart(pc.currentPlayer)
+        $state.go('player.home.trends')
+
+      pc.playerComparisonToggle = () ->
+        if ($state.current.name != 'player.comparison.overview')
+          loadChart(pc.currentPlayer)
+          $state.go('player.comparison.overview')
+        else
+          $state.go('player.home.overview')
 
       pc.setComparison = (player) ->
         getPlayerStats(player)

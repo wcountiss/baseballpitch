@@ -10,7 +10,6 @@ End of Week 7
 Trends - display date for the selected bar(s) / tags comma delimited                        
 Kinetic Strength: color of the Bar charts to match 'Good', 'Ok', etc..
 
-Speed up Player selection
 Trends - SubTag Filter 
 get point to squash - dynamic tick distances
 Player View
