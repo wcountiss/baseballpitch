@@ -127,7 +127,7 @@ angular.module('d3').directive 'groupedbarchart', [
               .attr('transform', 'translate(0,' + height + ')')
               .call(xAxis)
               .selectAll("text")
-              .attr('transform', 'translate(12,40) rotate(90)')
+              .attr('transform', 'translate(22,18) rotate(45)')
             
             svg.append('g').attr('class', 'y axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('y', '-4em').style('text-anchor', 'end').text data.units
             date = svg.selectAll('.date')

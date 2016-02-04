@@ -18,16 +18,7 @@
     {{pc.currentPlayer.playerScores[0].overall}}
   </span>
 </div>
-<div>
-  <select class="small-flexitem" ng-model="pc.filterType" name="sessions" ng-change="pc.filterLastThrowType()">
-    <option value="30">Last 30 Days AVG ({{pc.currentPlayer.pitches.length}})</option>
-    <option value="Game" ng-if="pc.currentPlayer.stats.game" >Last Game ({{pc.GameCount}})</option>
-    <option value="Bullpen" ng-if="pc.currentPlayer.stats.bullPen">Last Bullpen ({{pc.BullpenCount}})</option>
-    <option value="Longtoss" ng-if="pc.currentPlayer.stats.longToss">Last Longtoss ({{pc.LongtossCount}})</option>
-    <option value="Untagged" ng-if="pc.currentPlayer.stats.untagged">Untagged ({{pc.UntaggedCount}})</option>
 
-  </select>
-</div>
 <div style="margin: 0px; padding: 0px;">
   <arealinechart style="margin: auto;text-transform: uppercase; font-size:.38em" width="30%" height="150" id="playerOverviewChart" bind="pc.currentPlayer.playerScores"></arealinechart>
 </div>
