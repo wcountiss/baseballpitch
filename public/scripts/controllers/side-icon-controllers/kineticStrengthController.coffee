@@ -16,6 +16,8 @@ angular.module('motus').controller 'kineticStrengthController', ['$q', 'currentP
     strength.currentPlayer = cpf.currentPlayer
     $stat.runStatsEngine(strength.currentPlayer.pitches)
     .then (stats) ->
+      return if !stats
+      
       strength.stats = stats
       strength.playerScores = [
         {bar: 'Hip Speed', value: strength.stats.metricScores.peakHipSpeed.score, color: color[strength.stats.metricScores.peakHipSpeed.rating], average: _.find(strength.eliteMetrics, (eliteMetric) -> eliteMetric.metric == 'peakHipSpeed').avg }
