@@ -106,6 +106,7 @@ angular.module('d3').directive 'barchart', [
                 .attr("width", x.rangeBand())
                 .attr("y", (d) -> y(d.value))
                 .attr("height", (d) -> height - y(d.value))
+                .attr('fill', (d) -> d.color)
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide)
 

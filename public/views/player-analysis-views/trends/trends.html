@@ -18,9 +18,15 @@
            <div class="flex-container-col">
 
              <div class="trends-graphs flex-grow-max">
-               <groupedbarchart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendChart" bind="trends.playerScores"  on-click="trends.groupClick(element)"></groupedbarchart>
-
-               <linechart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendDetailChart" bind="trends.playerDetailScores"></linechart>
+              <div>
+                <groupedbarchart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendChart" bind="trends.playerScores"  on-click="trends.groupClick(element)"></groupedbarchart>
+              </div>
+      
+              <div>
+                <div class="line-header dates">{{trends.selectedPlayerDetailDates.join(', ')}}</div>
+                <div class="line-header tags">{{trends.selectedPlayerDetailTags.join(', ')}}</div>
+                 <linechart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendDetailChart" bind="trends.playerDetailScores"></linechart>
+              </div>
              </div>
            </div>
          </div>

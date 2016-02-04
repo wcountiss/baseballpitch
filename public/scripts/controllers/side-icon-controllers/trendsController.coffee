@@ -25,7 +25,6 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     trends.footJoint = _.filter trends.eliteMetrics, (obj) ->
       if obj.jointCode == 'FOOT'
         return obj
-    console.log('FOOT:',trends.footJoint)
     #Create hipJoint array for the accordion
     trends.hipJoint = _.filter trends.eliteMetrics, (obj) ->
       if obj.jointCode == 'HIP'
@@ -53,10 +52,22 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
       pitches = pitches[element.group]
       pitches = $pitch.filterTag(pitches, element.name)
 
+
       #add it to object to keep all of the groups selected
-      trends.selectedPlayerDetailScores[element.group + element.name] = pitches
+      trends.selectedPlayerDetailScores["#{element.group}:#{element.name}"] = pitches
     else
-      delete trends.selectedPlayerDetailScores[element.group + element.name]
+      delete trends.selectedPlayerDetailScores["#{element.group}:#{element.name}"]
+
+    #Make header based on all the selected elements
+    trends.selectedPlayerDetailDates = []
+    trends.selectedPlayerDetailTags = []
+    _.each _.keys(trends.selectedPlayerDetailScores), (detailKey) ->
+      #key is group : name so split and add to unique array
+      groupName = detailKey.split(':')
+      trends.selectedPlayerDetailDates.push groupName[0]
+      trends.selectedPlayerDetailTags.push groupName[1]      
+    trends.selectedPlayerDetailDates = _.uniq(trends.selectedPlayerDetailDates)
+    trends.selectedPlayerDetailTags = _.uniq(trends.selectedPlayerDetailTags)
 
     #flatten them out to be bound
     bindedPitches = []
