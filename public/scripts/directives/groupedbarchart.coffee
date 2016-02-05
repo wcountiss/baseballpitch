@@ -150,8 +150,8 @@ angular.module('d3').directive 'groupedbarchart', [
               if d.value
                 height - y(d.value)
             )
-            .attr('class', (d) -> 
-              if data.defaultSelected.date == d.group && data.defaultSelected.name == d.name
+            .attr('class', (d) ->
+              if _.find(data.defaultSelected, (ds) -> ds.date == d.group && ds.name == d.name)
                 d.selected = true
                 "rect selected #{d.name}"
               else

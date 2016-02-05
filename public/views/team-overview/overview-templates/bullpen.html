@@ -5,6 +5,6 @@
   <div class="chart-holder">
     <div class="graph-context">Average of entire pitching roster</div>
     <arealinechart style="text-transform: uppercase; font-size:.75em" width="92%" height="400" id="teamOverviewChart" bind="team.teamScores"></arealinechart>
-    <span class="elite-label">Elite</span>
+    <span class="elite-label" ng-if="team.teamScores.length">Elite</span>
   </div>
 </div>

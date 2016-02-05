@@ -52,22 +52,21 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
       pitches = pitches[element.group]
       pitches = $pitch.filterTag(pitches, element.name)
 
-
       #add it to object to keep all of the groups selected
       trends.selectedPlayerDetailScores["#{element.group}:#{element.name}"] = pitches
     else
       delete trends.selectedPlayerDetailScores["#{element.group}:#{element.name}"]
 
     #Make header based on all the selected elements
-    trends.selectedPlayerDetailDates = []
-    trends.selectedPlayerDetailTags = []
+    selectedPlayerDetailHeader = {}
     _.each _.keys(trends.selectedPlayerDetailScores), (detailKey) ->
       #key is group : name so split and add to unique array
       groupName = detailKey.split(':')
-      trends.selectedPlayerDetailDates.push groupName[0]
-      trends.selectedPlayerDetailTags.push groupName[1]      
-    trends.selectedPlayerDetailDates = _.uniq(trends.selectedPlayerDetailDates)
-    trends.selectedPlayerDetailTags = _.uniq(trends.selectedPlayerDetailTags)
+      selectedPlayerDetailHeader[groupName[0]] = [] if !selectedPlayerDetailHeader[groupName[0]]
+      selectedPlayerDetailHeader[groupName[0]].push groupName[1]
+      _.each _.keys(selectedPlayerDetailHeader), (key) ->
+        selectedPlayerDetailHeader[key] = _.uniq(selectedPlayerDetailHeader[key])
+    trends.selectedPlayerDetailHeader = selectedPlayerDetailHeader
 
     #flatten them out to be bound
     bindedPitches = []
@@ -84,7 +83,9 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
       _.each scores, (score) ->
         score.score = Math.abs(score.score)
 
-    if scores.length
+    if !scores.length
+      trends.playerDetailScores = null
+    else
       #filter the trend chart down to the clicked element and rebind to detail chart
       trends.playerDetailScores = {
         average: trends.playerScores.average,
@@ -150,7 +151,9 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
               group[tag] = Math.abs(group[tag])
 
         trends.playerScores = {
-          heading: metric.label, units: metric.units, average: metric.avg
+          heading: metric.label, 
+          units: metric.units, 
+          average: metric.avg
           keys: _.filter _.keys(trends.filter), (key) -> 
             if trends.filter[key] 
               return key # ['Longtoss', 'Bullpen', 'Game', 'Untagged']
@@ -158,11 +161,19 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
           yMin: metric.yMin
           yMax: metric.yMax
           yType: metric.yType
-          defaultSelected: {date: groups[0].date, name: 'Longtoss' }       
+          defaultSelected: [
+            {date: groups[groups.length-1].date, name: 'Longtoss' }, 
+            {date: groups[groups.length-1].date, name: 'Bullpen' },
+            {date: groups[groups.length-1].date, name: 'Game' },
+            {date: groups[groups.length-1].date, name: 'Untagged' }
+          ]     
         }
 
-        #set detail chart
-        trends.groupClick({group: groups[0].date, name: 'Longtoss', selected: true, firstLoad: true})
+        #set detail chart with default clicks of last session
+        trends.groupClick({group: groups[groups.length-1].date, name: 'Longtoss', selected: true, firstLoad: true}) if trends.playerScores.groups[groups.length-1].Longtoss
+        trends.groupClick({group: groups[groups.length-1].date, name: 'Bullpen', selected: true, firstLoad: true}) if trends.playerScores.groups[groups.length-1].Bullpen
+        trends.groupClick({group: groups[groups.length-1].date, name: 'Game', selected: true, firstLoad: true}) if trends.playerScores.groups[groups.length-1].Game
+        trends.groupClick({group: groups[groups.length-1].date, name: 'Untagged', selected: true, firstLoad: true}) if trends.playerScores.groups[groups.length-1].Untagged
 
 
   return trends

@@ -141,6 +141,12 @@ angular.module('d3').directive 'kinetic', [
               d3.max(_.pluck(_.flatten(_.pluck(lines, 'values')),'score'))
             ])
 
+            svg.append("rect")
+              .attr("width", (d) -> width)
+              .attr("height", "4em")
+              .attr("fill", "black")
+              .attr("transform", "translate(0," + height + ")")
+
             svg.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + height + ")")
@@ -176,7 +182,7 @@ angular.module('d3').directive 'kinetic', [
               .style("fill", "none")
               .style("pointer-events", "all") 
               .on("mouseout", (d) ->  d3.selectAll(".selector").remove(); speedTip.hide())
-              .on("mousemove", mousemove)
+              # .on("mousemove", mousemove)
 
             #circles for timing
             _.each _.keys(data.timings), (key) ->

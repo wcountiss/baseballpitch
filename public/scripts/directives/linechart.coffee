@@ -68,7 +68,7 @@ angular.module('d3').directive 'linechart', [
                 d.score = +d.score
 
               # set axis
-              xAxis = d3.svg.axis().scale(x).orient('bottom')
+              xAxis = d3.svg.axis().scale(x).orient('bottom').tickFormat(d3.format("d"))
               yAxis = d3.svg.axis().scale(y).orient('left')
               x.domain [1, data.scores.length]
               ymin = d3.min(data.scores, (d) -> d.score)

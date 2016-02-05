@@ -13,8 +13,13 @@ Trends - SubTag Filter
 Player View
 
 get point to squash - dynamic tick distances
-Kinetic Chain - Pitch Icons
-Kinetic Chain - Std Dev
+Kinetic Chain UI - Pitch Icons
+Kinetic Chain UI - Lines std Dev
+
+Trends - SubTag Filter 
+get point to squash - dynamic tick distances
+Player View
+
 
 Fix Firefox
 comparison:visual - tool tips to float a little higher for IPAD
@@ -25,21 +30,20 @@ DNS
 Heroku Setup
 Parse get Players by Game Manager
 Game Manager View
-Download Data in Excel
 
 Extras
-Expanding tag functionality to create a Start / End grabthat generates the chart on the bottom.
-SubTag Filter Snapshots
+Download Data in Excel
 90 day back filter and get sessions
-Add Google Analytics
+SubTag Filter Snapshots
 Persistable Filter
-team overview: 2 More Awards are being added
+Trend Drags to select the linechart
+Team overview: 2 More Awards are being added
+Increase load up speed - Cron Job
+Add Google Analytics
 Tagging Throws on Tagging Chart
-LocalCache
-Increase load up speed
-
 
 Ben Questions
+Trends negative average and line (foot contact time, Mike) - avg is lower than Ymin?
 Trends chart = what is the default line chart?
 owes us 5 images for joint kinetics
 Lines standard dev from what metric?
