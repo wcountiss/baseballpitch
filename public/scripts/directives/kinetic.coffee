@@ -143,7 +143,7 @@ angular.module('d3').directive 'kinetic', [
 
             svg.append("rect")
               .attr("width", (d) -> width)
-              .attr("height", "4em")
+              .attr("height", "7em")
               .attr("fill", "black")
               .attr("transform", "translate(0," + height + ")")
 
@@ -185,17 +185,42 @@ angular.module('d3').directive 'kinetic', [
               # .on("mousemove", mousemove)
 
             #circles for timing
+            # static keyframe images
+            svg.append("svg:image")
+              .attr("xlink:href", "/images/kc-keyframeFirstMovement.svg")
+              .attr("width", 25)
+              .attr("height", 25)
+              .attr("x", (d) -> x(0))
+              .attr("y",height+5);
+
+            svg.append("svg:image")
+              .attr("xlink:href", "/images/kc-keyframeBallRelease.svg")
+              .attr("width", 25)
+              .attr("height", 25)
+              .attr("x", (d) -> x(totalTicks)-25)
+              .attr("y",height+5);
+
             _.each _.keys(data.timings), (key) ->
+              #Circles 
               svg.append('circle')
               .datum(data.timings[key])
               .attr('r', 3)
-              .attr('cx', (d) -> x d/keyframeCompression)
+              .attr('cx', (d) -> x(d/keyframeCompression))
               .attr('cy', (d) -> height)
               .attr('class', 'circle')
               .attr('fill', 'black')
               .attr 'stroke', 'black'
               .on('mouseover', (d) -> timingTip.show({ heading: key, value: d}))
               .on('mouseout', timingTip.hide)
+              
+              #Player Kinetic Chain Images
+              svg.append("svg:image")
+              .datum(data.timings[key])
+              .attr("xlink:href", "/images/kc-#{key}.svg")
+              .attr("width", 25)
+              .attr("height", 25)
+              .attr("x", (d) -> x(d/keyframeCompression)-12.5)
+              .attr("y",height+5);
 
             #circles for averages
             _.each _.keys(data.averages), (key) ->

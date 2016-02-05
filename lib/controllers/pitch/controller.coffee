@@ -45,11 +45,10 @@ module.exports.find = (req, res) ->
     #go until the last load back for real data
     daysBack = moment().diff(moment(cachedResults[cachedResults.length-1].pitchDate.iso), 'days')
 
-    console.log 'cachedResults loaded'
+    console.log extendedCache.getStats();
     #if you recently loaded everything, you do not need to get it until 24 hours later
     pitchGotFullSet = cache.get("pitchGotFullSet", true)
     if pitchGotFullSet
-      console.log 'sending back Cached Results'
       res.send(cachedResults)
       return
       
@@ -140,12 +139,10 @@ module.exports.find = (req, res) ->
         results = results.concat cachedResults
         results = _.sortBy results, (result) -> moment(result.pitchDate.iso)
       else
-        console.log 'Cache set'
         #save 365 was gotten so you don't have to get again for 24 hours
         cache.set( "pitchGotFullSet", true)
 
       #cache
-      console.log 'cache results set'
       extendedCache.set( "pitch#{req.currentUser.id}", results)
 
       res.send(results)
