@@ -77,7 +77,6 @@ module.exports.find = (req, res) ->
                 "armSlot",
                 "armSpeed",
                 "athleteProfile",
-                "createdAt",
                 "elbowFlexionFootContact",
                 "elbowFlexionRelease",
                 "elbowHeight",
@@ -90,7 +89,6 @@ module.exports.find = (req, res) ->
                 "maxFootHeightTime",
                 "maxShoulderRotation",
                 "maxTrunkSeparation",
-                "objectId",
                 "pelvisFlexionFootContact",
                 "pelvisFlexionRelease",
                 "pelvisRotationFootContact",
@@ -114,7 +112,6 @@ module.exports.find = (req, res) ->
                 "trunkRotationRelease",
                 "trunkSideTiltFootContact",
                 "trunkSideTiltRelease",
-                "updatedAt"
               ]  
             })
     Promise.all(pitchPromises)
