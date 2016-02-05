@@ -257,7 +257,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
       defer.resolve(stats)
     return defer.promise
 
-  stat.averageTimingData = (pitches) ->
+  stat.averageTimingData = (pitches, eliteMetrics) ->
     keys = ['timeSeriesForearmSpeed', 'timeSeriesHipSpeed', 'timeSeriesTrunkSpeed']
     statResult = {}
     #Loop over the properties
@@ -272,6 +272,10 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
           arrayToAverage.push keyPitchTiming[index]
         averagedTimings.push average(arrayToAverage)
       statResult[key] = averagedTimings
+    
+    #peak averaged
+    statResult.metricScores = getMetricsScore(pitches, eliteMetrics)
+
     #timing averaged
     statResult.keyframeFirstMovement = average(_.pluck(pitches, 'keyframeFirstMovement'))
     statResult.keyframeFootContact  = average(_.pluck(pitches, 'keyframeFootContact'))

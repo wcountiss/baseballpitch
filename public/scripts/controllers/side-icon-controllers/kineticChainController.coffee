@@ -3,6 +3,13 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
   cpf = currentPlayerFactory
   ef = eliteFactory
 
+  color = {
+    "Poor": '#f90b1c'
+    "OK": '#ffaa22'
+    "Good": '#00be76'
+    "Exceed": '#00be76'
+  }
+
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises)
   .then (results) ->
@@ -14,21 +21,26 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
         chain.loaded = true
         return
         
-      stats = $stat.averageTimingData(pitches)
+      stats = $stat.averageTimingData(pitches, chain.eliteMetrics)
+      console.log stats
       chain.playerScores = {
         timings: {
           keyframeFootContact: stats.keyframeFootContact,
-          # keyframeHipSpeed: stats.keyframeHipSpeed,
           keyframeLegKick: stats.keyframeLegKick,
-          # keyframeTrunkSpeed: stats.keyframeTrunkSpeed
           # keyframeTimeWarp: stats.keyframeTimeWarp,
         },
         averages: {
           peakHipSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakHipSpeedTime'
           peakTrunkSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakTrunkSpeedTime'
+          peakForearmSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakForearmSpeedTime'
+        }
+        peakSpeeds: {
+          Hip: { score: stats.metricScores.peakHipSpeedTime.score, color: color[stats.metricScores.peakHipSpeedTime.rating] }
+          Trunk: { score: stats.metricScores.peakTrunkSpeedTime.score, color: color[stats.metricScores.peakTrunkSpeedTime.rating] }
+          Forearm: { score: stats.metricScores.peakForearmSpeedTime.score, color: color[stats.metricScores.peakForearmSpeedTime.rating] }
         }
         speeds: [
-          { key: "Hips", scores: stats.timeSeriesHipSpeed },
+          { key: "Hip", scores: stats.timeSeriesHipSpeed },
           { key: "Trunk", scores: stats.timeSeriesTrunkSpeed },
           { key: "Forearm", scores: stats.timeSeriesForearmSpeed }
         ]

@@ -11,7 +11,6 @@ Add Center Scrolling to Player Comparison
 
 Trends - SubTag Filter 
 get point to squash - dynamic tick distances
-Kinetic Chain UI - Lines std Dev - xdomain for elite?
 Player View
 
 
@@ -37,10 +36,6 @@ Add Google Analytics
 Tagging Throws on Tagging Chart
 
 Ben Questions
-Kinetic Chain
-Lines standard dev from what metric?
-How can I get the leg kick MS
-
 Trends
 Trends negative average and line (foot contact time, Mike) - avg is lower than Ymin?
 Trends chart = what is the default line chart - selected all last session for now

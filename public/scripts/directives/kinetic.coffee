@@ -128,7 +128,7 @@ angular.module('d3').directive 'kinetic', [
               return {
                 key: d.key,
                 values: d.scores.map (d, i) -> return {index: i, score: +d}
-                peakIndex: _.findIndex d.scores, (score) -> score == maxScore
+                peak: { index: _.findIndex(d.scores, (score) -> score == maxScore), score: data.peakSpeeds[d.key].score, color: data.peakSpeeds[d.key].color }
               })
 
             x.domain([
@@ -161,19 +161,6 @@ angular.module('d3').directive 'kinetic', [
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
                 .text("degrees/sec")
-
-            #peak line
-            svg.selectAll("peak")
-                .data(lines)
-              .enter()
-                .append("line")
-                .attr('x1', (d) -> x(d.peakIndex))
-                .attr('x2', (d) -> x(d.peakIndex))
-                .attr('y1', (d) -> y(d.values[d.peakIndex].score))
-                .attr('y2', (d) -> height)
-                .attr('class', 'peak')
-                .attr('stroke-width', 2)
-                .attr('stroke', 'black')
 
             #rect to capture mouse
             svg.append("rect")
@@ -245,6 +232,32 @@ angular.module('d3').directive 'kinetic', [
                 .attr("class", "line")
                 .attr("d", (d) -> return lineFunction(d.values))
                 .style("stroke", (d) -> return color(d.key))
+
+            #peak line
+            svg.selectAll("peak")
+                .data(lines)
+              .enter()
+                .append("line")
+                .attr('x1', (d) -> x(d.peak.index))
+                .attr('x2', (d) -> x(d.peak.index))
+                .attr('y1', (d) -> y(d.values[d.peak.index].score))
+                .attr('y2', (d) -> height)
+                .attr('class', 'peak')
+                .attr('stroke-width', 2)
+                .style("stroke", (d) -> d.peak.color)
+            #peak circles
+            svg.selectAll("peak-circle")
+                .data(lines)
+              .enter()
+                .append("circle")
+                .attr('r', 3)
+                .attr('cx', (d) -> x(d.peak.index))
+                .attr('cy', (d) -> y(d.values[d.peak.index].score))
+                .attr('class', 'peak-circle')
+                .attr('fill', (d) -> d.peak.color)
+                .attr 'stroke', 'black'
+                .on('mouseover', (d) -> timingTip.show({ heading: d.key, value: d.peak.score}))
+                .on('mouseout', timingTip.hide)
 
         scope.$watch 'bind()', (-> updateChart()), false
         angular.element($window).bind 'resize', -> updateChart()
