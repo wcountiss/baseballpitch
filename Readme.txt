@@ -9,14 +9,9 @@ Player Analysis Kinetic Force Chart
 End of Week 7
 Add Center Scrolling to Player Comparison
 
+Pitch - trim Objectid etc
 Trends - SubTag Filter 
-Player View
 
-get point to squash - dynamic tick distances
-Kinetic Chain UI - Pitch Icons
-Kinetic Chain UI - Lines std Dev
-
-Trends - SubTag Filter 
 get point to squash - dynamic tick distances
 Player View
 
@@ -43,7 +38,7 @@ Add Google Analytics
 Tagging Throws on Tagging Chart
 
 Ben Questions
+Trends
 Trends negative average and line (foot contact time, Mike) - avg is lower than Ymin?
-Trends chart = what is the default line chart?
+Trends chart = what is the default line chart - selected all last session for now
 owes us 5 images for joint kinetics
-Lines standard dev from what metric?

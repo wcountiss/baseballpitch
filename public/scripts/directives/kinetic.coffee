@@ -128,7 +128,7 @@ angular.module('d3').directive 'kinetic', [
               return {
                 key: d.key,
                 values: d.scores.map (d, i) -> return {index: i, score: +d}
-                peakIndex: _.findIndex d.scores, (score) -> score == maxScore
+                peak: { index: _.findIndex(d.scores, (score) -> score == maxScore), score: data.peakSpeeds[d.key].score, color: data.peakSpeeds[d.key].color }
               })
 
             x.domain([
@@ -143,7 +143,7 @@ angular.module('d3').directive 'kinetic', [
 
             svg.append("rect")
               .attr("width", (d) -> width)
-              .attr("height", "4em")
+              .attr("height", "7em")
               .attr("fill", "black")
               .attr("transform", "translate(0," + height + ")")
 
@@ -162,19 +162,6 @@ angular.module('d3').directive 'kinetic', [
                 .style("text-anchor", "end")
                 .text("degrees/sec")
 
-            #peak line
-            svg.selectAll("peak")
-                .data(lines)
-              .enter()
-                .append("line")
-                .attr('x1', (d) -> x(d.peakIndex))
-                .attr('x2', (d) -> x(d.peakIndex))
-                .attr('y1', (d) -> y(d.values[d.peakIndex].score))
-                .attr('y2', (d) -> height)
-                .attr('class', 'peak')
-                .attr('stroke-width', 2)
-                .attr('stroke', 'black')
-
             #rect to capture mouse
             svg.append("rect")
               .attr("width", width)
@@ -185,17 +172,42 @@ angular.module('d3').directive 'kinetic', [
               # .on("mousemove", mousemove)
 
             #circles for timing
+            # static keyframe images
+            svg.append("svg:image")
+              .attr("xlink:href", "/images/kc-keyframeFirstMovement.svg")
+              .attr("width", 25)
+              .attr("height", 25)
+              .attr("x", (d) -> x(0))
+              .attr("y",height+5);
+
+            svg.append("svg:image")
+              .attr("xlink:href", "/images/kc-keyframeBallRelease.svg")
+              .attr("width", 25)
+              .attr("height", 25)
+              .attr("x", (d) -> x(totalTicks)-25)
+              .attr("y",height+5);
+
             _.each _.keys(data.timings), (key) ->
+              #Circles 
               svg.append('circle')
               .datum(data.timings[key])
               .attr('r', 3)
-              .attr('cx', (d) -> x d/keyframeCompression)
+              .attr('cx', (d) -> x(d/keyframeCompression))
               .attr('cy', (d) -> height)
               .attr('class', 'circle')
               .attr('fill', 'black')
               .attr 'stroke', 'black'
               .on('mouseover', (d) -> timingTip.show({ heading: key, value: d}))
               .on('mouseout', timingTip.hide)
+              
+              #Player Kinetic Chain Images
+              svg.append("svg:image")
+              .datum(data.timings[key])
+              .attr("xlink:href", "/images/kc-#{key}.svg")
+              .attr("width", 25)
+              .attr("height", 25)
+              .attr("x", (d) -> x(d/keyframeCompression)-12.5)
+              .attr("y",height+5);
 
             #circles for averages
             _.each _.keys(data.averages), (key) ->
@@ -220,6 +232,32 @@ angular.module('d3').directive 'kinetic', [
                 .attr("class", "line")
                 .attr("d", (d) -> return lineFunction(d.values))
                 .style("stroke", (d) -> return color(d.key))
+
+            #peak line
+            svg.selectAll("peak")
+                .data(lines)
+              .enter()
+                .append("line")
+                .attr('x1', (d) -> x(d.peak.index))
+                .attr('x2', (d) -> x(d.peak.index))
+                .attr('y1', (d) -> y(d.values[d.peak.index].score))
+                .attr('y2', (d) -> height)
+                .attr('class', 'peak')
+                .attr('stroke-width', 2)
+                .style("stroke", (d) -> d.peak.color)
+            #peak circles
+            svg.selectAll("peak-circle")
+                .data(lines)
+              .enter()
+                .append("circle")
+                .attr('r', 3)
+                .attr('cx', (d) -> x(d.peak.index))
+                .attr('cy', (d) -> y(d.values[d.peak.index].score))
+                .attr('class', 'peak-circle')
+                .attr('fill', (d) -> d.peak.color)
+                .attr 'stroke', 'black'
+                .on('mouseover', (d) -> timingTip.show({ heading: d.key, value: d.peak.score}))
+                .on('mouseout', timingTip.hide)
 
         scope.$watch 'bind()', (-> updateChart()), false
         angular.element($window).bind 'resize', -> updateChart()

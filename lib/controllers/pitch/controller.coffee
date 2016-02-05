@@ -45,11 +45,10 @@ module.exports.find = (req, res) ->
     #go until the last load back for real data
     daysBack = moment().diff(moment(cachedResults[cachedResults.length-1].pitchDate.iso), 'days')
 
-    console.log 'cachedResults loaded'
+    console.log extendedCache.getStats();
     #if you recently loaded everything, you do not need to get it until 24 hours later
     pitchGotFullSet = cache.get("pitchGotFullSet", true)
     if pitchGotFullSet
-      console.log 'sending back Cached Results'
       res.send(cachedResults)
       return
       
@@ -78,7 +77,6 @@ module.exports.find = (req, res) ->
                 "armSlot",
                 "armSpeed",
                 "athleteProfile",
-                "createdAt",
                 "elbowFlexionFootContact",
                 "elbowFlexionRelease",
                 "elbowHeight",
@@ -91,20 +89,6 @@ module.exports.find = (req, res) ->
                 "maxFootHeightTime",
                 "maxShoulderRotation",
                 "maxTrunkSeparation",
-                "objectId",
-                "peakBicepSpeed",
-                "peakBicepSpeedTime",
-                "peakElbowCompressiveForce",
-                "peakElbowValgusTorque",
-                "peakForearmSpeed",
-                "peakForearmSpeedTime",
-                "peakHipSpeed",
-                "peakHipSpeedTime",
-                "peakShoulderAnteriorForce",
-                "peakShoulderCompressiveForce",
-                "peakShoulderRotationTorque",
-                "peakTrunkSpeed",
-                "peakTrunkSpeedTime",
                 "pelvisFlexionFootContact",
                 "pelvisFlexionRelease",
                 "pelvisRotationFootContact",
@@ -127,25 +111,28 @@ module.exports.find = (req, res) ->
                 "trunkRotationFootContact",
                 "trunkRotationRelease",
                 "trunkSideTiltFootContact",
-                "trunkSideTiltRelease",
-                "updatedAt"
+                "trunkSideTiltRelease"
               ]  
             })
     Promise.all(pitchPromises)
     .then (pitchGroups) ->
       results = _.flatten pitchGroups
 
+      #remove unused data for speed
+      _.each results, (result) ->
+        delete result.objectId
+        delete result.updatedAt
+        delete result.createdAt
+
       #if cached results combine
       if cachedResults
         results = results.concat cachedResults
         results = _.sortBy results, (result) -> moment(result.pitchDate.iso)
       else
-        console.log 'Cache set'
         #save 365 was gotten so you don't have to get again for 24 hours
         cache.set( "pitchGotFullSet", true)
 
       #cache
-      console.log 'cache results set'
       extendedCache.set( "pitch#{req.currentUser.id}", results)
 
       res.send(results)
@@ -197,12 +184,10 @@ module.exports.findPitchTimingByAtheleteProfileId = (req, res) ->
             "footContactTime",
             "keyframeFirstMovement",
             "keyframeFootContact",
-            "keyframeHipSpeed",
             "keyframeLegKick",
             "keyframeTimeWarp",
-            "keyframeTrunkSpeed",
-            "maxFootHeightTime",
             "objectId",
+            "maxFootHeightTime",
             "peakBicepSpeedTime",
             "peakForearmSpeedTime",
             "peakHipSpeedTime",
