@@ -33,8 +33,8 @@
     <body id="app" ng-controller="indexController as index">
         <header ng-if="index.state.current.authenticate" ng-include src="'views/header.html'"></header>
 
-        <div id="loader">
-            <img ng-src="../images/motusLoading.gif" alt="" ng-if="!index.loaded">
+        <div id="loader" ng-if="!index.loaded">
+            <img ng-src="../images/motusLoading.gif" alt="" >
         </div>
         <main id="main-content">
           <div ui-view></div>
