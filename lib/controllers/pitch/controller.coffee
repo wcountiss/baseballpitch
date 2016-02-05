@@ -111,12 +111,18 @@ module.exports.find = (req, res) ->
                 "trunkRotationFootContact",
                 "trunkRotationRelease",
                 "trunkSideTiltFootContact",
-                "trunkSideTiltRelease",
+                "trunkSideTiltRelease"
               ]  
             })
     Promise.all(pitchPromises)
     .then (pitchGroups) ->
       results = _.flatten pitchGroups
+
+      #remove unused data for speed
+      _.each results, (result) ->
+        delete result.objectId
+        delete result.updatedAt
+        delete result.createdAt
 
       #if cached results combine
       if cachedResults

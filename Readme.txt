@@ -9,7 +9,9 @@ Player Analysis Kinetic Force Chart
 End of Week 7
 Add Center Scrolling to Player Comparison
 
+Pitch - trim Objectid etc
 Trends - SubTag Filter 
+
 get point to squash - dynamic tick distances
 Player View
 
