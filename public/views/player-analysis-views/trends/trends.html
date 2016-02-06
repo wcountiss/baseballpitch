@@ -21,7 +21,7 @@
               <div>
                 <groupedbarchart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendChart" bind="trends.playerScores"  on-click="trends.groupClick(element)"></groupedbarchart>
               </div>
-      
+
               <div>
                 <div class="line-header">
                   {{trends.selectedSession.date}} {{trends.selectedSession.tag}}
@@ -31,7 +31,7 @@
                 </div>
                 <div ng-if="trends.playerDetailScores && trends.subFilters" class="flex-container-row checkbox-filters">
                   <div ng-repeat="(subFilter, value) in trends.subFilters" class="checkbox-spacer">
-                    <input type="checkbox" ng-model="value" ng-change="trends.subFilterChange()">
+                    <input type="checkbox" ng-model="value" ng-change="trends.subFilterChange(value)">
                     <label class="check-box generic"></label>
                     <span>{{subFilter}}</span>
                   </div>

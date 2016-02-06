@@ -47,17 +47,17 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     #group the pitches into sessions and tags
     pitches = _.groupBy trends.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
     pitches = pitches[trends.selectedSession.date]
-    
+
     #what is selected
     pitches = $pitch.filterTag(pitches, trends.selectedSession.tag)
-    
+
     return pitches
 
   subFilterPitches = () ->
     pitches = getPitches()
 
     filteredPitches = []
-    _.each _.keys(trends.subFilters), (subFilterKey) -> 
+    _.each _.keys(trends.subFilters), (subFilterKey) ->
       if (trends.subFilters[subFilterKey])
         filteredPitches = filteredPitches.concat $pitch.filterTag(pitches, subFilterKey, 1)
 
@@ -99,8 +99,10 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     subFilters = $pitch.uniquefilterTags(selectedPlayerDetailPitches, 1)
     _.each subFilters, (subFilter) -> trends.subFilters[subFilter] = true
 
+    console.log 'trends.subFilters after clicking',trends.subFilters
+
     bindLineChart(selectedPlayerDetailPitches)
-    
+
     if !element.firstLoad
       $scope.$apply()
 
@@ -123,11 +125,12 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
   trends.filterChange = () ->
     trends.selectMetric(trends.selectedMetric)
 
-  trends.subFilterChange = () ->
+  trends.subFilterChange = (value) ->
+    console.log 'subFilterChange(): ',value
     console.log(trends.subFilters)
     selectedPlayerDetailPitches = subFilterPitches()
     bindLineChart(selectedPlayerDetailPitches)
-  
+
   #select metric and map to the chart
   trends.selectMetric = (metric) ->
     #blank out detail chart
@@ -171,17 +174,17 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
             defaultSelected = {date: groups[groups.length-1].date, name: tag }
 
         trends.playerScores = {
-          heading: metric.label, 
-          units: metric.units, 
+          heading: metric.label,
+          units: metric.units,
           average: metric.avg
-          keys: _.filter _.keys(trends.filter), (key) -> 
-            if trends.filter[key] 
+          keys: _.filter _.keys(trends.filter), (key) ->
+            if trends.filter[key]
               return key # ['Longtoss', 'Bullpen', 'Game', 'Untagged']
           groups: groups
           yMin: metric.yMin
           yMax: metric.yMax
           yType: metric.yType
-          defaultSelected: defaultSelected      
+          defaultSelected: defaultSelected
         }
 
         if defaultSelected
