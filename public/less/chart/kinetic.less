@@ -6,9 +6,12 @@ kinetic {
     shape-rendering: crispEdges;
   }
 
+  
+
+
   .x.axis {
     line {
-      stroke: white;
+      stroke: @motus-btngrey;
     }
     .tick {
       text{
@@ -27,7 +30,7 @@ kinetic {
   .circle{
     r: .5em;
     stroke: #000;
-    stroke-width: 1;
+    stroke-width: 0;
     fill: white;
     transition: all 0.2s ease;
     &:hover {
@@ -38,7 +41,7 @@ kinetic {
   .peak-circle{
     r: .5em;
     stroke: #000;
-    stroke-width: 1;
+    stroke-width: 0;
     transition: all 0.2s ease;
     &:hover {
       r: .7em;

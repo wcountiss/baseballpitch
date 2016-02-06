@@ -32,7 +32,7 @@ angular.module('d3').directive 'kinetic', [
           margin = 
             top: 25
             right: 20
-            bottom: 30
+            bottom: 100
             left: 50
           width = width - (margin.left) - (margin.right)
           height = height - (margin.top) - (margin.bottom)          
@@ -144,7 +144,7 @@ angular.module('d3').directive 'kinetic', [
             svg.append("rect")
               .attr("width", (d) -> width)
               .attr("height", "7em")
-              .attr("fill", "black")
+              .attr("fill", "#414042")
               .attr("transform", "translate(0," + height + ")")
 
             svg.append("g")
@@ -161,6 +161,8 @@ angular.module('d3').directive 'kinetic', [
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
                 .text("degrees/sec")
+                .attr("y", -48);
+
 
             #rect to capture mouse
             svg.append("rect")
@@ -175,17 +177,17 @@ angular.module('d3').directive 'kinetic', [
             # static keyframe images
             svg.append("svg:image")
               .attr("xlink:href", "/images/kc-keyframeFirstMovement.svg")
-              .attr("width", 25)
-              .attr("height", 25)
+              .attr("width", 30)
+              .attr("height", 30)
               .attr("x", (d) -> x(0))
-              .attr("y",height+5);
+              .attr("y",height+40);
 
             svg.append("svg:image")
               .attr("xlink:href", "/images/kc-keyframeBallRelease.svg")
-              .attr("width", 25)
-              .attr("height", 25)
-              .attr("x", (d) -> x(totalTicks)-25)
-              .attr("y",height+5);
+              .attr("width", 30)
+              .attr("height", 30)
+              .attr("x", (d) -> x(totalTicks)-32)
+              .attr("y",height+40);
 
             _.each _.keys(data.timings), (key) ->
               #Circles 
@@ -193,7 +195,7 @@ angular.module('d3').directive 'kinetic', [
               .datum(data.timings[key])
               .attr('r', 3)
               .attr('cx', (d) -> x(d/keyframeCompression))
-              .attr('cy', (d) -> height)
+              .attr('cy', (d) -> height + 10)
               .attr('class', 'circle')
               .attr('fill', 'black')
               .attr 'stroke', 'black'
@@ -204,10 +206,11 @@ angular.module('d3').directive 'kinetic', [
               svg.append("svg:image")
               .datum(data.timings[key])
               .attr("xlink:href", "/images/kc-#{key}.svg")
-              .attr("width", 25)
-              .attr("height", 25)
-              .attr("x", (d) -> x(d/keyframeCompression)-12.5)
-              .attr("y",height+5);
+              .attr("width", 33)
+              .attr("height", 33)
+              .attr("x", (d) -> x(d/keyframeCompression)-16.5)
+              .attr("y",height+38);
+                
 
             #circles for averages
             _.each _.keys(data.averages), (key) ->

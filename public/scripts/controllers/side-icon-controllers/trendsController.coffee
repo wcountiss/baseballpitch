@@ -6,8 +6,6 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
 
   tags = ['Longtoss', 'Bullpen', 'Game', 'Untagged']
 
-  trends.selectedPlayerDetailScores = {}
-
   #default all checked
   trends.filter = {Longtoss: true, Bullpen: true, Game: true, Untagged: true}
 
@@ -52,31 +50,17 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
       pitches = pitches[element.group]
       pitches = $pitch.filterTag(pitches, element.name)
 
-      #add it to object to keep all of the groups selected
-      trends.selectedPlayerDetailScores["#{element.group}:#{element.name}"] = pitches
+      selectedPlayerDetailPitches = pitches
     else
-      delete trends.selectedPlayerDetailScores["#{element.group}:#{element.name}"]
+      selectedPlayerDetailPitches = null
 
-    #Make header based on all the selected elements
-    selectedPlayerDetailHeader = {}
-    _.each _.keys(trends.selectedPlayerDetailScores), (detailKey) ->
-      #key is group : name so split and add to unique array
-      groupName = detailKey.split(':')
-      selectedPlayerDetailHeader[groupName[0]] = [] if !selectedPlayerDetailHeader[groupName[0]]
-      selectedPlayerDetailHeader[groupName[0]].push groupName[1]
-      _.each _.keys(selectedPlayerDetailHeader), (key) ->
-        selectedPlayerDetailHeader[key] = _.uniq(selectedPlayerDetailHeader[key])
-    trends.selectedPlayerDetailHeader = selectedPlayerDetailHeader
+    #Make header based on the selected elements
+    trends.selectedPlayerDetailHeader = { date: element.group, tag: element.name }
 
-    #flatten them out to be bound
-    bindedPitches = []
-    _.each _.keys(trends.selectedPlayerDetailScores), (key) ->
-      bindedPitches = bindedPitches.concat trends.selectedPlayerDetailScores[key]
-    
     #sort the pitches
-    bindedPitches = _.sortBy bindedPitches, (pitch) -> moment(pitch.pitchDate.iso)
+    selectedPlayerDetailPitches = _.sortBy selectedPlayerDetailPitches, (pitch) -> moment(pitch.pitchDate.iso)
 
-    scores = _.map bindedPitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric]}
+    scores = _.map selectedPlayerDetailPitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric]}
 
     #absolute type of metric
     if trends.playerScores.yType == 1
@@ -150,6 +134,15 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
             _.each tags, (tag) ->
               group[tag] = Math.abs(group[tag])
 
+        #set detail chart with default clicks of last session
+        # selectOne = false
+        defaultSelected = null
+        selectOne = false
+        _.each tags, (tag) ->
+          if !selectOne && groups[groups.length-1][tag]
+            selectOne = true
+            defaultSelected = {date: groups[groups.length-1].date, name: tag }
+
         trends.playerScores = {
           heading: metric.label, 
           units: metric.units, 
@@ -161,19 +154,11 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
           yMin: metric.yMin
           yMax: metric.yMax
           yType: metric.yType
-          defaultSelected: [
-            {date: groups[groups.length-1].date, name: 'Longtoss' }, 
-            {date: groups[groups.length-1].date, name: 'Bullpen' },
-            {date: groups[groups.length-1].date, name: 'Game' },
-            {date: groups[groups.length-1].date, name: 'Untagged' }
-          ]     
+          defaultSelected: defaultSelected      
         }
 
-        #set detail chart with default clicks of last session
-        trends.groupClick({group: groups[groups.length-1].date, name: 'Longtoss', selected: true, firstLoad: true}) if trends.playerScores.groups[groups.length-1].Longtoss
-        trends.groupClick({group: groups[groups.length-1].date, name: 'Bullpen', selected: true, firstLoad: true}) if trends.playerScores.groups[groups.length-1].Bullpen
-        trends.groupClick({group: groups[groups.length-1].date, name: 'Game', selected: true, firstLoad: true}) if trends.playerScores.groups[groups.length-1].Game
-        trends.groupClick({group: groups[groups.length-1].date, name: 'Untagged', selected: true, firstLoad: true}) if trends.playerScores.groups[groups.length-1].Untagged
+        if defaultSelected
+          trends.groupClick({group: groups[groups.length-1].date, name: defaultSelected.name, selected: true, firstLoad: true})
 
 
   return trends

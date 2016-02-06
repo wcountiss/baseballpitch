@@ -151,8 +151,7 @@ angular.module('d3').directive 'groupedbarchart', [
                 height - y(d.value)
             )
             .attr('class', (d) ->
-              if _.find(data.defaultSelected, (ds) -> ds.date == d.group && ds.name == d.name)
-                d.selected = true
+              if (data.defaultSelected.date == d.group && data.defaultSelected.name == d.name)
                 "rect selected #{d.name}"
               else
                 "rect #{d.name}"
@@ -160,12 +159,7 @@ angular.module('d3').directive 'groupedbarchart', [
             .on('mouseover', (d) -> tip.show(d))
             .on('mouseout', tip.hide)
             .on('click', (d) -> 
-              #toggle selected
-              d.selected = !d.selected
-              if d.selected
-                d3.select(this).attr("class", "rect selected #{d.name}");
-              else
-               d3.select(this).attr("class", "rect #{d.name}");
+              d3.select(this).attr("class", "rect selected #{d.name}");
               scope.onClick({ element: d })
             )
 

@@ -9,16 +9,15 @@ Player Analysis Kinetic Force Chart
 End of Week 7
 Add Center Scrolling to Player Comparison
 
-Pitch - trim Objectid etc
 Trends - SubTag Filter 
-
-get point to squash - dynamic tick distances
 Player View
 
+get point to squash - dynamic tick distances
+Faster Load - 90 days on load, 365 on chart
+Error Handling
 
 Fix Firefox
 comparison:visual - tool tips to float a little higher for IPAD
-Error Handling
 
 End of Week 8
 DNS
@@ -27,13 +26,12 @@ Parse get Players by Game Manager
 Game Manager View
 
 Extras
-Download Data in Excel
 90 day back filter and get sessions
 SubTag Filter Snapshots
 Persistable Filter
-Trend Drags to select the linechart
+Trends - yType = 2 - bar charts off of 0
+Download Data in Excel
 Team overview: 2 More Awards are being added
-Increase load up speed - Cron Job
 Add Google Analytics
 Tagging Throws on Tagging Chart
 

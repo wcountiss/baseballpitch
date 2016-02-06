@@ -58,8 +58,10 @@ module.exports.find = (req, res) ->
     
     #Go back 30 days by default but can override
     getNumberofPages = 1
-    if daysBack > 60
+    if daysBack >= 60
         getNumberofPages = 2
+    if daysBack >= 90
+        getNumberofPages = 3
     if daysBack >= 365
         getNumberofPages = 8
 
@@ -97,6 +99,19 @@ module.exports.find = (req, res) ->
                 "pelvisSideTiltRelease",
                 "pitchDate",
                 "pitchTime",
+                "peakBicepSpeed",
+                "peakBicepSpeedTime",
+                "peakElbowCompressiveForce",
+                "peakElbowValgusTorque",
+                "peakForearmSpeed",
+                "peakForearmSpeedTime",
+                "peakHipSpeed",
+                "peakHipSpeedTime",
+                "peakShoulderAnteriorForce",
+                "peakShoulderCompressiveForce",
+                "peakShoulderRotationTorque",
+                "peakTrunkSpeed",
+                "peakTrunkSpeedTime",
                 "releasePoint",
                 "shoulderAbductionFootContact",
                 "shoulderAbductionRelease",
