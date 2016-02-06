@@ -24,16 +24,7 @@
       
               <div>
                 <div class="line-header">
-                  <ul>
-                    <li ng-repeat="(key, value) in trends.selectedPlayerDetailHeader">
-                      {{key}}
-                      <ul>
-                        <li ng-repeat="tags in value">
-                          {{tags}}
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
+                  {{trends.selectedPlayerDetailHeader.date}} {{trends.selectedPlayerDetailHeader.tag}}
                 </div>
                  <linechart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendDetailChart" bind="trends.playerDetailScores"></linechart>
               </div>
