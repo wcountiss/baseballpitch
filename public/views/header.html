@@ -5,12 +5,12 @@
       <img alt="Motus Logo" src='../images/motus-logo.svg'>
     </div>
 
-    <div class="nav-links">
+    <div class="nav-links mobile-hide">
       <span><a ui-sref-active="active" ui-sref="teamOverview">Team Overview</a></span>
       <span><a ng-class="{active: index.state.includes('player.**')}" ui-sref="player.home.overview">Player Analysis</a></span>
     </div>
 
-    <div class="login-name-account">
+    <div class="login-name-account mobile-hide">
       <span><strong>Welcome</strong> {{::index.user.firstName}} {{::index.user.lastName}}</span>
       <div class="account-or-logout">
         <span>
@@ -22,10 +22,17 @@
       </div>
     </div>
 
-    <div class="team-logo">
+    <div class="team-logo mobile-hide">
       <div class="team-logo-svg">
         <!--SVG Team Logo-->
       </div>
+    </div>
+    <!--Mobile View Menu-->
+    <div class="burger-nav mobile-show" ng-click="index.openMenu = !index.openMenu">
+      <span id="burger-toggle" class="nav-toggle" ng-class="{'active-nav': index.openMenu}">
+        <div></div>
+        <span></span>
+      </span>
     </div>
   </nav>
 </div>

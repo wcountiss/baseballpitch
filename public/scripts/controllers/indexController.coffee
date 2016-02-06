@@ -23,6 +23,7 @@ angular.module('motus').controller('indexController',
       # $state.go('login')
       $state.go('login')
 
+    index.openMenu = false;
     #Page Load
     index.loadUser()
 
