@@ -43,20 +43,28 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
       if obj.jointCode == 'ELBOW'
         return obj
 
-  trends.groupClick = (element) ->
-    if element.selected
-      #group the pitches into sessions and tags
-      pitches = _.groupBy trends.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
-      pitches = pitches[element.group]
-      pitches = $pitch.filterTag(pitches, element.name)
+  getPitches = () ->
+    #group the pitches into sessions and tags
+    pitches = _.groupBy trends.pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/DD/YYYY')
+    pitches = pitches[trends.selectedSession.date]
+    
+    #what is selected
+    pitches = $pitch.filterTag(pitches, trends.selectedSession.tag)
+    
+    return pitches
 
-      selectedPlayerDetailPitches = pitches
-    else
-      selectedPlayerDetailPitches = null
+  subFilterPitches = () ->
+    pitches = getPitches()
 
-    #Make header based on the selected elements
-    trends.selectedPlayerDetailHeader = { date: element.group, tag: element.name }
+    filteredPitches = []
+    _.each _.keys(trends.subFilters), (subFilterKey) -> 
+      if (trends.subFilters[subFilterKey])
+        filteredPitches = filteredPitches.concat $pitch.filterTag(pitches, subFilterKey, 1)
 
+    return filteredPitches
+
+
+  bindLineChart = (selectedPlayerDetailPitches) ->
     #sort the pitches
     selectedPlayerDetailPitches = _.sortBy selectedPlayerDetailPitches, (pitch) -> moment(pitch.pitchDate.iso)
 
@@ -79,6 +87,20 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         yAxisType: trends.playerScores.yType
         scores: scores
       }
+
+  trends.groupClick = (element) ->
+    #Make header based on the selected elements
+    trends.selectedSession = { date: element.group, tag: element.name }
+
+    selectedPlayerDetailPitches = getPitches()
+
+    #get subfilters and set them to true
+    trends.subFilters = {}
+    subFilters = $pitch.uniquefilterTags(selectedPlayerDetailPitches, 1)
+    _.each subFilters, (subFilter) -> trends.subFilters[subFilter] = true
+
+    bindLineChart(selectedPlayerDetailPitches)
+    
     if !element.firstLoad
       $scope.$apply()
 
@@ -101,6 +123,11 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
   trends.filterChange = () ->
     trends.selectMetric(trends.selectedMetric)
 
+  trends.subFilterChange = () ->
+    console.log(trends.subFilters)
+    selectedPlayerDetailPitches = subFilterPitches()
+    bindLineChart(selectedPlayerDetailPitches)
+  
   #select metric and map to the chart
   trends.selectMetric = (metric) ->
     #blank out detail chart

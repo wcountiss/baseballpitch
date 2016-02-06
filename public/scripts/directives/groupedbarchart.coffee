@@ -159,6 +159,7 @@ angular.module('d3').directive 'groupedbarchart', [
             .on('mouseover', (d) -> tip.show(d))
             .on('mouseout', tip.hide)
             .on('click', (d) -> 
+              date.selectAll('rect').attr("class", (d) -> "rect #{d.name}" )
               d3.select(this).attr("class", "rect selected #{d.name}");
               scope.onClick({ element: d })
             )

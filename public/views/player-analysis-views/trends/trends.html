@@ -24,9 +24,18 @@
       
               <div>
                 <div class="line-header">
-                  {{trends.selectedPlayerDetailHeader.date}} {{trends.selectedPlayerDetailHeader.tag}}
+                  {{trends.selectedSession.date}} {{trends.selectedSession.tag}}
                 </div>
-                 <linechart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendDetailChart" bind="trends.playerDetailScores"></linechart>
+                <div>
+                  <linechart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendDetailChart" bind="trends.playerDetailScores"></linechart>
+                </div>
+                <div ng-if="trends.playerDetailScores && trends.subFilters" class="flex-container-row checkbox-filters">
+                  <div ng-repeat="(subFilter, value) in trends.subFilters" class="checkbox-spacer">
+                    <input type="checkbox" ng-model="value" ng-change="trends.subFilterChange()">
+                    <label class="check-box generic"></label>
+                    <span>{{subFilter}}</span>
+                  </div>
+                </div>
               </div>
              </div>
            </div>
