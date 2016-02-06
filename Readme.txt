@@ -7,9 +7,35 @@ Player Analysis Kinetic Force Chart
 
 
 End of Week 7
-Add Center Scrolling to Player Comparison
+ **Meeting with Ben**
+Kinetic Chain Timeline & Strength
+  -wants tooltip to stay visible after click
+  -Fix Bar charts in strength
+  -timing measures should use 10 metrics from email
 
-Trends - SubTag Filter 
+Trends
+  - remove multiple selections for the bars graphs
+  - wants tooltips floating higher
+  - Adjust the tooltips color styles to match psd
+  - Ben made aware of bad data in Foot contact metric
+    that was causing the charts to look funny
+  - wants the label of 'MLB Avg' on the orange line
+  - IF POSSIBLE : for the type2 graphs, he wants the
+      bar graphs to grow in either direction depending upon
+      a positive or negative value. if there is a ZERO
+      value, display a small bump to represent the zero value
+      so there isn't confusion that it could possibly be
+      missing data instead of an actual 0 score result.
+  - Trunk is mission 2 metrics in the accordion, and they
+    are in HIPS by mistake as the first 2 metrics.
+
+Player Comparison
+  - Ben wants the filters back, but Joe swatted it down to
+    a version two thing, so it is not promised for launch.
+
+** End Meeting **
+
+Trends - SubTag Filter
 Player View
 
 get point to squash - dynamic tick distances
