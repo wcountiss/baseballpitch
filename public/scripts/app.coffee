@@ -107,6 +107,12 @@ app.config ($stateProvider, $urlRouterProvider) ->
     controller: 'kineticStrengthController as strength',
     authenticate: true
   })
+  .state('player.kinetic-chain.table',{
+    url: '/strength',
+    templateUrl: 'views/player-analysis-views/kinetic-chain/sub-views/table.html',
+    controller: 'kineticStrengthController as table',
+    authenticate: true
+  })
   .state('player.foot-contact',{
     url: '/foot-contact',
     templateUrl: 'views/player-analysis-views/foot-contact.html',
@@ -223,7 +229,7 @@ app.run ($rootScope, $state, $cookies, $location) ->
       $location.url('/#/login');
       $state.go('login')
       event.preventDefault();
-       
+
 
 _.mixin(s.exports());
 require './directives/arealinechart.coffee'
