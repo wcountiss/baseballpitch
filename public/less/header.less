@@ -143,68 +143,88 @@
     .burger-nav {
       position: relative;
     }
-    .nav-toggle div {
-      position: absolute;
-      top:30%;
-      left:-4em;
-      color: @motus-blue;
-      font-size:1.5em;
-      text-transform: uppercase;
-    }
-    .nav-toggle div:after {
-      content: 'Menu';
-      opacity:1;
-      -webkit-transition: opacity 300ms;
-      transition: opacity 300ms;
-    }
-    .nav-toggle span, .nav-toggle span:after, .nav-toggle span:before {
-      content: "";
+    .nav-toggle {
+      cursor: pointer;
       display: block;
       position: absolute;
-      height: .5em;
-      top: 2em;
-      left: 0;
-      right: 0;
-      border-radius: .5em;
-      background-color: green;
-      -webkit-transition: background-color 100ms, -webkit-transform 300ms;
-      transition: background-color 100ms, -webkit-transform 300ms;
-      transition: transform 300ms, background-color 100ms;
-      transition: transform 300ms, background-color 100ms, -webkit-transform 300ms;
-    }
-    .nav-toggle span:after, .nav-toggle span:before {
-      -webkit-transition: 400ms;
-      transition: 400ms;
-      -webkit-transform-origin: .5em;
-      transform-origin: .5em;
-    }
-    .nav-toggle span:after {
-      top: 1.1em;
-    }
-    .nav-toggle span:before {
-      top: -1.1em;
-    }
-    .nav-toggle.active-nav div:after {
-      opacity: 0;
-    }
-    .nav-toggle.active-nav div:before {
-      opacity: 1;
-    }
-    .nav-toggle.active-nav span {
-      -webkit-transform: rotate(90deg) translate(0.2em, 0);
-      transform: rotate(90deg) translate(0.2em, 0);
-      background-color: transparent;
-    }
-    .nav-toggle.active-nav span:after, .nav-toggle.active-nav span:before {
-      background-color: #676c6f;
-    }
-    .nav-toggle.active-nav span:before {
-      -webkit-transform: rotate(45deg);
-      transform: rotate(45deg);
-    }
-    .nav-toggle.active-nav span:after {
-      -webkit-transform: rotate(-45deg);
-      transform: rotate(-45deg);
+      z-index: 50;
+      top: -2.3em;
+      right: 2em;
+      width: 4.4em;
+      height: 4.4em;
+      div {
+        position: absolute;
+        top: 30%;
+        left: -4em;
+        color: #215d6e;
+        font-family: "Open Sans", sans-serif;
+        font-size: 20px;
+        text-transform: uppercase;
+        &:after {
+          content: "Menu";
+          opacity: 1;
+          transition: opacity 300ms;
+        }
+        &:before {
+          content: "Close";
+          position: absolute;
+          opacity: 0;
+          transition: opacity 300ms;
+        }
+      }
+      span,
+      span:after,
+      span:before {
+        content: "";
+        display: block;
+        position: absolute;
+        height: .5em;
+        top: 2em;
+        left: 0;
+        right: 0;
+        border-radius: .5em;
+        background-color: @motus-blue;
+        transition: transform 300ms, background-color 100ms;
+      }
+
+      span {
+        &:after,
+        &:before {
+          transition: 400ms;
+          transform-origin: .5em;
+        }
+        &:after {
+          top: 1.1em;
+        }
+        &:before {
+          top: -1.1em;
+        }
+      }
+
+      &.active-nav {
+        div {
+          &:after {
+            opacity: 0;
+          }
+          &:before {
+            opacity: 1;
+          }
+        }
+        span {
+          transform: rotate(90deg) translate(0.2em, 0);
+          background-color: transparent;
+          &:after,
+          &:before {
+            background-color: #676c6f;
+          }
+          &:before {
+            transform: rotate(45deg);
+          }
+          &:after {
+            transform: rotate(-45deg);
+          }
+        }
+      }
     }
     .nav-links span {
       padding-left: 0;
