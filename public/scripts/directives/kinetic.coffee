@@ -46,6 +46,8 @@ angular.module('d3').directive 'kinetic', [
           while i < elementChildren.length
             element[0].removeChild elementChildren[i]
             i++
+          d3.selectAll(".d3-tip").remove()
+
 
           svg = d3.select(element[0])
           .append("svg")
@@ -239,7 +241,7 @@ angular.module('d3').directive 'kinetic', [
                 .attr("class", "line")
 
             line.append("path")
-                .attr("class", (d) -> debugger; "line #{d.key}")
+                .attr("class", (d) -> "line #{d.key}")
                 .attr("d", (d) -> return lineFunction(d.values))
 
             #peak line

@@ -11,19 +11,18 @@ Trends UI changes
   - Trunk is mission 2 metrics in the accordion, and they
     are in HIPS by mistake as the first 2 metrics.
 
-Trends - SubTag Filter
+Trends - SubTag Filter - ng-change not firing
 
 get point to squash - dynamic tick distances, rect of ticks on top, 2 up to the keyframe
-
 Faster Load - 90 days on load, 365 on chart
 Error Handling
 Fix Firefox
 comparison:visual - tool tips to float a little higher for IPAD
-Player View
 
 End of Week 8
 DNS
 Heroku Setup
+Player View
 Parse get Players by Game Manager
 Game Manager View
 
