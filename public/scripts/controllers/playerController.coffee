@@ -7,7 +7,6 @@ angular.module('motus').controller('playerController',
       pc.state = $state
       pc.filterType = '30'
 
-
       cpf = currentPlayerFactory
       ef = eliteFactory
 
@@ -65,6 +64,28 @@ angular.module('motus').controller('playerController',
         return $stat.runStatsEngine(player.pitches)
         .then (stats) ->
           return if !stats
+          
+          #stats from current player are run to kinetic chain table here
+          kcTable = ['peakHipSpeed',
+          'peakTrunkSpeed', 
+          'peakBicepSpeed',
+          'peakForearmSpeed',
+          'peakHipSpeedTime',
+          'peakTrunkSpeedTime',
+          'peakBicepSpeedTime',
+          'peakForearmSpeedTime',
+          'footContactTime',
+          'pitchTime'
+          ]
+          
+          kcTableCollection = []
+          _.each kcTable, (kcMetric)->
+            kcTableObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.metric == kcMetric
+            stats.metricScores[kcMetric].units = kcTableObj[0].units
+            stats.metricScores[kcMetric].label = _.humanize(kcMetric)
+            stats.metricScores[kcMetric].metric = kcMetric
+            kcTableCollection.push(stats.metricScores[kcMetric]) 
+            pc.currentPlayer.kcTable = kcTableCollection
 
           joints = ['ELBOW', 'TRUNK', 'SHOULDER', 'HIP', 'FOOT']
 
