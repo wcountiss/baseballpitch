@@ -1,7 +1,7 @@
 Motus
 End of Week 7
 
-Kinetic Data
+Kinetic Chain
 Tooltip not disappearing
 get point to squash - dynamic tick distances, rect of ticks on top, 2 up to the keyframe
 
@@ -9,7 +9,8 @@ Trends Feedback
 Hover the Tip higher, hover lower
 SubLevel 2 Filters
 yType = 2 - bar charts off of 0
-wants the label of 'MLB Avg' on the orange line
+Wants the label of 'MLB Avg' on the orange line
+
 Adjust the tooltips color styles to match psd
 Try to reduce height
 
@@ -18,13 +19,15 @@ remove description hardcoded
 90 day back filter and get sessions
 SubTag Filter Snapshots
 
+Kinetic Strength
+Grid Lines
+
+Kinetic Data - Make look like snapshot
 
 Fix Firefox
 comparison:visual - tool tips to float a little higher for IPAD
-
 DNS
 Heroku Setup
-Kinetic Data - Make look like snapshot
 
 
 
