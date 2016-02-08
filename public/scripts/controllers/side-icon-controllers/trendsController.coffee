@@ -122,12 +122,16 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         Untagged: stats[3]?.metricScores[metric.metric].score
       }
 
+  trends.changeIt = (sub) ->
+
+    trends.subFilters[sub] = !trends.subFilters[sub]
+    selectedPlayerDetailPitches = subFilterPitches()
+    bindLineChart(selectedPlayerDetailPitches)
+
   trends.filterChange = () ->
     trends.selectMetric(trends.selectedMetric)
 
-  trends.subFilterChange = (value) ->
-    console.log 'subFilterChange(): ',value
-    console.log(trends.subFilters)
+  trends.subFilterChange = () ->
     selectedPlayerDetailPitches = subFilterPitches()
     bindLineChart(selectedPlayerDetailPitches)
 
