@@ -11,7 +11,7 @@ Trends UI changes
   - Trunk is mission 2 metrics in the accordion, and they
     are in HIPS by mistake as the first 2 metrics.
 
-Trends - SubTag Filter - ng-change not firing
+Trends - SubTag Filter - ng-change not firing (FIXED)
 
 get point to squash - dynamic tick distances, rect of ticks on top, 2 up to the keyframe
 Faster Load - 90 days on load, 365 on chart
