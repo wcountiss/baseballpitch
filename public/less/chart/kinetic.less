@@ -1,13 +1,12 @@
 kinetic {
+  font-size: .75em;
+
   .axis path,
   .axis line {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
   }
-
-  
-
 
   .x.axis {
     line {
@@ -16,15 +15,46 @@ kinetic {
     .tick {
       text{
         display: none;
-      }    
+      } 
+      
+      &:nth-child(5n) {
+        line{
+          transform: scaleY(1.5);
+        }
+      }  
     }
   }
 
-  .average{
-    fill: @motus-darkorange;
-    stroke: #000;
-    stroke-width: 0;
+  .y.axis{
+    line {
+      display: none;
+    }
+    .domain {
+        display:none;
+    }
+  }
 
+  .grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+  }
+
+  .grid path {
+    stroke-width: 0;
+  }
+
+  .border-right{
+    stroke: @charcoalgray;
+    opacity: .5;
+  }
+
+
+  .average{
+    stroke: @motus-darkorange;
+  }
+
+  .average-text {
+    font-size: .7em;
   }
 
   .circle{
@@ -36,6 +66,10 @@ kinetic {
     &:hover {
       r: .7em;
     }
+  }
+
+  .timing-marker-text {
+    stroke: white;
   }
 
   .peak-circle{
@@ -50,7 +84,19 @@ kinetic {
 
   .line {
     fill: none;
-    stroke-width: 3;
+    stroke-width: 4;
+
+    &.Hip {
+      stroke: #ffe966;
+    }
+    &.Trunk {
+      stroke: #00a339;
+    }
+    &.Forearm {
+      stroke: #085bac;
+    }
+
+
   }
 
   .peak {

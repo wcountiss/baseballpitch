@@ -108,9 +108,9 @@ app.config ($stateProvider, $urlRouterProvider) ->
     authenticate: true
   })
   .state('player.kinetic-chain.table',{
-    url: '/strength',
+    url: '/table',
     templateUrl: 'views/player-analysis-views/kinetic-chain/sub-views/table.html',
-    controller: 'kineticStrengthController as table',
+    controller: 'playerController as pc',
     authenticate: true
   })
   .state('player.foot-contact',{

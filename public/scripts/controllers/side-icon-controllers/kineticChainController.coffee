@@ -31,7 +31,7 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
         averages: {
           peakHipSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakHipSpeedTime'
           peakTrunkSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakTrunkSpeedTime'
-          peakForearmSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakForearmSpeedTime'
+          # peakForearmSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakForearmSpeedTime'
         }
         peakSpeeds: {
           Hip: { score: stats.metricScores.peakHipSpeedTime.score, color: color[stats.metricScores.peakHipSpeedTime.rating] }
