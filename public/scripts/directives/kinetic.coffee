@@ -37,7 +37,8 @@ angular.module('d3').directive 'kinetic', [
             left: 50
           width = width - (margin.left) - (margin.right)
           height = height - (margin.top) - (margin.bottom)          
-          x = d3.scale.linear().range([0,width])
+
+          x = d3.scale.pow().exponent(2).range([0,width])          
           y = d3.scale.linear().range([height,0])
 
           # remove the last version and recreate 
@@ -64,6 +65,7 @@ angular.module('d3').directive 'kinetic', [
             .scale(x)
             .orient("bottom")
             .ticks(totalTicks)
+
 
             yAxis = d3.svg.axis()
             .scale(y)
@@ -147,12 +149,6 @@ angular.module('d3').directive 'kinetic', [
               .attr("x", (d) -> x(totalTicks)-32)
               .attr("y",height+40)
 
-            svg.append("text")
-              .attr("width", 30)
-              .attr("height", 30)
-              .attr("x", (d) -> x(0))
-              .attr("y",height+90)
-              .text("First Movement")
             svg.append("text")
               .attr("width", 30)
               .attr("height", 30)
