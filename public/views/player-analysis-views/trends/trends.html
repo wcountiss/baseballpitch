@@ -31,7 +31,7 @@
                 </div>
                 <div ng-if="trends.playerDetailScores && trends.subFilters" class="flex-container-row checkbox-filters">
                   <div ng-repeat="(subFilter, value) in trends.subFilters" class="checkbox-spacer">
-                    <input type="checkbox" ng-model="value" ng-change="trends.subFilterChange(value)">
+                    <input type="checkbox" ng-model="value" ng-change="trends.subFilterChange()">
                     <label class="check-box generic"></label>
                     <span>{{subFilter}}</span>
                   </div>
