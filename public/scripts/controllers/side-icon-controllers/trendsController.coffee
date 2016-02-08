@@ -99,7 +99,6 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     subFilters = $pitch.uniquefilterTags(selectedPlayerDetailPitches, 1)
     _.each subFilters, (subFilter) -> trends.subFilters[subFilter] = true
 
-    console.log 'trends.subFilters after clicking',trends.subFilters
 
     bindLineChart(selectedPlayerDetailPitches)
 
