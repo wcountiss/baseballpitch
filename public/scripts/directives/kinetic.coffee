@@ -49,7 +49,6 @@ angular.module('d3').directive 'kinetic', [
             i++
           d3.selectAll(".d3-tip").remove()
 
-
           svg = d3.select(element[0])
           .append("svg")
             .attr("width", width + margin.left + margin.right)

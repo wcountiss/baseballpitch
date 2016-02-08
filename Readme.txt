@@ -2,7 +2,6 @@ Motus
 End of Week 7
 
 Kinetic Chain
-Tooltip not disappearing
 get point to squash - dynamic tick distances, rect of ticks on top, 2 up to the keyframe
 
 Trends Feedback
