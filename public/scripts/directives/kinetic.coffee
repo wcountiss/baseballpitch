@@ -2,7 +2,8 @@
 angular.module('d3').directive 'kinetic', [
   'd3'
   '$window'
-  (d3, $window) ->
+  '$timeout'
+  (d3, $window,$timeout) ->
     {
       restrict: 'E'
       scope:
@@ -45,6 +46,8 @@ angular.module('d3').directive 'kinetic', [
           while i < elementChildren.length
             element[0].removeChild elementChildren[i]
             i++
+          d3.selectAll(".d3-tip").remove()
+
 
           svg = d3.select(element[0])
           .append("svg")
@@ -53,28 +56,9 @@ angular.module('d3').directive 'kinetic', [
           .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-          #tool tip
-          speedTip = d3.tip()
-          .attr('class', 'd3-tip')
-          .html((d) ->
-            '<div class="d3-tip-heading">Hips</div><div class="d3-tip-tooltip">' + parseFloat(d.Hips.score).toFixed(1) + ' Degrees/Second</div>' \
-            + '<div class="d3-tip-heading">Trunk</div><div class="d3-tip-tooltip">' + parseFloat(d.Trunk.score).toFixed(1) + ' Degrees/Second</div>' \ 
-            + '<div class="d3-tip-heading">Forearm</div><div class="d3-tip-tooltip">' + parseFloat(d.Forearm.score).toFixed(1) + ' Degrees/Second</div>'
-          )
-          svg.call speedTip
-
-          timingTip = d3.tip()
-          .attr('class', 'd3-tip')
-          .html((d) ->
-            '<div class="d3-tip-heading">' + _.humanize(d.heading.replace('keyframe','')) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' MS</div>'
-          )
-          svg.call timingTip
-
           if angular.isDefined(scope.bind())
             bindData = scope.bind()            
             data = _.cloneDeep(bindData)
-
-            color = d3.scale.category10();
 
             xAxis = d3.svg.axis()
             .scale(x)
@@ -89,38 +73,6 @@ angular.module('d3').directive 'kinetic', [
             .interpolate("basis")
             .x((d) -> return x(d.index))
             .y((d) -> return y(d.score));
-
-            bisectIndex = d3.bisector((d) -> return d.index;).left
-            mousemove = () ->
-              x0 = x.invert(d3.mouse(this)[0])
-              d3.selectAll(".selector").remove();
-
-              tipData = {}
-              data.speeds.forEach (s) ->
-                speeds = s.scores.map((d, i) -> return {index: i, score: +d})
-                i = bisectIndex(speeds, x0, 1)
-                d0 = speeds[i - 1]
-                d1 = speeds[i]
-                d = if x0 - d0.index > d1.index - x0 then d1 else d0
-              
-                d3.selectAll(".selector").remove();
-                
-                svg.append('line')
-                .attr('x1', x(d.index))
-                .attr('y1', 0)
-                .attr('x2', x(d.index) )
-                .attr('y2', height)
-                .attr('class', 'selector')
-                .attr('stroke-width', 2)
-                .attr('stroke', 'black')
-
-                tipData[s.key] = d
-
-              speedTip.show(tipData)
-              .style("top", (event.pageY-150)+"px")
-              .style("left",(event.pageX-60)+"px")
-
-            color.domain(_.pluck(data.speeds, 'key'))
 
             #speed lines
             lines = data.speeds.map((d) ->
@@ -141,6 +93,15 @@ angular.module('d3').directive 'kinetic', [
               d3.max(_.pluck(_.flatten(_.pluck(lines, 'values')),'score'))
             ])
 
+            #border right line
+            svg.append("line")
+              .attr('x1', (d) -> width)
+              .attr('x2', (d) -> width)
+              .attr('y1', (d) -> 0)
+              .attr('y2', (d) -> height)
+              .attr('class', 'border-right')
+              .attr('stroke-width', 1)
+              
             svg.append("rect")
               .attr("width", (d) -> width)
               .attr("height", "7em")
@@ -157,21 +118,18 @@ angular.module('d3').directive 'kinetic', [
                 .call(yAxis)
               .append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("y", 6)
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
-                .text("degrees/sec")
+                .text("")
                 .attr("y", -48);
 
-
-            #rect to capture mouse
-            svg.append("rect")
-              .attr("width", width)
-              .attr("height", height)
-              .style("fill", "none")
-              .style("pointer-events", "all") 
-              .on("mouseout", (d) ->  d3.selectAll(".selector").remove(); speedTip.hide())
-              # .on("mousemove", mousemove)
+            #background lines
+            svg.append("g")      
+            .attr("class", "grid")
+            .call(yAxis
+              .tickSize(-width, 0, 0)
+              .tickFormat("")
+            ) 
 
             #circles for timing
             # static keyframe images
@@ -187,8 +145,22 @@ angular.module('d3').directive 'kinetic', [
               .attr("width", 30)
               .attr("height", 30)
               .attr("x", (d) -> x(totalTicks)-32)
-              .attr("y",height+40);
+              .attr("y",height+40)
 
+            svg.append("text")
+              .attr("width", 30)
+              .attr("height", 30)
+              .attr("x", (d) -> x(0))
+              .attr("y",height+90)
+              .text("First Movement")
+            svg.append("text")
+              .attr("width", 30)
+              .attr("height", 30)
+              .attr("x", (d) -> x(totalTicks)-55)
+              .attr("y",height+90)
+              .text("Ball Release")
+
+            #Player Timing Markers
             _.each _.keys(data.timings), (key) ->
               #Circles 
               svg.append('circle')
@@ -196,12 +168,30 @@ angular.module('d3').directive 'kinetic', [
               .attr('r', 3)
               .attr('cx', (d) -> x(d/keyframeCompression))
               .attr('cy', (d) -> height + 10)
-              .attr('class', 'circle')
+              .attr('class', 'circle timing-marker')
               .attr('fill', 'black')
               .attr 'stroke', 'black'
-              .on('mouseover', (d) -> timingTip.show({ heading: key, value: d}))
-              .on('mouseout', timingTip.hide)
+
+              svg.append('line')
+              .datum(data.timings[key])
+              .attr('x1', (d) -> x(d/keyframeCompression))
+              .attr('x2', (d) -> x(d/keyframeCompression))
+              .attr('y1', (d) -> height+10)
+              .attr('y2', (d) -> height+25)
+              .attr('class', 'timing-marker-line')
+              .attr('stroke-width', 2)
+              .style("stroke", "white")
               
+              svg.append("text")
+              .datum(data.timings[key])
+                .attr("y", height+32)
+                .attr("x", (d) -> x(d/keyframeCompression)+20)
+                .attr("dy", ".3em")
+                .style("text-anchor", "end")
+                .attr('class', 'timing-marker-text')
+                .text((d) -> "#{parseFloat(d).toFixed(1)} MS")
+
+
               #Player Kinetic Chain Images
               svg.append("svg:image")
               .datum(data.timings[key])
@@ -209,21 +199,40 @@ angular.module('d3').directive 'kinetic', [
               .attr("width", 33)
               .attr("height", 33)
               .attr("x", (d) -> x(d/keyframeCompression)-16.5)
-              .attr("y",height+38);
+              .attr("y",height+38)
+
+              textConfig = { 
+                "keyframeLegKick": { xOffset: 20, text: "Leg Kick" } 
+                "keyframeFootContact": { xOffset: 30, text: "Toe Touch" } 
+              }
+              svg.append("text")
+              .datum(data.timings[key])
+                .attr("y", height+82)
+                .attr("x", (d) -> x(d/keyframeCompression)+textConfig[key].xOffset)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text(textConfig[key].text)
                 
 
             #circles for averages
             _.each _.keys(data.averages), (key) ->
-              svg.append('circle')
+              svg.append('line')
               .datum(data.averages[key])
-              .attr('r', 4)
-              .attr('cx', (d) -> x(totalTicks + (d.avg/keyframeCompression)))
-              .attr('cy', (d) -> height+10)
+              .attr('x1', (d) -> x(totalTicks + (d.avg/keyframeCompression)))
+              .attr('x2', (d) -> x(totalTicks + (d.avg/keyframeCompression)))
+              .attr('y1', (d) -> height)
+              .attr('y2', (d) -> height+25)
               .attr('class', 'average')
-              .attr('fill', 'black')
-              .attr('stroke', 'black')
-              .on('mouseover', (d) -> timingTip.show({ heading: key, value: d.avg}))
-              .on('mouseout', timingTip.hide)
+              .attr('stroke-width', 1)
+
+              svg.append("text")
+              .datum(data.averages[key])
+                .attr("y", height+30)
+                .attr("x", (d) -> x(totalTicks + (d.avg/keyframeCompression))+20)
+                .attr("dy", ".3em")
+                .style("text-anchor", "end")
+                .attr('class', 'average average-text')
+                .text("MLB average")
 
             #speed lines
             line = svg.selectAll(".line")
@@ -232,9 +241,8 @@ angular.module('d3').directive 'kinetic', [
                 .attr("class", "line")
 
             line.append("path")
-                .attr("class", "line")
+                .attr("class", (d) -> "line #{d.key}")
                 .attr("d", (d) -> return lineFunction(d.values))
-                .style("stroke", (d) -> return color(d.key))
 
             #peak line
             svg.selectAll("peak")
@@ -244,23 +252,50 @@ angular.module('d3').directive 'kinetic', [
                 .attr('x1', (d) -> x(d.peak.index))
                 .attr('x2', (d) -> x(d.peak.index))
                 .attr('y1', (d) -> y(d.values[d.peak.index].score))
-                .attr('y2', (d) -> height)
+                .attr('y2', (d) -> height+10)
                 .attr('class', 'peak')
                 .attr('stroke-width', 2)
                 .style("stroke", (d) -> d.peak.color)
+            
             #peak circles
-            svg.selectAll("peak-circle")
+            #tool tip
+            timingTip = {}
+            _.each lines, (line) ->
+              timingTip[line.key] = d3.tip()
+              .attr('class', 'd3-tip')
+              .attr("transform", "translate(0,#{-height})")
+              .html((d) ->
+                '<div class="d3-tip-heading">' + _.humanize(d.heading.replace('keyframe','')) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' MS</div>'
+              )
+              svg.call timingTip[line.key]
+
+            svg.selectAll("peak")
                 .data(lines)
               .enter()
                 .append("circle")
                 .attr('r', 3)
                 .attr('cx', (d) -> x(d.peak.index))
                 .attr('cy', (d) -> y(d.values[d.peak.index].score))
-                .attr('class', 'peak-circle')
+                .attr('class', 'peak-circle peak-circle-upper')
                 .attr('fill', (d) -> d.peak.color)
-                .attr 'stroke', 'black'
-                .on('mouseover', (d) -> timingTip.show({ heading: d.key, value: d.peak.score}))
-                .on('mouseout', timingTip.hide)
+                .attr('stroke', 'black')
+                $timeout () ->
+                  d3.selectAll(".peak-circle-upper")
+                  .each (d) ->
+                    timingTip[d.key].show({ heading: d.key, value: d.peak.score}, this)
+                , 1
+
+            svg.selectAll("peak")
+              .data(lines)
+            .enter()
+              .append("circle")
+                .attr('r', 2)
+                .attr('cx', (d) -> x(d.peak.index))
+                .attr('cy', (d) -> height+10)
+                .attr('class', 'peak-circle peak-circle-lower')
+                .attr('fill', (d) -> d.peak.color)
+                .attr('stroke', 'black')
+
 
         scope.$watch 'bind()', (-> updateChart()), false
         angular.element($window).bind 'resize', -> updateChart()

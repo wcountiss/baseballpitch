@@ -1,18 +1,40 @@
 <div class="player-details-header flex-container-row">
-  <h2>Kinetic Chain 'TABLE'
+  <h2>Kinetic Chain TABLE
     <a ui-sref-active="active-overview-icon" ui-sref="player.kinetic-chain.timeline"><span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Kinetic Timeline" class="icon-timing"></span></a>
     <a ui-sref-active="active-overview-icon" ui-sref="player.kinetic-chain.strength"><span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Kinetic Chain Strength" class="icon-chainstrength"></span></a>
-    <a ui-sref-active="active-overview-icon" ui-sref="player.kinetic-chain.table"><span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Kinetic Data Table" class="icon-timing"></span></a>
+    <a ui-sref-active="active-overview-icon" ui-sref="player.kinetic-chain.table"><span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Kinetic Data Table" class="icon-download_data"></span></a>
   </h2>
 </div>
 <section>
   <div class="flex-container-row">
     <div class="flex-container-col">
       <div class="chain-graphs flex-grow-max">
-        <p>Hi, I use the kineticChainController as table</p>
-        <p>So table.awesome is how you use me here</p>
-        <p>You can change that in app.coffee line 113</p>
-        <img src="http://placehold.it/400x400" alt="">
+          <div class="metric-table large-flexitem">
+            <table>
+              <tr>
+                <th>Value</th>
+                <th>Unit</th>
+                <th>Metric</th>
+                <th>Rating</th>
+              </tr>
+              <tr class="col-data" ng-class-odd="'metric-odd'" ng-class-even="'metric-even'" ng-repeat="metric in pc.currentPlayer.kcTable">
+
+                <td class="metricval">
+                  <span class="metricval" ng-if="metric.score==null">NA</span><span class="metricval" ng-if="metric.score!=null">{{metric.score | number:0}}</span>
+                </td>
+
+                <td>
+                  <span class="unit">{{::metric.units}}</span>
+                </td>
+                <td class="capitalize">{{::metric.label}}</td>
+                <td ng-if="metric.rating=='Exceed'"><span class="icon-uparrow good"></span></td>
+                <td ng-if="metric.score==null"></td>
+                <td ng-if="metric.rating=='OK'"><span class="icon-okarrow ok"></span></td>
+                <td ng-if="metric.rating=='Good'"><span class="icon-okarrow good"></span></td>
+                <td ng-if="metric.rating=='Poor'"><span class="icon-downarrow"></span></td>
+              </tr>
+            </table>
+          </div>
       </div>
     </div>
   </div>
