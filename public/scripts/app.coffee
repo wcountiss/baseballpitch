@@ -223,6 +223,9 @@ app.config ($stateProvider, $urlRouterProvider) ->
 
 app.run ($rootScope, $state, $cookies, $location) ->
   $rootScope.$on "$stateChangeStart", (event, toState, toParams, fromState, fromParams) ->
+    _.each document.getElementsByClassName("d3-tip"), (tip) ->
+      if tip
+        tip.remove()
     #if not logged in, go to login screen
     if (toState.authenticate && !$cookies.get('motus'))
       #User isn’t authenticated
