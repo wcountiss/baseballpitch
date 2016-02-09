@@ -5,9 +5,63 @@
     <a ui-sref-active="active-overview-icon" ui-sref="player.kinetic-chain.table"><span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='top'}}" uib-tooltip="Kinetic Data Table" class="icon-download_data"></span></a>
   </h2>
 </div>
-<section>
+<section id="snap-shot-theme">
   <div class="flex-container-row">
-    <div class="flex-container-col">
+    <div class="metric-table large-flexitem">
+        <table>
+          <tr>
+            <th>Value</th>
+            <th>Unit</th>
+            <th>Metric</th>
+            <th>Rating</th>
+          </tr>
+          <tr class="col-data" ng-class-odd="'metric-odd'" ng-class-even="'metric-even'" ng-repeat="eliteMetric in table.eliteMetrics"
+          ng-class="{'selected':eliteMetric == table.selectedMetric}" ng-click="table.setClickedRow(eliteMetric, $index)">
+
+            <td class="metricval">
+              <span class="metricval" ng-if="eliteMetric.pstats.score==null">NA</span><span class="metricval" ng-if="eliteMetric.pstats.score!=null">{{eliteMetric.pstats.score | number:0}}</span>
+            </td>
+
+            <td>
+              <span class="unit">{{::eliteMetric.units}}</span>
+            </td>
+            <td class="capitalize">{{::eliteMetric.title}}</td>
+            <td ng-if="eliteMetric.pstats.rating=='Exceed'"><span class="icon-uparrow good"></span></td>
+            <td ng-if="eliteMetric.pstats.score==null"></td>
+            <td ng-if="eliteMetric.pstats.rating=='OK'"><span class="icon-okarrow ok"></span></td>
+            <td ng-if="eliteMetric.pstats.rating=='Good'"><span class="icon-okarrow good"></span></td>
+            <td ng-if="eliteMetric.pstats.rating=='Poor'"><span class="icon-downarrow"></span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="comparison flex-container-col small-flexitem">
+
+        <table>
+           <tr class="metric-odd">
+            <td>PLAYER</td>
+            <td class="metricval"><span class="metricval" ng-if="table.selectedPlayerMetric==null">NA</span>{{table.selectedPlayerMetric | number:0}}<span class="unit">{{table.selectedMetric.units}}</span></td>
+          </tr>
+          <tr class="metric-even">
+            <td>ELITE</td>
+            <td class="metricval">{{table.selectedMetric.avg | number:0}}<span class="unit">{{table.selectedMetric.units}}</span></td>
+          </tr>
+        </table>
+
+        <div class="img">
+          <img ng-src="../../{{table.image}}" height="100%" width="100%" alt="">
+        </div>
+
+        <div class="description">
+          <span class="title capitalize">{{table.selectedMetric.title}}</span><br>
+          <span class="title">Elite Range: {{table.selectedMetric.eliteLow}}-{{table.selectedMetric.eliteHigh}}</span><br>
+          <p>{{table.selectedMetric.description}}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+   <!--  <div class="flex-container-col">
       <div class="chain-graphs flex-grow-max">
           <div class="metric-table large-flexitem">
             <table>
@@ -36,6 +90,6 @@
             </table>
           </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </section>

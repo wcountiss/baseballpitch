@@ -110,7 +110,7 @@ app.config ($stateProvider, $urlRouterProvider) ->
   .state('player.kinetic-chain.table',{
     url: '/table',
     templateUrl: 'views/player-analysis-views/kinetic-chain/sub-views/table.html',
-    controller: 'playerController as pc',
+    controller: 'kineticChainTableController as table',
     authenticate: true
   })
   .state('player.foot-contact',{
@@ -254,6 +254,7 @@ require './controllers/side-icon-controllers/snap-shot-controllers/footcontactSn
 require './controllers/side-icon-controllers/snap-shot-controllers/maxexcursionSnapShotController.coffee'
 require './controllers/side-icon-controllers/homeController.coffee'
 require './controllers/side-icon-controllers/kineticChainController.coffee'
+require './controllers/side-icon-controllers/kineticChainTableController.coffee'
 require './controllers/side-icon-controllers/kineticStrengthController.coffee'
 require './controllers/side-icon-controllers/jointKineticsController.coffee'
 require './controllers/side-icon-controllers/trendsController.coffee'
