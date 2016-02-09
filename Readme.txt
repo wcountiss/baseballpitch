@@ -1,37 +1,42 @@
 Motus
-
 End of Week 7
-Kinetic Chain Timeline & Strength
-  -wants tooltip to stay visible after click
 
-Trends UI changes
-  - wants tooltips floating higher
-  - Adjust the tooltips color styles to match psd
-  - wants the label of 'MLB Avg' on the orange line
-  - Trunk is mission 2 metrics in the accordion, and they
-    are in HIPS by mistake as the first 2 metrics.
-
-Trends - SubTag Filter - ng-change not firing
-
+Kinetic Chain
 get point to squash - dynamic tick distances, rect of ticks on top, 2 up to the keyframe
-Faster Load - 90 days on load, 365 on chart
-Error Handling
-Fix Firefox
-comparison:visual - tool tips to float a little higher for IPAD
 
-End of Week 8
-DNS
-Heroku Setup
-Player View
-Parse get Players by Game Manager
-Game Manager View
+Trends Feedback
+Hover the Tip higher, hover lower
+SubLevel 2 Filters
+yType = 2 - bar charts off of 0
+Wants the label of 'MLB Avg' on the orange line
 
-Extras
-Trends - yType = 2 - bar charts off of 0
+Adjust the tooltips color styles to match psd
+Try to reduce height
+
+Snapshots
+remove description hardcoded
 90 day back filter and get sessions
 SubTag Filter Snapshots
+
+Kinetic Strength
+Grid Lines
+
+Kinetic Data - Make look like snapshot
+
+Fix Firefox
+comparison:visual - tool tips to float a little higher for IPAD
+DNS
+Heroku Setup
+
+
+
+
+Extras
+Faster Load - 90 days on load, 365 on chart
+Error Handling
 Persistable Filter
 Download Data in Excel
+Player View
 Team overview: 2 More Awards are being added
 Add Google Analytics
 Player Comparison filters
