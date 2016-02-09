@@ -2,13 +2,13 @@ Motus
 End of Week 7
 
 Kinetic Chain
-get point to squash - dynamic tick distances, rect of ticks on top, 2 up to the keyframe
+tooltips match psd
 
 Trends Feedback
+yType = 2 - bar charts off of 0
 Hover the Tip higher, hover lower
 SubLevel 2 Filters
-yType = 2 - bar charts off of 0
-Wants the label of 'MLB Avg' on the orange line
+label of 'MLB Avg' on the orange line
 
 Adjust the tooltips color styles to match psd
 Try to reduce height

@@ -38,7 +38,9 @@ angular.module('d3').directive 'kinetic', [
           width = width - (margin.left) - (margin.right)
           height = height - (margin.top) - (margin.bottom)          
 
-          x = d3.scale.pow().exponent(2).range([0,width])          
+          x = d3.scale.linear().range([width/3,width]) 
+          x1 = d3.scale.linear().range([0, width/3]); 
+
           y = d3.scale.linear().range([height,0])
 
           # remove the last version and recreate 
@@ -60,19 +62,31 @@ angular.module('d3').directive 'kinetic', [
             bindData = scope.bind()            
             data = _.cloneDeep(bindData)
 
+            timeWarp = parseInt(data.timeWarp/keyframeCompression)
+
             xAxis = d3.svg.axis()
             .scale(x)
             .orient("bottom")
-            .ticks(totalTicks)
+            .ticks(totalTicks-timeWarp)
 
+            xAxis1 = d3.svg.axis()
+            .scale(x1)
+            .orient("bottom")
+            .ticks(timeWarp)
 
             yAxis = d3.svg.axis()
             .scale(y)
             .orient("left")
 
+            xPlot = (index) ->
+              if index <= timeWarp
+                return x1(index)
+              else
+                return x(index)
+
             lineFunction = d3.svg.line()
             .interpolate("basis")
-            .x((d) -> return x(d.index))
+            .x((d) -> return xPlot(d.index))
             .y((d) -> return y(d.score));
 
             #speed lines
@@ -85,9 +99,15 @@ angular.module('d3').directive 'kinetic', [
               })
 
             x.domain([
-              d3.min(_.pluck(_.flatten(_.pluck(lines, 'values')),'index')),
-              d3.max(_.pluck(_.flatten(_.pluck(lines, 'values')),'index'))
+              timeWarp+1,
+              totalTicks
             ])
+
+            x1.domain([
+              0,
+              timeWarp
+            ])
+
 
             y.domain([
               d3.min(_.pluck(_.flatten(_.pluck(lines, 'values')),'score')),
@@ -115,6 +135,11 @@ angular.module('d3').directive 'kinetic', [
                 .call(xAxis)
 
             svg.append("g")
+                .attr("class", "x axis squash")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis1)
+
+            svg.append("g")
                 .attr("class", "y axis")
                 .call(yAxis)
               .append("text")
@@ -138,7 +163,7 @@ angular.module('d3').directive 'kinetic', [
               .attr("xlink:href", "/images/kc-keyframeFirstMovement.svg")
               .attr("width", 30)
               .attr("height", 30)
-              .attr("x", (d) -> x(0))
+              .attr("x", (d) -> x1(0))
               .attr("y",height+40);
 
             svg.append("svg:image")
@@ -161,7 +186,7 @@ angular.module('d3').directive 'kinetic', [
               svg.append('circle')
               .datum(data.timings[key])
               .attr('r', 3)
-              .attr('cx', (d) -> x(d/keyframeCompression))
+              .attr('cx', (d) -> xPlot(d/keyframeCompression))
               .attr('cy', (d) -> height + 10)
               .attr('class', 'circle timing-marker')
               .attr('fill', 'black')
@@ -169,8 +194,8 @@ angular.module('d3').directive 'kinetic', [
 
               svg.append('line')
               .datum(data.timings[key])
-              .attr('x1', (d) -> x(d/keyframeCompression))
-              .attr('x2', (d) -> x(d/keyframeCompression))
+              .attr('x1', (d) -> xPlot(d/keyframeCompression))
+              .attr('x2', (d) -> xPlot(d/keyframeCompression))
               .attr('y1', (d) -> height+10)
               .attr('y2', (d) -> height+25)
               .attr('class', 'timing-marker-line')
@@ -180,7 +205,7 @@ angular.module('d3').directive 'kinetic', [
               svg.append("text")
               .datum(data.timings[key])
                 .attr("y", height+32)
-                .attr("x", (d) -> x(d/keyframeCompression)+20)
+                .attr("x", (d) -> xPlot(d/keyframeCompression)+20)
                 .attr("dy", ".3em")
                 .style("text-anchor", "end")
                 .attr('class', 'timing-marker-text')
@@ -193,7 +218,7 @@ angular.module('d3').directive 'kinetic', [
               .attr("xlink:href", "/images/kc-#{key}.svg")
               .attr("width", 33)
               .attr("height", 33)
-              .attr("x", (d) -> x(d/keyframeCompression)-16.5)
+              .attr("x", (d) -> xPlot(d/keyframeCompression)-16.5)
               .attr("y",height+38)
 
               textConfig = { 
@@ -203,13 +228,13 @@ angular.module('d3').directive 'kinetic', [
               svg.append("text")
               .datum(data.timings[key])
                 .attr("y", height+82)
-                .attr("x", (d) -> x(d/keyframeCompression)+textConfig[key].xOffset)
+                .attr("x", (d) -> xPlot(d/keyframeCompression)+textConfig[key].xOffset)
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
                 .text(textConfig[key].text)
                 
 
-            #circles for averages
+            #lines for averages
             _.each _.keys(data.averages), (key) ->
               svg.append('line')
               .datum(data.averages[key])

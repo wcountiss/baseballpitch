@@ -25,9 +25,9 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
       chain.playerScores = {
         timings: {
           keyframeFootContact: stats.keyframeFootContact,
-          keyframeLegKick: stats.keyframeLegKick,
-          # keyframeTimeWarp: stats.keyframeTimeWarp,
+          keyframeLegKick: stats.keyframeLegKick
         },
+        timeWarp: stats.keyframeTimeWarp,        
         averages: {
           peakHipSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakHipSpeedTime'
           peakTrunkSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakTrunkSpeedTime'
