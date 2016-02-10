@@ -48,7 +48,18 @@ angular.module('motus').controller 'kineticChainTableController', ['currentPlaye
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
   $q.all(loadPromises).then (results) ->
-    table.eliteMetrics = _.filter(results[0], (metric) -> metric.metric == 'peakHipSpeed' || metric.metric == 'peakTrunkSpeed' || metric.metric == 'peakBicepSpeed' || metric.metric == 'peakForearmSpeed' || metric.metric == 'peakHipSpeedTime' || metric.metric == 'peakTrunkSpeedTime' || metric.metric == 'peakBicepSpeedTime' || metric.metric == 'peakForearmSpeedTime'|| metric.metric == 'footContactTime' || metric.metric == 'pitchTime' )
+    metricArray = ['peakHipSpeed',
+          'peakTrunkSpeed', 
+          'peakBicepSpeed',
+          'peakForearmSpeed',
+          'peakHipSpeedTime',
+          'peakTrunkSpeedTime',
+          'peakBicepSpeedTime',
+          'peakForearmSpeedTime',
+          'footContactTime',
+          'pitchTime'
+          ]
+    table.eliteMetrics = _.filter results[0], (metric) -> _.contains(metricArray, metric.metric)
     table.currentPlayer = cpf.currentPlayer 
     $stat.runStatsEngine(table.currentPlayer.pitches).then (stats) ->
       table.stats = stats

@@ -109,7 +109,6 @@ angular.module('motus').controller('playerController',
           shoulderObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "SHOULDER"
           hipObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "HIP"
           footObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "FOOT"
-          console.log("STATS:", stats)
           pc.currentPlayer.hipIcon = Math.round(stats.hip[7].stats.score)
           pc.currentPlayer.hipIconStatus = stats.hip[7].rating
 
