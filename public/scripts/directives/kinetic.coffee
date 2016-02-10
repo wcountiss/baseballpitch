@@ -284,7 +284,7 @@ angular.module('d3').directive 'kinetic', [
               .attr('class', 'd3-tip')
               .attr("transform", "translate(0,#{-height})")
               .html((d) ->
-                '<div class="d3-tip-heading">' + d.value.color + d.value.rating +  _.humanize(d.key.replace('keyframe','')) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value.score).toFixed(1) + ' MS</div>'
+               '<div class="tip-rating '+ d.value.rating+'">' + d.value.rating + '</div><div class="d3-tip-heading">' +  _.humanize(d.key.replace('keyframe','')) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value.score).toFixed(1) + ' MS</div>'
               )
               svg.call timingTip[line.key]
 
