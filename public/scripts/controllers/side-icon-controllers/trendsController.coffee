@@ -70,11 +70,6 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
 
     scores = _.map selectedPlayerDetailPitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric]}
 
-    #absolute type of metric
-    if trends.playerScores.yType == 1
-      _.each scores, (score) ->
-        score.score = Math.abs(score.score)
-
     if !scores.length
       trends.playerDetailScores = null
     else
@@ -84,7 +79,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         units: trends.playerScores.units
         yMin: trends.playerScores.yMin
         yMax: trends.playerScores.yMax
-        yAxisType: trends.playerScores.yType
+        yType: trends.playerScores.yType
         scores: scores
       }
 
@@ -159,13 +154,6 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     .then () ->
       if groups.length
         groups = _.sortBy(groups, (group) -> moment(group.date))
-
-        #absolute type of metric
-        if metric.yType == 1
-          metric.avg = Math.abs(metric.avg)
-          _.each groups, (group) ->
-            _.each tags, (tag) ->
-              group[tag] = Math.abs(group[tag])
 
         #set detail chart with default clicks of last session
         # selectOne = false

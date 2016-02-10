@@ -5,7 +5,6 @@ Kinetic Chainp
 tooltips match psd
 
 Trends Feedback
-yType = 2 - bar charts off of 0
 SubLevel 2 Filters
 label of 'MLB Avg' on the orange line
 Permanent Tip - Tip higher
@@ -46,5 +45,6 @@ Add Google Analytics
 Player Comparison filters
 Tagging Throws on Tagging Chart
 
-
+Ben
+Trunk Rotation Foot contact should be yType = 3
 

@@ -74,6 +74,13 @@ angular.module('d3').directive 'barchart', [
             bindData = scope.bind()
             data = _.cloneDeep(bindData)
 
+            #absolute type of metric
+            console.log data.yAxisType
+            console.log data
+            if data.yAxisType == 1
+              _.each data.scores, (score) ->
+                score.score = Math.abs(score.score)
+
            #set yxis to 0 or min - 1 if under 0 to whichever is higher max value or average 
             maxValue = d3.max(data, (d) -> d.value)
             maxAverage = d3.max(data, (d) -> d.average)
@@ -97,13 +104,29 @@ angular.module('d3').directive 'barchart', [
                 .style("text-anchor", "end")
                 .text("Degrees/Second")
 
+
+            # if data.yAxisType == 2
+
+            #   svg.selectAll(".bar")
+            #       .data(data)
+            #     .enter()
+            #       .append("rect")
+            #       .attr("class", "bar")
+            #       .attr("x", (d) -> x(d.bar))
+            #       .attr("width", x.rangeBand()-20)
+            #       .attr("y", (d) -> y(d.value))
+            #       .attr("height", (d) -> height - y(d.value))
+            #       .attr('fill', (d) -> d.color)
+            #       .on('mouseover', tip.show)
+            #       .on('mouseout', tip.hide)
+            # else
             svg.selectAll(".bar")
                 .data(data)
               .enter()
                 .append("rect")
                 .attr("class", "bar")
                 .attr("x", (d) -> x(d.bar))
-                .attr("width", x.rangeBand())
+                .attr("width", x.rangeBand()-20)
                 .attr("y", (d) -> y(d.value))
                 .attr("height", (d) -> height - y(d.value))
                 .attr('fill', (d) -> d.color)

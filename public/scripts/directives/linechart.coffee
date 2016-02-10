@@ -53,6 +53,11 @@ angular.module('d3').directive 'linechart', [
             bindData = scope.bind()            
             data = _.cloneDeep(bindData)
             
+            #absolute type of metric
+            if data.yType == 1
+              data.average = Math.abs(data.average)
+              _.each data.scores, (score) ->
+                score.score = Math.abs(score.score)
 
             #tool tip
             tip = d3.tip()

@@ -62,6 +62,13 @@ angular.module('d3').directive 'groupedbarchart', [
             bindData = scope.bind()
             data = _.cloneDeep(bindData)
 
+            #absolute type
+            if data.yType == 1
+              data.average = Math.abs(data.average)
+              _.each data.groups, (group) ->
+                _.each data.keys, (tag) ->
+                  group[tag] = Math.abs(group[tag])
+
             #tool tip
             tip = d3.tip().attr('class', 'd3-tip').html((d) ->
               '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
@@ -136,20 +143,35 @@ angular.module('d3').directive 'groupedbarchart', [
             .attr('class', 'date')
             .attr('transform', (d) -> 'translate(' + x0(d.date) + ',0)')
             
+            barHeight = (d) -> height - y(d.value) if d.value
+            barYValue = (d) ->  y(d.value) if d.value
+            #yType 2 center around 0
+            if data.yType == 2
+              barHeight = (d) -> 
+                if d.value?
+                  if d.value == 0
+                    y(0) - y(1)
+                  else if d.value < 0
+                    y(d.value) - y(0)
+                  else
+                    y(0) - y(d.value)
+              barYValue = (d) -> 
+                if d.value?
+                  if d.value == 0
+                    y(.5)
+                  else if d.value < 0
+                    y(0)
+                  else
+                    y(d.value)            
+
             date.selectAll('rect')
             .data((d) -> d.groupData)
             .enter()
             .append('rect')
             .attr('width', x1.rangeBand())
             .attr('x', (d) -> x1 d.name)
-            .attr('y', (d) -> 
-              if d.value             
-                y(d.value)
-            )
-            .attr('height', (d) ->
-              if d.value
-                height - y(d.value)
-            )
+            .attr('y', barYValue)
+            .attr('height', barHeight)
             .attr('class', (d) ->
               if (data.defaultSelected.date == d.group && data.defaultSelected.name == d.name)
                 "rect selected #{d.name}"
