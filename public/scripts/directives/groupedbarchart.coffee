@@ -143,12 +143,31 @@ angular.module('d3').directive 'groupedbarchart', [
             .attr('class', 'date')
             .attr('transform', (d) -> 'translate(' + x0(d.date) + ',0)')
             
-            barHeight = (d) -> height - y(d.value) if d.value
-            barYValue = (d) ->  y(d.value) if d.value
+            barHeight = (d) -> 
+              if d.value
+                  if d.value > ymax
+                    d.value = ymax
+                  if d.value < ymin
+                    d.value = y(ymin)
+
+                  height - y(d.value) 
+            barYValue = (d) ->  
+              if d.value
+                if d.value > ymax
+                  d.value = ymax
+                if d.value < ymin
+                  d.value = y(ymin)
+                  
+                y(d.value)
             #yType 2 center around 0
             if data.yType == 2
               barHeight = (d) -> 
                 if d.value?
+                  if d.value > ymax
+                    d.value = ymax
+                  if d.value < ymin
+                    d.value = y(ymin)
+
                   if d.value == 0
                     y(0) - y(1)
                   else if d.value < 0
@@ -156,6 +175,11 @@ angular.module('d3').directive 'groupedbarchart', [
                   else
                     y(0) - y(d.value)
               barYValue = (d) -> 
+                if d.value > ymax
+                    d.value = ymax
+                if d.value < ymin
+                  d.value = ymin
+
                 if d.value?
                   if d.value == 0
                     y(.5)
