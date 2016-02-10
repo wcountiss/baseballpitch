@@ -2,7 +2,8 @@
 angular.module('d3').directive 'groupedbarchart', [
   'd3'
   '$window'
-  (d3, $window) ->
+  '$timeout'
+  (d3, $window, $timeout) ->
     {
       restrict: 'E'
       scope:
@@ -70,6 +71,11 @@ angular.module('d3').directive 'groupedbarchart', [
                   group[tag] = Math.abs(group[tag])
 
             #tool tip
+            permaTip = d3.tip().attr('class', 'd3-tip d3-timp-perma').html((d) ->
+              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
+            )
+            svg.call permaTip
+
             tip = d3.tip().attr('class', 'd3-tip').html((d) ->
               '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
             )
@@ -188,6 +194,7 @@ angular.module('d3').directive 'groupedbarchart', [
                   else
                     y(d.value)            
 
+            selectedElement = null
             date.selectAll('rect')
             .data((d) -> d.groupData)
             .enter()
@@ -198,17 +205,24 @@ angular.module('d3').directive 'groupedbarchart', [
             .attr('height', barHeight)
             .attr('class', (d) ->
               if (data.defaultSelected.date == d.group && data.defaultSelected.name == d.name)
-                "rect selected #{d.name}"
+                selectedElement = { target: this, data: d }
+                return "rect selected #{d.name}"
               else
                 "rect #{d.name}"
             )
             .on('mouseover', (d) -> tip.show(d))
             .on('mouseout', tip.hide)
             .on('click', (d) -> 
+              permaTip.show(d, this)
               date.selectAll('rect').attr("class", (d) -> "rect #{d.name}" )
               d3.select(this).attr("class", "rect selected #{d.name}");
               scope.onClick({ element: d })
             )
+
+            if selectedElement
+              $timeout () ->
+                permaTip.show(selectedElement.data, selectedElement.target)
+              , 1
 
             # elite data
             svg.append('line')
@@ -216,7 +230,17 @@ angular.module('d3').directive 'groupedbarchart', [
             .attr('x2', (d) -> width)
             .attr('y1', (d) -> y data.average)
             .attr('y2', (d) -> y data.average)
-            .attr('class', 'average').attr('stroke-width', 2).attr 'stroke', 'black'
+            .attr('class', 'average')
+            .attr('stroke-width', 2)
+            .attr('stroke', 'black')
+
+            svg.append("text")
+            .attr("y", y(data.average)-5)
+            .attr("x", (d) -> width)
+            .attr("dy", ".3em")
+            .style("text-anchor", "end")
+            .attr('class', 'average average-text')
+            .text("MLB average")
 
         scope.$watch 'bind()', (->
           updateChart()

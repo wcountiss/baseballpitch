@@ -4,17 +4,9 @@ End of Week 7
 Kinetic Chainp
 tooltips match psd
 
-Trends Feedback
-label of 'MLB Avg' on the orange line
-Permanent Tip - Tip higher
-Hover tips lower
-
+Trends
 Adjust the tooltips color styles to match psd
 Try to reduce height
-
-Snapshots
-90 day back filter and get sessions
-SubTag Filter Snapshots
 
 remove description hardcoded
 
@@ -22,6 +14,11 @@ Kinetic Strength
 Grid Lines
 mlb avg next to each line
 reduce width of bars
+
+Snapshots
+90 day back filter and get sessions
+SubTag Filter Snapshots
+
 
 
 General
