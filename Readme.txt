@@ -5,7 +5,6 @@ Kinetic Chainp
 tooltips match psd
 
 Trends Feedback
-SubLevel 2 Filters
 label of 'MLB Avg' on the orange line
 Permanent Tip - Tip higher
 Hover tips lower

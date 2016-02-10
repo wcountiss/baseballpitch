@@ -57,9 +57,14 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     pitches = getPitches()
 
     filteredPitches = []
-    _.each _.keys(trends.subFilters), (subFilterKey) ->
-      if (trends.subFilters[subFilterKey])
+    _.each _.keys(trends.subFilters.level1), (subFilterKey) ->
+      if (trends.subFilters.level1[subFilterKey])
         filteredPitches = filteredPitches.concat $pitch.filterTag(pitches, subFilterKey, 1)
+    pitches = filteredPitches
+
+    _.each _.keys(trends.subFilters.level2), (subFilterKey) ->
+      if (trends.subFilters.level2[subFilterKey])
+        filteredPitches = filteredPitches.concat $pitch.filterTag(pitches, subFilterKey, 2)
 
     return filteredPitches
 
@@ -91,8 +96,13 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
 
     #get subfilters and set them to true
     trends.subFilters = {}
+    trends.subFilters.level1 = {}
+    trends.subFilters.level2 = {}
     subFilters = $pitch.uniquefilterTags(selectedPlayerDetailPitches, 1)
-    _.each subFilters, (subFilter) -> trends.subFilters[subFilter] = true
+    _.each subFilters, (subFilter) -> trends.subFilters.level1[subFilter] = true
+
+    subFilters = $pitch.uniquefilterTags(selectedPlayerDetailPitches, 2)
+    _.each subFilters, (subFilter) -> trends.subFilters.level2[subFilter] = true
 
 
     bindLineChart(selectedPlayerDetailPitches)
@@ -116,18 +126,19 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         Untagged: stats[3]?.metricScores[metric.metric].score
       }
 
-  trends.changeIt = (sub) ->
-
-    trends.subFilters[sub] = !trends.subFilters[sub]
+  trends.subFilterChange = (sub, level) ->
+    trends.subFilters["level#{level}"][sub] = !trends.subFilters["level#{level}"][sub]
     selectedPlayerDetailPitches = subFilterPitches()
     bindLineChart(selectedPlayerDetailPitches)
+
+    #rebind sublevel 2 if you change level 1
+    if level == 1
+      subFilters = $pitch.uniquefilterTags(selectedPlayerDetailPitches, 2)
+      _.each subFilters, (subFilter) -> trends.subFilters.level2[subFilter] = true
 
   trends.filterChange = () ->
     trends.selectMetric(trends.selectedMetric)
 
-  trends.subFilterChange = () ->
-    selectedPlayerDetailPitches = subFilterPitches()
-    bindLineChart(selectedPlayerDetailPitches)
 
   #select metric and map to the chart
   trends.selectMetric = (metric) ->

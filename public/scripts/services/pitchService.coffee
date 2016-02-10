@@ -62,24 +62,26 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
   pitchService.filterTag = (pitches, tag, subLevel=0) ->
     pitches = _.filter pitches, (pitch) -> 
       if tag == 'Untagged'
-        return !pitch.tagString
+        return !pitch.tagString || !pitch.tagString.split(',')[subLevel]
       else
-        return false if !pitch.tagString
+        return false if !pitch.tagString || !pitch.tagString.split(',')[subLevel]
         return pitch.tagString.split(',')[subLevel] == tag
       return pitches
 
   pitchService.uniquefilterTags = (pitches, subLevel=0) -> 
-    hasUntagged = _.any(pitches, (pitch) -> !pitch.tagString);
+    hasUntagged = _.any(pitches, (pitch) -> !pitch.tagString || !pitch.tagString.split(',')[subLevel]);
     allTags = [] 
     _.each pitches, (pitch) -> 
       if pitch.tagString
-        allTags.push pitch.tagString.split(',')[subLevel]
+        tag = pitch.tagString.split(',')[subLevel]
+        if tag
+          allTags.push tag.toString()
 
     allTags = _.uniq(allTags)
     if !subLevel && hasUntagged
       allTags.push 'Untagged'
 
-    return allTags
+    return _.sortBy allTags
 
 
   return pitchService      
