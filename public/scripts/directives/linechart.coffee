@@ -125,7 +125,13 @@ angular.module('d3').directive 'linechart', [
               # create line
               lineFunction = d3.svg.line()
               .x((d) -> x(d.index))
-              .y((d) -> y(d.score))
+              .y((d) -> 
+                if d.score > ymax
+                  return ymax
+                if d.score < ymin
+                  return ymin
+                return y(d.score)
+              )
               .interpolate('monotone')
               
               svg.append('path')
