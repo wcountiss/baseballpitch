@@ -97,6 +97,14 @@ angular.module('d3').directive 'barchart', [
                 .style("text-anchor", "end")
                 .text("Degrees/Second")
 
+            #background lines
+            svg.append("g")      
+            .attr("class", "grid")
+            .call(yAxis
+              .tickSize(-width, 0, 0)
+              .tickFormat("")
+            ) 
+
             svg.selectAll(".bar")
                 .data(data)
               .enter()
@@ -122,6 +130,17 @@ angular.module('d3').directive 'barchart', [
                 .attr('class', 'average')
                 .attr('stroke-width', 2)
                 .attr('stroke', 'black')
+
+            svg.selectAll(".average-text")
+              .data(data)
+             .enter()
+              .append("text")
+              .attr("y", (d) -> y(d.average)-5)
+              .attr("x", (d) -> x(d.bar) + x.rangeBand())
+              .attr("dy", ".3em")
+              .style("text-anchor", "end")
+              .attr('class', 'average average-text')
+              .text("MLB average")
 
 
         scope.$watch 'bind()', (->

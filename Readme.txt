@@ -8,17 +8,15 @@ Trends
 Adjust the tooltips color styles to match psd
 Try to reduce height
 
-remove description hardcoded
 
 Kinetic Strength
-Grid Lines
-mlb avg next to each line
-reduce width of bars
+tooltips match psd
 
 Snapshots
 90 day back filter and get sessions
 SubTag Filter Snapshots
 
+remove description hardcoded
 
 
 General
