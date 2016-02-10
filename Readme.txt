@@ -1,9 +1,7 @@
 Motus
 End of Week 7
 
-Kinetic Chain
-add Ok, Good etc to d
-
+Kinetic Chainp
 tooltips match psd
 
 Trends Feedback

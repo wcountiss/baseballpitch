@@ -95,7 +95,7 @@ angular.module('d3').directive 'kinetic', [
               return {
                 key: d.key,
                 values: d.scores.map (d, i) -> return {index: i, score: +d}
-                peak: { index: _.findIndex(d.scores, (score) -> score == maxScore), score: data.peakSpeeds[d.key].score, color: data.peakSpeeds[d.key].color }
+                peak: { index: _.findIndex(d.scores, (score) -> score == maxScore), score: data.peakSpeeds[d.key].score, color: data.peakSpeeds[d.key].color, rating: data.peakSpeeds[d.key].rating }
               })
 
             x.domain([
@@ -107,7 +107,6 @@ angular.module('d3').directive 'kinetic', [
               0,
               timeWarp
             ])
-
 
             y.domain([
               d3.min(_.pluck(_.flatten(_.pluck(lines, 'values')),'score')),
@@ -285,7 +284,7 @@ angular.module('d3').directive 'kinetic', [
               .attr('class', 'd3-tip')
               .attr("transform", "translate(0,#{-height})")
               .html((d) ->
-                '<div class="d3-tip-heading">' + _.humanize(d.heading.replace('keyframe','')) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' MS</div>'
+                '<div class="d3-tip-heading">' + d.value.color + d.value.rating +  _.humanize(d.key.replace('keyframe','')) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value.score).toFixed(1) + ' MS</div>'
               )
               svg.call timingTip[line.key]
 
@@ -302,7 +301,7 @@ angular.module('d3').directive 'kinetic', [
                 $timeout () ->
                   d3.selectAll(".peak-circle-upper")
                   .each (d) ->
-                    timingTip[d.key].show({ heading: d.key, value: d.peak.score}, this)
+                    timingTip[d.key].show({ key: d.key, value: d.peak}, this)
                 , 1
 
             svg.selectAll("peak")
