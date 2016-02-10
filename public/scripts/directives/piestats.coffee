@@ -28,7 +28,7 @@ angular.module('d3').directive 'piestats', [
           tip = d3.tip()
           .attr('class', 'd3-tip')
           .html((d) ->
-            '<div class="d3-tip-tooltip">' + d.data.tooltip + '</div><div class="d3-tip-label">' + d.data.label + '</div><br><div class="d3-tip-label">Player Value: ' + d.data.playerscore + '<span> ' + d.data.unitmeasure + '</span></div><br><div class="d3-tip-label">Elite Value: ' + d.data.eliteval + '<span> ' + d.data.unitmeasure + '</span></div>'
+            '<div ng-if="!d.data.tooltip" class="tip-rating ' + d.data.tooltip + '">' + d.data.tooltip + '</div><div class="d3-tip-label">' + d.data.label + '</div><br><div class="d3-tip-label">Player Value: ' + d.data.playerscore + '<span> ' + d.data.unitmeasure + '</span></div><br><div class="d3-tip-label">Elite Value: ' + d.data.eliteval + '<span> ' + d.data.unitmeasure + '</span></div>'
           )
           pie = d3.layout.pie().sort(null).value((d) ->
             d.width
