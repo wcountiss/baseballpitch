@@ -3,7 +3,8 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   cpf = currentPlayerFactory
   ef = eliteFactory
   foot.filterType = '30'
-  
+  foot.subFilters = {}
+
 
   imageMap = {
     "elbowFlexionFootContact": "images/legend/FC_ElbowFlexion.jpg",
@@ -26,6 +27,30 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
       $stat.runStatsEngine(foot.filteredPitches)
       .then (stats) ->
         _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
+
+    foot.subFilters.level1 = $pitch.uniquefilterTags(foot.filteredPitches, 1)    
+    foot.subFilters.level2 = $pitch.uniquefilterTags(foot.filteredPitches, 2)
+
+  foot.subFilterChange = (sub, level) ->
+    #get pitches filtered by session or 30 days
+    
+    pitches = foot.filteredPitches || foot.currentPlayer.pitches
+    if foot.subTag1
+      pitches = $pitch.filterTag(pitches, foot.subTag1, 1)
+      #update the subfilter level 2
+      foot.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
+    if foot.subTag2
+      pitches = $pitch.filterTag(pitches, foot.subTag2, 2)
+
+    #run stats on filterd pitches
+    $stat.runStatsEngine(pitches)
+    .then (stats) ->
+      foot.stats = stats
+      _.each foot.eliteMetrics, (eliteMetric) -> 
+        if foot.stats?.metricScores?[eliteMetric.metric] 
+          eliteMetric.pstats = foot.stats.metricScores[eliteMetric.metric]
+        else 
+          eliteMetric.pstats = null
 
   foot.setClickedRow = (eliteMetric,index) ->
     cpf.footMetricsIndex = index
@@ -69,6 +94,9 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
       foot.setfilterCount(foot.currentPlayer.pitches, 'Game')
       foot.setfilterCount(foot.currentPlayer.pitches, 'Untagged')
 
+    #set subFilters
+    foot.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)
+    foot.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
 
   return foot
 ]

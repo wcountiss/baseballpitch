@@ -2,9 +2,19 @@
   <div class="main-bg-joint-kinetics">
     <div class="flex-container-row">
       <h2 class="large-flexitem">Kinetics</h2>
-      <select class="small-flexitem" ng-model="joint.filteredPitches" name="sessions" ng-change="joint.filterSession()" ng-options="value as key.replace(':',' ') + ' (' + value.length + ')' for (key, value) in joint.sessions">
-        <option value="">Last 30 Days AVG ({{::joint.currentPlayer.pitches.length}})</option>
-      </select>
+      <div>
+        <select class="small-flexitem" ng-model="joint.filteredPitches" name="sessions" ng-change="joint.filterSession()" ng-options="value as key.replace(':',' ') + ' (' + value.length + ')' for (key, value) in joint.sessions">
+          <option value="">Last 30 Days AVG ({{::joint.currentPlayer.pitches.length}})</option>
+        </select>
+      </div>
+      <div ng-if="joint.subFilters.level1.length">
+        <select class="small-flexitem" ng-model="joint.subTag1" name="sessions" ng-change="joint.subFilterChange()" ng-options="subTag for subTag in joint.subFilters.level1">
+        </select>
+      </div>
+      <div ng-if="joint.subFilters.level2.length">
+        <select class="small-flexitem" ng-model="joint.subTag2" name="sessions" ng-change="joint.subFilterChange()" ng-options="subTag for subTag in joint.subFilters.level2">
+        </select>
+      </div>
     </div>
     <div class="flex-container-row">
 
