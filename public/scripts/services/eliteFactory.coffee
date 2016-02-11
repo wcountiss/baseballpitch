@@ -16,7 +16,6 @@ angular.module('motus').factory 'eliteFactory', [ '$http', '$q', ($http, $q) ->
           metric.eliteLow = Math.round(metric.avg-metric.stdev,0)
           metric.eliteHigh = Math.round(metric.avg+metric.stdev,0)
           metric.title = _.humanize(metric.metric)
-          metric.description = 'description goes here..when added to the database this will no longer show'
         cachedMetrics = ef.metrics
         defer.resolve(ef.metrics)
       return defer.promise

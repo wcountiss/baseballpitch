@@ -1,4 +1,4 @@
-angular.module('motus').controller 'jointKineticsController', ['currentPlayerFactory','eliteFactory','$stat','$q',(currentPlayerFactory, eliteFactory, $stat, $q) ->
+angular.module('motus').controller 'jointKineticsController', ['currentPlayerFactory','eliteFactory','$pitch','$stat','$q',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q) ->
   # self reference
   joint = this
   # grab factory data
@@ -15,14 +15,14 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
     "peakShoulderAnteriorForce": "images/legend/MAX_FootHeight.jpg",
   }
 
-  joint.filterLastThrowType = () ->
-    if joint.filterType == '30'
+  joint.filterSession = () ->
+    if !joint.filteredPitches
       _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = joint.stats.metricScores[eliteMetric.metric]
     else
-      $stat.filterLastThrowType(joint.currentPlayer.pitches, joint.filterType)
+      $stat.runStatsEngine(joint.filteredPitches)
       .then (stats) ->
         _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
-  
+
   joint.setClickedRow = (eliteMetric, index) ->
     cpf.jointMetricsIndex = index
     joint.selectedMetric = eliteMetric
@@ -41,10 +41,18 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
     joint["#{type}Count"] = pitchesOfType.length
 
 
-  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
+  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), $pitch.getPitches({ daysBack: 90 })]
   $q.all(loadPromises).then (results) ->
     joint.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'K' )
     joint.currentPlayer = cpf.currentPlayer 
+    
+    #group pitches into sessions
+    pitches = _.filter results[2], (pitch) -> pitch.athleteProfile.objectId == cpf.currentPlayer.athleteProfile.objectId
+    joint.sessions = _.groupBy pitches, (pitch) -> 
+      topLevelTagString = if pitch.tagString then pitch.tagString.split(',')[0] else 'Untagged'
+      return moment(pitch.pitchDate.iso).format('MM/DD/YYYY') + ':' + topLevelTagString
+
+    #get 30 day average by default on the current player
     $stat.runStatsEngine(joint.currentPlayer.pitches).then (stats) ->
       joint.stats = stats
       _.each joint.eliteMetrics, (eliteMetric) -> 

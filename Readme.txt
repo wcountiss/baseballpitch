@@ -12,10 +12,7 @@ Kinetic Strength
 tooltips match psd
 
 Snapshots
-90 day back filter and get sessions
 SubTag Filter Snapshots
-
-remove description hardcoded
 
 General
 Fix Firefox

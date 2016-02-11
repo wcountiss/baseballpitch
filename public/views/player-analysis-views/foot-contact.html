@@ -2,12 +2,8 @@
   <div class="main-bg-foot-contact">
     <div class="flex-container-row">
       <h2 class="large-flexitem">Foot Contact</h2>
-      <select class="small-flexitem" ng-model="foot.filterType" name="sessions" ng-change="foot.filterLastThrowType()">
-        <option value="30">Last 30 Days AVG ({{foot.currentPlayer.pitches.length}})</option>
-        <option value="Game" ng-if="foot.currentPlayer.stats.game" >Last Game ({{foot.GameCount}})</option>
-        <option value="Bullpen" ng-if="foot.currentPlayer.stats.bullPen">Last Bullpen ({{foot.BullpenCount}})</option>
-        <option value="Longtoss" ng-if="foot.currentPlayer.stats.longToss">Last Longtoss ({{foot.LongtossCount}})</option>
-        <option value="Untagged" ng-if="foot.UntaggedCount">Untagged ({{foot.UntaggedCount}})</option>
+       <select class="small-flexitem" ng-model="foot.filteredPitches" name="sessions" ng-change="foot.filterSession()" ng-options="value as key.replace(':',' ') + ' (' + value.length + ')' for (key, value) in foot.sessions">
+        <option value="">Last 30 Days AVG ({{::foot.currentPlayer.pitches.length}})</option>
       </select>
     </div>
     <div class="flex-container-row">

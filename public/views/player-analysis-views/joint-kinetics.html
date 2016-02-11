@@ -2,13 +2,8 @@
   <div class="main-bg-joint-kinetics">
     <div class="flex-container-row">
       <h2 class="large-flexitem">Kinetics</h2>
-      <select class="small-flexitem" ng-model="joint.filterType" name="sessions" ng-change="joint.filterLastThrowType()">
-        <option value="30">Last 30 Days AVG ({{joint.currentPlayer.pitches.length}})</option>
-        <option value="Game" ng-if="joint.currentPlayer.stats.game" >Last Game ({{joint.GameCount}})</option>
-        <option value="Bullpen" ng-if="joint.currentPlayer.stats.bullPen">Last Bullpen ({{joint.BullpenCount}})</option>
-        <option value="Longtoss" ng-if="joint.currentPlayer.stats.longToss">Last Longtoss ({{joint.LongtossCount}})</option>
-        <option value="Untagged" ng-if="joint.UntaggedCount">Untagged ({{joint.UntaggedCount}})</option>
-
+      <select class="small-flexitem" ng-model="joint.filteredPitches" name="sessions" ng-change="joint.filterSession()" ng-options="value as key.replace(':',' ') + ' (' + value.length + ')' for (key, value) in joint.sessions">
+        <option value="">Last 30 Days AVG ({{::joint.currentPlayer.pitches.length}})</option>
       </select>
     </div>
     <div class="flex-container-row">

@@ -2,13 +2,8 @@
   <div class="main-bg-max-ex">
     <div class="flex-container-row">
       <h2 class="large-flexitem">Max Excursion</h2>
-      <select class="small-flexitem" ng-model="max.filterType" name="sessions" ng-change="max.filterLastThrowType()">
-        <option value="30">Last 30 Days AVG ({{max.currentPlayer.pitches.length}})</option>
-        <option value="Game" ng-if="max.currentPlayer.stats.game" >Last Game ({{max.GameCount}})</option>
-        <option value="Bullpen" ng-if="max.currentPlayer.stats.bullPen">Last Bullpen ({{max.BullpenCount}})</option>
-        <option value="Longtoss" ng-if="max.currentPlayer.stats.longToss">Last Longtoss ({{max.LongtossCount}})</option>
-        <option value="Untagged" ng-if="max.UntaggedCount">Untagged ({{max.UntaggedCount}})</option>
-
+      <select class="small-flexitem" ng-model="max.filteredPitches" name="sessions" ng-change="max.filterSession()" ng-options="value as key.replace(':',' ') + ' (' + value.length + ')' for (key, value) in max.sessions">
+        <option value="">Last 30 Days AVG ({{::max.currentPlayer.pitches.length}})</option>
       </select>
     </div>
     <div class="flex-container-row">

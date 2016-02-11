@@ -1,4 +1,4 @@
-angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPlayerFactory','eliteFactory','$stat', '$q',(currentPlayerFactory, eliteFactory, $stat, $q) ->
+angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPlayerFactory','eliteFactory','$pitch','$stat', '$q',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q) ->
   max = this
   cpf = currentPlayerFactory
   ef = eliteFactory
@@ -11,14 +11,14 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
     "maxFootHeight": "images/legend/MAX_FootHeight.jpg",
   }
 
-  max.filterLastThrowType = () ->
-    if max.filterType == '30'
+  max.filterSession = () ->
+    if !max.filteredPitches
       _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = max.stats.metricScores[eliteMetric.metric]
     else
-      $stat.filterLastThrowType(max.currentPlayer.pitches, max.filterType)
+      $stat.runStatsEngine(max.filteredPitches)
       .then (stats) ->
         _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
-  
+
   max.setClickedRow = (eliteMetric, index) ->
     cpf.maxMetricsIndex = index
     max.selectedMetric = eliteMetric
@@ -35,10 +35,18 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
         return pitch.tagString.split(',')[0] == type
     max["#{type}Count"] = pitchesOfType.length
 
-  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
-  $q.all(loadPromises).then (result) ->
-    max.eliteMetrics = _.filter(result[0], (metric) -> metric.categoryCode == 'ME' )
+  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), $pitch.getPitches({ daysBack: 90 })]
+  $q.all(loadPromises).then (results) ->
+    max.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'ME' )
     max.currentPlayer = cpf.currentPlayer
+    
+    #group pitches into sessions
+    pitches = _.filter results[2], (pitch) -> pitch.athleteProfile.objectId == cpf.currentPlayer.athleteProfile.objectId
+    max.sessions = _.groupBy pitches, (pitch) -> 
+      topLevelTagString = if pitch.tagString then pitch.tagString.split(',')[0] else 'Untagged'
+      return moment(pitch.pitchDate.iso).format('MM/DD/YYYY') + ':' + topLevelTagString
+
+    #get 30 day average by default on the current player
     $stat.runStatsEngine(max.currentPlayer.pitches).then (stats) ->
       max.stats = stats
       _.each max.eliteMetrics, (eliteMetric) -> 
