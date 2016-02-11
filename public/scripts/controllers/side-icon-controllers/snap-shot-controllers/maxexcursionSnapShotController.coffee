@@ -3,12 +3,13 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
   cpf = currentPlayerFactory
   ef = eliteFactory
   max.filterType = '30'
+  max.subFilters = {}
 
   imageMap = {
     "maxElbowFlexion": "images/legend/MAX_ElbowFlexion.jpg",
     "maxShoulderRotation": "images/legend/MAX_ShoulderRotation.jpg",
     "maxTrunkSeparation": "images/legend/MAX_TrunkRotation.jpg",
-    "maxFootHeight": "images/legend/MAX_FootHeight.jpg",
+    "maxFootHeight": "images/legend/MAX_FootHeight.jpg"
   }
 
   max.filterSession = () ->
@@ -19,6 +20,30 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
       .then (stats) ->
         _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
 
+    max.subFilters.level1 = $pitch.uniquefilterTags(max.filteredPitches, 1)    
+    max.subFilters.level2 = $pitch.uniquefilterTags(max.filteredPitches, 2)
+
+  max.subFilterChange = (sub, level) ->
+    #get pitches filtered by session or 30 days
+    
+    pitches = max.filteredPitches || max.currentPlayer.pitches
+    if max.subTag1
+      pitches = $pitch.filterTag(pitches, max.subTag1, 1)
+      #update the subfilter level 2
+      max.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
+    if max.subTag2
+      pitches = $pitch.filterTag(pitches, max.subTag2, 2)
+
+    #run stats on filterd pitches
+    $stat.runStatsEngine(pitches)
+    .then (stats) ->
+      max.stats = stats
+      _.each max.eliteMetrics, (eliteMetric) -> 
+        if max.stats?.metricScores?[eliteMetric.metric] 
+          eliteMetric.pstats = max.stats.metricScores[eliteMetric.metric]
+        else 
+          eliteMetric.pstats = null
+          
   max.setClickedRow = (eliteMetric, index) ->
     cpf.maxMetricsIndex = index
     max.selectedMetric = eliteMetric
@@ -59,6 +84,11 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
       max.setfilterCount(max.currentPlayer.pitches, 'Bullpen')
       max.setfilterCount(max.currentPlayer.pitches, 'Game')
       max.setfilterCount(max.currentPlayer.pitches, 'Untagged')
+
+    #set subFilters
+    max.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)
+    max.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
+
 
   return max
 ]

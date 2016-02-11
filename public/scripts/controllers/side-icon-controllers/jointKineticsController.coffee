@@ -5,7 +5,7 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   cpf = currentPlayerFactory
   ef = eliteFactory
   joint.filterType = '30'
-
+  joint.subFilters = {}
 
   imageMap = {
     "peakElbowCompressiveForce": "images/legend/MAX_ElbowFlexion.jpg",
@@ -23,6 +23,30 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
       .then (stats) ->
         _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
 
+    joint.subFilters.level1 = $pitch.uniquefilterTags(joint.filteredPitches, 1)    
+    joint.subFilters.level2 = $pitch.uniquefilterTags(joint.filteredPitches, 2)
+
+  joint.subFilterChange = (sub, level) ->
+    #get pitches filtered by session or 30 days
+    
+    pitches = joint.filteredPitches || joint.currentPlayer.pitches
+    if joint.subTag1
+      pitches = $pitch.filterTag(pitches, joint.subTag1, 1)
+      #update the subfilter level 2
+      joint.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
+    if joint.subTag2
+      pitches = $pitch.filterTag(pitches, joint.subTag2, 2)
+
+    #run stats on filterd pitches
+    $stat.runStatsEngine(pitches)
+    .then (stats) ->
+      joint.stats = stats
+      _.each joint.eliteMetrics, (eliteMetric) -> 
+        if joint.stats?.metricScores?[eliteMetric.metric] 
+          eliteMetric.pstats = joint.stats.metricScores[eliteMetric.metric]
+        else 
+          eliteMetric.pstats = null
+          
   joint.setClickedRow = (eliteMetric, index) ->
     cpf.jointMetricsIndex = index
     joint.selectedMetric = eliteMetric
@@ -65,6 +89,10 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
       joint.setfilterCount(joint.currentPlayer.pitches, 'Bullpen')
       joint.setfilterCount(joint.currentPlayer.pitches, 'Game')
       joint.setfilterCount(joint.currentPlayer.pitches, 'Untagged')
+
+    #set subFilters
+    joint.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)
+    joint.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
 
   return joint
 ]

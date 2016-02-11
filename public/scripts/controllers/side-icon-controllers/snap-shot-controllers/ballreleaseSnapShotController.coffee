@@ -3,6 +3,7 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   cpf = currentPlayerFactory
   ef = eliteFactory
   ball.filterType = '30'
+  ball.subFilters = {}
 
   imageMap = {
     "fingertipVelocityRelease": "images/legend/BR_FingertipSpeed.jpg",
@@ -25,6 +26,31 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
       $stat.runStatsEngine(ball.filteredPitches)
       .then (stats) ->
         _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
+
+    ball.subFilters.level1 = $pitch.uniquefilterTags(ball.filteredPitches, 1)    
+    ball.subFilters.level2 = $pitch.uniquefilterTags(ball.filteredPitches, 2)
+
+  ball.subFilterChange = (sub, level) ->
+    #get pitches filtered by session or 30 days
+    
+    pitches = ball.filteredPitches || ball.currentPlayer.pitches
+    if ball.subTag1
+      pitches = $pitch.filterTag(pitches, ball.subTag1, 1)
+      #update the subfilter level 2
+      ball.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
+    if ball.subTag2
+      pitches = $pitch.filterTag(pitches, ball.subTag2, 2)
+
+    #run stats on filterd pitches
+    $stat.runStatsEngine(pitches)
+    .then (stats) ->
+      ball.stats = stats
+      _.each ball.eliteMetrics, (eliteMetric) -> 
+        if ball.stats?.metricScores?[eliteMetric.metric] 
+          eliteMetric.pstats = ball.stats.metricScores[eliteMetric.metric]
+        else 
+          eliteMetric.pstats = null
+
 
   ball.setClickedRow = (eliteMetric, index) ->
     cpf.ballMetricsIndex = index
@@ -63,6 +89,11 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
         else 
           eliteMetric.pstats = null
       ball.setClickedRow(ball.eliteMetrics[cpf.ballMetricsIndex], cpf.ballMetricsIndex)
+
+    #set subFilters
+    ball.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)
+    ball.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
+
 
   return ball
 

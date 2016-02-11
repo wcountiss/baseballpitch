@@ -98,6 +98,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     trends.subFilters = {}
     trends.subFilters.level1 = {}
     trends.subFilters.level2 = {}
+    
     subFilters = $pitch.uniquefilterTags(selectedPlayerDetailPitches, 1)
     _.each subFilters, (subFilter) -> trends.subFilters.level1[subFilter] = true
 

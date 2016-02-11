@@ -12,7 +12,7 @@ Kinetic Strength
 tooltips match psd
 
 Snapshots
-SubTag Filter Snapshots
+Dropdowns fit better on page
 
 General
 Fix Firefox
@@ -49,9 +49,6 @@ Bugs
 Player Overview
 	- Pie charts do not animate correctly on hover. they enlarge, but the pie slice does not pop out.
 	- This is the same in Comparison View as well.
-
-Kinetic Chain Timeline
-	- Tool tips stay open after view change
 
 Snap Shots
  	-All (Foot, Ball release, Max Excursion, Joint Kinetics)
