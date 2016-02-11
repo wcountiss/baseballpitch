@@ -19,7 +19,7 @@
 
              <div class="trends-graphs flex-grow-max">
               <div>
-                <groupedbarchart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendChart" bind="trends.playerScores"  on-click="trends.groupClick(element)"></groupedbarchart>
+                <groupedbarchart style="text-transform: uppercase; font-size:.75em" width="40%" height="275" id="playerTrendChart" bind="trends.playerScores"  on-click="trends.groupClick(element)"></groupedbarchart>
               </div>
 
               <div>
@@ -27,7 +27,7 @@
                   {{trends.selectedSession.date}} {{trends.selectedSession.tag}}
                 </div>
                 <div>
-                  <linechart style="text-transform: uppercase; font-size:.75em" width="40%" height="400" id="playerTrendDetailChart" bind="trends.playerDetailScores"></linechart>
+                  <linechart style="text-transform: uppercase; font-size:.75em" width="40%" height="275" id="playerTrendDetailChart" bind="trends.playerDetailScores"></linechart>
                 </div>
                 <div ng-if="trends.playerDetailScores && trends.subFilters.level1" class="flex-container-row checkbox-filters">
                   <div ng-repeat="(subFilter, value) in trends.subFilters.level1" class="checkbox-spacer">
