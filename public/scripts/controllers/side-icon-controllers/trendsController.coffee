@@ -144,8 +144,8 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
   trends.selectMetric = (metric) ->
     #blank out detail chart
     trends.playerDetailScores = null
-    while document.getElementsByClassName("d3-tip").length
-      document.getElementsByClassName("d3-tip")[0].remove()
+    while document.querySelectorAll(".d3-tip").length
+      document.querySelectorAll(".d3-tip")[0].remove()
 
     #Grab the current metric.label and place it into trends.accordionSelected
     #This will add the propper CSS to the selected metric

@@ -1,4 +1,4 @@
-angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPlayerFactory','eliteFactory', '$stat', '$q',(currentPlayerFactory, eliteFactory, $stat, $q) ->
+angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPlayerFactory','eliteFactory', '$pitch', '$stat', '$q',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q) ->
   ball = this
   cpf = currentPlayerFactory
   ef = eliteFactory
@@ -18,11 +18,11 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
     "pelvisRotationRelease": "images/legend/BR_PelvisRotation.jpg",
   }
 
-  ball.filterLastThrowType = () ->
-    if ball.filterType == '30'
+  ball.filterSession = () ->
+    if !ball.filteredPitches
       _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = ball.stats.metricScores[eliteMetric.metric]
     else
-      $stat.filterLastThrowType(ball.currentPlayer.pitches, ball.filterType)
+      $stat.runStatsEngine(ball.filteredPitches)
       .then (stats) ->
         _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
 
@@ -42,11 +42,20 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
         return pitch.tagString.split(',')[0] == type
     ball["#{type}Count"] = pitchesOfType.length
 
-  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer()]
+  loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), $pitch.getPitches({ daysBack: 90 })]
   $q.all(loadPromises).then (results) ->
     ball.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'BR' )
     ball.currentPlayer = cpf.currentPlayer
-    $stat.runStatsEngine(ball.currentPlayer.pitches).then (stats) ->
+
+    #group pitches into sessions
+    pitches = _.filter results[2], (pitch) -> pitch.athleteProfile.objectId == cpf.currentPlayer.athleteProfile.objectId
+    ball.sessions = _.groupBy pitches, (pitch) -> 
+      topLevelTagString = if pitch.tagString then pitch.tagString.split(',')[0] else 'Untagged'
+      return moment(pitch.pitchDate.iso).format('MM/DD/YYYY') + ':' + topLevelTagString
+
+    #get 30 day average by default on the current player
+    $stat.runStatsEngine(ball.currentPlayer.pitches)
+    .then (stats) ->
       ball.stats = stats
       _.each ball.eliteMetrics, (eliteMetric) -> 
         if ball.stats?.metricScores?[eliteMetric.metric] 
@@ -54,11 +63,6 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
         else 
           eliteMetric.pstats = null
       ball.setClickedRow(ball.eliteMetrics[cpf.ballMetricsIndex], cpf.ballMetricsIndex)
-      ball.setfilterCount(ball.currentPlayer.pitches, 'Longtoss')
-      ball.setfilterCount(ball.currentPlayer.pitches, 'Bullpen')
-      ball.setfilterCount(ball.currentPlayer.pitches, 'Game')
-      ball.setfilterCount(ball.currentPlayer.pitches, 'Untagged')
-
 
   return ball
 

@@ -17,7 +17,8 @@ barchart {
   }
 
   .bar {
-    transform: scale(1);
+    transform: scaleX(.7);
+    transform-origin: center;
   }
 
   .x.axis path {
@@ -27,9 +28,12 @@ barchart {
   .average {
     stroke: @motus-darkorange;
     stroke-width: .3em;
+    transform: scaleX(.7);
+    transform-origin: center;
   }
 
   .average-text{
+    transform: scaleX(1);
     font-size: .6em;
     stroke-width: .1em;
   }

@@ -2,13 +2,8 @@
   <div class="main-bg-ball-release">
     <div class="flex-container-row">
       <h2 class="large-flexitem">Ball Release</h2>
-      <select class="small-flexitem" ng-model="ball.filterType" name="sessions" ng-change="ball.filterLastThrowType()">
-        <option value="30">Last 30 Days AVG ({{::ball.currentPlayer.pitches.length}})</option>
-        <option value="Game" ng-if="ball.currentPlayer.stats.game" >Last Game ({{::ball.GameCount}})</option>
-        <option value="Bullpen" ng-if="ball.currentPlayer.stats.bullPen">Last Bullpen ({{::ball.BullpenCount}})</option>
-        <option value="Longtoss" ng-if="ball.currentPlayer.stats.longToss">Last Longtoss ({{::ball.LongtossCount}})</option>
-        <option value="Untagged" ng-if="ball.UntaggedCount">Untagged ({{::ball.UntaggedCount}})</option>
-
+      <select class="small-flexitem" ng-model="ball.filteredPitches" name="sessions" ng-change="ball.filterSession()" ng-options="value as key.replace(':',' ') + ' (' + value.length + ')' for (key, value) in ball.sessions">
+        <option value="">Last 30 Days AVG ({{::ball.currentPlayer.pitches.length}})</option>
       </select>
     </div>
     <div class="flex-container-row">

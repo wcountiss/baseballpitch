@@ -30,7 +30,7 @@ angular.module('d3').directive 'groupedbarchart', [
           
           margin = 
             top: 20
-            right: 20
+            right: 50
             bottom: 30
             left: 50
           
@@ -235,8 +235,8 @@ angular.module('d3').directive 'groupedbarchart', [
             .attr('stroke', 'black')
 
             svg.append("text")
-            .attr("y", y(data.average)-5)
-            .attr("x", (d) -> width)
+            .attr("y", y(data.average))
+            .attr("x", (d) -> width+50)
             .attr("dy", ".3em")
             .style("text-anchor", "end")
             .attr('class', 'average average-text')
