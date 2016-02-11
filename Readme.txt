@@ -1,18 +1,8 @@
 Motus
 End of Week 7
 
-Kinetic Chainp
-tooltips match psd
-
-Trends
-Adjust the tooltips color styles to match psd
-Try to reduce height
-
 Kinetic Strength
 tooltips match psd
-
-Snapshots
-Dropdowns fit better on page
 
 General
 Fix Firefox
@@ -20,23 +10,6 @@ comparison:visual - tool tips to float a little higher for IPAD
 
 Heroku Setup
 DNS
-
-
-
-Extras
-Faster Load - 90 days on load, 365 on chart
-Error Handling
-Persistable Filter
-Download Data in Excel
-Player View
-Team overview: 2 More Awards are being added
-Add Google Analytics
-Player Comparison filters
-Tagging Throws on Tagging Chart
-
-Ben
-Trunk Rotation Foot contact should be yType = 3
-
 
 
 
@@ -72,7 +45,6 @@ Comparison
 		* This makes it difficult to see the pie slices on that side.
 		* Maybe we can ng-if the other charts out when one chart
 		  is in focus?
-
 
 --end IE11 win 8.1------------------------------------
 
@@ -129,3 +101,19 @@ PLAYER COMPARISON
 		* player silhouettes overlap one another and bleed outside of their parent divs.
 
 --end IE10 win 7--------------------------------------------------------
+
+
+Extras
+Faster Load - 90 days on load, 365 on chart
+Error Handling
+Persistable Filter
+Download Data in Excel
+Player View
+Team overview: 2 More Awards are being added
+Add Google Analytics
+Player Comparison filters
+Tagging Throws on Tagging Chart
+
+Ben
+Trunk Rotation Foot contact should be yType = 3
+

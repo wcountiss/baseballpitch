@@ -1,19 +1,25 @@
 <section id="snap-shot-theme">
   <div class="main-bg-foot-contact">
     <div class="flex-container-row">
-      <h2 class="large-flexitem">Foot Contact</h2>
-      <div>
-        <select class="small-flexitem" ng-model="foot.filteredPitches" name="sessions" ng-change="foot.filterSession()" ng-options="value as key.replace(':',' ') + ' (' + value.length + ')' for (key, value) in foot.sessions">
-          <option value="">Last 30 Days AVG ({{::foot.currentPlayer.pitches.length}})</option>
-        </select>
+      <div class="flex-container-col">
+        <h2 class="large-flexitem">Foot Contact</h2>
       </div>
-      <div ng-if="foot.subFilters.level1.length">
-        <select class="small-flexitem" ng-model="foot.subTag1" name="sessions" ng-change="foot.subFilterChange()" ng-options="subTag for subTag in foot.subFilters.level1">
-        </select>
-      </div>
-      <div ng-if="foot.subFilters.level2.length">
-        <select class="small-flexitem" ng-model="foot.subTag2" name="sessions" ng-change="foot.subFilterChange()" ng-options="subTag for subTag in foot.subFilters.level2">
-        </select>
+      <div class="flex-container-col subFilters">
+        <div>
+          <select class="small-flexitem" ng-model="foot.filteredPitches" name="sessions" ng-change="foot.filterSession()" ng-options="value as key.replace(':',' ') + ' (' + value.length + ')' for (key, value) in foot.sessions">
+            <option value="">Last 30 Days AVG ({{::foot.currentPlayer.pitches.length}})</option>
+          </select>
+        </div>
+        <div ng-if="foot.subFilters.level1.length">
+          <select class="small-flexitem" ng-model="foot.subTag1" name="sessions" ng-change="foot.subFilterChange()" ng-options="subTag for subTag in foot.subFilters.level1">
+            <option value="">Sub Filter</option>
+          </select>
+        </div>
+        <div ng-if="foot.subFilters.level2.length">
+          <select class="small-flexitem" ng-model="foot.subTag2" name="sessions" ng-change="foot.subFilterChange()" ng-options="subTag for subTag in foot.subFilters.level2">
+            <option value="">Sub Filter</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="flex-container-row">
