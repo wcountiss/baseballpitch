@@ -92,7 +92,7 @@ angular.module('d3').directive 'barchart', [
                 .call(yAxis)
               .append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("y", 6)
+                .attr("y", "-4.5em")
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
                 .text("Degrees/Second")

@@ -8,7 +8,6 @@ Trends
 Adjust the tooltips color styles to match psd
 Try to reduce height
 
-
 Kinetic Strength
 tooltips match psd
 
@@ -17,7 +16,6 @@ Snapshots
 SubTag Filter Snapshots
 
 remove description hardcoded
-
 
 General
 Fix Firefox
