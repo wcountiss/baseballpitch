@@ -130,6 +130,9 @@
 
   /* Small Devices, Tablets */
   @media (max-width : 768px) {
+
+    /* Mobile Nav Menu
+    *********************/
     .mobile-hide {
       display: none;
     }
@@ -226,6 +229,41 @@
         }
       }
     }
+    .nav-slider {
+      z-index: 10;
+      top: 3.5em;
+      transition: all 500ms ease-in;
+      position: absolute;
+      left: 0;
+      background-color: @motus-btngrey;
+      border-left: 0.3em solid @motus-lightorange;
+      min-height: 100vh;
+      min-width: 17em;
+      color: white;
+      ul {
+        list-style: none;
+        padding-left: 1.3em;
+        li {
+          margin-top: 1em;
+        }
+        a {
+          text-decoration: none;
+          color: white;
+          font-size: 2em;
+          transition: all 200ms ease;
+          &:hover {
+            color: orange;
+          }
+        }
+
+      }
+    }
+    .nav-active {
+
+      left: -17em;
+    }
+
+
     .nav-links span {
       padding-left: 0;
       font-size: 1em;
