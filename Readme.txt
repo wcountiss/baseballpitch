@@ -74,4 +74,58 @@ Comparison
 		  is in focus?
 
 
---IE11 win 8.1-------------------------------------
+--end IE11 win 8.1-------------------------------------
+
+
+--IE10 win 7-----------------------------------------
+IE10 win 7
+Bugs
+
+HEADER
+	- Nav layout is not aligning properly. ‘team overview’ sits above ‘player analysis’ instead of beside it.
+	- the underline hover bar is too long when active.
+
+
+PLAYER ANALYSIS
+	-player overview overview-
+		*appears that the the injected view, line 29 player.html, is bleeding outside of the parent div.
+		*Side Icons float on top of everything individually
+		*PIE charts are randomly responsive. Some don’t react to a hover at all.
+		*Nested footer Icons, the stats to the right of the Icon don’t stack on top of one another, but instead align side bye side.
+
+	-player overview trends -
+		*div only extends as far as the chart instead of filling the full width.
+	-player overview notes-
+		* nonsensical layout that has columns and rows overlapping
+
+
+	-Kinetic Chain Timeline-
+		*div only extends as far as the chart instead of filling the full width.
+
+	-Kinetic Chain Strength-
+		* MLB average text is overlapped by the orange line
+		* Some of that text overlaps other bars in the graph
+
+	-Kinetic Chain Table-
+		*div overextends and bleeds out of parent div
+		*images for metric illustration is too large
+
+	-SNAP SHOTS-
+		* filter downarrow is not the orange one we created
+		*filter does not rest on the right side.
+		*images for the metrics are too large and bleed over
+
+
+PLAYER COMPARISON
+	* the Div does not fill the full inner width, only about 50%
+	*nav menu is oddly stacked
+
+	-player comparison overview-
+		* the 2 comparison views are crunched too close together
+		* text in the ‘add a player’ prints across both of the divs and does not respect its parent container.
+		*the graphs bleed outside of their parent divs
+
+	-player comparison visual-
+		* player silhouettes overlap one another and bleed outside of their parent divs.
+
+--end IE10 win 7--------------------------------------------------------
