@@ -225,7 +225,7 @@ app.run ($rootScope, $state, $cookies, $location) ->
   $rootScope.$on "$stateChangeStart", (event, toState, toParams, fromState, fromParams) ->
     
     while document.querySelectorAll(".d3-tip").length
-      document.querySelectorAll(".d3-tip")[0].remove()
+      document.querySelectorAll(".d3-tip")[0].parentNode.removeChild(document.querySelectorAll(".d3-tip")[0]);
 
     #if not logged in, go to login screen
     if (toState.authenticate && !$cookies.get('motus'))
