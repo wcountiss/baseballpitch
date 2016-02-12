@@ -93,6 +93,7 @@ angular.module('d3').directive 'kinetic', [
             lines = data.speeds.map((d) ->
               maxScore = d3.max(d.scores) 
               return {
+                mlbavg: data.peakSpeeds[d.key].eliteavg.avg,
                 key: d.key,
                 values: d.scores.map (d, i) -> return {index: i, score: +d}
                 peak: { index: _.findIndex(d.scores, (score) -> score == maxScore), score: data.peakSpeeds[d.key].score, color: data.peakSpeeds[d.key].color, rating: data.peakSpeeds[d.key].rating }
@@ -283,8 +284,8 @@ angular.module('d3').directive 'kinetic', [
               timingTip[line.key] = d3.tip()
               .attr('class', 'd3-tip')
               .attr("transform", "translate(0,#{-height})")
-              .html((d) ->
-               '<div class="tip-rating '+ d.value.rating+'">' + d.value.rating + '</div><div class="d3-tip-heading">' +  _.humanize(d.key.replace('keyframe','')) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value.score).toFixed(1) + ' MS</div>'
+              .html((d) -> 
+               '<div class="tip-rating '+ d.value.rating+'">' + d.value.rating + '</div><div class="d3-tip-heading">' +  _.humanize(d.key.replace('keyframe','')) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value.score).toFixed(0) + ' MS</div><div class="eliteavg">Elite: ' + Math.round(d.elite) + '</div>'
               )
               svg.call timingTip[line.key]
 
@@ -301,7 +302,8 @@ angular.module('d3').directive 'kinetic', [
                 $timeout () ->
                   d3.selectAll(".peak-circle-upper")
                   .each (d) ->
-                    timingTip[d.key].show({ key: d.key, value: d.peak}, this)
+                    console.log('Value of D', d.mlbavg)
+                    timingTip[d.key].show({ key: d.key, value: d.peak, elite: d.mlbavg}, this)
                 , 1
 
             svg.selectAll("peak")
