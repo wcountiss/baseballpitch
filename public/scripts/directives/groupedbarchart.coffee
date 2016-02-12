@@ -72,12 +72,12 @@ angular.module('d3').directive 'groupedbarchart', [
 
             #tool tip
             permaTip = d3.tip().attr('class', 'd3-tip d3-timp-perma').html((d) ->
-              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
+              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
             )
             svg.call permaTip
 
             tip = d3.tip().attr('class', 'd3-tip').html((d) ->
-              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(1) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
+              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
             )
             svg.call tip
             
