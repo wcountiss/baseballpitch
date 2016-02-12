@@ -66,7 +66,7 @@ Trunk Rotation Foot contact should be yType = 3
 Feb 11th 2016
 
 Bugs
-Player should load if bookmarkedt
+  Player should load if bookmarked
 
 Player Roster
 	*Wants the roster to be able to extend down further
