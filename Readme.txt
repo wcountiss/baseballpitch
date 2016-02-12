@@ -106,8 +106,7 @@ TRENDS
 BEN’s Feedback Continues
 	wants to use the 15 hours we have
 	wants the 2 added awards
-	fixing long toss to ONE word
-	fix bullpen to ONE word
+	
 
 	player comparison
 		-visual
