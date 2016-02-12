@@ -49,59 +49,6 @@ Comparison
 --end IE11 win 8.1------------------------------------
 
 
---IE10 win 7-----------------------------------------
-IE10 win 7
-Bugs
-
-HEADER
-	- Nav layout is not aligning properly. ‘team overview’ sits above ‘player analysis’ instead of beside it.
-	- the underline hover bar is too long when active.
-
-
-PLAYER ANALYSIS
-	-player overview overview-
-		*appears that the the injected view, line 29 player.html, is bleeding outside of the parent div.
-		*Side Icons float on top of everything individually
-		*PIE charts are randomly responsive. Some don’t react to a hover at all.
-		*Nested footer Icons, the stats to the right of the Icon don’t stack on top of one another, but instead align side bye side.
-
-	-player overview trends -
-		*div only extends as far as the chart instead of filling the full width.
-	-player overview notes-
-		* nonsensical layout that has columns and rows overlapping
-
-
-	-Kinetic Chain Timeline-
-		*div only extends as far as the chart instead of filling the full width.
-
-	-Kinetic Chain Strength-
-		* MLB average text is overlapped by the orange line
-		* Some of that text overlaps other bars in the graph
-
-	-Kinetic Chain Table-
-		*div overextends and bleeds out of parent div
-		*images for metric illustration is too large
-
-	-SNAP SHOTS-
-		* filter downarrow is not the orange one we created
-		*filter does not rest on the right side.
-		*images for the metrics are too large and bleed over
-
-
-PLAYER COMPARISON
-	* the Div does not fill the full inner width, only about 50%
-	*nav menu is oddly stacked
-
-	-player comparison overview-
-		* the 2 comparison views are crunched too close together
-		* text in the ‘add a player’ prints across both of the divs and does not respect its parent container.
-		*the graphs bleed outside of their parent divs
-
-	-player comparison visual-
-		* player silhouettes overlap one another and bleed outside of their parent divs.
-
---end IE10 win 7--------------------------------------------------------
-
 
 Extras
 Faster Load - 90 days on load, 365 on chart
@@ -116,4 +63,63 @@ Tagging Throws on Tagging Chart
 
 Ben
 Trunk Rotation Foot contact should be yType = 3
+
+
+****************** Ben - Meeting - *************************
+Feb 11th 2016
+
+Bugs
+Player should load if bookmarkedt
+
+Player Roster
+	*Wants the roster to be able to extend down further
+
+Player Comparison
+	*player comparison overview -
+	- the ‘Calculating thing’ what is going on with that?
+	it is a Race condition
+
+Kinetic Chain Timeline
+	*tooltip should have elite metric in it
+
+Kinetic Chain Strength
+	* compress the height the chart to fit on screen
+	* MLB average line needs a little breathing room
+
+SNAP SHOTS + Kinetic Chain Table
+	* Sub filter, change to something more semantic
+	Game = Inning then pitch type
+	Longtoss = distance
+	Bullpen = pitch type
+	out of order
+	Inning First
+	then Pitch types
+
+TRENDS
+	-bolder line for the “0” line
+	for Y type2 , X axis on the zero
+	or Bold it in some way
+	Safari - degrees is cut off on the left
+	sub filters
+		- Innings above pitch type
+
+BEN’s Feedback Continues
+	wants to use the 15 hours we have
+	wants the 2 added awards
+	fixing long toss to ONE word
+	fix bullpen to ONE word
+
+	player comparison
+		-visual
+			*scale down the pie charts
+			*Round the numbers
+			* if negative number, show 0 not -0
+			Math.round(-0.003)+0  is solution.
+			*doesn’t like the UX for comparison
+			*Back button to remove compared guy
+			*Back button to get out of comparison
+				-wants that back button to bring you
+				back to the last State you were in
+
+************** End Feb 11th Meeting ************************
 
