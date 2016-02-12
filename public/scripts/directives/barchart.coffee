@@ -52,7 +52,7 @@ angular.module('d3').directive 'barchart', [
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html (d) ->
-              return "<span style='color:red'>" + parseFloat(d.value).toFixed(1) + " Degrees/Second</span>";
+              return "<span>" + parseFloat(d.value).toFixed(1) + " Degrees/Second</span>";
 
           # remove the last version and recreate 
           elementChildren = element[0].children
