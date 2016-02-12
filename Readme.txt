@@ -1,9 +1,6 @@
 Motus
 End of Week 7
 
-Kinetic Strength
-tooltips match psd
-
 General
 Fix Firefox
 comparison:visual - tool tips to float a little higher for IPAD
@@ -106,7 +103,7 @@ TRENDS
 BEN’s Feedback Continues
 	wants to use the 15 hours we have
 	wants the 2 added awards
-	
+	team logo detection and placement in upper-right
 
 	player comparison
 		-visual
