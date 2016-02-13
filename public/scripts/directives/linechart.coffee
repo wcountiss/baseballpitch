@@ -160,7 +160,7 @@ angular.module('d3').directive 'linechart', [
               .on("mousemove", mousemove)
 
               svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call xAxis
-              svg.append('g').attr('class', 'y axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '-4.5em').style('text-anchor', 'end').text data.units
+              svg.append('g').attr('class', 'y axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '-4.3em').style('text-anchor', 'end').text data.units
 
         scope.$watch 'bind()', (-> updateChart()), false
         angular.element($window).bind 'resize', -> updateChart()

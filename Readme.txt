@@ -57,6 +57,10 @@ Team overview: 2 More Awards are being added
 Add Google Analytics
 Player Comparison filters
 Tagging Throws on Tagging Chart
+team logo detection and placement in upper-right
+
+Player Roster
+  *Wants the roster to be able to extend down further
 
 Ben
 Trunk Rotation Foot contact should be yType = 3
@@ -65,8 +69,6 @@ Trunk Rotation Foot contact should be yType = 3
 ****************** Ben - Meeting - *************************
 Feb 11th 2016
 
-Player Roster
-	*Wants the roster to be able to extend down further
 
 Player Comparison
 	*player comparison overview -
@@ -87,19 +89,14 @@ TRENDS
 	-bolder line for the “0” line
 	for Y type2 , X axis on the zero
 	or Bold it in some way
-	Safari - degrees is cut off on the left
-	sub filters
+	
+  sub filters
 		- Innings above pitch type
 
-BEN’s Feedback Continues
-	wants to use the 15 hours we have
-	wants the 2 added awards
-	team logo detection and placement in upper-right
+
 
 	player comparison
 		-visual
-			*scale down the pie charts
-			*doesn’t like the UX for comparison
 			*Back button to get out of comparison
 				-wants that back button to bring you
 				back to the last State you were in

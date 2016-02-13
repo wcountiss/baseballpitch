@@ -29,19 +29,19 @@
                 <div>
                   <linechart style="text-transform: uppercase; font-size:.75em" width="40%" height="275" id="playerTrendDetailChart" bind="trends.playerDetailScores"></linechart>
                 </div>
-                <div ng-if="trends.playerDetailScores && trends.subFilters.level1" class="flex-container-row checkbox-filters">
-                  <div ng-repeat="(subFilter, value) in trends.subFilters.level1" class="checkbox-spacer">
-                    <div ng-click="trends.subFilterChange(subFilter, 1)">
-                      <input type="checkbox" ng-model="trends.subFilters.level1[subFilter]">
+                <div ng-if="trends.playerDetailScores && trends.subFilters.level2" class="flex-container-row checkbox-filters">
+                  <div ng-repeat="(subFilter, value) in trends.subFilters.level2" class="checkbox-spacer">
+                    <div ng-click="trends.subFilterChange(subFilter, 2)">
+                      <input type="checkbox" ng-model="trends.subFilters.level2[subFilter]">
                       <label class="check-box generic"></label>
                       <span>{{subFilter}}</span>
                     </div>
                   </div>
                 </div>
-                <div ng-if="trends.playerDetailScores && trends.subFilters.level2" class="flex-container-row checkbox-filters">
-                  <div ng-repeat="(subFilter, value) in trends.subFilters.level2" class="checkbox-spacer">
-                    <div ng-click="trends.subFilterChange(subFilter, 2)">
-                      <input type="checkbox" ng-model="trends.subFilters.level2[subFilter]">
+                <div ng-if="trends.playerDetailScores && trends.subFilters.level1" class="flex-container-row checkbox-filters">
+                  <div ng-repeat="(subFilter, value) in trends.subFilters.level1" class="checkbox-spacer">
+                    <div ng-click="trends.subFilterChange(subFilter, 1)">
+                      <input type="checkbox" ng-model="trends.subFilters.level1[subFilter]">
                       <label class="check-box generic"></label>
                       <span>{{subFilter}}</span>
                     </div>
