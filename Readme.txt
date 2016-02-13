@@ -65,9 +65,6 @@ Trunk Rotation Foot contact should be yType = 3
 ****************** Ben - Meeting - *************************
 Feb 11th 2016
 
-Bugs
-  Player should load if bookmarked
-
 Player Roster
 	*Wants the roster to be able to extend down further
 
@@ -75,9 +72,6 @@ Player Comparison
 	*player comparison overview -
 	- the ‘Calculating thing’ what is going on with that?
 	it is a Race condition
-
-Kinetic Chain Timeline
-	*tooltip should have elite metric in it
 
 Kinetic Chain Strength
 	* compress the height the chart to fit on screen
