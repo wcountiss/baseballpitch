@@ -108,11 +108,9 @@ BEN’s Feedback Continues
 	player comparison
 		-visual
 			*scale down the pie charts
-			*Round the numbers
 			* if negative number, show 0 not -0
 			Math.round(-0.003)+0  is solution.
 			*doesn’t like the UX for comparison
-			*Back button to remove compared guy
 			*Back button to get out of comparison
 				-wants that back button to bring you
 				back to the last State you were in
