@@ -6,18 +6,18 @@
       </div>
       <div class="flex-container-col subFilters">
         <div>
-          <select class="small-flexitem" ng-model="max.filteredPitches" name="sessions" ng-change="max.filterSession()" ng-options="value as key.replace(':',' ') + ' (' + value.length + ')' for (key, value) in max.sessions">
+          <select class="small-flexitem" ng-model="max.filteredPitchKey" name="sessions" ng-change="max.filterSession()" ng-options="key as key.replace(':',' ') + ' (' + value.length + ')' for (key, value) in max.sessions">
             <option value="">Last 30 Days AVG ({{::max.currentPlayer.pitches.length}})</option>
-          </select>
-        </div>
-        <div ng-if="max.subFilters.level1.length">
-          <select class="small-flexitem" ng-model="max.subTag1" name="sessions" ng-change="max.subFilterChange()" ng-options="subTag for subTag in max.subFilters.level1">
-            <option value="">Sub Filter</option>
           </select>
         </div>
         <div ng-if="max.subFilters.level2.length">
           <select class="small-flexitem" ng-model="max.subTag2" name="sessions" ng-change="max.subFilterChange()" ng-options="subTag for subTag in max.subFilters.level2">
-            <option value="">Sub Filter</option>
+            <option value="">Innings</option>
+          </select>
+        </div>
+        <div ng-if="max.subFilters.level1.length">
+          <select class="small-flexitem" ng-model="max.subTag1" name="sessions" ng-change="max.subFilterChange()" ng-options="subTag for subTag in max.subFilters.level1">
+            <option value="">{{max.subFilterHeading}}</option>
           </select>
         </div>
       </div>

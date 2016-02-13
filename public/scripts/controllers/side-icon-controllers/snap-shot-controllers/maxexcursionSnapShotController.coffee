@@ -4,6 +4,8 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
   ef = eliteFactory
   max.filterType = '30'
   max.subFilters = {}
+  max.subFilterHeading = 'Pitch Type' 
+
 
   imageMap = {
     "maxElbowFlexion": "images/legend/MAX_ElbowFlexion.jpg",
@@ -13,20 +15,27 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
   }
 
   max.filterSession = () ->
-    if !max.filteredPitches
+    pitches = max.sessions[max.filteredPitchKey] || max.currentPlayer.pitches
+    if !max.filteredPitchKey
       _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = max.stats.metricScores[eliteMetric.metric]
+      max.subFilterHeading = 'Pitch Type'
+      max.subTag1 = null
+      max.subTag2 = null
     else
-      $stat.runStatsEngine(max.filteredPitches)
+      $stat.runStatsEngine(pitches)
       .then (stats) ->
         _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
+         #if longtoss the filter is by distance
+        if max.filteredPitchKey.split(':')[1] == 'Longtoss'
+          max.subFilterHeading = 'Distance'
 
-    max.subFilters.level1 = $pitch.uniquefilterTags(max.filteredPitches, 1)    
-    max.subFilters.level2 = $pitch.uniquefilterTags(max.filteredPitches, 2)
+    max.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)    
+    max.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
 
   max.subFilterChange = (sub, level) ->
     #get pitches filtered by session or 30 days
     
-    pitches = max.filteredPitches || max.currentPlayer.pitches
+    pitches = max.sessions[max.filteredPitchKey] || max.currentPlayer.pitches
     if max.subTag1
       pitches = $pitch.filterTag(pitches, max.subTag1, 1)
       #update the subfilter level 2

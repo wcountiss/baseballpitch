@@ -6,6 +6,8 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   ef = eliteFactory
   joint.filterType = '30'
   joint.subFilters = {}
+  joint.subFilterHeading = 'Pitch Type' 
+
 
   imageMap = {
     "peakElbowCompressiveForce": "images/legend/MAX_ElbowFlexion.jpg",
@@ -16,20 +18,27 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   }
 
   joint.filterSession = () ->
-    if !joint.filteredPitches
+    pitches = joint.sessions[joint.filteredPitchKey] || joint.currentPlayer.pitches
+    if !joint.filteredPitchKey
       _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = joint.stats.metricScores[eliteMetric.metric]
+      joint.subFilterHeading = 'Pitch Type'
+      joint.subTag1 = null
+      joint.subTag2 = null
     else
-      $stat.runStatsEngine(joint.filteredPitches)
+      $stat.runStatsEngine(pitches)
       .then (stats) ->
         _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
+         #if longtoss the filter is by distance
+        if joint.filteredPitchKey.split(':')[1] == 'Longtoss'
+          joint.subFilterHeading = 'Distance'
 
-    joint.subFilters.level1 = $pitch.uniquefilterTags(joint.filteredPitches, 1)    
-    joint.subFilters.level2 = $pitch.uniquefilterTags(joint.filteredPitches, 2)
+    joint.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)    
+    joint.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
 
   joint.subFilterChange = (sub, level) ->
     #get pitches filtered by session or 30 days
     
-    pitches = joint.filteredPitches || joint.currentPlayer.pitches
+    pitches = joint.sessions[joint.filteredPitchKey] || joint.currentPlayer.pitches
     if joint.subTag1
       pitches = $pitch.filterTag(pitches, joint.subTag1, 1)
       #update the subfilter level 2

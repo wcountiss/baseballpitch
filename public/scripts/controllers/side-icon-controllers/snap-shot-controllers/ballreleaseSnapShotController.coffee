@@ -4,6 +4,7 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   ef = eliteFactory
   ball.filterType = '30'
   ball.subFilters = {}
+  ball.subFilterHeading = 'Pitch Type' 
 
   imageMap = {
     "fingertipVelocityRelease": "images/legend/BR_FingertipSpeed.jpg",
@@ -20,20 +21,27 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
   }
 
   ball.filterSession = () ->
-    if !ball.filteredPitches
+    pitches = ball.sessions[ball.filteredPitchKey] || ball.currentPlayer.pitches
+    if !ball.filteredPitchKey
       _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = ball.stats.metricScores[eliteMetric.metric]
+      ball.subFilterHeading = 'Pitch Type'
+      ball.subTag1 = null
+      ball.subTag2 = null
     else
-      $stat.runStatsEngine(ball.filteredPitches)
+      $stat.runStatsEngine(pitches)
       .then (stats) ->
         _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
 
-    ball.subFilters.level1 = $pitch.uniquefilterTags(ball.filteredPitches, 1)    
-    ball.subFilters.level2 = $pitch.uniquefilterTags(ball.filteredPitches, 2)
+      #if longtoss the filter is by distance
+      if ball.filteredPitchKey.split(':')[1] == 'Longtoss'
+        ball.subFilterHeading = 'Distance'
+
+    ball.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)    
+    ball.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
 
   ball.subFilterChange = (sub, level) ->
     #get pitches filtered by session or 30 days
-    
-    pitches = ball.filteredPitches || ball.currentPlayer.pitches
+    pitches = ball.sessions[ball.filteredPitchKey] || ball.currentPlayer.pitches
     if ball.subTag1
       pitches = $pitch.filterTag(pitches, ball.subTag1, 1)
       #update the subfilter level 2
@@ -87,7 +95,7 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
         if ball.stats?.metricScores?[eliteMetric.metric] 
           eliteMetric.pstats = ball.stats.metricScores[eliteMetric.metric]
         else 
-          eliteMetric.pstats = null
+          eliteMetric.pstats = null   
       ball.setClickedRow(ball.eliteMetrics[cpf.ballMetricsIndex], cpf.ballMetricsIndex)
 
     #set subFilters

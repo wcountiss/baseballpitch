@@ -72,12 +72,12 @@ angular.module('d3').directive 'groupedbarchart', [
 
             #tool tip
             permaTip = d3.tip().attr('class', 'd3-tip d3-timp-perma').html((d) ->
-              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
+              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div><div class="eliteavg">Elite: ' + Math.round(data.average) + ' ' + data.units + '</div>'
             )
             svg.call permaTip
 
             tip = d3.tip().attr('class', 'd3-tip').html((d) ->
-              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
+              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.value).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div><div class="eliteavg">Elite: ' + Math.round(data.average) + ' ' + data.units + '</div>'
             )
             svg.call tip
             
@@ -192,7 +192,17 @@ angular.module('d3').directive 'groupedbarchart', [
                   else if d.value < 0
                     y(0)
                   else
-                    y(d.value)            
+                    y(d.value)   
+
+              #bold 0 as it is the center
+              svg.append('line')
+              .attr('x1', 0)
+              .attr('x2', (d) -> width)
+              .attr('y1', (d) -> y 0)
+              .attr('y2', (d) -> y 0)
+              .attr('class', 'zeroLine')
+              .attr('stroke-width', 2)
+              .attr('stroke', 'black')
 
             selectedElement = null
             date.selectAll('rect')

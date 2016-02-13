@@ -62,10 +62,6 @@ team logo detection and placement in upper-right
 Player Roster
   *Wants the roster to be able to extend down further
 
-Ben
-Trunk Rotation Foot contact should be yType = 3
-
-
 ****************** Ben - Meeting - *************************
 Feb 11th 2016
 
@@ -74,25 +70,6 @@ Player Comparison
 	*player comparison overview -
 	- the ‘Calculating thing’ what is going on with that?
 	it is a Race condition
-
-
-SNAP SHOTS + Kinetic Chain Table
-	* Sub filter, change to something more semantic
-	Game = Inning then pitch type
-	Longtoss = distance
-	Bullpen = pitch type
-	out of order
-	Inning First
-	then Pitch types
-
-TRENDS
-	-bolder line for the “0” line
-	for Y type2 , X axis on the zero
-	or Bold it in some way
-	
-  sub filters
-		- Innings above pitch type
-
 
 
 	player comparison

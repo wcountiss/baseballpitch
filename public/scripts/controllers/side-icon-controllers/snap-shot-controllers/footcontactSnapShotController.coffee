@@ -4,6 +4,7 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   ef = eliteFactory
   foot.filterType = '30'
   foot.subFilters = {}
+  foot.subFilterHeading = 'Pitch Type' 
 
 
   imageMap = {
@@ -21,20 +22,26 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
   }
 
   foot.filterSession = () ->
-    if !foot.filteredPitches
+    pitches = foot.sessions[foot.filteredPitchKey] || foot.currentPlayer.pitches
+    if !foot.filteredPitchKey
       _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = foot.stats.metricScores[eliteMetric.metric]
+      foot.subFilterHeading = 'Pitch Type'
+      foot.subTag1 = null
+      foot.subTag2 = null
     else
-      $stat.runStatsEngine(foot.filteredPitches)
+      $stat.runStatsEngine(pitches)
       .then (stats) ->
         _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
+         #if longtoss the filter is by distance
+        if foot.filteredPitchKey.split(':')[1] == 'Longtoss'
+          foot.subFilterHeading = 'Distance'
 
-    foot.subFilters.level1 = $pitch.uniquefilterTags(foot.filteredPitches, 1)    
-    foot.subFilters.level2 = $pitch.uniquefilterTags(foot.filteredPitches, 2)
+    foot.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)    
+    foot.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
 
   foot.subFilterChange = (sub, level) ->
     #get pitches filtered by session or 30 days
-    
-    pitches = foot.filteredPitches || foot.currentPlayer.pitches
+    pitches = foot.sessions[foot.filteredPitchKey] || foot.currentPlayer.pitches
     if foot.subTag1
       pitches = $pitch.filterTag(pitches, foot.subTag1, 1)
       #update the subfilter level 2

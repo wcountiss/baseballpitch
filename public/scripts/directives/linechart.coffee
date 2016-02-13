@@ -63,7 +63,7 @@ angular.module('d3').directive 'linechart', [
             tip = d3.tip()
             .attr('class', 'd3-tip')
             .html((d) ->
-              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.score).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div>'
+              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.score).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div><div class="eliteavg">Elite: ' + Math.round(data.average) + ' ' + data.units + '</div>'
             )
             svg.call tip
 
@@ -159,7 +159,15 @@ angular.module('d3').directive 'linechart', [
               .on("mouseout", (d) -> tip.hide())
               .on("mousemove", mousemove)
 
-              svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call xAxis
+              svg.append('g').attr('class', 'x axis')
+              .attr('transform',
+                if data.yType == 2
+                  'translate(0,' + y(0) + ')'
+                else
+                  'translate(0,' + height + ')'
+              )
+              .call xAxis
+
               svg.append('g').attr('class', 'y axis').call(yAxis).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '-4.3em').style('text-anchor', 'end').text data.units
 
         scope.$watch 'bind()', (-> updateChart()), false

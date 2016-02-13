@@ -52,7 +52,7 @@ angular.module('d3').directive 'barchart', [
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html (d) ->
-              return "<span>" + parseFloat(d.value).toFixed(0) + " Degrees/Second</span>";
+              return '<div>' + parseFloat(d.value).toFixed(0) + ' Degrees/Second</div><div class="eliteavg">Elite: ' + Math.round(d.average) + ' Degrees/Second</div>';
 
           # remove the last version and recreate 
           elementChildren = element[0].children
