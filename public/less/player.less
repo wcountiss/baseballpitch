@@ -140,8 +140,9 @@
   .scrollwarn {
     color: @motus-darkorange;
     text-align: center;
-    position: relative;
-    bottom: .5em;
+    position: absolute;
+    bottom: 1.5em;
+    left: 1.5em;
 
     .icon-uparrow {
       font-size: 2em;
@@ -151,6 +152,7 @@
   }
 
   .roster-list {
+    position: relative;
     background-color: #2b2f2e;
     display: flex;
     flex-direction: column;
@@ -198,11 +200,11 @@
       line-height:14px;
       list-style: none;
       padding-left: 0;
-      padding-bottom:32px;
+      margin-bottom: 0;
       width: 100%;
       color: #6c6d70;
       overflow: auto;
-      max-height: 360px;
+      max-height: 24.7em;
       li {
         cursor: pointer;
         padding-left: 40px;

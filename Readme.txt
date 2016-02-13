@@ -59,9 +59,6 @@ Player Comparison filters
 Tagging Throws on Tagging Chart
 team logo detection and placement in upper-right
 
-Player Roster
-  *Wants the roster to be able to extend down further
-
 ****************** Ben - Meeting - *************************
 Feb 11th 2016
 
