@@ -73,9 +73,6 @@ Player Comparison
 	- the ‘Calculating thing’ what is going on with that?
 	it is a Race condition
 
-Kinetic Chain Strength
-	* compress the height the chart to fit on screen
-	* MLB average line needs a little breathing room
 
 SNAP SHOTS + Kinetic Chain Table
 	* Sub filter, change to something more semantic
@@ -102,8 +99,6 @@ BEN’s Feedback Continues
 	player comparison
 		-visual
 			*scale down the pie charts
-			* if negative number, show 0 not -0
-			Math.round(-0.003)+0  is solution.
 			*doesn’t like the UX for comparison
 			*Back button to get out of comparison
 				-wants that back button to bring you

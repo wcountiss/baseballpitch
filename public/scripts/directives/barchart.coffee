@@ -136,7 +136,7 @@ angular.module('d3').directive 'barchart', [
              .enter()
               .append("text")
               .attr("y", (d) -> y(d.average))
-              .attr("x", (d) -> x(d.bar) + x.rangeBand()+25)
+              .attr("x", (d) -> x(d.bar) + x.rangeBand()+30)
               .attr("dy", ".3em")
               .style("text-anchor", "end")
               .attr('class', 'average average-text')
