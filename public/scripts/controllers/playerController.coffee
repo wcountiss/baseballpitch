@@ -79,7 +79,7 @@ angular.module('motus').controller('playerController',
                   rating: stats.metricScores[jointObj.metric].rating
                   score: 100
                   ratingScore: stats.metricScores[jointObj.metric].ratingScore
-                  opacity: 1
+                  filler: false
                   weight: 1
                   width: 1
                   order: 1

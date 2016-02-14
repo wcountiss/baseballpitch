@@ -26,7 +26,7 @@ angular.module('d3').directive 'piestats', [
           if angular.isDefined(attrs.height)
             height = attrs.height
           tip = d3.tip()
-          .attr('class', 'd3-tip')
+          .attr('class', 'd3-tip pie-tip')
           .html((d) ->
             '<div ng-if="!d.data.tooltip" class="tip-rating ' + d.data.tooltip + '">' + d.data.tooltip + '</div><div class="tip-rating ' + d.data.tooltip + '">' + d.data.label + '</div><br><div class="d3-tip-player">Player: ' + Math.round(d.data.playerscore) + '<span> ' + d.data.unitmeasure + '</span></div><br><div class="d3-tip-label">Elite: ' + Math.round(d.data.eliteval) + '<span> ' + d.data.unitmeasure + '</span></div>'
           )
@@ -44,8 +44,11 @@ angular.module('d3').directive 'piestats', [
           while i < elementChildren.length
             element[0].removeChild elementChildren[i]
             i++
-          svg = d3.select(element[0]).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+          svg = d3.select(element[0]).append('svg')
+          .attr('width', width).attr('height', height).append('g')
+          .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
           svg.call tip
+          
           if angular.isDefined(scope.bind())
             slices = scope.bind().length
             
@@ -63,7 +66,7 @@ angular.module('d3').directive 'piestats', [
                 'weight': 1
                 'score': 100
                 'label': ''
-                'opacity': 0
+                'filler': true
               i++
             data.forEach (d) ->
               d.order = +d.order
@@ -75,16 +78,21 @@ angular.module('d3').directive 'piestats', [
               return
             path = svg.selectAll('.solidArc').data(pie(data)).enter().append('path').attr('fill', (d) ->
               d.data.color
-            ).attr('class', 'solidArc').style('opacity', (d) ->
-              d.data.opacity
-            ).attr('d', arc).on('mouseover', (d) ->
-              
+            )
+            .attr('class', 'solidArc')
+            .style('opacity', (d) -> '0' if d.data.filler )
+            .attr('d', arc).on('mouseover', (d) ->
               # do not show tip if there is no slice
               if d.data.opacity != 0
                 tip.show d
               return
             ).on('mouseout', tip.hide)
-            svg.append('circle').attr('class', 'circle').attr('fill', 'white').attr('cx', 0).attr('cy', 0).attr 'r', 7
+            svg.append('circle')
+            .attr('class', 'circle')
+            .attr('fill', 'white')
+            .attr('cx', 0)
+            .attr('cy', 0)
+            .attr 'r', 7
           return
 
         scope.$watch 'bind()', (->

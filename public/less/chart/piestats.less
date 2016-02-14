@@ -1,19 +1,29 @@
-// .d3-tip-tooltip {
-//     color: green;
-//   }
+
 
 piestats{
+  z-index: 2;
+  transition: all 0.2s ease;
+  position: absolute;
+  transform: translate(-50%, -50%);
+
   svg {
+    transition: all 0.2s ease;
     padding-top: 11px;
     padding-left: 11px;
     width: 125px;
     height: 125px;
     right: 0;
 
+    &:hover {
+      transform: scale(1.2);
+    }
+
     .solidArc{
       transform: scale(0.85);
-      transform-origin: center;
-      opacity: .8;
+      -webkit-transform-origin: center;
+      -moz-transform-origin: 0 0;
+      // tranform-origin: 0 0;
+      opacity: .9;
       transition: all 0.2s ease;
       &:hover {
         transform: scale(1.2);
