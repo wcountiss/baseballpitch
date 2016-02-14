@@ -45,7 +45,9 @@ angular.module('d3').directive 'piestats', [
             element[0].removeChild elementChildren[i]
             i++
           svg = d3.select(element[0]).append('svg')
-          .attr('width', width).attr('height', height).append('g')
+          .attr('width', width)
+          .attr('height', height)
+          .append('g')
           .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
           svg.call tip
           
@@ -76,9 +78,12 @@ angular.module('d3').directive 'piestats', [
               d.width = +d.weight
               d.label = d.label
               return
-            path = svg.selectAll('.solidArc').data(pie(data)).enter().append('path').attr('fill', (d) ->
-              d.data.color
-            )
+            
+            path = svg.selectAll('.solidArc')
+            .data(pie(data))
+            .enter()
+            .append('path')
+            .attr('fill', (d) -> d.data.color)
             .attr('class', 'solidArc')
             .style('opacity', (d) -> '0' if d.data.filler )
             .attr('d', arc).on('mouseover', (d) ->
@@ -87,6 +92,7 @@ angular.module('d3').directive 'piestats', [
                 tip.show d
               return
             ).on('mouseout', tip.hide)
+            
             svg.append('circle')
             .attr('class', 'circle')
             .attr('fill', 'white')
