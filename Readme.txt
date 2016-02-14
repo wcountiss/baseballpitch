@@ -2,7 +2,7 @@ Motus
 End of Week 7
 
 General
-Fix Firefox
+Fix Firefox - transform-origin acts differently
 comparison:visual - tool tips to float a little higher for IPAD
 
 Heroku Setup

@@ -1,7 +1,7 @@
 'use strict'
 angular.module('d3').directive 'piestats', [
-  'd3'
-  (d3) ->
+  'd3', '$timeout'
+  (d3, $timeout) ->
     {
       restrict: 'E'
       scope:
@@ -25,11 +25,13 @@ angular.module('d3').directive 'piestats', [
             width = attrs.width
           if angular.isDefined(attrs.height)
             height = attrs.height
+          
           tip = d3.tip()
           .attr('class', 'd3-tip pie-tip')
           .html((d) ->
             '<div ng-if="!d.data.tooltip" class="tip-rating ' + d.data.tooltip + '">' + d.data.tooltip + '</div><div class="tip-rating ' + d.data.tooltip + '">' + d.data.label + '</div><br><div class="d3-tip-player">Player: ' + Math.round(d.data.playerscore) + '<span> ' + d.data.unitmeasure + '</span></div><br><div class="d3-tip-label">Elite: ' + Math.round(d.data.eliteval) + '<span> ' + d.data.unitmeasure + '</span></div>'
           )
+
           pie = d3.layout.pie().sort(null).value((d) ->
             d.width
           )
@@ -49,7 +51,10 @@ angular.module('d3').directive 'piestats', [
           .attr('height', height)
           .append('g')
           .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-          svg.call tip
+          
+          $timeout () ->
+            svg.call tip
+          ,1
           
           if angular.isDefined(scope.bind())
             slices = scope.bind().length
