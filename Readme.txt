@@ -1,11 +1,15 @@
 Motus
-End of Week 7
-
-General
-comparison:visual - tool tips to float a little higher for IPAD
-
+End of Week 8
 Heroku Setup
 DNS
+
+player comparison
+	Back button to get out of comparison
+		-wants that back button to bring you
+		back to the last State you were in
+
+IE 11 UI
+IPad UI
 
 
 
@@ -45,7 +49,6 @@ Comparison
 --end IE11 win 8.1------------------------------------
 
 
-
 Extras
 Faster Load - 90 days on load, 365 on chart
 Error Handling
@@ -57,17 +60,4 @@ Add Google Analytics
 Player Comparison filters
 Tagging Throws on Tagging Chart
 team logo detection and placement in upper-right
-
-****************** Ben - Meeting - *************************
-Feb 11th 2016
-
-
-Player Comparison
-	player comparison
-		-visual
-			*Back button to get out of comparison
-				-wants that back button to bring you
-				back to the last State you were in
-
-************** End Feb 11th Meeting ************************
 
