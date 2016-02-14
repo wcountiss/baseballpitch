@@ -124,7 +124,7 @@ angular.module('motus').controller('playerController',
           pc.currentPlayer.shldRotIcon = Math.round(stats.shoulder[8].stats.score)
           pc.currentPlayer.shldRotIconStatus = stats.shoulder[8].rating
 
-          if $state.current.name == 'player.home.trends'
+          if $state.current.name == 'player.home.trends' || $state.current.name == 'player.comparison.overview'
             loadChart(pc.currentPlayer)
 
 

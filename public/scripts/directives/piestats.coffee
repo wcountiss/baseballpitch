@@ -51,10 +51,8 @@ angular.module('d3').directive 'piestats', [
           .attr('height', height)
           .append('g')
           .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-          
-          $timeout () ->
-            svg.call tip
-          ,1
+    
+          svg.call tip
           
           if angular.isDefined(scope.bind())
             slices = scope.bind().length

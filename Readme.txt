@@ -2,7 +2,6 @@ Motus
 End of Week 7
 
 General
-Fix Firefox - transform-origin acts differently
 comparison:visual - tool tips to float a little higher for IPAD
 
 Heroku Setup
@@ -64,11 +63,6 @@ Feb 11th 2016
 
 
 Player Comparison
-	*player comparison overview -
-	- the ‘Calculating thing’ what is going on with that?
-	it is a Race condition
-
-
 	player comparison
 		-visual
 			*Back button to get out of comparison

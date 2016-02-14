@@ -1,7 +1,7 @@
 <h4>{{pc.currentPlayer.athleteProfile.firstName}} {{pc.currentPlayer.athleteProfile.lastName}}</h4>
-<div class="flex-container">
+<div class="flex-container" ng-if="pc.currentPlayer.stats.overallScore.ratingScore">
   <div>
-    <span class="overall-percentage">{{pc.currentPlayer.playerScores[0].score | rounded}}%</span>
+    <span class="overall-percentage">{{pc.currentPlayer.stats.overallScore.ratingScore | rounded}}%</span>
   </div>
   <div class="flex-container-col overall-text">
     <span>Overall</span>
@@ -11,11 +11,11 @@
 
 <div class="awardment">
   <span ng-class="{
-          'overall-good': pc.currentPlayer.playerScores[0].overall == 'Good',
-          'overall-ok': pc.currentPlayer.playerScores[0].overall == 'OK',
-          'overall-poor': pc.currentPlayer.playerScores[0].overall == 'Poor'
+          'overall-good': pc.currentPlayer.stats.overallScore.rating == 'Good',
+          'overall-ok': pc.currentPlayer.stats.overallScore.rating == 'OK',
+          'overall-poor': pc.currentPlayer.stats.overallScore.rating == 'Poor'
           }">
-    {{pc.currentPlayer.playerScores[0].overall}}
+    {{pc.currentPlayer.stats.overallScore.rating}}
   </span>
 </div>
 

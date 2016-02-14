@@ -1,6 +1,6 @@
 angular.module('motus').filter 'rounded', ->
   (text) ->
     if text == undefined
-      return "Calculating.."
+      return ""
     else
-    Math.round text
+      Math.round text
