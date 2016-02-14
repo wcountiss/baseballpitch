@@ -9,7 +9,7 @@ player comparison
 		back to the last State you were in
 
 IE 11 UI
-IPad UI
+IPad UI - d3 tip should be higher
 
 
 
