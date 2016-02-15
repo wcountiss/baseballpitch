@@ -1,10 +1,13 @@
-angular.module('motus').controller 'footcontactSnapShotController', ['currentPlayerFactory','eliteFactory', '$pitch', '$stat', '$q',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q) ->
+angular.module('motus').controller 'footcontactSnapShotController', ['currentPlayerFactory','eliteFactory', '$pitch', '$stat', '$q','$locHistory',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q, $locHistory) ->
   foot = this
   cpf = currentPlayerFactory
   ef = eliteFactory
   foot.filterType = '30'
   foot.subFilters = {}
   foot.subFilterHeading = 'Pitch Type' 
+
+  #GET CURRENT LOCATION
+  $locHistory.lastLocation()
 
 
   imageMap = {

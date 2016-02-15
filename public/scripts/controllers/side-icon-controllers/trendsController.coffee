@@ -1,8 +1,9 @@
-angular.module('motus').controller 'trendsController', ['$scope', '$q','currentPlayerFactory','eliteFactory', '$pitch', '$stat',($scope, $q, currentPlayerFactory, eliteFactory, $pitch, $stat) ->
+angular.module('motus').controller 'trendsController', ['$scope', '$q','currentPlayerFactory','eliteFactory', '$pitch', '$stat','$locHistory',($scope, $q, currentPlayerFactory, eliteFactory, $pitch, $stat, $locHistory) ->
 
   trends = this
   cpf = currentPlayerFactory
   ef = eliteFactory
+  $locHistory.lastLocation()
   
   tags = ['Longtoss', 'Bullpen', 'Game', 'Untagged']
 

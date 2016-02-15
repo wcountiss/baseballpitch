@@ -1,4 +1,4 @@
-angular.module('motus').controller 'jointKineticsController', ['currentPlayerFactory','eliteFactory','$pitch','$stat','$q',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q) ->
+angular.module('motus').controller 'jointKineticsController', ['currentPlayerFactory','eliteFactory','$pitch','$stat','$q','$locHistory',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q, $locHistory) ->
   # self reference
   joint = this
   # grab factory data
@@ -7,6 +7,8 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   joint.filterType = '30'
   joint.subFilters = {}
   joint.subFilterHeading = 'Pitch Type'
+
+  $locHistory.lastLocation()
    
 
 

@@ -1,10 +1,13 @@
-angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPlayerFactory','eliteFactory', '$pitch', '$stat', '$q',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q) ->
+angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPlayerFactory','eliteFactory', '$pitch', '$stat', '$q','$locHistory',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q, $locHistory) ->
   ball = this
   cpf = currentPlayerFactory
   ef = eliteFactory
   ball.filterType = '30'
   ball.subFilters = {}
-  ball.subFilterHeading = 'Pitch Type' 
+  ball.subFilterHeading = 'Pitch Type'
+  
+  #GET CURRENT LOCATION
+  $locHistory.lastLocation()
 
   imageMap = {
     "fingertipVelocityRelease": "images/legend/BR_FingertipSpeed.jpg",

@@ -138,8 +138,7 @@ angular.module('motus').controller('playerController',
           loadChart(pc.currentPlayer)
           $state.go('player.comparison.overview')
         else
-          $state.go('player.home.overview')
-          console.log("STATE OBJ:",$state)
+          $state.go($state.lastloc)
 
       pc.setComparison = (player) ->
         getPlayerStats(player)

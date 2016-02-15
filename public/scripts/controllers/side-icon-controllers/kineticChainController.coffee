@@ -1,8 +1,8 @@
-angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlayerFactory', 'eliteFactory', '$pitch', '$stat' , ($q, currentPlayerFactory, eliteFactory, $pitch, $stat) ->
+angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlayerFactory', 'eliteFactory', '$pitch', '$stat', '$locHistory',($q, currentPlayerFactory, eliteFactory, $pitch, $stat, $locHistory) ->
   chain = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-  
+  $locHistory.lastLocation()
 
   color = {
     "Poor": '#f90b1c'

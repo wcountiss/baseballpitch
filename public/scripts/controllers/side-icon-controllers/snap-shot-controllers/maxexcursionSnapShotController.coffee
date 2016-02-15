@@ -1,10 +1,12 @@
-angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPlayerFactory','eliteFactory','$pitch','$stat', '$q',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q) ->
+angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPlayerFactory','eliteFactory','$pitch','$stat', '$q','$locHistory',(currentPlayerFactory, eliteFactory, $pitch, $stat, $q, $locHistory) ->
   max = this
   cpf = currentPlayerFactory
   ef = eliteFactory
   max.filterType = '30'
   max.subFilters = {}
   max.subFilterHeading = 'Pitch Type' 
+
+  $locHistory.lastLocation()
 
 
   imageMap = {
