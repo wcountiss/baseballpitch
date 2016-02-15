@@ -5,6 +5,7 @@ angular.module('motus').controller('playerController',
 
       pc = this
       pc.state = $state
+      pc.statelast = $state
       pc.filterType = '30'
 
 
@@ -138,6 +139,7 @@ angular.module('motus').controller('playerController',
           $state.go('player.comparison.overview')
         else
           $state.go('player.home.overview')
+          console.log("STATE OBJ:",$state)
 
       pc.setComparison = (player) ->
         getPlayerStats(player)

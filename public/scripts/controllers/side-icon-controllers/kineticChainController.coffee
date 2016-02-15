@@ -2,6 +2,7 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
   chain = this
   cpf = currentPlayerFactory
   ef = eliteFactory
+  
 
   color = {
     "Poor": '#f90b1c'

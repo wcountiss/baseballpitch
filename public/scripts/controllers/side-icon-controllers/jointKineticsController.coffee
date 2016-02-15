@@ -6,7 +6,8 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
   ef = eliteFactory
   joint.filterType = '30'
   joint.subFilters = {}
-  joint.subFilterHeading = 'Pitch Type' 
+  joint.subFilterHeading = 'Pitch Type'
+   
 
 
   imageMap = {

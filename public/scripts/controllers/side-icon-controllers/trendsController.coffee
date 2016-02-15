@@ -3,7 +3,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
   trends = this
   cpf = currentPlayerFactory
   ef = eliteFactory
-
+  
   tags = ['Longtoss', 'Bullpen', 'Game', 'Untagged']
 
   #default all checked

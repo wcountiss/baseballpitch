@@ -2,7 +2,7 @@ angular.module('motus').controller 'kineticStrengthController', ['$q', 'currentP
   strength = this
   ef = eliteFactory
   cpf = currentPlayerFactory
-
+  
   color = {
     "Poor": '#f90b1c'
     "OK": '#ffaa22'

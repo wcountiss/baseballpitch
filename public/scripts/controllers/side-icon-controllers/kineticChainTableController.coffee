@@ -5,7 +5,7 @@ angular.module('motus').controller 'kineticChainTableController', ['currentPlaye
   cpf = currentPlayerFactory
   ef = eliteFactory
   table.filterType = '30'
-
+  
 
   imageMap = {
     "peakHipSpeed": "images/legend/T_HipSpeed.jpg",
