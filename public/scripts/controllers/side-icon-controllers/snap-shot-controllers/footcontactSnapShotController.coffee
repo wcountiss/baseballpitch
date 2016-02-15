@@ -26,18 +26,19 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
 
   foot.filterSession = () ->
     pitches = foot.sessions[foot.filteredPitchKey] || foot.currentPlayer.pitches
+    foot.subTag1 = null
+    foot.subTag2 = null
     if !foot.filteredPitchKey
       _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = foot.stats.metricScores[eliteMetric.metric]
       foot.subFilterHeading = 'Pitch Type'
-      foot.subTag1 = null
-      foot.subTag2 = null
     else
       $stat.runStatsEngine(pitches)
       .then (stats) ->
         _.each foot.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
-         #if longtoss the filter is by distance
-        if foot.filteredPitchKey.split(':')[1] == 'Longtoss'
-          foot.subFilterHeading = 'Distance'
+      
+      #if longtoss the filter is by distance
+      foot.subFilterHeading =  if foot.filteredPitchKey.split(':')[1] == 'Longtoss' then 'Distance' else 'Pitch Type'
+
 
     foot.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)    
     foot.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)

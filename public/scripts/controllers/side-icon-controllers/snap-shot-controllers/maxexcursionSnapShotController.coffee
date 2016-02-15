@@ -18,18 +18,19 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
 
   max.filterSession = () ->
     pitches = max.sessions[max.filteredPitchKey] || max.currentPlayer.pitches
+    max.subTag1 = null
+    max.subTag2 = null
     if !max.filteredPitchKey
       _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = max.stats.metricScores[eliteMetric.metric]
       max.subFilterHeading = 'Pitch Type'
-      max.subTag1 = null
-      max.subTag2 = null
     else
       $stat.runStatsEngine(pitches)
       .then (stats) ->
         _.each max.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
-         #if longtoss the filter is by distance
-        if max.filteredPitchKey.split(':')[1] == 'Longtoss'
-          max.subFilterHeading = 'Distance'
+      
+      #if longtoss the filter is by distance
+      max.subFilterHeading =  if max.filteredPitchKey.split(':')[1] == 'Longtoss' then 'Distance' else 'Pitch Type'
+
 
     max.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)    
     max.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)

@@ -25,19 +25,18 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
 
   ball.filterSession = () ->
     pitches = ball.sessions[ball.filteredPitchKey] || ball.currentPlayer.pitches
+    ball.subTag1 = null
+    ball.subTag2 = null
     if !ball.filteredPitchKey
       _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = ball.stats.metricScores[eliteMetric.metric]
       ball.subFilterHeading = 'Pitch Type'
-      ball.subTag1 = null
-      ball.subTag2 = null
     else
       $stat.runStatsEngine(pitches)
       .then (stats) ->
         _.each ball.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
 
       #if longtoss the filter is by distance
-      if ball.filteredPitchKey.split(':')[1] == 'Longtoss'
-        ball.subFilterHeading = 'Distance'
+      ball.subFilterHeading =  if ball.filteredPitchKey.split(':')[1] == 'Longtoss' then 'Distance' else 'Pitch Type'
 
     ball.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)    
     ball.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)

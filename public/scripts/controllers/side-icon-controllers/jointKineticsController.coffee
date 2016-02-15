@@ -22,18 +22,19 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
 
   joint.filterSession = () ->
     pitches = joint.sessions[joint.filteredPitchKey] || joint.currentPlayer.pitches
+    joint.subTag1 = null
+    joint.subTag2 = null
     if !joint.filteredPitchKey
       _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = joint.stats.metricScores[eliteMetric.metric]
       joint.subFilterHeading = 'Pitch Type'
-      joint.subTag1 = null
-      joint.subTag2 = null
     else
       $stat.runStatsEngine(pitches)
       .then (stats) ->
         _.each joint.eliteMetrics, (eliteMetric) -> eliteMetric.pstats = stats.metricScores[eliteMetric.metric]
-         #if longtoss the filter is by distance
-        if joint.filteredPitchKey.split(':')[1] == 'Longtoss'
-          joint.subFilterHeading = 'Distance'
+      
+      #if longtoss the filter is by distance
+      joint.subFilterHeading =  if joint.filteredPitchKey.split(':')[1] == 'Longtoss' then 'Distance' else 'Pitch Type'
+
 
     joint.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)    
     joint.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
