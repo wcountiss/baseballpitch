@@ -37,7 +37,7 @@ angular.module('motus').controller('playerController',
           .then (stats) ->
             #map overall score per month
             scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore, overall: stats[i].overallScore.rating}
-            
+
             player.playerScores = scores
 
 
@@ -70,10 +70,10 @@ angular.module('motus').controller('playerController',
           joints = ['ELBOW', 'TRUNK', 'SHOULDER', 'HIP', 'FOOT']
 
           player.stats = _.extend(player.stats, stats)
-          
+
           _.each joints, (joint) ->
             jointArray = []
-            jointObjs = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == joint                    
+            jointObjs = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == joint
             _.each jointObjs, (jointObj)->
               jointArray.push({
                   stats: stats.metricScores[jointObj.metric]
@@ -147,6 +147,10 @@ angular.module('motus').controller('playerController',
           loadChart(pc.comparedPlayer)
           myState = $state.current.name
           $state.reload(myState)
+
+      pc.removeComparison = () ->
+        pc.comparedPlayer = undefined
+
 
       #Page Load
       loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), getPlayers()]
