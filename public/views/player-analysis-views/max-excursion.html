@@ -2,7 +2,7 @@
   <div class="main-bg-max-ex">
     <div class="flex-container-row">
       <div class="flex-container-col">
-        <h2 class="large-flexitem">Max Excursion</h2>
+        <h2 class="large-flexitem">Max Angles</h2>
       </div>
       <div class="flex-container-col subFilters">
         <div>
@@ -44,7 +44,7 @@
             <td class="capitalize">{{::eliteMetric.title}}</td>
             <td ng-if="eliteMetric.pstats.rating=='Exceed'"><span class="icon-uparrow good"></span></td>
             <td ng-if="eliteMetric.pstats.score==null"></td>
-            <td ng-if="eliteMetric.pstats.rating=='OK'"><span class="icon-okarrow ok"></span></td>
+            <td ng-if="eliteMetric.pstats.rating=='OK'"><span class="icon-downarrow ok"></span></td>
             <td ng-if="eliteMetric.pstats.rating=='Good'"><span class="icon-okarrow good"></span></td>
             <td ng-if="eliteMetric.pstats.rating=='Poor'"><span class="icon-downarrow"></span></td>
           </tr>
