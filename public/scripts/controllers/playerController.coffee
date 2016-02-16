@@ -20,7 +20,7 @@ angular.module('motus').controller('playerController',
           #in the roster the completed obj like pc.currentPlayer
 
           pc.playerRoster = players
-          if (pc.playerRoster.length > 7)
+          if (pc.playerRoster.length > 5)
             pc.overflowCheck = true;
 
       loadChart = (player) ->

@@ -59,7 +59,11 @@ angular.module('motus').controller 'kineticChainTableController', ['currentPlaye
           'footContactTime',
           'pitchTime'
           ]
-    table.eliteMetrics = _.filter results[0], (metric) -> _.contains(metricArray, metric.metric)
+    eliteMetrics = _.filter results[0], (metric) -> _.contains(metricArray, metric.metric)
+    _.each metricArray , (metricName, i) ->
+      thisMetric = _.find eliteMetrics, (eliteMetric) -> eliteMetric.metric == metricName
+      thisMetric = _.extend(thisMetric, {order: i})
+    table.eliteMetrics = _.sortBy eliteMetrics, 'order'
     table.currentPlayer = cpf.currentPlayer 
     $stat.runStatsEngine(table.currentPlayer.pitches).then (stats) ->
       table.stats = stats
