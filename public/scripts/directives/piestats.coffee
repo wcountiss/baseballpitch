@@ -91,7 +91,7 @@ angular.module('d3').directive 'piestats', [
             .style('opacity', (d) -> '0' if d.data.filler )
             .attr('d', arc).on('mouseover', (d) ->
               # do not show tip if there is no slice
-              if d.data.opacity != 0
+              if !d.data.filler
                 tip.show d
               return
             ).on('mouseout', tip.hide)
