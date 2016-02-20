@@ -106,8 +106,8 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
       foot.setfilterCount(foot.currentPlayer.pitches, 'Untagged')
 
     #set subFilters
-    foot.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)
-    foot.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
+    foot.subFilters.level1 = $pitch.uniquefilterTags(foot.currentPlayer.pitches, 1)
+    foot.subFilters.level2 = $pitch.uniquefilterTags(foot.currentPlayer.pitches, 2)
 
   return foot
 ]

@@ -101,8 +101,8 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
       ball.setClickedRow(ball.eliteMetrics[cpf.ballMetricsIndex], cpf.ballMetricsIndex)
 
     #set subFilters
-    ball.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)
-    ball.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
+    ball.subFilters.level1 = $pitch.uniquefilterTags(ball.currentPlayer.pitches, 1)
+    ball.subFilters.level2 = $pitch.uniquefilterTags(ball.currentPlayer.pitches, 2)
 
 
   return ball

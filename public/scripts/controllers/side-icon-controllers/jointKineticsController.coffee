@@ -104,8 +104,8 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
       joint.setfilterCount(joint.currentPlayer.pitches, 'Untagged')
 
     #set subFilters
-    joint.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)
-    joint.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
+    joint.subFilters.level1 = $pitch.uniquefilterTags(joint.currentPlayer.pitches, 1)
+    joint.subFilters.level2 = $pitch.uniquefilterTags(joint.currentPlayer.pitches, 2)
 
   return joint
 ]

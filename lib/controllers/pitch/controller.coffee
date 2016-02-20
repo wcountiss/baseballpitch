@@ -27,7 +27,7 @@ getTeamMembers = (currentUser) ->
     return new Promise(teamMembers)
 
   #Security, you only have access to your team's althletes
-  return database.find('TeamMember', {equal: { team: currentUser.MTTeams}})  
+  return database.find('MTTeamMember', {equal: { team: currentUser.MTTeams}})  
 
 
 module.exports.find = (req, res) ->
@@ -70,7 +70,7 @@ module.exports.find = (req, res) ->
     _.each athleteProfiles, (athleteProfile) ->
         _.times getNumberofPages, (pageNum) ->
             #Find by AthleteProfileIds
-            pitchPromises.push database.find('Pitch', { 
+            pitchPromises.push database.find('MPPitch', { 
               equal: { 'athleteProfile': athleteProfile}, 
               greater: { 'pitchDate': moment().add(-daysBack,'d').toDate() },
               page: pageNum,
@@ -189,7 +189,7 @@ module.exports.findPitchTimingByAtheleteProfileId = (req, res) ->
     athleteProfile = _.find athleteProfiles, (ap) -> ap.objectId == req.body.athleteProfileId
     _.times getNumberofPages, (pageNum) ->
         #Find by AthleteProfileIds
-        pitchPromises.push database.find('Pitch', { 
+        pitchPromises.push database.find('MPPitch', { 
           equal: { 'athleteProfile': athleteProfile}, 
           greater: { 'pitchDate': moment().add(-daysBack,'d').toDate() },
           page: pageNum,

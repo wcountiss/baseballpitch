@@ -16,8 +16,8 @@ var browserify = require('gulp-browserify'),
     
 gulp.task('server', function () {
   var options = {env: process.env};
-  options.env.PARSE_APP_ID= process.env.PARSE_APP_ID || 'ALJhzeUWvXCauUXacwFjEIsjghkx1ZnZoCV0dhye',
-  options.env.PARSE_JS_KEY=process.env.PARSE_JS_KEY || 'pCl0dZbm1RtPBXaG0hHnzWH1mjHCiSFP1u5akmw7',
+  options.env.PARSE_APP_ID= process.env.PARSE_APP_ID || 'P1ihKsSXJAs8slk5d6L3bPLaiezLeZnLwjMNjBkS',
+  options.env.PARSE_JS_KEY=process.env.PARSE_JS_KEY || 'Gcz7su18kkgG58TQudxRIyhsAcVjZmm2cGyVvI7d',
   options.env.JWT_PASS=process.env.JWT_PASS || 'shhhhh',
   options.env.COOKIE_PASS=process.env.COOKIE_PASS || 'shhhhhhhhhh'
   options.env.ENCRYPT_PASSWORD=process.env.ENCRYPT_PASSWORD || 'shhhhhhhhh'

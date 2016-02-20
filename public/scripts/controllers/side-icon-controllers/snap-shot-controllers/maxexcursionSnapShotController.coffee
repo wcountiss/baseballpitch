@@ -98,8 +98,8 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
       max.setfilterCount(max.currentPlayer.pitches, 'Untagged')
 
     #set subFilters
-    max.subFilters.level1 = $pitch.uniquefilterTags(pitches, 1)
-    max.subFilters.level2 = $pitch.uniquefilterTags(pitches, 2)
+    max.subFilters.level1 = $pitch.uniquefilterTags(max.currentPlayer.pitches, 1)
+    max.subFilters.level2 = $pitch.uniquefilterTags(max.currentPlayer.pitches, 2)
 
 
   return max
