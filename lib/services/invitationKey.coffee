@@ -20,9 +20,7 @@ module.exports.checkUsersKey = (users) ->
       #add error if invitation Key is not right
       _.each users, (user) ->
         invitationKey = _.find invitationKeys, (invitationKey) -> 
-          console.log invitationKey.userLink
-          console.log user.id
-          invitationKey.userLink == user.id
+          invitationKey.userLink.objectId == user.id
         
         if !invitationKey
           user.invitationKeyError = { error: 'missingInvitationKey' } 

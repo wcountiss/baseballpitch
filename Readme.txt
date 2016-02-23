@@ -4,6 +4,7 @@ To Start:
 npm start
 
 License Keys
+Check key on middleware
 User Enter Invitation Parse Save - test
 Player Enter Invitation Parse Save - test
 
