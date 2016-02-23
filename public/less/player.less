@@ -1,3 +1,142 @@
+// LICENCE KEY BOX
+.cover {
+  position: absolute;
+  width: 65px;
+  top: 108px;
+  bottom: 180px;
+  right: 23px;
+  background: @charcoalgray;
+  z-index: 3;
+}
+
+
+.login-box-outter {
+  position: absolute;
+  width: 35em;
+  height: 35em;
+  text-align: center;
+  z-index: 4;
+  top: calc(40vh - (35em / 2));
+  left: calc(50vw - (35em / 2)); 
+
+  h1 {
+    color: white;
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+    padding: 0 2em 0 2em;
+    color: @motus-blue;
+  }
+}
+
+.login-padding-box {
+            padding: 0.571em 0.571em 0.571em 0.571em;
+            display: flex;
+            width: 100%;
+            .login-box {
+              background-color: #4d4d4d;
+              width:100%;
+              height: 29.786em;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              form {
+                display: flex;
+                flex-direction: column;
+                .login-input-email {
+                  ::-webkit-input-placeholder {
+                    color: #2e2e2e;
+                  }
+
+                  :-moz-placeholder { /* Firefox 18- */
+                    color: #2e2e2e;
+                  }
+
+                  ::-moz-placeholder {  /* Firefox 19+ */
+                    color: #2e2e2e;
+                  }
+
+                  :-ms-input-placeholder {
+                    color: #2e2e2e;
+                  }
+                  input {
+                    width:100%;
+                    height:4.286em;
+                    margin-bottom:3.571em;
+                    border:none;
+                    border-bottom: 0.214em solid @motus-lightorange;
+                  }
+                  input[placeholder] {
+                    padding-left:1.429em;
+                    font-size:1.143em;
+                  }
+                }
+                .login-input-password {
+                  ::-webkit-input-placeholder {
+                    color: #2e2e2e;
+                  }
+
+                  :-moz-placeholder { /* Firefox 18- */
+                    color: #2e2e2e;
+                  }
+
+                  ::-moz-placeholder {  /* Firefox 19+ */
+                    color: #2e2e2e;
+                  }
+
+                  :-ms-input-placeholder {
+                    color: #2e2e2e;
+                  }
+                  input {
+                    width: 19.5em;
+                    height: 4.286em;
+                    margin-bottom:3.571em;
+                    border:none;
+                    border-bottom: 0.214em solid #e77127;
+                  }
+                  input[placeholder] {
+                    padding-left:1.429em;
+                    font-size:1.143em;
+                  }
+                }
+                input[type="submit"] {
+                  transition: all 0.2s ease-out;
+                  background-color: @motus-lightorange;
+                  border:none;
+                  height: 4.286em;
+                  width: 17.5em;
+                  color: #ffffff;
+                  letter-spacing: 0.071em;
+                  font-size: 1.286em;
+                  &:hover {
+                    background-color: darken(@motus-darkorange, 10%);
+                  }
+                }
+              }
+              .forgot-password {
+                margin-top:1.071em;
+                display: flex;
+                width: 22.5em;
+
+                a {
+                  color: #ffffff;
+                  &:hover {
+
+                  }
+                }
+              }
+              .login-error{
+                color: @motus-red;
+              }
+            }
+          }
+
+// END LICENCE KEY BOX
+
+
 #player {
 
   /*****************************************************************
@@ -557,6 +696,7 @@
 
   /* Medium Devices, Desktops */
   @media (max-width: 1024px) {
+
     .nested-view .pitcher-silhouette piestats {
       transform: translate(-50%, -50%) scale(.75) ;
     }

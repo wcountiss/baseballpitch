@@ -1,3 +1,55 @@
+<!-- BEGIN LICENSING BOX -->
+<div class="login-box-outter" ng-if="true">
+          <div class="login-padding-box">
+            
+            <div class="login-box">
+
+              <!-- EXPIRED MESSAGING -->
+              <div>
+                <h1>EXPIRED KEY</h1>
+                <p class="login-error">Your Player Invitation Key has expired.<br>Please contact your Motus representative<br>or enter a new key below.</p>
+                <p>Expiration Date:</p>
+              </div>
+               <!-- END EXPIRED MESSAGING -->
+
+               <!-- INVALID MESSAGING -->
+              <!-- <div>
+                <h1>INVALID KEY</h1>
+                <p class="login-error">The key you entered does not exist, or is mis-spelled.<br>Please try again.</p>
+              </div> -->
+               <!-- END INVALID MESSAGING -->
+
+               <!-- KEY IN USE MESSAGING -->
+              <!-- <div>
+                <h1>KEY IN USE</h1>
+                <p class="login-error">The key you entered is already being used by another account.<br>Please enter a different key.</p>
+              </div> -->
+               <!-- KEY IN USE MESSAGING -->
+
+              
+              <form ng-submit="ctrl.login()">
+                <div class="login-input-password">
+                  <input type="text" placeholder="Invitation Key" required>
+                </div>
+
+                <div class="login-buttons">
+                  <input type="submit" id="submit" value="Validate this player key">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- BEGIN COVER -->
+        <div class="cover"></div>
+        <!-- END COVER -->
+
+<!-- END LICENSING BOX -->
+
+
+
+
+
 <div id="player">
   <div class="player-box-shadow">
     <div class="padding-box">
