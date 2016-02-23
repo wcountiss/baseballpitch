@@ -13,7 +13,6 @@ app.use(cookieParser(process.env.COOKIE_PASS))
 #Parse Body for posts
 app.use(bodyParser.json())
 
-
 #load up routers
 require('./routes')(app)
 

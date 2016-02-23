@@ -79,7 +79,7 @@ gulp.task('watch', ['clean'], function () {
 
 gulp.task('url', function(){
   gulp.src(__filename)
-  .pipe(wait(3000))
+  .pipe(wait(4000))
   .pipe(open({uri: 'http://localhost:2001'}));
 });
 
