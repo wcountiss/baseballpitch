@@ -1,8 +1,8 @@
 <!-- BEGIN LICENSING BOX -->
-<div class="login-box-outter" ng-if="true">
+<div class="login-box-outter" ng-if="pc.currentPlayer.invitationKeyError">
           <div class="login-padding-box">
             
-            <div ng-if="pc.currentPlayer.invitationKeyError" class="login-box">
+            <div class="login-box">
 
               <!-- EXPIRED MESSAGING -->
               <div ng-if="pc.currentPlayer.invitationKeyError.error=='expiredInvitationKey'">
@@ -41,7 +41,7 @@
         </div>
 
         <!-- BEGIN COVER -->
-        <div class="cover"></div>
+    <!--     <div class="cover"></div> -->
         <!-- END COVER -->
 
 <!-- END LICENSING BOX -->
