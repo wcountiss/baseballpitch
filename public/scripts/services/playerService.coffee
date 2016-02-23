@@ -16,6 +16,8 @@ angular.module('motus').service('$player', ['$http', '$q', '$stat', '$pitch', ($
         players = $stat.getPlayersDidThrowType(players)
         ps.playerRoster = players
         defer.resolve(players)
+      .catch (error) ->
+        defer.reject(error)
       return defer.promise
 
   return ps

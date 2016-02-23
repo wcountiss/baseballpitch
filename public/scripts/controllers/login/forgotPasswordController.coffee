@@ -9,6 +9,7 @@ angular.module('motus').controller('forgotPasswordController',
         $state.go('login')
       .error (error) ->
         console.log error
+        $state.go('error')
 
     return ctrl
 ])      

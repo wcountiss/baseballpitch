@@ -50,6 +50,8 @@ module.exports.find = (collectionName, query, options) ->
       (results) ->
         if !options?.noParse
           results = parseObjecttoObject(results) 
+        if options?.findOne
+          results = results[0]
         resolve results, 
       (error) -> 
         console.log error
@@ -68,4 +70,21 @@ module.exports.save = (collectionName, data) ->
       (error) -> 
         reject new Error(error.message)
     )
+
+#generic update method
+module.exports.update = (collectionName, data) ->
+  #get the object with relations
+  module.exports.find(collectionName, { equal: { objectId: data.objectId} }, { noParse: true })
+  .then (parseObject) ->
+    #loop through keys and update each one
+    _.each _.keys(data), (key) ->
+      parseObject.set(key, data[key]);
+    return new Promise (resolve, reject) ->
+      parseObject.save(parseObject)
+      .then (
+        (success) -> 
+          resolve success, 
+        (error) -> 
+          reject new Error(error.message)
+      )
 

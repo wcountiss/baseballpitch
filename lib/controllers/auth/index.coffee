@@ -10,4 +10,8 @@ router.post '/logIn', controller.logIn
 #req.body.email
 router.post '/forgotPassword', controller.forgotPassword
 
+#add/Update Invitation Key
+#req.body.email req.body.password req.body.invitationKey
+router.post '/assignInvitationKey', controller.assignInvitationKey
+
 module.exports = router

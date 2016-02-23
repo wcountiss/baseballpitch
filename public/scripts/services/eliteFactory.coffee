@@ -18,6 +18,8 @@ angular.module('motus').factory 'eliteFactory', [ '$http', '$q', ($http, $q) ->
           metric.title = _.humanize(metric.metric)
         cachedMetrics = ef.metrics
         defer.resolve(ef.metrics)
+      .catch (error) ->
+        defer.reject(error)
       return defer.promise
   
   # return the factory object

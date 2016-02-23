@@ -15,7 +15,10 @@ app.service 'initService', ($q, eliteFactory, $player) ->
   return {
     cache: () ->
       cachedPromises = [eliteFactory.getEliteMetrics(), $player.getPlayers()]
-      return $q.all(cachedPromises)
+      $q.all(cachedPromises)
+      .catch (error) ->
+        console.log error
+        throw error
   }
 
 app.config ($stateProvider, $urlRouterProvider) ->
@@ -28,6 +31,11 @@ app.config ($stateProvider, $urlRouterProvider) ->
     url: "/login",
     templateUrl: "views/login/login.html",
     controller: 'loginController as ctrl'
+    authenticate: false
+  })
+  .state('error', {
+    url: "/error",
+    templateUrl: "views/error.html"
     authenticate: false
   })
   $stateProvider
@@ -222,6 +230,11 @@ app.config ($stateProvider, $urlRouterProvider) ->
   })
 
 app.run ($rootScope, $state, $cookies, $location) ->
+  $rootScope.$on "$stateChangeError", (event, toState, toParams, fromState, fromParams) ->
+    debugger
+    event.preventDefault();
+    $state.go('error')
+
   $rootScope.$on "$stateChangeStart", (event, toState, toParams, fromState, fromParams) ->
     
     while document.querySelectorAll(".d3-tip").length
