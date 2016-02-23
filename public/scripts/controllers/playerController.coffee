@@ -7,10 +7,16 @@ angular.module('motus').controller('playerController',
       pc.state = $state
       pc.statelast = $state
       pc.filterType = '30'
-
+      console.log("PC: ",pc)
 
       cpf = currentPlayerFactory
       ef = eliteFactory
+
+      pc.validateKey = (key) ->
+        $http.post('/player/assignInvitationKey', { athleteProfile: pc.currentPlayer.athleteProfile.id, invitationKey: key })
+            
+        console.log("triggered!")
+        console.log("rESULTS: ", key)
 
       getPlayers = () ->
         return $player.getPlayers()

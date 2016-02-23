@@ -2,22 +2,22 @@
 <div class="login-box-outter" ng-if="true">
           <div class="login-padding-box">
             
-            <div class="login-box">
+            <div ng-if="pc.currentPlayer.invitationKeyError" class="login-box">
 
               <!-- EXPIRED MESSAGING -->
-              <div>
+              <div ng-if="pc.currentPlayer.invitationKeyError.error=='expiredInvitationKey'">
                 <h1>EXPIRED KEY</h1>
                 <p class="login-error">Your Player Invitation Key has expired.<br>Please contact your Motus representative<br>or enter a new key below.</p>
-                <p>Expiration Date:</p>
+                <p>Expiration Date: {{pc.currentPlayer.invitationKeyError.expirationDate}}</p>
               </div>
                <!-- END EXPIRED MESSAGING -->
 
-               <!-- INVALID MESSAGING -->
-              <!-- <div>
-                <h1>INVALID KEY</h1>
-                <p class="login-error">The key you entered does not exist, or is mis-spelled.<br>Please try again.</p>
-              </div> -->
-               <!-- END INVALID MESSAGING -->
+               <!-- INVALID/MISSING MESSAGING -->
+              <div ng-if="pc.currentPlayer.invitationKeyError.error=='missingInvitationKey'">
+                <h1>INVALID OR<br>MISSING KEY</h1>
+                <p class="login-error">The key you entered does not exist,<br>or is mis-spelled.<br>Please try again.</p>
+              </div>
+               <!-- END INVALID/MISSING MESSAGING -->
 
                <!-- KEY IN USE MESSAGING -->
               <!-- <div>
@@ -27,9 +27,9 @@
                <!-- KEY IN USE MESSAGING -->
 
               
-              <form ng-submit="ctrl.login()">
+              <form ng-submit="pc.validateKey(playerKey)">
                 <div class="login-input-password">
-                  <input type="text" placeholder="Invitation Key" required>
+                  <input ng-model="playerKey" type="text" placeholder="Invitation Key" required>
                 </div>
 
                 <div class="login-buttons">
