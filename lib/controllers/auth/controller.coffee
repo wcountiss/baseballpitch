@@ -51,7 +51,6 @@ module.exports.assignInvitationKey = (req, res) ->
     if (user)
       invitationKeyService.assignInvitationKey(user, req.body.invitationKey)
       .then (invitationKeyError) ->
-        console.log invitationKeyError
         #errors if invitation Key is not right
         if invitationKeyError
           res.status(401).send(invitationKeyError)
