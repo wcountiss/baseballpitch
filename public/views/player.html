@@ -1,7 +1,7 @@
 <!-- BEGIN LICENSING BOX -->
+
 <div class="login-box-outter" ng-if="pc.currentPlayer.invitationKeyError">
           <div class="login-padding-box">
-            
             <div class="login-box">
 
               <!-- EXPIRED MESSAGING -->
@@ -15,15 +15,15 @@
                <!-- INVALID/MISSING MESSAGING -->
               <div ng-if="pc.currentPlayer.invitationKeyError.error=='missingInvitationKey'">
                 <h1>INVALID OR<br>MISSING KEY</h1>
-                <p class="login-error">The key you entered does not exist,<br>or is mis-spelled.<br>Please try again.</p>
+                <p class="login-error">The key you entered does not exist, or is mis-spelled.<br>Please try again.</p>
               </div>
                <!-- END INVALID/MISSING MESSAGING -->
 
                <!-- KEY IN USE MESSAGING -->
-              <!-- <div>
+              <div ng-if="pc.currentPlayer.invitationKeyError.error=='inUseInvitationKey'">
                 <h1>KEY IN USE</h1>
                 <p class="login-error">The key you entered is already being used by another account.<br>Please enter a different key.</p>
-              </div> -->
+              </div>
                <!-- KEY IN USE MESSAGING -->
 
               
@@ -33,22 +33,14 @@
                 </div>
 
                 <div class="login-buttons">
-                  <input type="submit" id="submit" value="Validate this player key">
+                  <input type="submit" class="btnid" value="Validate this player key">
                 </div>
               </form>
             </div>
           </div>
         </div>
 
-        <!-- BEGIN COVER -->
-    <!--     <div class="cover"></div> -->
-        <!-- END COVER -->
-
 <!-- END LICENSING BOX -->
-
-
-
-
 
 <div id="player">
   <div class="player-box-shadow">

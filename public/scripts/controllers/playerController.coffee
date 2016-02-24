@@ -14,9 +14,19 @@ angular.module('motus').controller('playerController',
 
       pc.validateKey = (key) ->
         $http.post('/player/assignInvitationKey', { athleteProfile: pc.currentPlayer.athleteProfile.objectId, invitationKey: key })
-            
-        console.log("triggered!")
-        console.log("rESULTS: ", key)
+        .success((data)->
+          console.log("RETURNED DATA:",data)
+          # getPlayers()
+        ) 
+        .error((data)->
+          console.log("ERROR DATA:",data.error)
+          if (data.error == 'invalidInvitationKey')
+            pc.currentPlayer.invitationKeyError.error = 'missingInvitationKey'
+
+          if (data.error == 'inUseInvitationKey')
+            console.log('IN USE!')
+            pc.currentPlayer.invitationKeyError.error = 'inUseInvitationKey'
+        )   
 
       getPlayers = () ->
         return $player.getPlayers()

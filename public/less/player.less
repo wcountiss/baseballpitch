@@ -13,7 +13,7 @@
 .login-box-outter {
   position: absolute;
   width: 35em;
-  height: 35em;
+  // height: 35em;
   text-align: center;
   z-index: 4;
   top: calc(40vh - (35em / 2));
@@ -36,6 +36,10 @@
             padding: 0.571em 0.571em 0.571em 0.571em;
             display: flex;
             width: 100%;
+            box-shadow: 0 0 1em #555555;
+              background-color: #ffffff;
+              min-height: 30.357em;
+              min-width:30.357em;
             .login-box {
               background-color: #4d4d4d;
               width:100%;
@@ -44,6 +48,7 @@
               flex-direction: column;
               justify-content: center;
               align-items: center;
+
               form {
                 display: flex;
                 flex-direction: column;
@@ -103,7 +108,8 @@
                     font-size:1.143em;
                   }
                 }
-                input[type="submit"] {
+
+                .btnid {
                   transition: all 0.2s ease-out;
                   background-color: @motus-lightorange;
                   border:none;
