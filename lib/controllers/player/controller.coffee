@@ -33,25 +33,27 @@ module.exports.find = (req, res) ->
     res.sendStatus(500)
 
 module.exports.assignInvitationKey = (req, res) -> 
-  if !req.body.athleteProfile !req.body.invitationKey
+  if !req.body.athleteProfile || !req.body.invitationKey
     res.sendStatus(500)
+    return
 
-  database.find('MTTeamMember', { equal: { team: req.currentUser.MTTeams}, include: ['athleteProfile', 'athleteProfile.user']}, { noParse: true })
+  database.find('MTTeamMember', { equal: { team: req.currentUser.MTTeams}, include: ['athleteProfile']})
   .then (teamMembers) ->
-    athleteProfile = _.find teamMembers, (teamMember) -> teamMember.objectId == req.body.athleteProfile
+    teamMember = _.find teamMembers, (teamMember) -> teamMember.athleteProfile.objectId == req.body.athleteProfile
+    database.find('User', { equal: { objectId: teamMember.athleteProfile.user.objectId } }, { findOne: true, noParse: true })
+    .then (athleteUsers) ->
+      invitationKeyService.assignInvitationKey(athleteUsers, req.body.invitationKey)
+      .then (invitationKeyError) ->
+        console.log invitationKeyError
+        #errors if invitation Key is not right
+        if invitationKeyError
+          res.status(401).send(invitationKeyError)
+          return 
+          
+        #clear cache
+        cache.set( "player#{req.currentUser.id}", null)
 
-    invitationKeyService.assignInvitationKey(user, req.body.invitationKey)
-    .then (invitationKeyError) ->
-      console.log invitationKeyError
-      #errors if invitation Key is not right
-      if invitationKeyError
-        res.status(401).send(invitationKeyError)
-        return 
-        
-      #clear cache
-      cache.set( "player#{req.currentUser.id}", null)
-
-      res.sendStatus(200)
+        res.sendStatus(200)
     .catch (error) ->
       console.log error
       res.sendStatus(500)

@@ -63,8 +63,7 @@ module.exports.save = (collectionName, data) ->
   ParseObject = Parse.Object.extend(collectionName)
   parseObject = new ParseObject()
   return new Promise (resolve, reject) ->
-    parseObject.save(data)
-    .then (
+    parseObject.save(null,
       (success) -> 
         resolve success, 
       (error) -> 
@@ -74,17 +73,17 @@ module.exports.save = (collectionName, data) ->
 #generic update method
 module.exports.update = (collectionName, data) ->
   #get the object with relations
-  module.exports.find(collectionName, { equal: { objectId: data.objectId} }, { noParse: true })
+  module.exports.find(collectionName, { equal: { objectId: data.objectId} }, { findOne: true, noParse: true })
   .then (parseObject) ->
     #loop through keys and update each one
     _.each _.keys(data), (key) ->
       parseObject.set(key, data[key]);
     return new Promise (resolve, reject) ->
-      parseObject.save(parseObject)
-      .then (
+      parseObject.save(null,
         (success) -> 
           resolve success, 
         (error) -> 
+          console.log error
           reject new Error(error.message)
       )
 

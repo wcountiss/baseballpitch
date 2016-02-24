@@ -27,15 +27,15 @@ module.exports.checkUsersKey = (users) ->
         else if moment() > moment(invitationKey.expirationDate.iso)
           user.invitationKeyError = { error: 'expiredInvitationKey', expirationDate: moment(invitationKey.expirationDate.iso).format('MM/DD/YYYY') }
 
-module.exports.assignInvitationKey = () ->
-  return database.find('invitationKey', { equal: { invitationKey: req.body.invitationKey} })
+module.exports.assignInvitationKey = (user, invitationKey) ->
+  return database.find('invitationKey', { equal: { invitationKey: invitationKey} }, { findOne: true })
     .then (invitationKey) ->
       #errors if invitation Key is not right
       return { error: 'invalidInvitationKey' } if !invitationKey
-      return { error: 'inUseInvitationKey' } if invitationKey.athleteProfileLink
+      return { error: 'inUseInvitationKey' } if invitationKey.userLink
       return { error: 'expiredInvitationKey' } if moment() > moment(invitationKey.expirationDate.iso)
 
       #assign the invitation key to the user
-      database.update('invitationKey', { objectId: invitationKey.objectId, athleteProfile: athleteProfile })
+      database.update('invitationKey', { objectId: invitationKey.objectId, userLink: user })
       .then (object) ->
         return null

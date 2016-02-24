@@ -13,7 +13,7 @@ angular.module('motus').controller('playerController',
       ef = eliteFactory
 
       pc.validateKey = (key) ->
-        $http.post('/player/assignInvitationKey', { athleteProfile: pc.currentPlayer.athleteProfile.id, invitationKey: key })
+        $http.post('/player/assignInvitationKey', { athleteProfile: pc.currentPlayer.athleteProfile.objectId, invitationKey: key })
             
         console.log("triggered!")
         console.log("rESULTS: ", key)
