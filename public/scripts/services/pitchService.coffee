@@ -2,8 +2,6 @@ allCachedPitches = null
 thisMonthsCachedPitches = null
 cachedAtheletePitches = {}
 
-
-
 angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
   pitchService = this
 
@@ -16,7 +14,7 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
 
   #get pitches
   pitchService.getPitches = (options={daysBack: 30}) ->    
-    if allCachedPitches
+    if !options?.noCache && allCachedPitches
       returnedPitches = _.filter allCachedPitches, (pitch) -> 
         moment(pitch.pitchDate.iso) >= moment().add(-options.daysBack, 'd')
       return $q.when(returnedPitches)

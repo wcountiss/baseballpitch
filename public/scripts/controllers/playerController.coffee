@@ -7,29 +7,31 @@ angular.module('motus').controller('playerController',
       pc.state = $state
       pc.statelast = $state
       pc.filterType = '30'
-      console.log("PC: ",pc)
 
       cpf = currentPlayerFactory
       ef = eliteFactory
 
       pc.validateKey = (key) ->
-        $http.post('/player/assignInvitationKey', { athleteProfile: pc.currentPlayer.athleteProfile.objectId, invitationKey: key })
+        $http.post('/player/assignInvitationKey', { athleteProfile: pc.currentPlayer.objectId, invitationKey: key })
         .success((data)->
-          console.log("RETURNED DATA:",data)
-          getPlayers(true)
-        ) 
+          #get the pitch data
+          $player.getPlayers({noCache: true})
+          .then (players) ->
+            pc.playerRoster = players
+            #refresh the current player
+            pc.currentPlayer = _.find pc.playerRoster, (player) -> player.objectId == pc.currentPlayer.objectId
+            pc.selectedPlayer(pc.currentPlayer)
+        )
         .error((data)->
-          console.log("ERROR DATA:",data.error)
           if (data.error == 'invalidInvitationKey')
             pc.currentPlayer.invitationKeyError.error = 'missingInvitationKey'
 
           if (data.error == 'inUseInvitationKey')
-            console.log('IN USE!')
             pc.currentPlayer.invitationKeyError.error = 'inUseInvitationKey'
         )   
 
-      getPlayers = (noCache) ->
-        return $player.getPlayers({noCache})
+      getPlayers = () ->
+        return $player.getPlayers()
         .then (players) ->
 
           #Adding this in to make each player

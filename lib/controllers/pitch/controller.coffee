@@ -1,4 +1,5 @@
 database = require '../../services/database'
+athleteService = require '../../services/athlete'
 teamService = require '../../services/team'
 moment = require 'moment'
 _ = require 'lodash'
@@ -9,136 +10,143 @@ cache = new NodeCache({ stdTTL: 60 * 60 * 24 * 1 }); #1 day cache
 
 # console.log extendedCache.getStats();
 
+filterInvitationKeyErroredPitches = (athletes, pitches) ->
+  #filter out pitches made by players with invalid keys
+  _.each athletes, (athlete) ->
+    if athlete.invitationKeyError
+      #if there is an invitatinoKeyError, remove that player's pitches
+      pitches = _.filter pitches, (pitch) -> pitch.athleteProfile.objectId != athlete.objectId
+  return pitches
+
 #gets the pitches for all the players at once
 module.exports.find = (req, res) ->
   daysBack = req.body.daysBack || 30
   cachedResults = null
   pitchGotFullSet = false
 
-  #if cache, get recent days and combine with the cache to reduce calls but stay current 
-  try
-    cachedResults = extendedCache.get("pitch#{req.currentUser.id}", true)
+  athleteService.find(req.currentUser)
+  .then (athletes) ->
+    #if cache, get recent days and combine with the cache to reduce calls but stay current 
+    try
+      cachedResults = extendedCache.get("pitch#{req.currentUser.id}", true)
 
-    cachedResults = _.sortBy cachedResults, (cachedResult) -> moment(cachedResult.pitchDate.iso)
-    #filter down to 365 days ago
-    cachedResults = _.filter cachedResults, (cachedResult) -> moment(cachedResult.pitchDate.iso) >= moment().add(-365,'d')
-    #go until the last load back for real data
-    daysBack = moment().diff(moment(cachedResults[cachedResults.length-1].pitchDate.iso), 'days')
+      cachedResults = _.sortBy cachedResults, (cachedResult) -> moment(cachedResult.pitchDate.iso)
+      #filter down to 365 days ago
+      cachedResults = _.filter cachedResults, (cachedResult) -> moment(cachedResult.pitchDate.iso) >= moment().add(-365,'d')
+      #go until the last load back for real data
+      daysBack = moment().diff(moment(cachedResults[cachedResults.length-1].pitchDate.iso), 'days')
 
-    #if you recently loaded everything, you do not need to get it until 24 hours later
-    pitchGotFullSet = cache.get("pitchGotFullSet", true)
-    if pitchGotFullSet
-      res.send(cachedResults)
-      return
+      #if you recently loaded everything, you do not need to get it until 24 hours later
+      pitchGotFullSet = cache.get("pitchGotFullSet", true)
+      if pitchGotFullSet
+        cachedResults = filterInvitationKeyErroredPitches(athletes, cachedResults)
+        res.send(cachedResults)
+        return
       
-  teamService.find(req.currentUser)
-  .then (teamMembers) ->
-    athleteProfiles = _.pluck(teamMembers, 'athleteProfile')
+    teamService.find(req.currentUser)
+    .then (teamMembers) ->
+      athleteProfiles = _.pluck(teamMembers, 'athleteProfile')
 
-    #Go back 30 days by default but can override
-    getNumberofPages = 1
-    if daysBack >= 60
-        getNumberofPages = 2
-    if daysBack >= 90
-        getNumberofPages = 3
-    if daysBack >= 365
-        getNumberofPages = 8
+      #Go back 30 days by default but can override
+      getNumberofPages = 1
+      if daysBack >= 60
+          getNumberofPages = 2
+      if daysBack >= 90
+          getNumberofPages = 3
+      if daysBack >= 365
+          getNumberofPages = 8
 
-    #get pitches by player asynch
-    pitchPromises = []
-    _.each athleteProfiles, (athleteProfile) ->
-        _.times getNumberofPages, (pageNum) ->
-            #Find by AthleteProfileIds
-            pitchPromises.push database.find('MPPitch', { 
-              equal: { 'athleteProfile': athleteProfile}, 
-              greater: { 'pitchDate': moment().add(-daysBack,'d').toDate() },
-              page: pageNum,
-              #unneeded byte type columns removed
-              select: [
-                "armSlot",
-                "armSpeed",
-                "athleteProfile",
-                "elbowFlexionFootContact",
-                "elbowFlexionRelease",
-                "elbowHeight",
-                "fingertipVelocityRelease",
-                "footAngle",
-                "footContactTime",
-                "forearmSlotRelease",
-                "maxElbowFlexion",
-                "maxFootHeight",
-                "maxFootHeightTime",
-                "maxShoulderRotation",
-                "maxTrunkSeparation",
-                "pelvisFlexionFootContact",
-                "pelvisFlexionRelease",
-                "pelvisRotationFootContact",
-                "pelvisRotationRelease",
-                "pelvisSideTiltFootContact",
-                "pelvisSideTiltRelease",
-                "pitchDate",
-                "pitchTime",
-                "peakBicepSpeed",
-                "peakBicepSpeedTime",
-                "peakElbowCompressiveForce",
-                "peakElbowValgusTorque",
-                "peakForearmSpeed",
-                "peakForearmSpeedTime",
-                "peakHipSpeed",
-                "peakHipSpeedTime",
-                "peakShoulderAnteriorForce",
-                "peakShoulderCompressiveForce",
-                "peakShoulderRotationTorque",
-                "peakTrunkSpeed",
-                "peakTrunkSpeedTime",
-                "releasePoint",
-                "shoulderAbductionFootContact",
-                "shoulderAbductionRelease",
-                "shoulderRotation",
-                "shoulderRotationFootContact",
-                "shoulderRotationRelease",
-                "strideLength",
-                "tagString",
-                "torque",
-                "trunkFlexionFootContact",
-                "trunkFlexionRelease",
-                "trunkRotationFootContact",
-                "trunkRotationRelease",
-                "trunkSideTiltFootContact",
-                "trunkSideTiltRelease"
-              ]  
-            })
-    Promise.all(pitchPromises)
-    .then (pitchGroups) ->
-      results = _.flatten pitchGroups
+      #get pitches by player asynch
+      pitchPromises = []
+      _.each athleteProfiles, (athleteProfile) ->
+          _.times getNumberofPages, (pageNum) ->
+              #Find by AthleteProfileIds
+              pitchPromises.push database.find('MPPitch', { 
+                equal: { 'athleteProfile': athleteProfile}, 
+                greater: { 'pitchDate': moment().add(-daysBack,'d').toDate() },
+                page: pageNum,
+                #unneeded byte type columns removed
+                select: [
+                  "armSlot",
+                  "armSpeed",
+                  "athleteProfile",
+                  "elbowFlexionFootContact",
+                  "elbowFlexionRelease",
+                  "elbowHeight",
+                  "fingertipVelocityRelease",
+                  "footAngle",
+                  "footContactTime",
+                  "forearmSlotRelease",
+                  "maxElbowFlexion",
+                  "maxFootHeight",
+                  "maxFootHeightTime",
+                  "maxShoulderRotation",
+                  "maxTrunkSeparation",
+                  "pelvisFlexionFootContact",
+                  "pelvisFlexionRelease",
+                  "pelvisRotationFootContact",
+                  "pelvisRotationRelease",
+                  "pelvisSideTiltFootContact",
+                  "pelvisSideTiltRelease",
+                  "pitchDate",
+                  "pitchTime",
+                  "peakBicepSpeed",
+                  "peakBicepSpeedTime",
+                  "peakElbowCompressiveForce",
+                  "peakElbowValgusTorque",
+                  "peakForearmSpeed",
+                  "peakForearmSpeedTime",
+                  "peakHipSpeed",
+                  "peakHipSpeedTime",
+                  "peakShoulderAnteriorForce",
+                  "peakShoulderCompressiveForce",
+                  "peakShoulderRotationTorque",
+                  "peakTrunkSpeed",
+                  "peakTrunkSpeedTime",
+                  "releasePoint",
+                  "shoulderAbductionFootContact",
+                  "shoulderAbductionRelease",
+                  "shoulderRotation",
+                  "shoulderRotationFootContact",
+                  "shoulderRotationRelease",
+                  "strideLength",
+                  "tagString",
+                  "torque",
+                  "trunkFlexionFootContact",
+                  "trunkFlexionRelease",
+                  "trunkRotationFootContact",
+                  "trunkRotationRelease",
+                  "trunkSideTiltFootContact",
+                  "trunkSideTiltRelease"
+                ]  
+              })
+      Promise.all(pitchPromises)
+      .then (pitchGroups) ->
+        results = _.flatten pitchGroups
 
-      #remove unused data for speed
-      _.each results, (result) ->
-        delete result.objectId
-        delete result.updatedAt
-        delete result.createdAt
+        #remove unused data for speed
+        _.each results, (result) ->
+          delete result.objectId
+          delete result.updatedAt
+          delete result.createdAt
 
-      #if cached results combine
-      if cachedResults
-        results = results.concat cachedResults
-        results = _.sortBy results, (result) -> moment(result.pitchDate.iso)
-      else
-        #save 365 was gotten so you don't have to get again for 24 hours
-        cache.set( "pitchGotFullSet", true)
+        #if cached results combine
+        if cachedResults
+          results = results.concat cachedResults
+          results = _.sortBy results, (result) -> moment(result.pitchDate.iso)
+        else
+          #save 365 was gotten so you don't have to get again for 24 hours
+          cache.set( "pitchGotFullSet", true)
 
-      #cache
-      extendedCache.set( "pitch#{req.currentUser.id}", results)
+        #cache
+        extendedCache.set( "pitch#{req.currentUser.id}", results)
 
-      #filter out pitches made by players with invalid keys
-      _.each teamMembers, (teamMember) ->
-        if teamMember.invitationKeyError
-          console.log teamMember
-          # results = _.filter results, (result) -> result.athleteProfile.Id == teamMember.athleteProfile.Id
+        results = filterInvitationKeyErroredPitches(athletes, results)
 
-      res.send(results)
-    .catch (error) ->
-      console.log error
-      res.sendStatus(500)
+        res.send(results)
+      .catch (error) ->
+        console.log error
+        res.sendStatus(500)
   .catch (error) ->
     console.log error
     res.sendStatus(500)

@@ -7,7 +7,7 @@ angular.module('motus').service('$player', ['$http', '$q', '$stat', '$pitch', ($
       return $q.when(ps.playerRoster)
     else
       defer = $q.defer()
-      playerCalls = [$http.post("player"), $pitch.getPitches()]
+      playerCalls = [$http.post("player"), $pitch.getPitches({noCache: options?.noCache, daysBack: 30})]
       $q.all(playerCalls)
       .then (results) ->
         players = results[0].data

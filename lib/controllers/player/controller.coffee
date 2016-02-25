@@ -9,8 +9,8 @@ _ = require 'lodash'
 module.exports.find = (req, res) -> 
   #find players by keys.
   athleteService.find(req.currentUser)
-  .then (teamMembers) ->
-    res.send(teamMembers)
+  .then (athletes) ->
+    res.send(athletes)
 
   .catch (error) ->
     console.log error
@@ -23,9 +23,9 @@ module.exports.assignInvitationKey = (req, res) ->
     return
 
   athleteService.find(req.currentUser)
-  .then (teamMembers) ->
-    teamMember = _.find teamMembers, (teamMember) -> teamMember.athleteProfile.objectId == req.body.athleteProfile
-    database.find('User', { equal: { objectId: teamMember.athleteProfile.user.objectId } }, { findOne: true, noParse: true })
+  .then (athletes) ->
+    athlete = _.find athletes, (athlete) -> athlete.objectId == req.body.athleteProfile
+    database.find('User', { equal: { objectId: athlete.user.objectId } }, { findOne: true, noParse: true })
     .then (athleteUsers) ->
       invitationKeyService.assignInvitationKey(athleteUsers, req.body.invitationKey)
       .then (invitationKeyError) ->
