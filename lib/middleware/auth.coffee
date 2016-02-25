@@ -20,15 +20,12 @@ module.exports = (req,res,next) ->
         #check token if still valid
         invitationKeyService.checkKey(user)
         .then (invitationKeyError) ->
-          console.log 'invitekey', invitationKeyError
           #errors if invitation Key is not right
           if invitationKeyError
-            console.log 'signing you out'
             #if invitation key expired, log you out
-            req.signedCookies.motus.deleteCookie
+            res.clearCookie('motus')
             res.redirect('/')
-            res.status(401).send(invitationKeyError)
-            next()
+            return 
           else
             #set the cookie so this session knows it is checked
             req.motusSession = { invitationKeyChecked: true }
