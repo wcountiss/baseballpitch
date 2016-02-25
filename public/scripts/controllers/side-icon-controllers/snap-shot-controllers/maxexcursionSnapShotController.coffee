@@ -78,7 +78,7 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
     max.currentPlayer = cpf.currentPlayer
     
     #group pitches into sessions
-    pitches = _.filter results[2], (pitch) -> pitch.athleteProfile.objectId == cpf.currentPlayer.athleteProfile.objectId
+    pitches = _.filter results[2], (pitch) -> pitch.athleteProfile.objectId == cpf.currentPlayer.objectId
     max.sessions = _.groupBy pitches, (pitch) -> 
       topLevelTagString = if pitch.tagString then pitch.tagString.split(',')[0] else 'Untagged'
       return moment(pitch.pitchDate.iso).format('MM/DD/YYYY') + ':' + topLevelTagString

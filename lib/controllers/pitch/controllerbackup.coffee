@@ -1,5 +1,5 @@
 database = require '../../services/database'
-teamService = require '../../services/team'
+athleteService = require '../../services/athlete'
 moment = require 'moment'
 _ = require 'lodash'
 Promise = require 'bluebird'
@@ -31,7 +31,7 @@ module.exports.find = (req, res) ->
       res.send(cachedResults)
       return
       
-  teamService.find(req.currentUser)
+  athleteService.find(req.currentUser, true)
   .then (teamMembers) ->
     athleteProfiles = _.pluck(teamMembers, 'athleteProfile')
 
@@ -157,7 +157,7 @@ module.exports.findPitchTimingByAtheleteProfileId = (req, res) ->
     return
 
   #Security, you only have access to your team's althletes
-  teamService.find(req.currentUser)
+  athleteService.find(req.currentUser)
   .then (teamMembers) ->
     athleteProfiles = _.pluck(teamMembers, 'athleteProfile')
     #Go back 30 days by default but can override

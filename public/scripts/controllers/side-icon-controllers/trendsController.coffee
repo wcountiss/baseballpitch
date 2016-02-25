@@ -17,7 +17,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
   $q.all(loadPromises).then (results) ->
     trends.eliteMetrics = results[0]
     trends.currentPlayer = cpf.currentPlayer
-    trends.pitches = _.filter results[2], (pitch) -> pitch.athleteProfile.objectId == cpf.currentPlayer.athleteProfile.objectId
+    trends.pitches = _.filter results[2], (pitch) -> pitch.athleteProfile.objectId == cpf.currentPlayer.objectId
     trends.selectMetric(trends.eliteMetrics[0])
 
     #Create footJoint array for the accordion

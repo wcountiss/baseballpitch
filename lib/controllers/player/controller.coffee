@@ -1,43 +1,28 @@
 database = require '../../services/database'
+athleteService = require '../../services/athlete'
 invitationKeyService = require '../../services/invitationKey'
 NodeCache = require( "node-cache" );
 cache = new NodeCache({ stdTTL: 60 * 60 * 24 * 90 });
 _ = require 'lodash'
 
+#get players
 module.exports.find = (req, res) -> 
-  #try cache
-  try
-    results = cache.get("player#{req.currentUser.id}", true)
-    res.send(results)
-    return
-
   #find players by keys.
-  #Team Id should come from the session based on login and be secure. unless you are an admin
-  database.find('MTTeamMember', { equal: { team: req.currentUser.MTTeams}, include: ['athleteProfile']})
+  athleteService.find(req.currentUser)
   .then (teamMembers) ->
-    
-    #get the user and check that against the invitation keys
-    database.find('User', { equal: { objectId: _.pluck(teamMembers, 'athleteProfile.user.objectId') } }, { noParse: true })
-    .then (athleteUsers) ->
-      invitationKeyService.checkUsersKey(athleteUsers)
-      .then (inviteKeyResults) ->
-        _.each teamMembers, (teamMember) ->
-          teamMember.invitationKeyError = _.find(inviteKeyResults, (inviteKeyResult) -> inviteKeyResult.id == teamMember.athleteProfile.user.objectId ).invitationKeyError
+    res.send(teamMembers)
 
-        #cache
-        cache.set( "player#{req.currentUser.id}", teamMembers)
-
-        res.send(teamMembers)
   .catch (error) ->
     console.log error
     res.sendStatus(500)
 
+#assign an invitation key to a player
 module.exports.assignInvitationKey = (req, res) -> 
   if !req.body.athleteProfile || !req.body.invitationKey
     res.sendStatus(500)
     return
 
-  database.find('MTTeamMember', { equal: { team: req.currentUser.MTTeams}, include: ['athleteProfile']})
+  athleteService.find(req.currentUser)
   .then (teamMembers) ->
     teamMember = _.find teamMembers, (teamMember) -> teamMember.athleteProfile.objectId == req.body.athleteProfile
     database.find('User', { equal: { objectId: teamMember.athleteProfile.user.objectId } }, { findOne: true, noParse: true })
@@ -49,8 +34,8 @@ module.exports.assignInvitationKey = (req, res) ->
           res.status(401).send(invitationKeyError)
           return 
           
-        #clear cache
-        cache.set( "player#{req.currentUser.id}", null)
+        #clear cache of players because now the key is valid
+        cache.set( "athletes#{req.currentUser.id}", null)
 
         res.sendStatus(200)
     .catch (error) ->

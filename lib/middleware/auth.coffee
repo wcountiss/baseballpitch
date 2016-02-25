@@ -1,5 +1,6 @@
 jwt = require 'jsonwebtoken'
 login = require '../services/login'
+invitationKeyService = require '../services/invitationKey'
 database = require '../services/database'
 encrypt = require '../services/encrypt'
 NodeCache = require( "node-cache" );
@@ -13,7 +14,26 @@ module.exports = (req,res,next) ->
     decryptedUser = JSON.parse(encrypt.decrypt(decoded))
     login.getUser(decryptedUser.objectId)
     .then (user) ->
-       #try cache
+
+      #check once per session if your invitation key is still valid
+      if !req.motusSession.invitationKeyChecked
+        #check token if still valid
+        invitationKeyService.checkKey(user)
+        .then (invitationKeyError) ->
+          console.log 'invitekey', invitationKeyError
+          #errors if invitation Key is not right
+          if invitationKeyError
+            console.log 'signing you out'
+            #if invitation key expired, log you out
+            req.signedCookies.motus.deleteCookie
+            res.redirect('/')
+            res.status(401).send(invitationKeyError)
+            next()
+          else
+            #set the cookie so this session knows it is checked
+            req.motusSession = { invitationKeyChecked: true }
+
+      #try cache
       try
         results = cache.get("team#{user.id}", true)
         user.MTTeams = teams

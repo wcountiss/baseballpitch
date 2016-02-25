@@ -16,7 +16,7 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
   .then (results) ->
     chain.eliteMetrics = results[0]
 
-    $pitch.findPitchTimingByAtheleteProfileId(cpf.currentPlayer.athleteProfile.objectId)
+    $pitch.findPitchTimingByAtheleteProfileId(cpf.currentPlayer.objectId)
     .then (pitches) ->
       if !pitches.length
         chain.loaded = true

@@ -20,6 +20,7 @@ gulp.task('server', function () {
   options.env.PARSE_JS_KEY=process.env.PARSE_JS_KEY || 'Gcz7su18kkgG58TQudxRIyhsAcVjZmm2cGyVvI7d',
   options.env.JWT_PASS=process.env.JWT_PASS || 'shhhhh',
   options.env.COOKIE_PASS=process.env.COOKIE_PASS || 'shhhhhhhhhh'
+  options.env.SESSION_COOKIE_PASS=process.env.SESSION_COOKIE_PASS || 'shhhhhhhhhhhhhh'
   options.env.ENCRYPT_PASSWORD=process.env.ENCRYPT_PASSWORD || 'shhhhhhhhh'
   options.env.BLUEBIRD_W_FORGOTTEN_RETURN=0
   nodemon({

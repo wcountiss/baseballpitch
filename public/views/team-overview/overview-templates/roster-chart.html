@@ -17,7 +17,7 @@
         <th>Performance</th>
       </tr>
       <tr ng-repeat="player in team.bullpen" ng-class-odd="'odd'" ng-class-even="'even'">
-        <td>{{::player.athleteProfile.firstName}} {{::player.athleteProfile.lastName}}</td>
+        <td>{{::player.firstName}} {{::player.lastName}}</td>
         <td><span class="icon-longtoss" ng-class="{ completed: player.stats.longToss}"></span></td>
         <td><span class="icon-bullpen" ng-class="{ completed: player.stats.bullPen}"></span></td> 
         <td><span class="icon-game" ng-class="{ completed: player.stats.game}"></span></td>

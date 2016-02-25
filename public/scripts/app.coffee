@@ -231,9 +231,8 @@ app.config ($stateProvider, $urlRouterProvider) ->
 
 app.run ($rootScope, $state, $cookies, $location) ->
   $rootScope.$on "$stateChangeError", (event, toState, toParams, fromState, fromParams) ->
-    debugger
-    event.preventDefault();
-    $state.go('error')
+    # event.preventDefault();
+    # $state.go('error')
 
   $rootScope.$on "$stateChangeStart", (event, toState, toParams, fromState, fromParams) ->
     

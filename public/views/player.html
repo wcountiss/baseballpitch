@@ -49,16 +49,16 @@
         <!--Contains the names of pitches listed in a column -->
         <h2>Roster <span tooltip-popup-delay="1000" tooltip-placement="{{placement.selected='right'}}" uib-tooltip="Player Comparison" class="icon-compare" ng-click="pc.playerComparisonToggle()" ng-class="{'comparison-active': pc.state.includes('player.comparison.*')}"></span></h2>
         <ul class="player-names">
-          <li ng-click="pc.selectedPlayer(player)" ng-class-odd="'odd'" ng-class-even="'even'" ng-class="{'selected': pc.currentPlayer.athleteProfile.objectId == player.athleteProfile.objectId }" ng-repeat="player in pc.playerRoster">
+          <li ng-click="pc.selectedPlayer(player)" ng-class-odd="'odd'" ng-class-even="'even'" ng-class="{'selected': pc.currentPlayer.objectId == player.objectId }" ng-repeat="player in pc.playerRoster">
             <nav >
-              <p>{{::player.athleteProfile.firstName}}
-                {{::player.athleteProfile.lastName}}
+              <p>{{::player.firstName}}
+                {{::player.lastName}}
               </p>
               <span class="icon-longtoss" ng-class="{'green-icon': player.stats.longToss, 'gray-icon': !player.stats.longToss}"></span>
               <span class="icon-bullpen" ng-class="{'green-icon': player.stats.bullPen, 'gray-icon': !player.stats.bullPen}"></span>
               <span class="icon-game" ng-class="{'green-icon': player.stats.game, 'gray-icon': !player.stats.game}"></span>
             </nav>
-            <span ng-class="{'compare-active': player.athleteProfile.objectId == pc.comparedPlayer.athleteProfile.objectId}" ng-if="pc.state.includes('player.comparison')" class="icon-compare-add" ng-click="pc.setComparison(player); $event.stopPropagation()"></span>
+            <span ng-class="{'compare-active': player.objectId == pc.comparedPlayer.objectId}" ng-if="pc.state.includes('player.comparison')" class="icon-compare-add" ng-click="pc.setComparison(player); $event.stopPropagation()"></span>
           </li>
         </ul>
         <div class="scrollwarn" ng-if="pc.overflowCheck">

@@ -189,7 +189,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
         #Most Improved/Regressed goes to
         statPromises = []
         _.each awardedPlayers, (player) ->
-          playerPitchesLastMonth = pitches[player.athleteProfile.objectId]
+          playerPitchesLastMonth = pitches[player.objectId]
           statPromises.push(stat.runStatsEngine(playerPitchesLastMonth))
         $q.all(statPromises).then (lastMonthStats) ->
           mostImprovedIndex = null

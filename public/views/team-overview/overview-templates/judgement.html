@@ -11,7 +11,7 @@
     <div ng-repeat="award in team.awardedPlayers | limitTo : 3" class="judged-player">
       <div class="imghldr"><img ng-src="../images/{{award.iconpath}}" alt=""></div>
       <div class="texthldr">
-       <span>{{::award.player.athleteProfile.firstName}} {{::award.player.athleteProfile.lastName}}</span><br>
+       <span>{{::award.player.firstName}} {{::award.player.lastName}}</span><br>
        <span class="textrating">{{::award.awardtitle}}</span><br>
        <span class="subtextrating">{{::award.awardsub}}</span>
       </div>
@@ -24,7 +24,7 @@
     <div ng-repeat="award in team.awardedPlayers | limitTo : -(team.awardedPlayers.length-3)"class="judged-player">
       <div class="imghldr"><img ng-src="../images/{{award.iconpath}}" alt=""></div>
       <div class="texthldr">
-       <span>{{::award.player.athleteProfile.firstName}} {{::award.player.athleteProfile.lastName}}</span><br>
+       <span>{{::award.player.firstName}} {{::award.player.lastName}}</span><br>
        <span class="textrating">{{::award.awardtitle}}</span><br>
        <span class="subtextrating">{{::award.awardsub}}</span>
       </div>

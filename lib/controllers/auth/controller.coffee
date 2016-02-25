@@ -4,7 +4,13 @@ invitationKeyService = require '../../services/invitationKey'
 jwt = require 'jsonwebtoken'
 encrypt = require '../../services/encrypt'
 
-#login sets cookie
+#sets your login cookie
+setLoginCookie = (user, res) ->
+  encryptedUser = encrypt.encrypt(JSON.stringify(user))
+  token = jwt.sign(encryptedUser, process.env.JWT_PASS)
+  res.cookie('motus', token, { maxAge: 90*24*60*60*1000, signed: true })
+
+#login method
 module.exports.logIn = (req, res) ->
   #simple validation, replace with parseModel later
   if !req.body.email || !req.body.password
@@ -22,9 +28,7 @@ module.exports.logIn = (req, res) ->
           return 
 
         #all is good, make a login cookie
-        encryptedUser = encrypt.encrypt(JSON.stringify(user))
-        token = jwt.sign(encryptedUser, process.env.JWT_PASS)
-        res.cookie('motus', token, { maxAge: 90*24*60*60*1000, signed: true })
+        setLoginCookie(user, res)
         res.status(200).send(user)
     else
       res.sendStatus(401)
@@ -56,7 +60,9 @@ module.exports.assignInvitationKey = (req, res) ->
           res.status(401).send(invitationKeyError)
           return 
 
-        res.sendStatus(200)
+        #all is good so log you in
+        setLoginCookie(user, res)
+        res.status(200).send(user)
       .catch (error) ->
         console.log error
         res.sendStatus(500)

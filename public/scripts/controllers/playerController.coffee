@@ -16,7 +16,7 @@ angular.module('motus').controller('playerController',
         $http.post('/player/assignInvitationKey', { athleteProfile: pc.currentPlayer.athleteProfile.objectId, invitationKey: key })
         .success((data)->
           console.log("RETURNED DATA:",data)
-          # getPlayers()
+          getPlayers(true)
         ) 
         .error((data)->
           console.log("ERROR DATA:",data.error)
@@ -28,8 +28,8 @@ angular.module('motus').controller('playerController',
             pc.currentPlayer.invitationKeyError.error = 'inUseInvitationKey'
         )   
 
-      getPlayers = () ->
-        return $player.getPlayers()
+      getPlayers = (noCache) ->
+        return $player.getPlayers({noCache})
         .then (players) ->
 
           #Adding this in to make each player
@@ -43,7 +43,7 @@ angular.module('motus').controller('playerController',
          #Get pitches a year back
         $pitch.getPitches({ daysBack: 365 })
         .then (pitches) ->
-          pitches = _.filter pitches, (pitch) -> pitch.athleteProfile.objectId == player.athleteProfile.objectId
+          pitches = _.filter pitches, (pitch) -> pitch.athleteProfile.objectId == player.objectId
           #group pitches by month
           pitches = _.groupBy pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/01/YYYY')
           #run engine through all pitches per month
