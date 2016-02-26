@@ -33,7 +33,7 @@ module.exports.assignInvitationKey = (user, invitationKey) ->
       #errors if invitation Key is not right
       return { error: 'invalidInvitationKey' } if !invitationKey
       return { error: 'inUseInvitationKey' } if invitationKey.userLink
-      return { error: 'expiredInvitationKey' } if moment() > moment(invitationKey.expirationDate.iso)
+      return { error: 'expiredInvitationKey', expirationDate: moment(invitationKey.expirationDate.iso).format('MM/DD/YYYY') } if moment() > moment(invitationKey.expirationDate.iso)
 
       #assign the invitation key to the user
       database.update('invitationKey', { objectId: invitationKey.objectId, userLink: user })
