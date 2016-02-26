@@ -23,11 +23,9 @@ angular.module('motus').controller('playerController',
             pc.selectedPlayer(pc.currentPlayer)
         )
         .error((data)->
-          if (data.error == 'invalidInvitationKey')
-            pc.currentPlayer.invitationKeyError.error = 'missingInvitationKey'
-
-          if (data.error == 'inUseInvitationKey')
-            pc.currentPlayer.invitationKeyError.error = 'inUseInvitationKey'
+          if (data.error)
+            debugger
+            pc.currentPlayer.invitationKeyError = data
         )   
 
       getPlayers = () ->

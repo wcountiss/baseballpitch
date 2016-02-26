@@ -38,7 +38,6 @@
             <div class="login-box">
 
               <!-- EXPIRED MESSAGING -->
-
               <div ng-if="ctrl.invitationKeyError.error=='expiredInvitationKey'">
                 <h1>EXPIRED KEY</h1>
                 <p class="login-error">Your Coach Invitation Key has expired.<br>Please contact your Motus representative<br>or enter a new key below.</p>
@@ -52,6 +51,14 @@
                 <p class="login-error">The key you entered does not exist, or is mis-spelled.<br>Please try again.</p>
               </div>
                <!-- END INVALID MESSAGING -->
+
+               <!-- MISSING MESSAGING -->
+              <div ng-if="ctrl.invitationKeyError.error=='missingInvitationKey'">
+                <h1>MISSING KEY</h1>
+                <p class="login-error">Please enter your key.<br>If you don't have a key
+                please contact your Motus representative.</p>
+              </div>
+               <!-- END MISSSING MESSAGING -->
 
                <!-- KEY IN USE MESSAGING -->
               <div ng-if="ctrl.invitationKeyError.error=='inUseInvitationKey'">

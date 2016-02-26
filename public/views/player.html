@@ -12,12 +12,19 @@
               </div>
                <!-- END EXPIRED MESSAGING -->
 
-               <!-- INVALID/MISSING MESSAGING -->
+               <!-- MISSING MESSAGING -->
               <div ng-if="pc.currentPlayer.invitationKeyError.error=='missingInvitationKey'">
-                <h1>INVALID OR<br>MISSING KEY</h1>
+                <h1>MISSING KEY</h1>
+                <p class="login-error">Please enter your key.<br>If you don't have a key please contact your Motus representative.</p>
+              </div>
+               <!-- MISSING MESSAGING -->
+
+               <!-- INVALID MESSAGING -->
+              <div ng-if="pc.currentPlayer.invitationKeyError.error=='invalidInvitationKey'">
+                <h1>INVALID KEY</h1>
                 <p class="login-error">The key you entered does not exist, or is mis-spelled.<br>Please try again.</p>
               </div>
-               <!-- END INVALID/MISSING MESSAGING -->
+               <!-- END INVALID MESSAGING -->
 
                <!-- KEY IN USE MESSAGING -->
               <div ng-if="pc.currentPlayer.invitationKeyError.error=='inUseInvitationKey'">
