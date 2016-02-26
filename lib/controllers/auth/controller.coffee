@@ -24,14 +24,14 @@ module.exports.logIn = (req, res) ->
       .then (invitationKeyError) ->
         #errors if invitation Key is not right
         if invitationKeyError
-          res.status(401).send(invitationKeyError)
+          res.status(500).send(invitationKeyError)
           return 
 
         #all is good, make a login cookie
         setLoginCookie(user, res)
         res.status(200).send(user)
     else
-      res.sendStatus(401)
+      res.sendStatus(500)
   .catch (error) ->
     console.log error
     res.status(500).send('user not found')
@@ -57,7 +57,7 @@ module.exports.assignInvitationKey = (req, res) ->
       .then (invitationKeyError) ->
         #errors if invitation Key is not right
         if invitationKeyError
-          res.status(401).send(invitationKeyError)
+          res.status(500).send(invitationKeyError)
           return 
 
         #all is good so log you in
@@ -67,7 +67,7 @@ module.exports.assignInvitationKey = (req, res) ->
         console.log error
         res.sendStatus(500)
     else
-      res.sendStatus(401)
+      res.sendStatus(500)
   .catch (error) ->
     console.log error
     res.status(500).send('user not found')

@@ -31,7 +31,7 @@ module.exports.assignInvitationKey = (req, res) ->
       .then (invitationKeyError) ->
         #errors if invitation Key is not right
         if invitationKeyError
-          res.status(401).send(invitationKeyError)
+          res.status(500).send(invitationKeyError)
           return 
           
         #clear cache of players because now the key is valid

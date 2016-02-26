@@ -10,6 +10,7 @@ app = angular.module('motus', [
 require './services/playerService.coffee'
 require './services/pitchService.coffee'
 require './services/eliteFactory.coffee'
+require './interceptors/unauthorized.coffee'
 
 app.service 'initService', ($q, eliteFactory, $player) ->
   return {
@@ -21,7 +22,9 @@ app.service 'initService', ($q, eliteFactory, $player) ->
         throw error
   }
 
-app.config ($stateProvider, $urlRouterProvider) ->
+app.config ($httpProvider, $stateProvider, $urlRouterProvider) ->
+  $httpProvider.interceptors.push('unauthorizedInterceptor');
+
   $urlRouterProvider.otherwise ($injector, $location) ->
     $state = $injector.get("$state")
     $state.go("teamOverview")

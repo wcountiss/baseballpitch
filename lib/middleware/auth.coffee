@@ -24,8 +24,7 @@ module.exports = (req,res,next) ->
           if invitationKeyError
             #if invitation key expired, log you out
             res.clearCookie('motus')
-            res.redirect('/')
-            return 
+            res.sendStatus(401)
           else
             #set the cookie so this session knows it is checked
             req.motusSession = { invitationKeyChecked: true }
