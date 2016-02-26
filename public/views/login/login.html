@@ -6,7 +6,7 @@
     <div class="padding-box">
       <div class="colored-box">
         
-        <div class="login-box-outter">
+        <div class="login-box-outter" ng-if="!ctrl.invitationKeyError">
           <div class="login-padding-box">
             <div class="login-box">
               <form ng-submit="ctrl.login()">
@@ -38,22 +38,23 @@
             <div class="login-box">
 
               <!-- EXPIRED MESSAGING -->
-              <div>
+
+              <div ng-if="ctrl.invitationKeyError.error=='expiredInvitationKey'">
                 <h1>EXPIRED KEY</h1>
                 <p class="login-error">Your Coach Invitation Key has expired.<br>Please contact your Motus representative<br>or enter a new key below.</p>
-                <p>Expiration Date:</p>
+                <p>Expiration Date: {{ctrl.invitationKeyError.expirationDate}}</p>
               </div>
                <!-- END EXPIRED MESSAGING -->
 
                <!-- INVALID MESSAGING -->
-              <div>
+              <div ng-if="ctrl.invitationKeyError.error=='invalidInvitationKey'">
                 <h1>INVALID KEY</h1>
                 <p class="login-error">The key you entered does not exist, or is mis-spelled.<br>Please try again.</p>
               </div>
                <!-- END INVALID MESSAGING -->
 
                <!-- KEY IN USE MESSAGING -->
-              <div>
+              <div ng-if="ctrl.invitationKeyError.error=='inUseInvitationKey'">
                 <h1>KEY IN USE</h1>
                 <p class="login-error">The key you entered is already being used by another account.<br>Please enter a different key.</p>
               </div>

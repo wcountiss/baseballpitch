@@ -27,7 +27,10 @@ angular.module('motus').controller('loginController',
         $location.url('/team')
         $scope.index.loadUser()
       .error (error) ->
-        ctrl.error = true;
+        if error?.error
+          ctrl.invitationKeyError = error        
+        else
+          ctrl.error = true;
 
     return ctrl
 ])
