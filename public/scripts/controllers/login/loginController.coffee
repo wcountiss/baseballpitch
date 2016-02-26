@@ -14,6 +14,19 @@ angular.module('motus').controller('loginController',
         $location.url('/team')
         $scope.index.loadUser()
       .error (error) ->
+        if error?.error
+          ctrl.invitationKeyError = error        
+        else
+          ctrl.error = true;
+
+    ctrl.assignInvitationKey = () ->
+      $http.post("auth/assignInvitationKey",  { email: ctrl.email, password: ctrl.password, invitationKey: ctrl.invitationKey })
+      .success (user) ->
+        $currentUser.user = user
+        $scope.index.loaded = false
+        $location.url('/team')
+        $scope.index.loadUser()
+      .error (error) ->
         ctrl.error = true;
 
     return ctrl

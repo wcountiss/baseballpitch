@@ -21,7 +21,7 @@ app.use(sessions({
   duration: 24 * 60 * 60 * 1000, 
   activeDuration: 1000 * 60 * 5 
   cookie: {
-    ephemeral: true, #kill session after close browser
+    ephemeral: false,
     httpOnly: true
   }
 }))

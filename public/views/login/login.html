@@ -32,7 +32,7 @@
           </div>
         </div>
 
-        <div class="login-box-outter" ng-if="false">
+        <div class="login-box-outter" ng-if="ctrl.invitationKeyError">
           <div class="login-padding-box">
             
             <div class="login-box">
@@ -60,9 +60,9 @@
                <!-- KEY IN USE MESSAGING -->
 
               
-              <form ng-submit="ctrl.login()">
+              <form ng-submit="ctrl.assignInvitationKey()">
                 <div class="login-input-password">
-                  <input type="text" placeholder="Invitation Key" required>
+                  <input type="text" ng-model="ctrl.invitationKey" placeholder="Invitation Key" required>
                 </div>
 
                 <div class="login-buttons">
