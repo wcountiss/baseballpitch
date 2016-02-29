@@ -74,7 +74,16 @@ angular.module('motus').controller 'maxexcursionSnapShotController', ['currentPl
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), $pitch.getPitches({ daysBack: 90 })]
   $q.all(loadPromises).then (results) ->
-    max.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'ME' )
+    metricArray = ['maxFootHeight',
+          'maxElbowFlexion', 
+          'maxTrunkSeparation',
+          'maxShoulderRotation'
+          ]
+    eliteMetrics = _.filter results[0], (metric) -> _.contains(metricArray, metric.metric)
+    _.each metricArray , (metricName, i) ->
+      thisMetric = _.find eliteMetrics, (eliteMetric) -> eliteMetric.metric == metricName
+      thisMetric = _.extend(thisMetric, {order: i})
+    max.eliteMetrics = _.sortBy eliteMetrics, 'order'
     max.currentPlayer = cpf.currentPlayer
     
     #group pitches into sessions

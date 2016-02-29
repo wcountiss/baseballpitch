@@ -80,7 +80,17 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), $pitch.getPitches({ daysBack: 90 })]
   $q.all(loadPromises).then (results) ->
-    joint.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'K' )
+    metricArray = ['peakElbowValgusTorque',
+          'peakElbowCompressiveForce', 
+          'peakShoulderRotationTorque',
+          'peakShoulderAnteriorForce',
+          'peakShoulderCompressiveForce'
+          ]
+    eliteMetrics = _.filter results[0], (metric) -> _.contains(metricArray, metric.metric)
+    _.each metricArray , (metricName, i) ->
+      thisMetric = _.find eliteMetrics, (eliteMetric) -> eliteMetric.metric == metricName
+      thisMetric = _.extend(thisMetric, {order: i})
+    joint.eliteMetrics = _.sortBy eliteMetrics, 'order'
     joint.currentPlayer = cpf.currentPlayer 
     
     #group pitches into sessions
@@ -92,6 +102,7 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
     #get 30 day average by default on the current player
     $stat.runStatsEngine(joint.currentPlayer.pitches).then (stats) ->
       joint.stats = stats
+
       _.each joint.eliteMetrics, (eliteMetric) -> 
         if joint.stats?.metricScores?[eliteMetric.metric] 
           eliteMetric.pstats = joint.stats.metricScores[eliteMetric.metric]

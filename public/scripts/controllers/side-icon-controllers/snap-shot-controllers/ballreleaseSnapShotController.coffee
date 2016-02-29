@@ -80,7 +80,23 @@ angular.module('motus').controller 'ballreleaseSnapShotController', ['currentPla
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), $pitch.getPitches({ daysBack: 90 })]
   $q.all(loadPromises).then (results) ->
-    ball.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'BR' )
+    metricArray = ['fingertipVelocityRelease',
+          'forearmSlotRelease', 
+          'pelvisRotationRelease',
+          'pelvisFlexionRelease',
+          'pelvisSideTiltRelease',
+          'trunkRotationRelease',
+          'trunkFlexionRelease',
+          'trunkSideTiltRelease',
+          'shoulderAbductionRelease',
+          'shoulderRotationRelease',
+          'elbowFlexionRelease'
+          ]
+    eliteMetrics = _.filter results[0], (metric) -> _.contains(metricArray, metric.metric)
+    _.each metricArray , (metricName, i) ->
+      thisMetric = _.find eliteMetrics, (eliteMetric) -> eliteMetric.metric == metricName
+      thisMetric = _.extend(thisMetric, {order: i})
+    ball.eliteMetrics = _.sortBy eliteMetrics, 'order'
     ball.currentPlayer = cpf.currentPlayer
 
     #group pitches into sessions

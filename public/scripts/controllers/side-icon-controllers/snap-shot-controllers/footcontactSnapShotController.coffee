@@ -81,7 +81,23 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
 
   loadPromises = [ef.getEliteMetrics(), cpf.getCurrentPlayer(), $pitch.getPitches({ daysBack: 90 })]
   $q.all(loadPromises).then (results) ->
-    foot.eliteMetrics = _.filter(results[0], (metric) -> metric.categoryCode == 'FC' )
+    metricArray = ['pelvisRotationFootContact',
+          'pelvisFlexionFootContact', 
+          'pelvisSideTiltFootContact',
+          'trunkRotationFootContact',
+          'trunkFlexionFootContact',
+          'trunkSideTiltFootContact',
+          'shoulderAbductionFootContact',
+          'shoulderRotationFootContact',
+          'elbowFlexionFootContact',
+          'strideLength',
+          'footAngle'
+          ]
+    eliteMetrics = _.filter results[0], (metric) -> _.contains(metricArray, metric.metric)
+    _.each metricArray , (metricName, i) ->
+      thisMetric = _.find eliteMetrics, (eliteMetric) -> eliteMetric.metric == metricName
+      thisMetric = _.extend(thisMetric, {order: i})
+    foot.eliteMetrics = _.sortBy eliteMetrics, 'order'
     foot.currentPlayer = cpf.currentPlayer
     
     #group pitches into sessions
