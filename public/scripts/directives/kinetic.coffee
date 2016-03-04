@@ -262,6 +262,7 @@ angular.module('d3').directive 'kinetic', [
                 .data(lines)
               .enter().append("g")
                 .attr("class", "line")
+                # .attr("d", (d) -> return line.tension(d)(data))
 
             line.append("path")
                 .attr("class", (d) -> "line #{d.key}")
