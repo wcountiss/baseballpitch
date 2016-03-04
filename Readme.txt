@@ -8,6 +8,7 @@ Awards
 
 Cache not showing
 Kinetic Chain tension on line too high
+Player Overall circle too high
 Cache get by lastUpdatedDate and update ObjectId
 Refresh cache on login
 

@@ -160,6 +160,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     _.each awardedPlayers, (player) ->
       statPromises.push(stat.runStatsEngine(player.pitches))
     $q.all(statPromises).then (thisMonthsStats) ->
+      debugger;
       #Best Performer Award goes to:
       bestOverallScore = _.max(_.pluck(thisMonthsStats, 'overallScore.ratingScore'))
       awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.overallScore?.ratingScore == bestOverallScore
