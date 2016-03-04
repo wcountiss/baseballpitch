@@ -75,7 +75,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     #sort the pitches
     selectedPlayerDetailPitches = _.sortBy selectedPlayerDetailPitches, (pitch) -> moment(pitch.pitchDate.iso)
 
-    scores = _.map selectedPlayerDetailPitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric]}
+    scores = _.map selectedPlayerDetailPitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric] }
 
     if !scores.length
       trends.playerDetailScores = null
@@ -91,6 +91,9 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
       }
 
   trends.groupClick = (element) ->
+    while document.querySelectorAll(".d3-tip-linechart").length
+      document.querySelectorAll(".d3-tip-linechart")[0].parentNode.removeChild(document.querySelectorAll(".d3-tip-linechart")[0]);
+
     #Make header based on the selected elements
     trends.selectedSession = { date: element.group, tag: element.name }
     userSelected = { date: element.group, name: element.name }

@@ -61,17 +61,13 @@ angular.module('d3').directive 'linechart', [
 
             #tool tip
             tip = d3.tip()
-            .attr('class', 'd3-tip')
+            .attr('class', 'd3-tip d3-tip-linechart')
             .html((d) ->
               '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.score).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div><div class="eliteavg">Elite: ' + Math.round(data.average) + ' ' + data.units + '</div>'
             )
             svg.call tip
 
             if data.scores?.length
-              data.scores.forEach (d) ->
-                d.index = d.index
-                d.score = +d.score
-
               # set axis
               xAxis = d3.svg.axis().scale(x).orient('bottom').tickFormat(d3.format("d"))
               yAxis = d3.svg.axis().scale(y).orient('left')
@@ -89,8 +85,11 @@ angular.module('d3').directive 'linechart', [
               if data.yMax?
                 ymax = data.yMax
 
-               y.domain [ymin, ymax]
+              y.domain [ymin, ymax]
             
+              data.scores.forEach (d) ->
+                d.score = if +d.score >= ymin then +d.score else ymin
+
               #background lines
               svg.append("g")      
               .attr("class", "grid")
@@ -134,30 +133,41 @@ angular.module('d3').directive 'linechart', [
               )
               .interpolate('monotone')
               
-              svg.append('path')
-              .datum(data.scores)
-              .attr('class', 'line')
-              .attr('stroke-width', '.5em')
-              .attr('stroke', 'black')
-              .attr('d', lineFunction)
-                            
               # elite data
               svg.append('line').attr('x1', 0)
               .attr('y1', (d) -> y(data.average))
-              .attr('x2', d3.max(data.scores, (d) -> x d.index)) 
+              .attr('x2', width) 
               .attr('y2', -> y(data.average))
               .attr('class', 'average')
               .attr('stroke-width', 2)
               .attr('stroke', 'black')
+
+              if data.scores.length > 1
+                svg.append('path')
+                .datum(data.scores)
+                .attr('class', 'line')
+                .attr('stroke-width', '.5em')
+                .attr('stroke', 'black')
+                .attr('d', lineFunction)
               
-              #rect to capture mouse
-              svg.append("rect")
-              .attr("width", width)
-              .attr("height", height)
-              .style("fill", "none")
-              .style("pointer-events", "all") 
-              .on("mouseout", (d) -> tip.hide())
-              .on("mousemove", mousemove)
+                #rect to capture mouse
+                svg.append("rect")
+                .attr("width", width)
+                .attr("height", height)
+                .style("fill", "none")
+                .style("pointer-events", "all") 
+                .on("mousemove", mousemove)
+              else
+                svg.append('circle')
+                .datum(data.scores[0])
+                .attr('r', 4)
+                .attr('cx', (d) -> x d.index)
+                .attr('cy', (d) -> y d.score)
+                .attr('class', 'circle')
+                .attr('fill', 'black')
+                .attr('stroke', 'black')
+                .on('mouseover', (d) -> tip.show(d))
+                .on('mouseout', tip.hide)
 
               svg.append('g').attr('class', 'x axis')
               .attr('transform',

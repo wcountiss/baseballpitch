@@ -6,7 +6,7 @@ _ = require 'lodash'
 Promise = require 'bluebird'
 NodeCache = require( "node-cache" );
 # extendedCache = new NodeCache({ stdTTL: 60 * 60 * 24 * 90 }); #90 day cache
-extendedCache = new NodeCache({ stdTTL: 60 * 1 }); #90 day cache
+extendedCache = new NodeCache({ stdTTL: 60 * 30 }); #30 min cache
 cache = new NodeCache({ stdTTL: 60 * 1 }); #1 min cache 
 
 # console.log extendedCache.getStats();
@@ -31,14 +31,17 @@ module.exports.find = (req, res) ->
     try
       cachedResults = extendedCache.get("pitch#{req.currentUser.id}", true)
 
-      cachedResults = _.sortBy cachedResults, (cachedResult) -> moment(cachedResult.pitchDate.iso)
+      cachedResults = _.sortBy cachedResults, (cachedResult) -> moment(cachedResult.updatedAt)
       #filter down to 365 days ago
-      cachedResults = _.filter cachedResults, (cachedResult) -> moment(cachedResult.pitchDate.iso) >= moment().add(-365,'d')
+      cachedResults = _.filter cachedResults, (cachedResult) -> moment(cachedResult.updatedAt) >= moment().add(-365,'d')
       #go until the last load back for real data
-      minutesSinceLastCache = moment().diff(moment(cachedResults[cachedResults.length-1].pitchDate.iso), 'minutes')
+      console.log moment(cachedResults[cachedResults.length-1].updatedAt).toDate()
+      cachedResults = _.sortBy cachedResults, (cachedResult) -> moment(cachedResult.updatedAt)
+      updatedAtInCache = moment(cachedResults[cachedResults.length-1].updatedAt).toDate()
 
       #if you recently loaded everything, you do not need to get it until 24 hours later
       pitchGotFullSet = cache.get("pitchGotFullSet", true)
+      console.log pitchGotFullSet
       if pitchGotFullSet
         cachedResults = filterInvitationKeyErroredPitches(athletes, cachedResults)
         res.send(cachedResults)
@@ -50,7 +53,7 @@ module.exports.find = (req, res) ->
 
       #Go back 30 days by default but can override
       getNumberofPages = 1
-      if !minutesSinceLastCache
+      if !updatedAtInCache
         if daysBack >= 60
             getNumberofPages = 2
         if daysBack >= 90
@@ -58,10 +61,11 @@ module.exports.find = (req, res) ->
         if daysBack >= 365
             getNumberofPages = 8
 
-      pitchDateGreaterThan = moment().add(-daysBack,'d').toDate() 
-      if minutesSinceLastCache
-        pitchDateGreaterThan = moment().add(-minutesSinceLastCache,'m').toDate() 
+      updatedAtGreaterThan = moment().add(-daysBack,'d').toDate()
+      if updatedAtInCache
+        updatedAtGreaterThan = updatedAtInCache
 
+      console.log updatedAtGreaterThan
       #get pitches by player asynch
       pitchPromises = []
       _.each athleteProfiles, (athleteProfile) ->
@@ -69,7 +73,7 @@ module.exports.find = (req, res) ->
               #Find by AthleteProfileIds
               pitchPromises.push database.find('MPPitch', { 
                 equal: { 'athleteProfile': athleteProfile}, 
-                greater: { 'pitchDate': pitchDateGreaterThan},
+                greater: { 'updatedAt': updatedAtGreaterThan},
                 page: pageNum,
                 #unneeded byte type columns removed
                 select: [
@@ -132,13 +136,23 @@ module.exports.find = (req, res) ->
 
         #remove unused data for speed
         _.each results, (result) ->
-          delete result.objectId
-          delete result.updatedAt
           delete result.createdAt
 
-        #if cached results combine
+        #if cached results update and add
         if cachedResults
-          results = results.concat cachedResults
+          _.each results, (result) ->
+            console.log result
+            #check if that item exists in cacheResult
+            updateResultIndex = _.findIndex cachedResults, (cachedResult) -> cachedResult.objectId == result.objectId
+            #if updating an old record, replace
+            console.log updateResultIndex
+            if updateResultIndex > -1
+              cachedResults[updateResultIndex] = result
+              console.log _.find cachedResults, (cachedResult) -> cachedResult.objectId == result.objectId
+            else
+              #concat the new ones
+              cachedResults.push result
+          results = cachedResults
           results = _.sortBy results, (result) -> moment(result.pitchDate.iso)
 
         #cache

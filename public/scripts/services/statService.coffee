@@ -265,8 +265,9 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
       keyPitchTimings = _.pluck(pitches, key)
       #average each index of the plucked arary
       averagedTimings = []
-      arrayToAverage = []
+      # debugger;
       for index in [0..keyPitchTimings[0].length]
+        arrayToAverage = []
         _.each keyPitchTimings, (keyPitchTiming) ->
           arrayToAverage.push keyPitchTiming[index]
         averagedTimings.push average(arrayToAverage)

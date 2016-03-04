@@ -74,11 +74,6 @@ angular.module('d3').directive 'kinetic', [
             xPlot = (index) ->
               return x(index)
 
-            lineFunction = d3.svg.line()
-            .interpolate("cardinal")
-            .x((d) -> return xPlot(d.index))
-            .y((d) -> return y(d.score));
-
             #speed lines
             lines = data.speeds.map((d) ->
               maxScore = d3.max(d.scores) 
@@ -258,16 +253,17 @@ angular.module('d3').directive 'kinetic', [
                 .text("MLB average")
 
             #speed lines
-            line = svg.selectAll(".line")
-                .data(lines)
-              .enter().append("g")
-                .attr("class", "line")
-                # .attr("d", (d) -> return line.tension(d)(data))
+            lineFunction = d3.svg.line()
+            .x((d) -> xPlot(d.index))
+            .y((d) -> y(d.score))
+            .interpolate('cardinal')
 
-            line.append("path")
-                .attr("class", (d) -> "line #{d.key}")
-                .attr("d", (d) -> 
-                  return lineFunction(d.values))
+            _.each lines, (speedLine) ->
+              svg.append("path")
+              .datum(speedLine)
+              .attr("class", (d) -> "line #{d.key}")
+              .attr('d', (d) -> lineFunction(d.values))
+                
 
             #peak line
             svg.selectAll("peak")
@@ -287,7 +283,7 @@ angular.module('d3').directive 'kinetic', [
             timingTip = {}
             _.each lines, (line) ->
               timingTip[line.key] = d3.tip()
-              .attr('class', 'd3-tip')
+              .attr('class', "d3-tip kinetic-tip #{line.key}")
               .attr("transform", "translate(0,#{-height})")
               .html((d) -> 
                '<div class="tip-rating '+ d.value.rating+'">' + d.value.rating + " " + _.humanize(d.key.replace('keyframe',''))+'</div><div class="d3-tip-tooltip">Player: ' + parseFloat(d.value.score).toFixed(0) + ' MS</div><div class="eliteavg">Elite: ' + Math.round(d.elite) + ' MS</div>'
