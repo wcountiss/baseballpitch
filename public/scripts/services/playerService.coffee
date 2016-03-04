@@ -1,6 +1,9 @@
 angular.module('motus').service('$player', ['$http', '$q', '$stat', '$pitch', ($http, $q, $stat, $pitch) ->
   ps = this
 
+  ps.clearCache = () ->
+    ps.playerRoster = null
+
   #get players, pitches and stats
   ps.getPlayers = (options) =>
     if !options?.noCache && ps.playerRoster

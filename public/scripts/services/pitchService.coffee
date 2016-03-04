@@ -12,6 +12,12 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
       tag = pitch.tagString.split(',')[0]
       return _.contains(['Longtoss','Bullpen','Game'], tag)
 
+  pitchService.clearCache = () ->
+    allCachedPitches = null
+    thisMonthsCachedPitches = null
+    cachedAtheletePitches = null
+
+
   #get pitches
   pitchService.getPitches = (options={daysBack: 30}) ->    
     if !options?.noCache && allCachedPitches

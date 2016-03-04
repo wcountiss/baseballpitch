@@ -1,6 +1,6 @@
 angular.module('motus').controller('indexController',
-['$state', '$http', '$cookies', '$currentUser', '$q',
-  ($state, $http, $cookies, $currentUser, $q) ->
+['$state', '$http', '$cookies', '$currentUser', '$q', '$pitch', '$player',
+  ($state, $http, $cookies, $currentUser, $q, $pitch, $player) ->
     index = this
 
     index.state = $state
@@ -12,6 +12,8 @@ angular.module('motus').controller('indexController',
         .success (user) ->
           $currentUser.user = user
           index.user = $currentUser.user
+          # $player.clearCache()
+          # $pitch.clearCache()
           stateDefer.resolve()
       else
         index.user = $currentUser.user
