@@ -56,7 +56,6 @@ app.config ($httpProvider, $stateProvider, $urlRouterProvider) ->
         templateUrl: "views/team-overview/teamOverview.html"
       },
       'judgement@teamOverview': {templateUrl: 'views/team-overview/overview-templates/judgement.html'},
-      'bullpen@teamOverview': {templateUrl: 'views/team-overview/overview-templates/bullpen.html'},
       'roster@teamOverview': {templateUrl: 'views/team-overview/overview-templates/roster-chart.html'}
     },
     authenticate: true,

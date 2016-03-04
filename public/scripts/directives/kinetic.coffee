@@ -38,8 +38,8 @@ angular.module('d3').directive 'kinetic', [
           width = width - (margin.left) - (margin.right)
           height = height - (margin.top) - (margin.bottom)          
 
-          x = d3.scale.linear().range([width/3,width]) 
-          x1 = d3.scale.linear().range([0, width/3]); 
+          x = d3.scale.linear().range([0, width]);
+          x1 = d3.scale.linear().range([0, width/3]);
 
           y = d3.scale.linear().range([height,0])
 
@@ -59,7 +59,7 @@ angular.module('d3').directive 'kinetic', [
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
           if angular.isDefined(scope.bind())
-            bindData = scope.bind()            
+            bindData = scope.bind()
             data = _.cloneDeep(bindData)
 
             timeWarp = parseInt(data.timeWarp/keyframeCompression)
@@ -67,22 +67,19 @@ angular.module('d3').directive 'kinetic', [
             xAxis = d3.svg.axis()
             .scale(x)
             .orient("bottom")
-            .ticks(totalTicks-timeWarp)
+            .ticks(totalTicks);
 
             xAxis1 = d3.svg.axis()
             .scale(x1)
             .orient("bottom")
-            .ticks(timeWarp)
+            .ticks(timeWarp);
 
             yAxis = d3.svg.axis()
             .scale(y)
             .orient("left")
 
             xPlot = (index) ->
-              if index <= timeWarp
-                return x1(index)
-              else
-                return x(index)
+              return x(index)
 
             lineFunction = d3.svg.line()
             .interpolate("basis")
@@ -100,7 +97,7 @@ angular.module('d3').directive 'kinetic', [
               })
 
             x.domain([
-              timeWarp+1,
+              0,
               totalTicks
             ])
 
@@ -302,7 +299,6 @@ angular.module('d3').directive 'kinetic', [
                 $timeout () ->
                   d3.selectAll(".peak-circle-upper")
                   .each (d) ->
-                    console.log('Value of D', d.mlbavg)
                     timingTip[d.key].show({ key: d.key, value: d.peak, elite: d.mlbavg}, this)
                 , 1
 

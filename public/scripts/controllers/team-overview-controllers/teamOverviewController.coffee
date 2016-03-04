@@ -9,18 +9,6 @@ angular.module('motus').controller('teamOverviewController',
       GetAllDataPromises = [$elite.getEliteMetrics(), $pitch.getPitches({ daysBack: 365 })]
       $q.all(GetAllDataPromises)
       .then (result) ->
-        pitches = result[1]        
-        #group pitches by month
-        pitches = _.groupBy pitches, (pitch) -> moment(pitch.pitchDate.iso).format('MM/01/YYYY')
-        #run engine through all pitches per month
-        statsPromises = []
-        _.each _.keys(pitches), (key) -> statsPromises.push $stat.runStatsEngine(pitches[key])
-        $q.all(statsPromises)
-        .then (stats) ->
-          #map overall score per month
-          scores = _.map _.keys(pitches), (key, i) -> return { date: moment(key, "MM/DD/YYYY").startOf('month').format('MM/YYYY'), score: stats[i].overallScore.ratingScore}
-          team.teamScores = scores
-
         #get the awards
         team.myteam = $player.getPlayers()
         .then (players) ->
