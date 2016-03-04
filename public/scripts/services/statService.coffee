@@ -61,7 +61,8 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
 
   #averages array of data
   average = (data) ->
-    data = _.filter data, (d) -> d
+    #filter out nulls
+    data = _.filter data, (d) -> d?
     return data.reduce(((sum, a) ->
       sum + a
     ), 0) / (data.length or 1)
