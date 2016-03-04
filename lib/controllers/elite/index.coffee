@@ -8,5 +8,8 @@ router.get '/', controller.find
 #find particular Elite Data
 router.get '/find', controller.find
 
+#find particular Elite Data
+router.get '/clearCache', controller.clearCache
+
 
 module.exports = router

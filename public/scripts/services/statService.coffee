@@ -270,6 +270,8 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     statResult.metricScores = getMetricsScore(pitches, eliteMetrics)
 
     #timing averaged
+    statResult.footContactTime = average(_.pluck(pitches, 'footContactTime'))
+    statResult.maxFootHeightTime = average(_.pluck(pitches, 'maxFootHeightTime'))
     statResult.keyframeFirstMovement = average(_.pluck(pitches, 'keyframeFirstMovement'))
     statResult.keyframeFootContact  = average(_.pluck(pitches, 'keyframeFootContact'))
     statResult.keyframeHipSpeed = average(_.pluck(pitches, 'keyframeHipSpeed'))

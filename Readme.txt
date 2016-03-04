@@ -4,10 +4,9 @@ To Start:
 npm start
 
 
-LegKick, Toe Touch
-Spread out x-axis
-
+Kinetic Chain tension on line too high
 Refresh cache on login
 
-Invalidate - API?
+To Clear Elite Score Cache
+http://dashboard.motusprobaseball.com/elite/clearCache
 

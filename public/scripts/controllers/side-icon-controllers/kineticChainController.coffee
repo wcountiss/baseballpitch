@@ -25,8 +25,8 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
       stats = $stat.averageTimingData(pitches, chain.eliteMetrics)
       chain.playerScores = {
         timings: {
-          keyframeFootContact: stats.keyframeFootContact,
-          keyframeLegKick: stats.keyframeLegKick
+          FootContact: { keyframe: stats.keyframeFootContact, timing: stats.footContactTime },
+          LegKick: { keyframe: stats.keyframeLegKick, timing: stats.maxFootHeightTime }
         },
         timeWarp: stats.keyframeTimeWarp,        
         averages: {

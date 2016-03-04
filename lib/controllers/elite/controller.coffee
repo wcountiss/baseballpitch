@@ -2,6 +2,11 @@ database = require '../../services/database'
 NodeCache = require( "node-cache" );
 cache = new NodeCache({ stdTTL: 60 * 60 * 24 * 90 });
 
+#clear elite metric cache
+module.exports.clearCache = (req, res) -> 
+  cache.flushAll()
+  res.sendStatus(200)
+
 #get elite metrics
 module.exports.find = (req, res) -> 
   #try cache
