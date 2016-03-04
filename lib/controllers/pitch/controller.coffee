@@ -6,7 +6,7 @@ _ = require 'lodash'
 Promise = require 'bluebird'
 NodeCache = require( "node-cache" );
 extendedCache = new NodeCache({ stdTTL: 60 * 60 * 24 * 90 }); #90 day cache
-cache = new NodeCache({ stdTTL: 1 * 60 }); #1 min cache
+cache = new NodeCache({ stdTTL: 60 * 1 }); #1 min cache
 
 # console.log extendedCache.getStats();
 
@@ -34,7 +34,7 @@ module.exports.find = (req, res) ->
       #filter down to 365 days ago
       cachedResults = _.filter cachedResults, (cachedResult) -> moment(cachedResult.pitchDate.iso) >= moment().add(-365,'d')
       #go until the last load back for real data
-      daysBack = moment().diff(moment(cachedResults[cachedResults.length-1].pitchDate.iso), 'days')
+      minutesSinceLastCache = moment().diff(moment(cachedResults[cachedResults.length-1].pitchDate.iso), 'minutes')
 
       #if you recently loaded everything, you do not need to get it until 24 hours later
       pitchGotFullSet = cache.get("pitchGotFullSet", true)
@@ -49,12 +49,17 @@ module.exports.find = (req, res) ->
 
       #Go back 30 days by default but can override
       getNumberofPages = 1
-      if daysBack >= 60
-          getNumberofPages = 2
-      if daysBack >= 90
-          getNumberofPages = 3
-      if daysBack >= 365
-          getNumberofPages = 8
+      if !minutesSinceLastCache
+        if daysBack >= 60
+            getNumberofPages = 2
+        if daysBack >= 90
+            getNumberofPages = 3
+        if daysBack >= 365
+            getNumberofPages = 8
+
+      pitchDateGreaterThan = moment().add(-daysBack,'d').toDate() 
+      if minutesSinceLastCache
+        pitchDateGreaterThan = moment().add(-minutesSinceLastCache,'m').toDate() 
 
       #get pitches by player asynch
       pitchPromises = []
@@ -63,7 +68,7 @@ module.exports.find = (req, res) ->
               #Find by AthleteProfileIds
               pitchPromises.push database.find('MPPitch', { 
                 equal: { 'athleteProfile': athleteProfile}, 
-                greater: { 'pitchDate': moment().add(-daysBack,'d').toDate() },
+                greater: { 'pitchDate': pitchDateGreaterThan},
                 page: pageNum,
                 #unneeded byte type columns removed
                 select: [
@@ -134,12 +139,12 @@ module.exports.find = (req, res) ->
         if cachedResults
           results = results.concat cachedResults
           results = _.sortBy results, (result) -> moment(result.pitchDate.iso)
-        else
-          #save 365 was gotten so you don't have to get again for 24 hours
-          cache.set( "pitchGotFullSet", true)
 
         #cache
         extendedCache.set( "pitch#{req.currentUser.id}", results)
+
+        #save 365 was gotten so you don't have to get again for 24 hours
+        cache.set("pitchGotFullSet", true)
 
         results = filterInvitationKeyErroredPitches(athletes, results)
 
