@@ -62,7 +62,7 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
   #averages array of data
   average = (data) ->
     #filter out nulls
-    data = _.filter data, (d) -> d?
+    data = _.filter data, (d) -> !isNaN(d)
     return data.reduce(((sum, a) ->
       sum + a
     ), 0) / (data.length or 1)
@@ -160,31 +160,35 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
     _.each awardedPlayers, (player) ->
       statPromises.push(stat.runStatsEngine(player.pitches))
     $q.all(statPromises).then (thisMonthsStats) ->
-      debugger;
-      #Best Performer Award goes to:
-      bestOverallScore = _.max(_.pluck(thisMonthsStats, 'overallScore.ratingScore'))
-      awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.overallScore?.ratingScore == bestOverallScore
-      awards.push({award: 'Best Performer', player: awardedPlayers[awardIndex]})
+      if awardedPlayers.length > 1
+        #Best Performer Award goes to:
+        bestOverallScore = _.max(_.pluck(thisMonthsStats, 'overallScore.ratingScore'))
+        awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.overallScore?.ratingScore == bestOverallScore
+        awards.push({award: 'Best Performer', player: awardedPlayers[awardIndex]})
 
-      #Worst Performer Award goes to:
-      worstOverallScore = _.min(_.pluck(thisMonthsStats, 'overallScore.ratingScore'))
-      awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.overallScore?.ratingScore == worstOverallScore
-      awards.push({award: 'Worst Performer', player: awardedPlayers[awardIndex]})
+        #Worst Performer Award goes to:
+        worstOverallScore = _.min(_.pluck(thisMonthsStats, 'overallScore.ratingScore'))
+        awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.overallScore?.ratingScore == worstOverallScore
+        awards.push({award: 'Worst Performer', player: awardedPlayers[awardIndex]})
 
-      #Highest Elbow Torque
-      BestElbowTorqueScore = _.max(_.pluck(thisMonthsStats, 'metricScores.peakElbowValgusTorque.ratingScore'))
-      awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.metricScores.peakElbowValgusTorque.ratingScore == BestElbowTorqueScore
-      awards.push({award: 'Highest Elbow Torque', player: awardedPlayers[awardIndex]})
+        #Highest Elbow Torque
+        BestElbowTorqueScore = _.max(_.pluck(thisMonthsStats, 'metricScores.peakElbowValgusTorque.ratingScore'))
+        awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.metricScores.peakElbowValgusTorque.ratingScore == BestElbowTorqueScore
+        awards.push({award: 'Highest Elbow Torque', player: awardedPlayers[awardIndex]})
 
-      #Lowest Elbow Torque
-      worstElbowTorqueScore = _.min(_.pluck(thisMonthsStats, 'metricScores.peakElbowValgusTorque.ratingScore'))
-      awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.metricScores.peakElbowValgusTorque.ratingScore == worstElbowTorqueScore
-      awards.push({award: 'Lowest Elbow Torque', player: awardedPlayers[awardIndex]})
+        #Lowest Elbow Torque
+        worstElbowTorqueScore = _.min(_.pluck(thisMonthsStats, 'metricScores.peakElbowValgusTorque.ratingScore'))
+        awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.metricScores.peakElbowValgusTorque.ratingScore == worstElbowTorqueScore
+        awards.push({award: 'Lowest Elbow Torque', player: awardedPlayers[awardIndex]})
 
       $pitch.getPitches({ daysBack: 60 })
       .then (pitches) ->
         #already have 30 days for filter them out
         pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate.iso) < moment().add(-30,'d');
+        if awardedPlayers.length == 1 || !pitches.length
+          defer.resolve(awards) 
+          return 
+
         #group by player
         pitches = _.groupBy pitches, (pitch) -> pitch.athleteProfile.objectId
 

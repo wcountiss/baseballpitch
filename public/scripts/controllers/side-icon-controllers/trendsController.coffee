@@ -4,6 +4,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
   cpf = currentPlayerFactory
   ef = eliteFactory
   $locHistory.lastLocation()
+  userSelected = null
   
   tags = ['Longtoss', 'Bullpen', 'Game', 'Untagged']
 
@@ -92,6 +93,7 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
   trends.groupClick = (element) ->
     #Make header based on the selected elements
     trends.selectedSession = { date: element.group, tag: element.name }
+    userSelected = { date: element.group, name: element.name }
 
     selectedPlayerDetailPitches = getPitches()
 
@@ -172,7 +174,6 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
         groups = _.sortBy(groups, (group) -> moment(group.date))
 
         #set detail chart with default clicks of last session
-        # selectOne = false
         defaultSelected = null
         selectOne = false
         _.each tags, (tag) ->
@@ -191,10 +192,12 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
           yMin: metric.yMin
           yMax: metric.yMax
           yType: metric.yType
-          defaultSelected: defaultSelected
+          defaultSelected: userSelected || defaultSelected
         }
 
-        if defaultSelected
+        if userSelected
+          trends.groupClick({group: userSelected.date, name: userSelected.name, selected: true, firstLoad: true})
+        else if defaultSelected
           trends.groupClick({group: groups[groups.length-1].date, name: defaultSelected.name, selected: true, firstLoad: true})
 
 
