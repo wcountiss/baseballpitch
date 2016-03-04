@@ -12,8 +12,6 @@ angular.module('motus').controller('indexController',
         .success (user) ->
           $currentUser.user = user
           index.user = $currentUser.user
-          # $player.clearCache()
-          # $pitch.clearCache()
           stateDefer.resolve()
       else
         index.user = $currentUser.user
@@ -22,7 +20,8 @@ angular.module('motus').controller('indexController',
 
     index.logOut = () ->
       $cookies.remove('motus')
-      # $state.go('login')
+      $player.clearCache()
+      $pitch.clearCache()
       $state.go('login')
 
     index.openMenu = false;

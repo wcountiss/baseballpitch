@@ -11,5 +11,3 @@ http://dashboard.motusprobaseball.com/elite/clearCache
 Todos:
 Trends - add pitchTime
 
-
-Refresh local cache on login
