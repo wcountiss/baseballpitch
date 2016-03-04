@@ -6,7 +6,7 @@ _ = require 'lodash'
 Promise = require 'bluebird'
 NodeCache = require( "node-cache" );
 extendedCache = new NodeCache({ stdTTL: 60 * 60 * 24 * 90 }); #90 day cache
-cache = new NodeCache({ stdTTL: 60 * 1 }); #1 min cache
+cache = new NodeCache({ stdTTL: 60 * 1 }); #1 min cache 
 
 # console.log extendedCache.getStats();
 
