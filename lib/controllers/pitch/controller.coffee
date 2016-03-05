@@ -238,7 +238,7 @@ module.exports.findPitchTimingByAtheleteProfileId = (req, res) ->
           shrunkTiming = []
           for index in [0..result[key].length]
             #show stat for every 5
-            if index%5 == 0
+            if index%10 == 0
               shrunkTiming.push result[key][index]
           result[key] = shrunkTiming
 

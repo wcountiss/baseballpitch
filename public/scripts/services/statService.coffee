@@ -180,12 +180,19 @@ angular.module('motus').service('$stat', ['$http','$q', 'eliteFactory', '$pitch'
         worstElbowTorqueScore = _.min(_.pluck(thisMonthsStats, 'metricScores.peakElbowValgusTorque.ratingScore'))
         awardIndex = _.findIndex thisMonthsStats, (thisMonthsStat) -> thisMonthsStat.metricScores.peakElbowValgusTorque.ratingScore == worstElbowTorqueScore
         awards.push({award: 'Lowest Elbow Torque', player: awardedPlayers[awardIndex]})
+      else
+        awards.push({award: 'Best Performer', player: { lastName: 'NA' } })
+        awards.push({award: 'Worst Performer', player: { lastName: 'NA' }})
+        awards.push({award: 'Highest Elbow Torque', player: { lastName: 'NA' }})
+        awards.push({award: 'Lowest Elbow Torque', player: { lastName: 'NA' }})
 
       $pitch.getPitches({ daysBack: 60 })
       .then (pitches) ->
         #already have 30 days for filter them out
         pitches = _.filter pitches, (pitch) -> moment(pitch.pitchDate.iso) < moment().add(-30,'d');
         if awardedPlayers.length == 1 || !pitches.length
+          awards.push({award: 'Most Improved', player: { lastName: 'NA' } })
+          awards.push({award: 'Most Regressed', player: { lastName: 'NA' }})
           defer.resolve(awards) 
           return 
 

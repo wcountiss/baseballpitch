@@ -18,7 +18,7 @@ angular.module('d3').directive 'kinetic', [
         onHover: '&'
       link: (scope, element, attrs) ->
         updateChart = ->
-          keyframeCompression = 5
+          keyframeCompression = 10
           totalTicks = 1000/keyframeCompression
 
           width = 960
@@ -75,6 +75,7 @@ angular.module('d3').directive 'kinetic', [
               return x(index)
 
             #speed lines
+            _.each data.speeds, (speed) -> speed.scores = _.slice(speed.scores, 0, totalTicks+1)
             lines = data.speeds.map((d) ->
               maxScore = d3.max(d.scores) 
               return {

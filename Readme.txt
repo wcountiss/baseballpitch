@@ -10,4 +10,5 @@ http://dashboard.motusprobaseball.com/elite/clearCache
 
 Todos:
 Trends - add pitchTime
+Kinetic tooltips - opacity/left-right
 
