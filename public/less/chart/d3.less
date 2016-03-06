@@ -1,6 +1,5 @@
 .d3-tip {
   z-index: 5;
-  opacity: .8;
   line-height: 1;
   font-weight: bold;
   padding: 12px;
@@ -13,11 +12,17 @@
 }
 
 .kinetic-tip {
-  opacity: .5;
+  background-color:rgba(65, 64, 66, 0.7);
+  
+}
+
+
+.kinetic-tip.Hip {
+  transform: translate(-50%,0);
 }
 
 .kinetic-tip.Trunk {
-  transform: translate(0,-80%);
+  transform: translate(50%,0);
 }
 
 .pie-tip{
