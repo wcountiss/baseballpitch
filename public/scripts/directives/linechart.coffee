@@ -63,7 +63,7 @@ angular.module('d3').directive 'linechart', [
             tip = d3.tip()
             .attr('class', 'd3-tip d3-tip-linechart')
             .html((d) ->
-              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.score).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div><div class="eliteavg">Elite: ' + Math.round(data.average) + ' ' + data.units + '</div>'
+              '<div class="d3-tip-heading">' + _.humanize(data.heading) + '</div><div class="d3-tip-tooltip">' + parseFloat(d.score).toFixed(0) + ' ' + data.units + '</div><div class="d3-tip-label">' + _.humanize(d.name) + '</div><div class="d3-tip-player">' + d.pitchDate + '</div><div class="eliteavg">Elite: ' + Math.round(data.average) + ' ' + data.units + '</div>'
             )
             svg.call tip
 

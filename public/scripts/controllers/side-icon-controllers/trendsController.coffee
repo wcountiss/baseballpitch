@@ -75,7 +75,8 @@ angular.module('motus').controller 'trendsController', ['$scope', '$q','currentP
     #sort the pitches
     selectedPlayerDetailPitches = _.sortBy selectedPlayerDetailPitches, (pitch) -> moment(pitch.pitchDate.iso)
 
-    scores = _.map selectedPlayerDetailPitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric] }
+    scores = _.map selectedPlayerDetailPitches, (pitch, i) -> { index: i+1, score: pitch[trends.selectedMetric.metric], pitchDate: moment(pitch.pitchDate.iso).format('LT') } 
+
 
     if !scores.length
       trends.playerDetailScores = null
