@@ -7,7 +7,6 @@ angular.module('motus').controller('playerController',
       pc.state = $state
       pc.statelast = $state
       pc.filterType = '30'
-
       cpf = currentPlayerFactory
       ef = eliteFactory
 
