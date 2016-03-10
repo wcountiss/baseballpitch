@@ -90,8 +90,7 @@ angular.module('motus').controller 'footcontactSnapShotController', ['currentPla
           'shoulderAbductionFootContact',
           'shoulderRotationFootContact',
           'elbowFlexionFootContact',
-          'strideLength',
-          'footAngle'
+          'strideLength'
           ]
     eliteMetrics = _.filter results[0], (metric) -> _.contains(metricArray, metric.metric)
     _.each metricArray , (metricName, i) ->

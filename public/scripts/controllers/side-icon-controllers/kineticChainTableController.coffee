@@ -14,8 +14,6 @@ angular.module('motus').controller 'kineticChainTableController', ['currentPlaye
     "peakForearmSpeed": "images/legend/PEAK_ForearmSpeed.jpg",
     "peakHipSpeedTime": "images/legend/T_HipSpeed.jpg",
     "peakTrunkSpeedTime": "images/legend/T_TrunkSpeed.jpg",
-    "peakBicepSpeedTime": "images/legend/T_BicepSpeed.jpg",
-    "peakForearmSpeedTime": "images/legend/BR_ForearmSlot.jpg",
     "footContactTime": "images/legend/T_FootContact.jpg",
     "pitchTime": "images/legend/T_PitchTime.jpg",
   }
@@ -54,8 +52,6 @@ angular.module('motus').controller 'kineticChainTableController', ['currentPlaye
           'peakForearmSpeed',
           'peakHipSpeedTime',
           'peakTrunkSpeedTime',
-          'peakBicepSpeedTime',
-          'peakForearmSpeedTime',
           'footContactTime',
           'pitchTime'
           ]

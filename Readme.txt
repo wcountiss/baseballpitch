@@ -9,8 +9,5 @@ http://dashboard.motusprobaseball.com/elite/clearCache
 
 
 Todos:
-KeyFrame Elites
-Kinetic Remove tooltip metrics
-Remove two metrics Foot Angle, Forearm Speed Timing, Bicep Speed Timing
-Add Degrees per sec
+App needs to put in Degrees per sec
 

@@ -84,7 +84,6 @@ module.exports.find = (req, res) ->
                   "elbowFlexionRelease",
                   "elbowHeight",
                   "fingertipVelocityRelease",
-                  "footAngle",
                   "footContactTime",
                   "forearmSlotRelease",
                   "maxElbowFlexion",
@@ -101,11 +100,9 @@ module.exports.find = (req, res) ->
                   "pitchDate",
                   "pitchTime",
                   "peakBicepSpeed",
-                  "peakBicepSpeedTime",
                   "peakElbowCompressiveForce",
                   "peakElbowValgusTorque",
                   "peakForearmSpeed",
-                  "peakForearmSpeedTime",
                   "peakHipSpeed",
                   "peakHipSpeedTime",
                   "peakShoulderAnteriorForce",
@@ -147,7 +144,6 @@ module.exports.find = (req, res) ->
             console.log updateResultIndex
             if updateResultIndex > -1
               cachedResults[updateResultIndex] = result
-              console.log _.find cachedResults, (cachedResult) -> cachedResult.objectId == result.objectId
             else
               #concat the new ones
               cachedResults.push result
@@ -215,8 +211,6 @@ module.exports.findPitchTimingByAtheleteProfileId = (req, res) ->
             "keyframeTimeWarp",
             "objectId",
             "maxFootHeightTime",
-            "peakBicepSpeedTime",
-            "peakForearmSpeedTime",
             "peakHipSpeedTime",
             "peakTrunkSpeedTime",
             "pitchDate",

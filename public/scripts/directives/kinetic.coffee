@@ -148,7 +148,7 @@ angular.module('d3').directive 'kinetic', [
                 .attr("transform", "rotate(-90)")
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
-                .text("")
+                .text("Degrees/s")
                 .attr("y", -48);
 
             #background lines
