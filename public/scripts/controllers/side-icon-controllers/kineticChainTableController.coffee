@@ -8,10 +8,10 @@ angular.module('motus').controller 'kineticChainTableController', ['currentPlaye
   
 
   imageMap = {
-    "peakHipSpeed": "images/legend/T_HipSpeed.jpg",
-    "peakTrunkSpeed": "images/legend/T_TrunkSpeed.jpg",
-    "peakBicepSpeed": "images/legend/T_BicepSpeed.jpg",
-    "peakForearmSpeed": "images/legend/BR_ForearmSlot.jpg",
+    "peakHipSpeed": "images/legend/PEAK_HipSpeed.jpg",
+    "peakTrunkSpeed": "images/legend/PEAK_TrunkSpeed.jpg",
+    "peakBicepSpeed": "images/legend/PEAK_BicepSpeed.jpg",
+    "peakForearmSpeed": "images/legend/PEAK_ForearmSpeed.jpg",
     "peakHipSpeedTime": "images/legend/T_HipSpeed.jpg",
     "peakTrunkSpeedTime": "images/legend/T_TrunkSpeed.jpg",
     "peakBicepSpeedTime": "images/legend/T_BicepSpeed.jpg",
