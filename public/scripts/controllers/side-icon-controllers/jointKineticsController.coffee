@@ -13,11 +13,11 @@ angular.module('motus').controller 'jointKineticsController', ['currentPlayerFac
 
 
   imageMap = {
-    "peakElbowCompressiveForce": "images/legend/MAX_ElbowFlexion.jpg",
-    "peakElbowValgusTorque": "images/legend/MAX_ShoulderRotation.jpg",
-    "peakShoulderRotationTorque": "images/legend/MAX_TrunkRotation.jpg",
-    "peakShoulderCompressiveForce": "images/legend/MAX_FootHeight.jpg",
-    "peakShoulderAnteriorForce": "images/legend/MAX_FootHeight.jpg",
+    "peakElbowCompressiveForce": "images/legend/K_ElbowCompressiveForce.jpg",
+    "peakElbowValgusTorque": "images/legend/K_ElbowTorque.jpg",
+    "peakShoulderRotationTorque": "images/legend/K_ShoulderRotationTorque.jpg",
+    "peakShoulderCompressiveForce": "images/legend/K_ShoulderCompressiveForce.jpg",
+    "peakShoulderAnteriorForce": "images/legend/K_ShoulderAnteriorForce.jpg",
   }
 
   joint.filterSession = () ->
