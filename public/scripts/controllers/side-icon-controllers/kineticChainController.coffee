@@ -30,14 +30,12 @@ angular.module('motus').controller 'kineticChainController', ['$q', 'currentPlay
         },
         timeWarp: stats.keyframeTimeWarp,        
         averages: {
-          peakHipSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakHipSpeedTime'
-          peakTrunkSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakTrunkSpeedTime'
-          # peakForearmSpeedTime: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakForearmSpeedTime'
+          keyframeHipSpeed: _.find chain.eliteMetrics, (metric) -> metric.metric == 'keyframeHipSpeed'
+          keyframeTrunkSpeed: _.find chain.eliteMetrics, (metric) -> metric.metric == 'keyframeTrunkSpeed'
         }
         peakSpeeds: {
           Hip: { score: stats.metricScores.peakHipSpeedTime.score, color: color[stats.metricScores.peakHipSpeedTime.rating], rating: stats.metricScores.peakHipSpeedTime.rating, eliteavg: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakHipSpeedTime' }
           Trunk: { score: stats.metricScores.peakTrunkSpeedTime.score, color: color[stats.metricScores.peakTrunkSpeedTime.rating], rating: stats.metricScores.peakHipSpeedTime.rating, eliteavg: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakTrunkSpeedTime' }
-          Forearm: { score: stats.metricScores.peakForearmSpeedTime.score, color: color[stats.metricScores.peakForearmSpeedTime.rating], rating: stats.metricScores.peakHipSpeedTime.rating, eliteavg: _.find chain.eliteMetrics, (metric) -> metric.metric == 'peakForearmSpeedTime' }
         }
         speeds: [
           { key: "Hip", scores: stats.timeSeriesHipSpeed },

@@ -77,13 +77,16 @@ angular.module('d3').directive 'kinetic', [
             #speed lines
             _.each data.speeds, (speed) -> speed.scores = _.slice(speed.scores, 0, totalTicks+1)
             lines = data.speeds.map((d) ->
-              maxScore = d3.max(d.scores) 
-              return {
-                mlbavg: data.peakSpeeds[d.key].eliteavg.avg,
+              maxScore = d3.max(d.scores)              
+              line = {
                 key: d.key,
                 values: d.scores.map (d, i) -> return {index: i, score: +d}
-                peak: { index: _.findIndex(d.scores, (score) -> score == maxScore), score: data.peakSpeeds[d.key].score, color: data.peakSpeeds[d.key].color, rating: data.peakSpeeds[d.key].rating }
-              })
+                peak: { index: _.findIndex(d.scores, (score) -> score == maxScore), score: data.peakSpeeds[d.key]?.score, color: data.peakSpeeds[d.key]?.color, rating: data.peakSpeeds[d.key]?.rating }
+              }
+              if data.peakSpeeds[d.key]
+                line.mlbavg = data.peakSpeeds[d.key].eliteavg.avg
+              return line
+            )
 
             x.domain([
               0,
@@ -237,8 +240,8 @@ angular.module('d3').directive 'kinetic', [
             _.each _.keys(data.averages), (key) ->
               svg.append('line')
               .datum(data.averages[key])
-              .attr('x1', (d) -> x(totalTicks + (d.avg/keyframeCompression)))
-              .attr('x2', (d) -> x(totalTicks + (d.avg/keyframeCompression)))
+              .attr('x1', (d) -> x(d.avg/keyframeCompression))
+              .attr('x2', (d) -> x(d.avg/keyframeCompression))
               .attr('y1', (d) -> height)
               .attr('y2', (d) -> height+25)
               .attr('class', 'average')
@@ -247,7 +250,7 @@ angular.module('d3').directive 'kinetic', [
               svg.append("text")
               .datum(data.averages[key])
                 .attr("y", height+30)
-                .attr("x", (d) -> x(totalTicks + (d.avg/keyframeCompression))+20)
+                .attr("x", (d) -> x(d.avg/keyframeCompression)+20)
                 .attr("dy", ".3em")
                 .style("text-anchor", "end")
                 .attr('class', 'average average-text')
@@ -267,8 +270,9 @@ angular.module('d3').directive 'kinetic', [
                 
 
             #peak line
+            scoredPeakLines = _.filter lines, (line) -> line.peak.score
             svg.selectAll("peak")
-                .data(lines)
+                .data(scoredPeakLines)
               .enter()
                 .append("line")
                 .attr('x1', (d) -> x(d.peak.index))
@@ -287,7 +291,10 @@ angular.module('d3').directive 'kinetic', [
               .attr('class', "d3-tip kinetic-tip #{line.key}")
               .attr("transform", "translate(0,#{-height})")
               .html((d) -> 
-               '<div class="tip-rating '+ d.value.rating+'">' + d.value.rating + " " + _.humanize(d.key.replace('keyframe',''))+'</div><div class="d3-tip-tooltip">Player: ' + parseFloat(d.value.score).toFixed(0) + ' MS</div><div class="eliteavg">Elite: ' + Math.round(d.elite) + ' MS</div>'
+                if d.value.rating 
+                  '<div class="tip-rating '+ d.value.rating+'">' + d.value.rating + " " + _.humanize(d.key.replace('keyframe',''))+'</div><div class="d3-tip-tooltip">Player: ' + parseFloat(d.value.score).toFixed(0) + ' MS</div><div class="eliteavg">Elite: ' + Math.round(d.elite) + ' MS</div>'
+                else
+                  '<div class="tip-rating">' + _.humanize(d.key.replace('keyframe','')) + '</div></div>'                  
               )
               svg.call timingTip[line.key]
 
@@ -297,9 +304,9 @@ angular.module('d3').directive 'kinetic', [
                 .append("circle")
                 .attr('r', 3)
                 .attr('cx', (d) -> x(d.peak.index))
-                .attr('cy', (d) -> y(d.values[d.peak.index].score))
+                .attr('cy', (d) -> y(d.values[d.peak.index]?.score))
                 .attr('class', 'peak-circle peak-circle-upper')
-                .attr('fill', (d) -> d.peak.color)
+                .attr('fill', (d) -> d.peak.color || '#ffaa22')
                 .attr('stroke', 'black')
                 $timeout () ->
                   d3.selectAll(".peak-circle-upper")
@@ -308,7 +315,7 @@ angular.module('d3').directive 'kinetic', [
                 , 1
 
             svg.selectAll("peak")
-              .data(lines)
+              .data(scoredPeakLines)
             .enter()
               .append("circle")
                 .attr('r', 2)

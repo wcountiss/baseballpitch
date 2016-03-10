@@ -179,7 +179,6 @@ angular.module('motus').controller('playerController',
       #From jointKineticsController
       #Trying to make this work here so we can use the drop down filter
       pc.filterLastThrowType = () ->
-        console.log 'Player Comparison filter will trigger here. currently non-functional'
 
       return pc
   ])

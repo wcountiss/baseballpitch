@@ -9,5 +9,8 @@ http://dashboard.motusprobaseball.com/elite/clearCache
 
 
 Todos:
-Trends - add pitchTime
+KeyFrame Elites
+Kinetic Remove tooltip metrics
+Remove two metrics Foot Angle, Forearm Speed Timing, Bicep Speed Timing
+Add Degrees per sec
 

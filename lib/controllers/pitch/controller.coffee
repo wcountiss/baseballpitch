@@ -141,7 +141,6 @@ module.exports.find = (req, res) ->
         #if cached results update and add
         if cachedResults
           _.each results, (result) ->
-            console.log result
             #check if that item exists in cacheResult
             updateResultIndex = _.findIndex cachedResults, (cachedResult) -> cachedResult.objectId == result.objectId
             #if updating an old record, replace
