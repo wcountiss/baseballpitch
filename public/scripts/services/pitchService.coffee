@@ -6,11 +6,12 @@ angular.module('motus').service('$pitch', ['$http', '$q', ($http, $q) ->
   pitchService = this
 
   transformPitches = (pitches) ->
-    #filter out the pitches of unknown tags since Catch and BallWeight should not show
-    pitches = _.filter pitches, (pitch) -> 
-      return true if !pitch.tagString
+    #any out the pitches of unknown tags get marked Untagged (Catch and BallWeight)
+    pitches = _.each pitches, (pitch) -> 
+      return if !pitch.tagString
       tag = pitch.tagString.split(',')[0]
-      return _.contains(['Longtoss','Bullpen','Game'], tag)
+      if !_.contains(['Longtoss','Bullpen','Game'], tag)
+        pitch.tagString = null
 
   pitchService.clearCache = () ->
     allCachedPitches = null
