@@ -120,26 +120,6 @@ angular.module('motus').controller('playerController',
         .then (stats) ->
           return if !stats
 
-          elbowObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "ELBOW"
-          trunkObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "TRUNK"
-          shoulderObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "SHOULDER"
-          hipObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "HIP"
-          footObj = _.filter pc.eliteMetrics, (eliteMetric)-> eliteMetric.jointCode == "FOOT"
-          pc.currentPlayer.hipIcon = Math.round(stats.hip[7].stats.score)
-          pc.currentPlayer.hipIconStatus = stats.hip[7].rating
-
-          pc.currentPlayer.trunkIcon = Math.round(stats.trunk[8].stats.score)
-          pc.currentPlayer.trunkIconStatus = stats.trunk[8].stats.rating
-
-          pc.currentPlayer.strideIcon = Math.round(stats.foot[4].stats.score)
-          pc.currentPlayer.strideIconStatus = stats.foot[4].rating
-
-          pc.currentPlayer.shldIcon = Math.round(stats.shoulder[9].stats.score)
-          pc.currentPlayer.shldIconStatus = stats.shoulder[9].rating
-
-          pc.currentPlayer.shldRotIcon = Math.round(stats.shoulder[8].stats.score)
-          pc.currentPlayer.shldRotIconStatus = stats.shoulder[8].rating
-
           if $state.current.name == 'player.home.trends' || $state.current.name == 'player.comparison.overview'
             loadChart(pc.currentPlayer)
 
